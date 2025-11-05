@@ -3,8 +3,7 @@
 import 'package:movegui_admin_panel/models/model.dart';
 
  class CategoriesModel extends Model{
-  final DateTime createdAt;
-  CategoriesModel({  required super.id, required super.name, required this.createdAt,}) ;
+  CategoriesModel({  required super.id, required super.name, required super.createdAt,}) ;
 
   
 @override
@@ -31,11 +30,25 @@ String toString(){
 
 class CategoryIngredient extends CategoriesModel{
   CategoryIngredient({required super.id, required super.name, required super.createdAt});
+
+  
+factory CategoryIngredient.fromJson(Map<String, dynamic> json)  {
+  return CategoryIngredient(
+     id: json['id'],
+   name: json['name'], 
+   createdAt: json['createdAt'].toDate()
+   );
+}
+
+@override
+  Map<String, dynamic> toJson() {
+    return super.toJson();
+  }
   
 }
 
 class Categoryrecipe extends Model {
-  Categoryrecipe({required super.id, required super.name});
+  Categoryrecipe({required super.id, required super.name, required super.createdAt});
 
   Map<String, dynamic> toJson() => {
   'id':id,
@@ -44,7 +57,8 @@ class Categoryrecipe extends Model {
 
 factory Categoryrecipe.fromJson(Map<String, dynamic> json) => Categoryrecipe (
   id: json['id'],
-  name: json['name']
+  name: json['name'],
+  createdAt: json['createdAt'].toDate()
   );
 }
 
@@ -55,6 +69,7 @@ class CategoryRestaurant extends Model {
   CategoryRestaurant({
     required super.id,
      required super.name,
+     required super.createdAt,
      required this.imageUrl,
      required this.description,
      });
@@ -69,7 +84,8 @@ factory CategoryRestaurant.fromJson(Map<String, dynamic> json) => CategoryRestau
   id: json['id'],
   name: json['name'],
   imageUrl: json['imageurl'],
-  description: json['description']
+  description: json['description'],
+  createdAt: json['createdAt'] != null ? json['createdAt'].toDate() : DateTime.now()
   );
   
 }

@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/responsive.dart';
+import 'package:movegui_admin_panel/screens/main_screen.dart';
 import 'package:movegui_admin_panel/widgets/app/appbar.dart';
 import 'package:movegui_admin_panel/widgets/side_menu.dart';
+
+
+
+/*
 
 class RestaurantScreen extends StatelessWidget{
   const RestaurantScreen({super.key});
@@ -49,5 +54,17 @@ class RestaurantPage extends StatelessWidget {
   }
   
 }
+
+*/
+
+class RestaurantsScreen extends MainScreen{
+  const RestaurantsScreen({super.key, required super.pageScreen}); 
+}
+
+ 
+ class RestaurantsPage extends MainPage {
+  const RestaurantsPage({super.key, required super.addModelWidget, required super.allModelWidget, required super.title});
+  
+ }
 
 

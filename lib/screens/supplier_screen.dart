@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/responsive.dart';
+import 'package:movegui_admin_panel/screens/main_screen.dart';
 import 'package:movegui_admin_panel/widgets/app/appbar.dart';
 import 'package:movegui_admin_panel/widgets/side_menu.dart';
 
-class SupplierScreen extends StatelessWidget{
-  const SupplierScreen({super.key});
+class SupplierScreen extends MainScreen{
+  const SupplierScreen({super.key, required super.pageScreen});
 
   
+  /*
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -33,20 +35,14 @@ class SupplierScreen extends StatelessWidget{
       )),
     );
   }
+  */
   
 }
 
 
-class SupplierPage extends StatelessWidget {
+class SupplierPage extends MainPage {
 
-  const SupplierPage({super.key});
+  const SupplierPage({super.key, required super.addModelWidget, required super.allModelWidget, required super.title});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AdminPanelAppBar(title: 'Categories'),
-      body: Text('In Implementation..............'),
-    );
-  }
   
 }

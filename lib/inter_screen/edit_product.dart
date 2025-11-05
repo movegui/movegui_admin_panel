@@ -8,14 +8,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/widgets/custom_button.dart';
+import 'package:movegui_admin_panel/widgets/radio_btns%20copy.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 import '../methods/showBtmAlert.dart';
 import '../methods/show_alert.dart';
 import '../widgets/custom_text_field.dart';
-import '../widgets/drop_down_menu.dart';
 import '../widgets/onsale_widget.dart';
-import '../widgets/radio_btns.dart';
 import '../widgets/side_menu.dart';
 class ProductEdit extends StatefulWidget {
   const ProductEdit({Key? key, required this.name, required this.price, required this.salePrice, required this.unit, required this.productCat, required this.id, required this.imageUrl}) : super(key: key);
@@ -185,7 +184,7 @@ class _ProductEditState extends State<ProductEdit> {
                                           fontSize: FontSize,
                                         ),
                                       ),
-                                      RadioBtn(
+                                      MyRadioBtn(
                                         onChanged: (value) {
                                           if(widget.productCat == 'Kg'){
                                             _selectedValue =1;

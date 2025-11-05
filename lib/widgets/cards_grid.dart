@@ -20,6 +20,11 @@ class _CardsGridState extends State<CardsGrid> {
     'Produit',
     'Menu',
     'Restaurant',
+    'Restaurant Types',
+    'Patisserie',
+    'Super Marchés',
+    'Pressing',
+    'Professionnel',
   ];
   late int categories = 0,
       suppliers = 0,
@@ -27,7 +32,12 @@ class _CardsGridState extends State<CardsGrid> {
       recips = 0,
       products = 0,
       restaurantMenus = 0,
-      restaurants = 0;
+      restaurants = 0,
+      restaurantsType = 0,
+      patisseries = 0,
+      superMarkts = 0,
+      pressings = 0,
+      professionnels = 0;
   final values = [];
 
   @override
@@ -43,7 +53,7 @@ class _CardsGridState extends State<CardsGrid> {
         });
 
     FirebaseFirestore.instance
-        .collection('supplier')
+        .collection('suppliers_model')
         .snapshots(includeMetadataChanges: true)
         .first
         .then((ingredientsSupplierSnapshot) {
@@ -53,7 +63,7 @@ class _CardsGridState extends State<CardsGrid> {
         });
 
     FirebaseFirestore.instance
-        .collection('ingredient')
+        .collection('ingredients_model')
         .snapshots(includeMetadataChanges: true)
         .first
         .then((ingredientSnapshot) {
@@ -83,7 +93,17 @@ class _CardsGridState extends State<CardsGrid> {
         });
 
     FirebaseFirestore.instance
-        .collection('restaurant')
+        .collection('restaurant_menu')
+        .snapshots(includeMetadataChanges: true)
+        .first
+        .then((restaurantsMenusSnapshot) {
+          setState(() {
+            restaurantMenus = restaurantsMenusSnapshot.docs.length;
+          });
+        });
+
+    FirebaseFirestore.instance
+        .collection('restaurants_model')
         .snapshots(includeMetadataChanges: true)
         .first
         .then((restaurantsSnapshot) {
@@ -93,12 +113,52 @@ class _CardsGridState extends State<CardsGrid> {
         });
 
     FirebaseFirestore.instance
-        .collection('restaurant_menu')
+        .collection('restaurant_type_model')
         .snapshots(includeMetadataChanges: true)
         .first
-        .then((restaurantsMenusSnapshot) {
+        .then((restaurantsTypesSnapshot) {
           setState(() {
-            restaurantMenus = restaurantsMenusSnapshot.docs.length;
+            restaurantsType = restaurantsTypesSnapshot.docs.length;
+          });
+        });
+
+    FirebaseFirestore.instance
+        .collection('patisseries_model')
+        .snapshots(includeMetadataChanges: true)
+        .first
+        .then((patisseriesSnapshot) {
+          setState(() {
+            patisseries = patisseriesSnapshot.docs.length;
+          });
+        });
+
+    FirebaseFirestore.instance
+        .collection('superMarkts_model')
+        .snapshots(includeMetadataChanges: true)
+        .first
+        .then((superMarktsSnapshot) {
+          setState(() {
+            superMarkts = superMarktsSnapshot.docs.length;
+          });
+        });
+
+    FirebaseFirestore.instance
+        .collection('pressings_model')
+        .snapshots(includeMetadataChanges: true)
+        .first
+        .then((pressingsSnapshot) {
+          setState(() {
+            pressings = pressingsSnapshot.docs.length;
+          });
+        });
+
+    FirebaseFirestore.instance
+        .collection('professionnels_model')
+        .snapshots(includeMetadataChanges: true)
+        .first
+        .then((professionsSnapshot) {
+          setState(() {
+            professionnels = professionsSnapshot.docs.length;
           });
         });
 
@@ -121,8 +181,13 @@ class _CardsGridState extends State<CardsGrid> {
     values.add(ingredients.toString());
     values.add(recips.toString());
     values.add(products.toString());
-    values.add(restaurants.toString());
     values.add(restaurantMenus.toString());
+    values.add(restaurants.toString());
+    values.add(restaurantsType.toString());
+    values.add(patisseries.toString());
+    values.add(superMarkts.toString());
+    values.add(pressings.toString());
+    values.add(professionnels.toString());
 
     return GridView.builder(
       physics: const NeverScrollableScrollPhysics(),
@@ -132,7 +197,7 @@ class _CardsGridState extends State<CardsGrid> {
         childAspectRatio: Responsive.isDesktop(context) ? 3 : 2.9,
         crossAxisSpacing: 10,
         crossAxisCount: Responsive.isDesktop(context)
-            ? 3
+            ? 4
             : Responsive.isTablet(context)
             ? 2
             : 1,

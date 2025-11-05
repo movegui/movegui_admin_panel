@@ -6,7 +6,7 @@ void showBtmAlert(context , String message){
         backgroundColor: Colors.transparent,
         content: Material(
           elevation: 0,
-          color: Colors.blue,
+          color: Colors.red,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),

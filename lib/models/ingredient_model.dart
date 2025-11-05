@@ -4,35 +4,35 @@ import 'package:movegui_admin_panel/models/model.dart';
 import 'package:movegui_admin_panel/models/supplier_model.dart';
 
 class IngredientModel extends Model {
-  final double quantity, calories;
+ // final double quantity, calories;
   final String unit;
   final bool isAllergic;
-  final CategoryIngredient category;
-  final SupplierIngredient supplier;
-   final DateTime createdAt;
+  final CategoriesModel? category;
+  final SupplierModel? supplier;
+
 
   IngredientModel({
     required super.id, 
     required super.name,
-    required this.quantity,
-    required this.calories,
+    required super.createdAt,
+ //   required this.quantity,
+ //   required this.calories,
     required this.unit,
     required this.isAllergic,
     required this.category,
     required this.supplier,
-    required this.createdAt
     });
 
     Map<String, dynamic> toJson() => {
   'id':id,
   'name': name,
-  'quantity': quantity,
-  'calories': calories,
+ // 'quantity': quantity,
+ // 'calories': calories,
   'unit': unit,
   'isAllergic': isAllergic,
   'createdAt': createdAt,
-  'category': category.toJson(),
-  'supplier': supplier.toJson(),
+  'category': category!.toJson(),
+  'supplier': supplier!.toJson(),
 
 
 };
@@ -40,14 +40,15 @@ class IngredientModel extends Model {
 factory IngredientModel.fromJson(Map<String, dynamic> json) => IngredientModel (
   id: json['id'],
   name: json['name'],
-  quantity: json['quantity'],
-  calories: json['calories'],
+//  quantity: json['quantity'],
+//  calories: json['calories'],
   unit: json['unit'],
   isAllergic: json['isAllergic'],
   category: CategoryIngredient.fromJson(json['category']),
-  supplier: SupplierIngredient.fromJson(json['supplier']),
-  createdAt: json['createdAt']
+  supplier: SupplierIngredients.fromJson(json['supplier']),
+  createdAt: json['createdAt'] != null ? json['createdAt'].toDate() : DateTime.now()
   );
+  
     
 }
 

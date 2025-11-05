@@ -1,40 +1,39 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:movegui_admin_panel/models/categories_model.dart';
+import 'package:movegui_admin_panel/models/restaurant_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
-import 'package:movegui_admin_panel/screens/categories_screen.dart';
-import 'package:movegui_admin_panel/screens/main_screen.dart';
-import 'package:movegui_admin_panel/services/categories_service.dart';
+import 'package:movegui_admin_panel/screens/restaurant_type_screen.dart';
+import 'package:movegui_admin_panel/services/register_services.dart';
+import 'package:movegui_admin_panel/services/restaurant_type_service.dart';
 import 'package:movegui_admin_panel/widgets/app/appbar.dart';
 import 'package:movegui_admin_panel/widgets/side_menu.dart';
 
-class AllCategoriesWidget extends MainScreen {
-  const AllCategoriesWidget({super.key, required super.pageScreen});
-}
-
-class AllCategoriesWidgetPage extends StatefulWidget {
-  const AllCategoriesWidgetPage({super.key});
+class AllRestaurantTypeWidgetPage extends StatefulWidget {
+  const AllRestaurantTypeWidgetPage({super.key});
 
   @override
-  State<AllCategoriesWidgetPage> createState() => AllCategoriesWidgetState();
+  State<StatefulWidget> createState() => AllRestaurantsTypeWidgetState();
+  
 }
 
-class AllCategoriesWidgetState extends State<AllCategoriesWidgetPage> {
-  List<CategoriesModel> categories = [];
-  late CategoriesService categoriesService;
+
+
+class AllRestaurantsTypeWidgetState extends State<AllRestaurantTypeWidgetPage> {
+  List<RestaurantTypeModel> restaurantTypes = [];
+  late RestaurantTypeService restaurantTypeService;
 
   @override
   void initState() {
-    categoriesService = CategoriesService();
+    restaurantTypeService =  getIt<RestaurantTypeService>(); //CategoriesService();
     initList();
     super.initState();
   }
 
   Future<void> initList() async {
-    final allcategories = await categoriesService.allModels();
+    final allRestaurantsTypes = await restaurantTypeService.allModels();
     setState(() {
-      categories = allcategories;
-      print('categories[0] length: ${categories[0].toString()}');
+      restaurantTypes = allRestaurantsTypes;
     });
   }
 
@@ -66,7 +65,7 @@ class AllCategoriesWidgetState extends State<AllCategoriesWidgetPage> {
           SizedBox(height: 8),
           Expanded(
             child: ListView.builder(
-              itemCount: categories.length,
+              itemCount: restaurantTypes.length,
               itemBuilder: (context, index) {
                 return Column(
                   children: [
@@ -78,11 +77,11 @@ class AllCategoriesWidgetState extends State<AllCategoriesWidgetPage> {
                           Row(
                             children: [
                               Expanded(
-                                child: Text(categories[index].name ?? ''),
+                                child: Text(restaurantTypes[index].name ?? ''),
                               ),
                               Expanded(
                                 child: Text(
-                                  categories[index].createdAt
+                                  restaurantTypes[index].createdAt
                                           ?.toLocal()
                                           .toIso8601String() ??
                                       '',

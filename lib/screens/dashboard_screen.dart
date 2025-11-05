@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/consts/constants.dart';
-import 'package:movegui_admin_panel/inter_screen/product_upload.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/widgets/app/appbar.dart';
 import 'package:movegui_admin_panel/widgets/header.dart';

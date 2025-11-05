@@ -1,8 +1,22 @@
 
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/responsive.dart';
+import 'package:movegui_admin_panel/screens/main_screen.dart';
 import 'package:movegui_admin_panel/widgets/app/appbar.dart';
 import 'package:movegui_admin_panel/widgets/side_menu.dart';
+
+
+class IngredientsScreen extends MainScreen{
+  const IngredientsScreen({super.key, required super.pageScreen});
+}
+
+
+class IngredientsPage extends MainPage {
+  const IngredientsPage({super.key, required super.addModelWidget, required super.allModelWidget, required super.title});
+  
+}
+
+/*
 
 class IngredientsScreen extends StatelessWidget {
   const IngredientsScreen({super.key});
@@ -39,6 +53,7 @@ class IngredientsScreen extends StatelessWidget {
 }
 
 
+
 class IngredientPage extends StatelessWidget {
 
   const IngredientPage({super.key});
@@ -50,7 +65,8 @@ class IngredientPage extends StatelessWidget {
     );
   }
   
+  
 }
-
+*/
 
   

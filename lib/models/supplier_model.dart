@@ -2,17 +2,19 @@
 
 import 'package:movegui_admin_panel/models/model.dart';
 
-abstract class SupplierModel extends Model {
-  final String adresse, telephon, email, contact, company;
+  class SupplierModel extends Model {
+  final String adresse, telephon, email, contact, company, type;
 
   SupplierModel({
     required super.id,
     required super.name,
+    required super.createdAt,
     required this.adresse,
     required this.telephon,
     required this.email,
     required this.contact,
     required this.company,
+    required this.type
   });
 
   Map<String, dynamic> toJson() => {
@@ -23,25 +25,11 @@ abstract class SupplierModel extends Model {
     'email': email,
     'contact': contact,
     'company': company,
+    'type': type
   };
 
-}
-
-class SupplierIngredient extends SupplierModel {
-  SupplierIngredient({
-    required super.id,
-    required super.name,
-    required super.adresse,
-    required super.telephon,
-    required super.email,
-    required super.contact,
-    required super.company,
-  });
-
-  Map<String, dynamic> toJson() => super.toJson();
-
-  factory SupplierIngredient.fromJson(Map<String, dynamic> json) =>
-      SupplierIngredient(
+    factory SupplierModel.fromJson(Map<String, dynamic> json) =>
+      SupplierModel(
         id: json['id'],
         name: json['name'],
         adresse: json['adresse'],
@@ -49,7 +37,44 @@ class SupplierIngredient extends SupplierModel {
         email: json['email'],
         contact: json['contact'],
         company: json['company'],
+        type: json['type'],
+        createdAt: json['createdAt'] != null ? json['createdAt'].toDate() : DateTime.now()
       );
+
 }
+
+
+class SupplierIngredients extends SupplierModel {
+  SupplierIngredients({
+    required super.id,
+     required super.name, 
+     required super.createdAt,
+     required super.adresse, 
+     required super.telephon,
+      required super.email, 
+      required super.contact, 
+      required super.company,
+       required super.type});
+  
+      factory SupplierIngredients.fromJson(Map<String, dynamic> json) =>
+      SupplierIngredients(
+        id: json['id'],
+        name: json['name'],
+        adresse: json['adresse'],
+        telephon: json['telephon'],
+        email: json['email'],
+        contact: json['contact'],
+        company: json['company'],
+        type: json['type'],
+        createdAt: json['createdAt'] != null ? json['createdAt'].toDate() : DateTime.now()
+      );
+
+      @override
+  Map<String, dynamic> toJson() {
+    return super.toJson();
+  }
+}
+
+
 
 

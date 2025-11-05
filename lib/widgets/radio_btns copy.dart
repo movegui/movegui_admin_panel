@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:movegui_admin_panel/consts/app_colors.dart';
 
-class RadioBtn extends StatefulWidget {
+class MyRadioBtn extends StatefulWidget {
   final ValueChanged<int> onChanged;
 
-  RadioBtn({Key? key, required this.onChanged}) : super(key: key);
+  const MyRadioBtn({super.key, required this.onChanged});
 
   @override
   _RadioBtnState createState() => _RadioBtnState();
 }
 
-class _RadioBtnState extends State<RadioBtn> {
+class _RadioBtnState extends State<MyRadioBtn> {
   int? _selectedValue =1;
 
   @override
@@ -17,6 +18,7 @@ class _RadioBtnState extends State<RadioBtn> {
     final options = [
       {"label": "KG", "value": 1},
       {"label": "Piece", "value": 2},
+      {"label": "Litre", "value": 3},
     ];
 
     return Wrap(
@@ -38,7 +40,7 @@ class _RadioBtnState extends State<RadioBtn> {
                 widget.onChanged(value!);
               },
             ),
-            Text(option['label'].toString()),
+            Text(option['label'].toString(), style: TextStyle(color: AppColors.textColor, fontSize: 18),),
           ],
         );
       }).toList(),

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/widgets/app/appbar.dart';
-import 'package:movegui_admin_panel/widgets/categories/add_categories_widget.dart';
-import 'package:movegui_admin_panel/widgets/categories/all_categories_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/categories/add_categories_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/categories/all_categories_widget.dart';
 import 'package:movegui_admin_panel/widgets/custom_button.dart';
 import 'package:movegui_admin_panel/widgets/side_menu.dart';
 import 'package:provider/provider.dart';
-
-import '../inter_screen/product_upload.dart';
 import '../responsive.dart';
 import 'dashboard_screen.dart';
 
@@ -37,15 +35,18 @@ class MainScreen extends StatelessWidget {
   }
 }
 
-class CategoryPage extends StatelessWidget {
-  const CategoryPage({super.key});
+abstract class MainPage extends StatelessWidget {
+  const MainPage({super.key, required this.addModelWidget, required this.allModelWidget, required this.title});
+  final Widget addModelWidget, allModelWidget;
+  final String title;
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Responsive.isDesktop(context)
-          ? AdminPanelAppBarDesktop(title: 'Categories')
-          : AdminPanelAppBar(title: 'Categories'),
+          ? AdminPanelAppBarDesktop(title: title)
+          : AdminPanelAppBar(title: title),
       drawer: SideMenu(),
       body: Column(
         children: [
@@ -58,7 +59,7 @@ class CategoryPage extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-                          MainScreen(pageScreen: AllCategoriesWidgetPage()),
+                          MainScreen(pageScreen: addModelWidget),
                     ),
                   );
                 },
@@ -74,7 +75,7 @@ class CategoryPage extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-                          MainScreen(pageScreen: CategoryAddWidgetPage()),
+                          MainScreen(pageScreen: allModelWidget),
                     ),
                   );
                 },

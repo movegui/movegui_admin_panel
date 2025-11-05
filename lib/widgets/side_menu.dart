@@ -5,12 +5,36 @@ import 'package:movegui_admin_panel/providers/dark_theme_provider.dart';
 import 'package:movegui_admin_panel/screens/categories_screen.dart';
 import 'package:movegui_admin_panel/screens/dashboard_screen.dart';
 import 'package:movegui_admin_panel/screens/ingredients_screen.dart';
+import 'package:movegui_admin_panel/screens/patisserie_screen.dart';
+import 'package:movegui_admin_panel/screens/pressing_screen.dart';
 import 'package:movegui_admin_panel/screens/product_screen.dart';
+import 'package:movegui_admin_panel/screens/professionel_screen.dart';
+import 'package:movegui_admin_panel/screens/restaurant_type_screen.dart';
+import 'package:movegui_admin_panel/screens/super_markt_screen.dart';
 import 'package:movegui_admin_panel/screens/supplier_screen.dart';
 import 'package:movegui_admin_panel/screens/login_screen.dart';
 import 'package:movegui_admin_panel/screens/recipes_screen.dart';
 import 'package:movegui_admin_panel/screens/restaurant_screen.dart';
 import 'package:movegui_admin_panel/services/utils.dart';
+import 'package:movegui_admin_panel/widgets/add_person_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/ingredients/add_ingredient_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/ingredients/all_ingredient_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/patisserie/add_patisserie_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/patisserie/all_patisserie_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/pressing/add_pressing_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/pressing/all_pressing_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/professionnel/add_professionnel_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/professionnel/all_professionnel_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/restaurants/add_restaurant_type._widget.dart';
+import 'package:movegui_admin_panel/widgets/app/restaurants/add_restaurants_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/restaurants/all_restaurant_type_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/restaurants/all_restaurants_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/superMartkt/add_super_markt_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/superMartkt/all_super_markt_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/suppliers/add_suppliers_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/suppliers/all_suppliers_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/categories/add_categories_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/categories/all_categories_widget.dart';
 import 'package:movegui_admin_panel/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
 import '../inter_screen/orders_screen.dart';
@@ -40,17 +64,19 @@ class _SideMenuState extends State<SideMenu> {
               image: DecorationImage(
                 image: AssetImage('assets/icons/moveguiB.jpg'),
                 fit: BoxFit.contain,
-                
-            )
+              ),
             ),
             child: Text(''),
           ),
-             //           child: Image.asset('assets/icons/moveguiB.jpg'),),
+          //           child: Image.asset('assets/icons/moveguiB.jpg'),),
           DrawerListTile(
             title: "Main",
             press: () {
               Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => const MainScreen(pageScreen: DashboardScreen(),)),
+                MaterialPageRoute(
+                  builder: (context) =>
+                      const MainScreen(pageScreen: DashboardScreen()),
+                ),
               );
             },
             icon: Icons.home_filled,
@@ -62,7 +88,13 @@ class _SideMenuState extends State<SideMenu> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CategoriesScreen(pageScreen: CategoryPage(),),
+                  builder: (context) => CategoriesScreen(
+                    pageScreen: CategoriesPage(
+                      addModelWidget: CategoryAddWidgetPage(),
+                      allModelWidget: AllCategoriesWidgetPage(),
+                      title: 'Categories',
+                    ),
+                  ),
                 ),
               );
             },
@@ -75,20 +107,32 @@ class _SideMenuState extends State<SideMenu> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const SupplierScreen(),
+                  builder: (context) => SupplierScreen(
+                    pageScreen: SupplierPage(
+                      addModelWidget: SupplierAddWidgetPage(),
+                      allModelWidget: AllSuppliersWidgetPage(),
+                      title: 'Fournisseurs',
+                    ),
+                  ),
                 ),
               );
             },
             icon: Icons.icecream,
           ),
 
-                    DrawerListTile(
+          DrawerListTile(
             title: "Ingredients",
             press: () {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const IngredientsScreen(),
+                  builder: (context) => const IngredientsScreen(
+                    pageScreen: IngredientsPage(
+                      addModelWidget: IngredientsAddWidgetPage(),
+                      allModelWidget: AllIngredientsWidgetPage(),
+                      title: 'Ingredients',
+                    ),
+                  ),
                 ),
               );
             },
@@ -100,13 +144,13 @@ class _SideMenuState extends State<SideMenu> {
             press: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const RecipesScreen()),
+                MaterialPageRoute(builder: (context) => CreateRecettePage()),
               );
             },
             icon: Icons.icecream,
           ),
 
-           DrawerListTile(
+          DrawerListTile(
             title: "Produits",
             press: () {
               Navigator.pushReplacement(
@@ -117,18 +161,120 @@ class _SideMenuState extends State<SideMenu> {
             icon: Icons.icecream,
           ),
 
-                     DrawerListTile(
+          DrawerListTile(
             title: "Restaurants",
             press: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const RestaurantScreen()),
+                MaterialPageRoute(
+                  builder: (context) => const RestaurantsScreen(
+                    pageScreen: RestaurantsPage(
+                      addModelWidget: RestaurantAddWidgetPage(),
+                      allModelWidget: AllRestaurantsWidget(),
+                      title: 'Restaurants',
+                    ),
+                  ),
+                ),
               );
             },
             icon: Icons.icecream,
           ),
 
+          DrawerListTile(
+            title: "Restaurants Type",
+            press: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const RestaurantTypeScreen(
+                    pageScreen: RestaurantTypePage(
+                      addModelWidget: RestaurantTypeAddWidgetPage(),
+                      allModelWidget: AllRestaurantTypeWidgetPage(),
+                      title: 'Restaurants Types',
+                    ),
+                  ),
+                ),
+              );
+            },
+            icon: Icons.icecream,
+          ),
 
+          DrawerListTile(
+            title: "Patisserie",
+            press: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PatisserieScreen(
+                    pageScreen: PatisseriePage(
+                      addModelWidget: PatisserieAddWidgetPage(),
+                      allModelWidget: AllPatisserieWidget(),
+                      title: 'Patisserie',
+                    ),
+                  ),
+                ),
+              );
+            },
+            icon: Icons.icecream,
+          ),
+
+          DrawerListTile(
+            title: "Super Marchés",
+            press: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SuperMarktScreen(
+                    pageScreen: SuperMarktPage(
+                      addModelWidget: SuperMarktAddWidgetPage(),
+                      allModelWidget: AllSuperMarktWidget(),
+                      title: 'Super Marchés',
+                    ),
+                  ),
+                ),
+              );
+            },
+            icon: Icons.icecream,
+          ),
+
+          
+          DrawerListTile(
+            title: "Pressing",
+            press: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PressingScreen(
+                    pageScreen: PressingPage(
+                      addModelWidget: PressingAddWidgetPage(),
+                      allModelWidget: AllPressingWidgetPage(),
+                      title: 'Pressing',
+                    ),
+                  ),
+                ),
+              );
+            },
+            icon: Icons.icecream,
+          ),
+
+                    DrawerListTile(
+            title: "Professionnel",
+            press: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ProfessionelScreen(
+                    pageScreen: ProfessionnelPage(
+                      addModelWidget: ProfessionnelAddWidgetPage(),
+                      allModelWidget:  AllProfessionnelWidget(),
+                      title: 'Professionnel',
+                    ),
+                  ),
+                ),
+              );
+            },
+            icon: Icons.icecream,
+          ),
 
           /*
           DrawerListTile(

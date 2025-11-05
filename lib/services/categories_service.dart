@@ -28,4 +28,20 @@ Future<List<CategoriesModel>> allModels() async {
    return "categories_model";
   }
   
+  @override
+  Future<List<CategoriesModel>> getByName(String name) async {
+      final snapshot = await FirebaseFirestore.instance
+      .collection(getCollectionName())
+      .where('name', isEqualTo: name) 
+      .get();
+
+  return snapshot.docs
+      .map((doc) => CategoriesModel.fromJson(doc.data()))
+      .toList();
+  }
+
+  
+
+
+  
 }

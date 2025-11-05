@@ -1,12 +1,5 @@
 
-import 'package:flutter/material.dart';
-import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/screens/main_screen.dart';
-import 'package:movegui_admin_panel/widgets/app/appbar.dart';
-import 'package:movegui_admin_panel/widgets/categories/add_categories_widget.dart';
-import 'package:movegui_admin_panel/widgets/categories/all_categories_widget.dart';
-import 'package:movegui_admin_panel/widgets/custom_button.dart';
-import 'package:movegui_admin_panel/widgets/side_menu.dart';
 
 
 
@@ -17,6 +10,13 @@ class CategoriesScreen extends MainScreen {
 }
 
 
+class CategoriesPage extends MainPage {
+  const CategoriesPage({super.key, required super.addModelWidget, required super.allModelWidget, required super.title});
+  
+}
+
+
+/*
 class CategoryPage extends StatelessWidget {
 
   const CategoryPage({super.key});
@@ -46,4 +46,5 @@ class CategoryPage extends StatelessWidget {
   }
   
 }
+*/
 
