@@ -38,4 +38,6 @@ class ProfessionnelService extends ModelService<ProfessionnelModel>{
   String getCollectionName() {
     return "professionnels_model";
   }
+
+  
 }

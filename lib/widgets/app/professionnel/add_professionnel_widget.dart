@@ -82,6 +82,7 @@ class ProfessionnelAddWidgetPageState
     addressesControllers = [];
     professionnelService = getIt<ProfessionnelService>();
     personImages = [];
+    genders.add('Homme');
   }
 
   Future<void> fetchProduits() async {
@@ -131,379 +132,433 @@ class ProfessionnelAddWidgetPageState
                   */
                 Expanded(
                   flex: 5,
-                  child: ModalProgressHUD(
-                    inAsyncCall: _isLoading,
-                    child: Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: Center(
-                        child: Container(
-                          width: Size.width * 0.4,
-                          //   height: Size.height * 0.3,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            color: AppColors
-                                .backgroundColor, //Colors.grey.withOpacity(0.3),
-                          ),
-                          child: Form(
-                            key: formKey,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'Ajouter un Professionnel:',
-                                    style: TextStyle(
-                                      fontSize: FontSize,
-                                      fontWeight: FontWeight.bold,
-                                      decoration: TextDecoration.underline,
-                                      color: AppColors.textColor,
-                                      decorationColor: AppColors.textColor,
-                                    ),
-                                  ),
+              //    child: SingleChildScrollView(
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: Size.height,
+                      child: ModalProgressHUD(
+                        inAsyncCall: _isLoading,
+                             child: SingleChildScrollView(
+                          child: Padding(
+                            padding: const EdgeInsets.all(5),
+                            child: Center(
+                              child: Container(
+                                width: Size.width * 0.4,
+                                //   height: Size.height * 0.3,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16),
+                                  color: AppColors
+                                      .backgroundColor, //Colors.grey.withOpacity(0.3),
                                 ),
-
-                                SizedBox(height: 4),
-                                ExpansionTile(
-                                  title: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 2,
-                                      horizontal: 4,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: Colors.white,
-                                        width: 1.5,
+                                child: Form(
+                                  key: formKey,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          'Ajouter un Professionnel:',
+                                          style: TextStyle(
+                                            fontSize: FontSize,
+                                            fontWeight: FontWeight.bold,
+                                            decoration: TextDecoration.underline,
+                                            color: AppColors.textColor,
+                                            decorationColor: AppColors.textColor,
+                                          ),
+                                        ),
                                       ),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: const Text(
-                                      'Liste des Professions',
-                                      style: TextStyle(
-                                        color: AppColors.textColor,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                  ),
-                                  textColor: AppColors.textColor,
-                                  iconColor: AppColors
-                                      .textColor, // makes the arrow white
-                                  collapsedIconColor: AppColors.textColor,
-                                  children: [
-                                    ListView.builder(
-                                      shrinkWrap: true,
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      itemCount: categories.length,
-                                      itemBuilder: (context, index) {
-                                        final category = categories[index];
-                                        return ExpansionTile(
-                                          title: Text(
-                                            category.name,
+                      
+                                      SizedBox(height: 4),
+                                      ExpansionTile(
+                                        title: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                            vertical: 2,
+                                            horizontal: 4,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: Colors.white,
+                                              width: 1.5,
+                                            ),
+                                            borderRadius: BorderRadius.circular(8),
+                                          ),
+                                          child: const Text(
+                                            'Liste des Professions',
                                             style: TextStyle(
                                               color: AppColors.textColor,
-                                              fontSize: 16,
+                                              fontSize: 18,
                                             ),
                                           ),
-                                          backgroundColor:
-                                              AppColors.backgroundColor,
-                                          textColor: AppColors.textColor,
-                                          iconColor: AppColors
-                                              .textColor, // makes the arrow white
-                                          collapsedIconColor:
-                                              AppColors.textColor,
-
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                    horizontal: 16.0,
-                                                  ),
-                                              child: Wrap(
-                                                spacing:
-                                                    10.0, // horizontal space between checkboxes
-                                                runSpacing:
-                                                    4.0, // vertical space if it wraps
-                                                children: category.subCategories.map((
-                                                  sub,
-                                                ) {
-                                                  final key =
-                                                      '${category.name}-$sub';
-                                                  return Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    children: [
-                                                      Checkbox(
-                                                        value:
-                                                            checkedStates[key] ??
-                                                            false,
-                                                        onChanged: (value) {
-                                                          setState(() {
-                                                            checkedStates[key] =
-                                                                value!;
-                                                          });
-                                                          print(
-                                                            'Selected: $sub (${checkedStates[key]})',
-                                                          );
-                                                          if (checkedStates[key] !=
-                                                                  null &&
-                                                              checkedStates[key] ==
-                                                                  true) {
-                                                            names.add(
-                                                              category.name,
-                                                            );
-                                                            selectedProfessions
-                                                                .add(
-                                                                  sub,
-                                                                );
-                                                          } else {
-                                                            names.remove(
-                                                              category.name,
-                                                            );
-                                                            selectedProfessions
-                                                                .remove(
-                                                                  sub,
-                                                                );
-                                                          }
-                                                        },
-
-                                                        activeColor: Colors
-                                                            .green, // the checkmark color
-                                                        checkColor:
-                                                            Colors.white,
-                                                        side: const BorderSide(
-                                                          color: AppColors
-                                                              .textColor,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        sub,
-                                                        style: TextStyle(
-                                                          color: AppColors
-                                                              .textColor,
-                                                          fontSize: 14,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  );
-                                                }).toList(),
-                                              ),
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 4),
-                                CustomTextField(
-                                  hasIcon: false,
-                                  hintText:
-                                      'Veuillez saisir la description de la profession',
-                                  isNumber: false,
-                                  controller: _descriptionController,
-                                  textInputAction: TextInputAction.next,
-                                  inputType: TextInputType.multiline,
-                                  maxLines: 3,
-
-                                  labelText: ' Description de la Profession',
-                                  icon: Icons.info,
-                                  /*
-                                                      onChanged: (data) {
-                                                        name = data.trim();
-                                                      },
-                                                      */
-                                  validator: (value) {
-                                    return MyValidators.textValidator(value);
-                                  },
-                                ),
-
-                                ...persons.asMap().entries.map((entry) {
-                                  int index = entry.key;
-                                  Map<PersonModel, dynamic> person =
-                                      entry.value;
-                                  addControllers(index);
-                                  addFormkeys(index);
-
-                                  return Column(
-                                    children: [
-                                      AddPersonWidget(
-                                        firstNameController:
-                                            firstNamesControllers[index],
-                                        lastNameController:
-                                            lastNamesNameControllers[index],
-                                        middleNameController:
-                                            middleNamesControllers[index],
-                                        adresseController:
-                                            addressesControllers[index],
-                                        emailController:
-                                            emailsControllers[index],
-                                        telephonController:
-                                            phonesControllers[index],
-                                        onImagePicked: (file) {
-                                          personImages.add(file);
-                                          // store image in parent
-                                        },
-                                        formKey: formKeys[index],
-                                        onGenderChanged: (value) {
-                                          setState(() {
-                                            addGender(index);
-                                            print(
-                                              'gender sind:  ${genders.length}',
-                                            );
-                                            genders[index] = value;
-                                          });
-                                        },
-                                        onBirthDateChanged: (value) {
-                                          setState(() {
-                                            addBirthDate(index);
-                                            birthdates[index] = value;
-                                            print(
-                                              'birthdate sind:  ${birthdates.length}',
-                                            );
-                                          });
-                                        },
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        ),
+                                        textColor: AppColors.textColor,
+                                        iconColor: AppColors
+                                            .textColor, // makes the arrow white
+                                        collapsedIconColor: AppColors.textColor,
                                         children: [
-                                          ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor:
-                                                  AppColors.backgroundColor,
-                                              foregroundColor: AppColors
-                                                  .textColor, // 👈 text/icon color
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                    horizontal: 20,
-                                                    vertical: 12,
+                                          ListView.builder(
+                                            shrinkWrap: true,
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            itemCount: categories.length,
+                                            itemBuilder: (context, index) {
+                                              final category = categories[index];
+                                              return ExpansionTile(
+                                                title: Text(
+                                                  category.name,
+                                                  style: TextStyle(
+                                                    color: AppColors.textColor,
+                                                    fontSize: 16,
                                                   ),
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                              ),
-                                              alignment: Alignment.center,
-                                            ),
-
-                                            onPressed: addIngredient,
-                                            child: Text(
-                                              '+ Ajouter un Contact ',
-                                              style: TextStyle(
+                                                ),
                                                 backgroundColor:
                                                     AppColors.backgroundColor,
-                                                color: AppColors.textColor,
-                                                fontSize: 18,
-                                              ),
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment: Alignment.topRight,
-                                            child: IconButton(
-                                              icon: Icon(
-                                                Icons.delete,
-                                                color: Colors.red,
-                                              ),
-                                              onPressed: () => {
-                                                print('the index is: $index'),
-                                                removeIngredient(index),
-                                              },
-                                            ),
+                                                textColor: AppColors.textColor,
+                                                iconColor: AppColors
+                                                    .textColor, // makes the arrow white
+                                                collapsedIconColor:
+                                                    AppColors.textColor,
+                      
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.symmetric(
+                                                          horizontal: 16.0,
+                                                        ),
+                                                    child: Wrap(
+                                                      spacing:
+                                                          10.0, // horizontal space between checkboxes
+                                                      runSpacing:
+                                                          4.0, // vertical space if it wraps
+                                                      children: category.subCategories.map((
+                                                        sub,
+                                                      ) {
+                                                        final key =
+                                                            '${category.name}-$sub';
+                                                        return Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          children: [
+                                                            Checkbox(
+                                                              value:
+                                                                  checkedStates[key] ??
+                                                                  false,
+                                                              onChanged: (value) {
+                                                                setState(() {
+                                                                  checkedStates[key] =
+                                                                      value!;
+                                                                });
+                                                                print(
+                                                                  'Selected: $sub (${checkedStates[key]})',
+                                                                );
+                                                                if (checkedStates[key] !=
+                                                                        null &&
+                                                                    checkedStates[key] ==
+                                                                        true) {
+                                                                  names.add(
+                                                                    category.name,
+                                                                  );
+                                                                  selectedProfessions
+                                                                      .add(sub);
+                                                                } else {
+                                                                  names.remove(
+                                                                    category.name,
+                                                                  );
+                                                                  selectedProfessions
+                                                                      .remove(sub);
+                                                                }
+                                                              },
+                      
+                                                              activeColor: Colors
+                                                                  .green, // the checkmark color
+                                                              checkColor:
+                                                                  Colors.white,
+                                                              side:
+                                                                  const BorderSide(
+                                                                    color: AppColors
+                                                                        .textColor,
+                                                                  ),
+                                                            ),
+                                                            Text(
+                                                              sub,
+                                                              style: TextStyle(
+                                                                color: AppColors
+                                                                    .textColor,
+                                                                fontSize: 14,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      }).toList(),
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
+                                            },
                                           ),
                                         ],
                                       ),
-                                    ],
-                                  );
-                                }).toList(),
+                                      SizedBox(height: 4),
+                                      CustomTextField(
+                                        hasIcon: false,
+                                        hintText:
+                                            'Veuillez saisir la description de la profession',
+                                        isNumber: false,
+                                        controller: _descriptionController,
+                                        textInputAction: TextInputAction.next,
+                                        inputType: TextInputType.multiline,
+                                        maxLines: 3,
+                      
+                                        labelText: ' Description de la Profession',
+                                        icon: Icons.info,
+                                        /*
+                                                            onChanged: (data) {
+                                                              name = data.trim();
+                                                            },
+                                                            */
+                                        validator: (value) {
+                                          return MyValidators.textValidator(value);
+                                        },
+                                      ),
+                      
+                                      ...persons.asMap().entries.map((entry) {
+                                        int index = entry.key;
+                                        Map<PersonModel, dynamic> person =
+                                            entry.value;
+                                        addControllers(index);
+                                        addFormkeys(index);
+                      
+                                        return Column(
+                                          children: [
+                                            AddPersonWidget(
+                                              firstNameController:
+                                                  firstNamesControllers[index],
+                                              lastNameController:
+                                                  lastNamesNameControllers[index],
+                                              middleNameController:
+                                                  middleNamesControllers[index],
+                                              adresseController:
+                                                  addressesControllers[index],
+                                              emailController:
+                                                  emailsControllers[index],
+                                              telephonController:
+                                                  phonesControllers[index],
+                                              onImagePicked: (file) {
+                                                personImages.add(file);
+                                                addGender(index);
+                                                // store image in parent
+                                              },
+                                              formKey: formKeys[index],
+                                              onGenderChanged: (value) {
+                                                setState(() {
+                                                  print(
+                                                    'gender sind:  ${genders.length}',
+                                                  );
+                                                  genders[index] = value;
+                                                });
+                                              },
+                                              selectedGender: 'm',
+                                              onBirthDateChanged: (value) {
+                                                setState(() {
+                                                  addBirthDate(index);
+                                                  birthdates[index] = value;
+                                                  print(
+                                                    'birthdate sind:  ${birthdates.length}',
+                                                  );
+                                                });
+                                              },
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                ElevatedButton(
+                                                  style: ElevatedButton.styleFrom(
+                                                    backgroundColor:
+                                                        AppColors.backgroundColor,
+                                                    foregroundColor: AppColors
+                                                        .textColor, // 👈 text/icon color
+                                                    padding:
+                                                        const EdgeInsets.symmetric(
+                                                          horizontal: 20,
+                                                          vertical: 12,
+                                                        ),
+                                                    shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(8),
+                                                    ),
+                                                    alignment: Alignment.center,
+                                                  ),
+                      
+                                                  onPressed: addIngredient,
+                                                  child: Text(
+                                                    '+ Ajouter un Contact ',
+                                                    style: TextStyle(
+                                                      backgroundColor:
+                                                          AppColors.backgroundColor,
+                                                      color: AppColors.textColor,
+                                                      fontSize: 18,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Align(
+                                                  alignment: Alignment.topRight,
+                                                  child: IconButton(
+                                                    icon: Icon(
+                                                      Icons.delete,
+                                                      color: Colors.red,
+                                                    ),
+                                                    onPressed: () => {
+                                                      print('the index is: $index'),
+                                                      removeIngredient(index),
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        );
+                                      }).toList(),
+                      
+                                      SizedBox(height: 10),
+                      
+                                      CustomButon(
+                                        text: 'Enregistrer',
+                                        icon: Icons.upload,
+                                        onTap: () async {
+                                          setState(() {
+                                            _isLoading = true;
+                                          });
+                      
+                                          final form = formKey.currentState;
+                                          if (personImages.isNotEmpty &&
+                                              form != null &&
+                                              form.validate() &&
+                                              selectedProfessions.isNotEmpty) {
+                                            form.save();
+                                            final _uuid = const Uuid().v4();
+                                            try {
+                                              bool allValid = true;
+                                              for (final key in formKeys) {
+                                                if (!(key.currentState
+                                                        ?.validate() ??
+                                                    false)) {
+                                                  allValid = false;
+                                                }
+                                              }
+                                              if (personImages.isNotEmpty &&
+                                                  allValid) {
+                                                for (
+                                                  int i = 0;
+                                                  i < personImages.length;
+                                                  i++
+                                                ) {
+                                                  final  professionnel =
+                                                      ProfessionnelModel(
+                                                        id: _uuid,
+                                                        name: names.first,
+                                                        createdAt: DateTime.now(),
+                                                        description:
+                                                            _descriptionController
+                                                                .text,
+                                                        professions:
+                                                            selectedProfessions,
+                                                        persons:
+                                                            await getAllPersons(),
+                                                      );
+                                  
+                                                  await professionnelService
+                                                      .addModel(professionnel);   
+                                                      
 
-                                SizedBox(height: 10),
-
-                                CustomButon(
-                                  text: 'Enregistrer',
-                                  icon: Icons.upload,
-                                  onTap: () async {
-                                    setState(() {
-                                      _isLoading = true;
-                                    });
-                                    String? imageUrl;
-                                    bool allValid = true;
-                                    for (final key in formKeys) {
-                                      if (!(key.currentState?.validate() ??
-                                          false)) {
-                                        allValid = false;
-                                      }
-                                    }
-
-                                    if (allValid) {
-                                      // form.save();
-                                      final _uuid = const Uuid().v4();
-                                      try {
-                                        if (personImages.isNotEmpty) {
-                                          for (
-                                            int i = 0;
-                                            i < personImages.length;
-                                            i++
-                                          ) {
-                                            final professionnel =
-                                                ProfessionnelModel(
-                                                  id: _uuid,
-                                                  name: names.first,
-                                                  createdAt: DateTime.now(),
-                                                  description:
+                                                  setState(() {
+                                                    for (
+                                                      int i = 0;
+                                                      i <
+                                                          firstNamesControllers
+                                                              .length;
+                                                      i++
+                                                    ) {
+                                                   
+                                                      firstNamesControllers[i]
+                                                          .clear();
+                                                      lastNamesNameControllers[i]
+                                                          .clear();
+                                                      surnamesControllers[i]
+                                                          .clear();                                                    
+                                                      middleNamesControllers[i]
+                                                          .clear();                                                   
+                                                      emailsControllers[i].clear();
+                                                      phonesControllers[i].clear();
+                                                      gendersControllers[i].clear();
+                                                      birthdatesControllers[i]
+                                                          .clear();
+                                                      addressesControllers[i]
+                                                          .clear();
                                                       _descriptionController
-                                                          .text,
-                                                  professions:
-                                                      selectedProfessions,
-                                                  persons:
-                                                      await getAllPersons(),
+                                                          .clear();
+                                                      checkedStates.clear();
+                                                                                                                                                                                                   
+                                                    }
+                                                  });
+                      
+                                                  setState(() {
+                                                    _isLoading = false;
+                                                  });
+                                                  showAlertBar(
+                                                    context,
+                                                    'Nouveau Fournisseur Ajouter avec succes!',
+                                                  );
+                                                }
+                                              } else {
+                                                showBtmAlert(
+                                                  context,
+                                                  "veillez choisir une image pour le professionnel !!!",
                                                 );
-                                            //     await professionnelService.addModel( professionnel,   );
-
-                                            print(
-                                              'profession object: ${professionnel.toString()}',
-                                            );
+                                              }
+                                            } on FirebaseException catch (e) {
+                                              showBtmAlert(
+                                                context,
+                                                e.message.toString(),
+                                              );
+                                              setState(() {
+                                                _isLoading = false;
+                                              });
+                                            } finally {
+                                              setState(() {
+                                                _isLoading = false;
+                                              });
+                                            }
+                                          } else {
+                                            if (personImages.isEmpty) {
+                                              showBtmAlert(
+                                                context,
+                                                "veillez choisir une image pour le professionnel !!!",
+                                              );
+                                            }
+                                            if (selectedProfessions.isEmpty) {
+                                              showBtmAlert(
+                                                context,
+                                                "veillez choisir une categorie pour le professionnel !!!",
+                                              );
+                                            }
                                             setState(() {
                                               _isLoading = false;
                                             });
-                                            showAlertBar(
-                                              context,
-                                              'Nouveau Fournisseur Ajouter avec succes!',
-                                            );
                                           }
-                                        } else {
-                                          showBtmAlert(
-                                            context,
-                                            "veillez choisir une image pour le professionnel !!!",
-                                          );
-                                        }
-                                      } on FirebaseException catch (e) {
-                                        showBtmAlert(
-                                          context,
-                                          e.message.toString(),
-                                        );
-                                        setState(() {
-                                          _isLoading = false;
-                                        });
-                                      } finally {
-                                        setState(() {
-                                          _isLoading = false;
-                                        });
-                                      }
-                                    } else {
-                                      setState(() {
-                                        _isLoading = false;
-                                      });
-                                    }
-                                  },
+                                        },
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ],
+                              ),
                             ),
                           ),
-                        ),
+                                          ),
                       ),
                     ),
-                  ),
+                //  ),
                 ),
               ],
             ),
@@ -637,7 +692,7 @@ class ProfessionnelAddWidgetPageState
   Future<List<PersonModel>> getAllPersons() async {
     List<PersonModel> persons = [];
     for (int i = 0; i < personImages.length; i++) {
-      //  String? imageUrl =  await _uploadImageToFirebase(i);
+        String? imageUrl =  await _uploadImageToFirebase(i);
       persons.add(
         PersonModel(
           id: Uuid().v4(),
@@ -648,7 +703,7 @@ class ProfessionnelAddWidgetPageState
           middleName: middleNamesControllers[i].text,
           email: emailsControllers[i].text,
           phone: phonesControllers[i].text,
-          profileImageUrl: 'test', // imageUrl!,
+          profileImageUrl: imageUrl!,
           gender: genders[i]!,
           birthDate: birthdates[i]!,
           address: addressesControllers[i].text,

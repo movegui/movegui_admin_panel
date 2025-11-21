@@ -19,8 +19,9 @@ class AddPersonWidget extends StatefulWidget {
   final TextEditingController emailController;
   final Function(File?) onImagePicked; // Add callback
   final GlobalKey<FormState> formKey;
-  final ValueChanged<String?>? onGenderChanged;
+  final ValueChanged<String?> onGenderChanged;
   final ValueChanged<DateTime?>? onBirthDateChanged;
+  final String? selectedGender;
 
   const AddPersonWidget({
     super.key,
@@ -34,6 +35,7 @@ class AddPersonWidget extends StatefulWidget {
     required this.formKey,
     required this.onBirthDateChanged,
     required this.onGenderChanged, // Pass callback
+    required this.selectedGender
   });
 
   @override
@@ -103,8 +105,9 @@ class AddPersonWidgetState extends State<AddPersonWidget> {
                           Expanded(
                             child: GenderPicker(
                               onGenderChanged: (value) {
-                                widget.onGenderChanged!(value);
+                                widget.onGenderChanged(value);
                               },
+                              gender: widget.selectedGender,
                             ),
                           ),
                           SizedBox(width: 16), // optional spacing

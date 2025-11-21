@@ -14,9 +14,9 @@ class ProfessionnelModel extends Model {
     required super.createdAt,
     required this.professions,
     required this.description,
-  //  required this.imageUrl,
-  //  required this.skills,
-    required this.persons
+    //  required this.imageUrl,
+    //  required this.skills,
+    required this.persons,
   });
 
   @override
@@ -24,32 +24,34 @@ class ProfessionnelModel extends Model {
     ...super.toJson(),
     'description': description,
     'categorie': professions,
-  //  'imageUrl': imageUrl,
-  //  'skills': skills,
+    //  'imageUrl': imageUrl,
+    //  'skills': skills,
     'persons': persons.map((person) {
-      person.toJson();
-    }).toList()
+      return person.toJson();
+    }).toList(),
   };
 
   factory ProfessionnelModel.fromJson(Map<String, dynamic> json) =>
       ProfessionnelModel(
         id: json['id'],
         name: json['name'],
-         createdAt: json['createdAt'] != null ? json['createdAt'].toDate() : DateTime.now(),
-        description: json['description'],
-     //   imageUrl: json['imageUrl'],
-        professions:  json['professions'],
-   //     skills: List<String>.from(json['skills'] ?? []),
-        persons: List<PersonModel>.from(json['persons'] ?? [])
-
+        createdAt: json['createdAt'] != null
+            ? json['createdAt'].toDate()
+            : DateTime.now(),
+        description: json['description'] ?? '',
+        //  imageUrl: json['imageUrl'],
+        professions: json['professions'] ?? [],
+        //     skills: List<String>.from(json['skills'] ?? []),
+        persons: (json['persons'] as List? ?? [])
+            .map((e) => PersonModel.fromJson(e))
+            .toList(),
       );
 
-    @override
+  @override
   String toString() {
-   return 'Profession(name: $name, professions: ${professions[0].toString()})';
+    return 'Profession(name: $name, professions: ${professions[0].toString()}, persons: ${persons.toList().toString()})';
   }
 }
-
 
 class ProfessionCategory {
   final int id;
@@ -57,15 +59,15 @@ class ProfessionCategory {
   final List<String> subCategories;
 
   ProfessionCategory({
-    required this.id, required this.name, required this.subCategories
+    required this.id,
+    required this.name,
+    required this.subCategories,
   });
 
-  
   Map<String, dynamic> toJson() => {
     'id': id,
     'name': name,
     'subCategories': subCategories,
-
   };
 
   factory ProfessionCategory.fromJson(Map<String, dynamic> json) =>
@@ -75,5 +77,3 @@ class ProfessionCategory {
         subCategories: List<String>.from(json['subCategories']),
       );
 }
-
-

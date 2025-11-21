@@ -5,9 +5,9 @@ import 'package:movegui_admin_panel/consts/validator.dart';
 
 class GenderPicker extends StatefulWidget {
   final String? gender;
-  final ValueChanged<String?>? onGenderChanged;
+  final ValueChanged<String?> onGenderChanged;
 
-  const GenderPicker({super.key, this.gender, this.onGenderChanged});
+  const GenderPicker({super.key, required this.gender, required this.onGenderChanged});
 
   @override
   State<GenderPicker> createState() => _GenderAndBirthdatePickerState();
@@ -29,7 +29,7 @@ class _GenderAndBirthdatePickerState extends State<GenderPicker> {
       color: AppColors.backgroundColor,
       margin: const EdgeInsets.all(2),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12), ),
-      elevation: 2,
+      elevation: 1,
       child: Padding(
         padding: const EdgeInsets.all(6),
         child: Column(
@@ -65,7 +65,7 @@ class _GenderAndBirthdatePickerState extends State<GenderPicker> {
               ],
               onChanged: (value) {
                 setState(() => _selectedGender = value);
-                widget.onGenderChanged?.call(value);
+                widget.onGenderChanged.call(value!);
               },
               validator: (value) {
                 MyValidators.textValidator(value);

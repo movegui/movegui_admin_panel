@@ -10,7 +10,7 @@ class PersonModel extends Model {
   final String email;
   final String phone;
   final String gender;
-  final DateTime birthDate;
+  final DateTime? birthDate;
   final String address;
   final String? nationality;
 
@@ -40,7 +40,7 @@ class PersonModel extends Model {
     'email': email,
     'phone': phone,
     'gender': gender,
-    'birthDate': birthDate.toIso8601String(),
+    'birthDate': birthDate!.toIso8601String(),
     'address': address,
     'nationality': nationality,
 
@@ -57,7 +57,9 @@ class PersonModel extends Model {
     email: json['email'],
     phone: json['phone'],
     gender: json['gender'],
-    birthDate: json['birthDate'].toDate(), 
+    birthDate: json['birthDate'] != null
+    ? DateTime.parse(json['birthDate'])
+    : null,
     address: json['address'],
     nationality: json['nationality']
   );

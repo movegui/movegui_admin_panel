@@ -506,7 +506,7 @@ late FocusNode _descriptionFocusNode;
                                             restaurantType:
                                                 selectedRestaurantType,
                                           );
-                                              restaurantsService.addModel(restaurant);
+                                             await restaurantsService.addModel(restaurant);
 
                                           setState(() {
                                             _nameController.clear();
