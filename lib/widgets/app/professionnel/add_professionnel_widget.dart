@@ -197,105 +197,108 @@ class ProfessionnelAddWidgetPageState
                                             .textColor, // makes the arrow white
                                         collapsedIconColor: AppColors.textColor,
                                         children: [
-                                          ListView.builder(
-                                            shrinkWrap: true,
-                                            physics:
-                                                const NeverScrollableScrollPhysics(),
-                                            itemCount: categories.length,
-                                            itemBuilder: (context, index) {
-                                              final category = categories[index];
-                                              return ExpansionTile(
-                                                title: Text(
-                                                  category.name,
-                                                  style: TextStyle(
-                                                    color: AppColors.textColor,
-                                                    fontSize: 16,
-                                                  ),
-                                                ),
-                                                backgroundColor:
-                                                    AppColors.backgroundColor,
-                                                textColor: AppColors.textColor,
-                                                iconColor: AppColors
-                                                    .textColor, // makes the arrow white
-                                                collapsedIconColor:
-                                                    AppColors.textColor,
-                      
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.symmetric(
-                                                          horizontal: 16.0,
-                                                        ),
-                                                    child: Wrap(
-                                                      spacing:
-                                                          10.0, // horizontal space between checkboxes
-                                                      runSpacing:
-                                                          4.0, // vertical space if it wraps
-                                                      children: category.subCategories.map((
-                                                        sub,
-                                                      ) {
-                                                        final key =
-                                                            '${category.name}-$sub';
-                                                        return Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          children: [
-                                                            Checkbox(
-                                                              value:
-                                                                  checkedStates[key] ??
-                                                                  false,
-                                                              onChanged: (value) {
-                                                                setState(() {
-                                                                  checkedStates[key] =
-                                                                      value!;
-                                                                });
-                                                                print(
-                                                                  'Selected: $sub (${checkedStates[key]})',
-                                                                );
-                                                                if (checkedStates[key] !=
-                                                                        null &&
-                                                                    checkedStates[key] ==
-                                                                        true) {
-                                                                  names.add(
-                                                                    category.name,
-                                                                  );
-                                                                  selectedProfessions
-                                                                      .add(sub);
-                                                                } else {
-                                                                  names.remove(
-                                                                    category.name,
-                                                                  );
-                                                                  selectedProfessions
-                                                                      .remove(sub);
-                                                                }
-                                                              },
-                      
-                                                              activeColor: Colors
-                                                                  .green, // the checkmark color
-                                                              checkColor:
-                                                                  Colors.white,
-                                                              side:
-                                                                  const BorderSide(
-                                                                    color: AppColors
-                                                                        .textColor,
-                                                                  ),
-                                                            ),
-                                                            Text(
-                                                              sub,
-                                                              style: TextStyle(
-                                                                color: AppColors
-                                                                    .textColor,
-                                                                fontSize: 14,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        );
-                                                      }).toList(),
+                                          SizedBox(
+                                            height: 600,
+                                            child: ListView.builder(
+                                              shrinkWrap: true,
+                                              physics:
+                                                  const NeverScrollableScrollPhysics(),
+                                              itemCount: categories.length,
+                                              itemBuilder: (context, index) {
+                                                final category = categories[index];
+                                                return ExpansionTile(
+                                                  title: Text(
+                                                    category.name,
+                                                    style: TextStyle(
+                                                      color: AppColors.textColor,
+                                                      fontSize: 16,
                                                     ),
                                                   ),
-                                                ],
-                                              );
-                                            },
+                                                  backgroundColor:
+                                                      AppColors.backgroundColor,
+                                                  textColor: AppColors.textColor,
+                                                  iconColor: AppColors
+                                                      .textColor, // makes the arrow white
+                                                  collapsedIconColor:
+                                                      AppColors.textColor,
+                                                                  
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.symmetric(
+                                                            horizontal: 16.0,
+                                                          ),
+                                                      child: Wrap(
+                                                        spacing:
+                                                            10.0, // horizontal space between checkboxes
+                                                        runSpacing:
+                                                            4.0, // vertical space if it wraps
+                                                        children: category.subCategories.map((
+                                                          sub,
+                                                        ) {
+                                                          final key =
+                                                              '${category.name}-$sub';
+                                                          return Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize.min,
+                                                            children: [
+                                                              Checkbox(
+                                                                value:
+                                                                    checkedStates[key] ??
+                                                                    false,
+                                                                onChanged: (value) {
+                                                                  setState(() {
+                                                                    checkedStates[key] =
+                                                                        value!;
+                                                                  });
+                                                                  print(
+                                                                    'Selected: $sub (${checkedStates[key]})',
+                                                                  );
+                                                                  if (checkedStates[key] !=
+                                                                          null &&
+                                                                      checkedStates[key] ==
+                                                                          true) {
+                                                                    names.add(
+                                                                      category.name,
+                                                                    );
+                                                                    selectedProfessions
+                                                                        .add(sub);
+                                                                  } else {
+                                                                    names.remove(
+                                                                      category.name,
+                                                                    );
+                                                                    selectedProfessions
+                                                                        .remove(sub);
+                                                                  }
+                                                                },
+                                                                  
+                                                                activeColor: Colors
+                                                                    .green, // the checkmark color
+                                                                checkColor:
+                                                                    Colors.white,
+                                                                side:
+                                                                    const BorderSide(
+                                                                      color: AppColors
+                                                                          .textColor,
+                                                                    ),
+                                                              ),
+                                                              Text(
+                                                                sub,
+                                                                style: TextStyle(
+                                                                  color: AppColors
+                                                                      .textColor,
+                                                                  fontSize: 14,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          );
+                                                        }).toList(),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            ),
                                           ),
                                         ],
                                       ),

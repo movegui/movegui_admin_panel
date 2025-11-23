@@ -15,6 +15,10 @@ class RestaurantModel extends StoreModel {
     required super.telephon,
     required super.contact,
     required this.restaurantType,
+     super.longitude,
+     super.latitude,
+     super.openDays,
+     super.openHours
   });
 
   @override
@@ -35,6 +39,10 @@ class RestaurantModel extends StoreModel {
         contact: json['contact'],
         createdAt: json['createdAt'] != null ? json['createdAt'].toDate() : DateTime.now(),
         restaurantType: RestaurantTypeModel.fromJson(json['restaurantType']),
+        longitude: json['longitude'],
+        latitude: json['latitude'],
+        openDays: json['openDays'],
+        openHours: json['openHours']
       );
 }
 

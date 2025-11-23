@@ -11,6 +11,7 @@ final List<RecipeModel> recipes;
   ProductModel({
     required super.id, 
     required super.name,
+    required super.createdAt,
     required this.imageUrl,
     required this.price,
     required this.recipes
@@ -28,6 +29,7 @@ final List<RecipeModel> recipes;
     factory ProductModel.fromJson(Map<String, dynamic> json) =>  ProductModel(
       id: json['id'],
       name: json['name'],
+      createdAt: json['createdAt'],
       imageUrl: json['imageUrl'],
       price: json['price'],
       recipes: json['recipes']

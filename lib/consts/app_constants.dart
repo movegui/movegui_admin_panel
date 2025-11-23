@@ -1,6 +1,6 @@
 
 
-import 'package:movegui/models/categories_model.dart';
+
 
 import '../services/assets_manager.dart';
 
@@ -15,46 +15,13 @@ class AppConstants {
 
   // [url=https://ibb.co/JM0KMG0][img]https://i.ibb.co/JM0KMG0/riz-gras.jpg[/img][/url]
 
-  static List<CategoriesModel> categoriesList = [
-    CategoriesModel(
-      id: "Phones",
-      image: AssetsManager.mobiles,
-      name: "Phones",
-    ),
-    CategoriesModel(
-      id: "Laptops",
-      image: AssetsManager.pc,
-      name: "Laptops",
-    ),
-    CategoriesModel(
-      id: "Electronics",
-      image: AssetsManager.electronics,
-      name: "Electronics",
-    ),
-    CategoriesModel(
-      id: "Watches",
-      image: AssetsManager.watch,
-      name: "Watches",
-    ),
-    CategoriesModel(
-      id: "Clothes",
-      image: AssetsManager.fashion,
-      name: "Clothes",
-    ),
-    CategoriesModel(
-      id: "Shoes",
-      image: AssetsManager.shoes,
-      name: "Shoes",
-    ),
-    CategoriesModel(
-      id: "Books",
-      image: AssetsManager.book,
-      name: "Books",
-    ),
-    CategoriesModel(
-      id: "Cosmetics",
-      image: AssetsManager.cosmetics,
-      name: "Cosmetics",
-    ),
-  ];
+static List<String> daysOfWeek = [
+  "Lundi",
+  "Mardi",
+  "Mercredi",
+  "Jeudi",
+  "Vendredi",
+  "Samdei",
+  "Dimanche",
+];
 }

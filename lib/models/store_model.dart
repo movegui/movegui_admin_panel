@@ -3,6 +3,10 @@ import 'package:movegui_admin_panel/models/model.dart';
 abstract class StoreModel extends Model {
 
   final String adresse, telephon, email, imageUrl, contact, description;
+  final double? longitude;
+  final double? latitude;
+  final String? openDays;
+  final String? openHours;
 
   StoreModel({
     required super.id,
@@ -14,6 +18,12 @@ abstract class StoreModel extends Model {
     required this.email,
     required this.imageUrl,
     required this.telephon,
+    this.longitude,
+    this.latitude,
+    this.openDays,
+    this.openHours
+
+
   
   });
 
@@ -26,6 +36,10 @@ abstract class StoreModel extends Model {
     'email': email,
     'imageUrl': imageUrl,
     'telephon': telephon,
+    'longitude': longitude,
+    'latitude': latitude,
+    'openDays': openDays,
+    'openHours': openHours
     
   };
 
