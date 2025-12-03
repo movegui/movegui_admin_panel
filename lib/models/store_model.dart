@@ -1,12 +1,14 @@
 import 'package:movegui_admin_panel/models/model.dart';
+import 'package:movegui_admin_panel/models/open_hours_model.dart';
+import 'package:movegui_admin_panel/models/person_model.dart';
 
 abstract class StoreModel extends Model {
 
-  final String adresse, telephon, email, imageUrl, contact, description;
+  final String adresse, telephon, email, imageUrl, description;
   final double? longitude;
   final double? latitude;
-  final String? openDays;
-  final String? openHours;
+  final List<PersonModel> contacts;
+  final List<OpenHours> weeklyHours;
 
   StoreModel({
     required super.id,
@@ -14,17 +16,14 @@ abstract class StoreModel extends Model {
     required super.createdAt,
     required this.description,
     required this.adresse,
-    required this.contact,
     required this.email,
     required this.imageUrl,
     required this.telephon,
+    required this.contacts,
+    required this.weeklyHours,
     this.longitude,
     this.latitude,
-    this.openDays,
-    this.openHours
 
-
-  
   });
 
   @override
@@ -32,14 +31,17 @@ abstract class StoreModel extends Model {
     ...super.toJson(),
     'description': description,
     'adresse': adresse,
-    'contact': contact,
+    'contacts': contacts.map((contact) {
+      return contact.toJson();
+    }).toList(),
     'email': email,
     'imageUrl': imageUrl,
     'telephon': telephon,
     'longitude': longitude,
     'latitude': latitude,
-    'openDays': openDays,
-    'openHours': openHours
+    'weeklyHours': weeklyHours.map((weekHour){
+       return weekHour.toJson();
+    }).toList()
     
   };
 

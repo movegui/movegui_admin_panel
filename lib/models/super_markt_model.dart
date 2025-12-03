@@ -1,3 +1,5 @@
+import 'package:movegui_admin_panel/models/open_hours_model.dart';
+import 'package:movegui_admin_panel/models/person_model.dart';
 import 'package:movegui_admin_panel/models/store_model.dart';
 
 class SuperMarktModel extends StoreModel {
@@ -7,10 +9,13 @@ class SuperMarktModel extends StoreModel {
     required super.createdAt,
     required super.description,
     required super.adresse,
-    required super.contact,
+    required super.contacts,
     required super.email,
     required super.imageUrl,
     required super.telephon,
+    required super.weeklyHours,
+    super.longitude,
+    super.latitude
 
   });
 
@@ -27,6 +32,9 @@ class SuperMarktModel extends StoreModel {
         adresse: json['adresse'],
         email: json['email'],
         telephon: json['telephon'],
-        contact: json['contact'],
+        contacts: (json['contacts'] as List? ?? [])
+            .map((e) => PersonModel.fromJson(e))
+            .toList(),
+        weeklyHours: (json['weeklyHours'] as List? ?? []).map((e) => OpenHours.fromJson(e)).toList()
       );
 }

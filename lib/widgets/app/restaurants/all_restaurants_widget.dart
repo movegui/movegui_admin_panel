@@ -93,10 +93,12 @@ class AllRestaurantsWidgetState extends State<AllRestaurantsWidget> {
                                 child: Text(
                                   restaurants[index].adresse ?? '' ),
                               ),
+                              /*
                                        Expanded(
                                 child: Text(
                                   restaurants[index].contact ?? '' ),
                               ),
+                              */
                                               Expanded(
                                 child: Text(
                                   restaurants[index].telephon ?? '' ),

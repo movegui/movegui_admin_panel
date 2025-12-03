@@ -91,9 +91,11 @@ class AllPressingWidgetPageState extends State<AllPressingWidgetPage>{
                               Expanded(
                                 child: Text(pressings[index].adresse ?? ''),
                               ),
+                              /*
                               Expanded(
                                 child: Text(pressings[index].contact ?? ''),
                               ),
+                              */
                               Expanded(
                                 child: Text(pressings[index].telephon ?? ''),
                               ),

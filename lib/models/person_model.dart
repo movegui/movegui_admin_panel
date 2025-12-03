@@ -6,7 +6,7 @@ class PersonModel extends Model {
   final String firstName;
   final String lastName;
   final String? middleName;
-  final String profileImageUrl;
+  final String? profileImageUrl;
   final String email;
   final String phone;
   final String gender;

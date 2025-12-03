@@ -3,9 +3,9 @@ import 'package:movegui_admin_panel/consts/app_constants.dart';
 
 class OpenHours {
   final String day; // e.g., "Monday"
-   TimeOfDay? openTime;
-   TimeOfDay? closeTime;
-   bool isClosed;
+  TimeOfDay? openTime;
+  TimeOfDay? closeTime;
+  bool isClosed;
 
   OpenHours({
     required this.day,
@@ -13,10 +13,52 @@ class OpenHours {
     this.closeTime,
     this.isClosed = false,
   });
-   
 
+    Map<String, dynamic> toJson() => {
+        'day': day,
+        'openTime': _timeOfDayToJson(openTime),
+        'closeTime': _timeOfDayToJson(closeTime),
+      };
 
+  static Map<String, dynamic> _timeOfDayToJson(TimeOfDay? time) => {
+        'hour': time!.hour,
+        'minute': time!.minute,
+      };
+
+  factory OpenHours.fromJson(Map<String, dynamic> json) => OpenHours(
+        day: json['day'],
+        openTime: _timeOfDayFromJson(json['openTime']),
+        closeTime: _timeOfDayFromJson(json['closeTime']),
+      );
+
+  static TimeOfDay _timeOfDayFromJson(Map<String, dynamic> json) =>
+      TimeOfDay(hour: json['hour'], minute: json['minute']);
 }
+
+      
+
+      /*
+
+  Map<String, dynamic> toJson() => {
+    'day': day,
+    'openTime': {'hours': openTime!.hour, 'minute': openTime!.minute},
+    'closeTime': {'hours': closeTime!.hour, 'minute': closeTime!.minute},
+  };
+
+  factory OpenHours.fromJson(Map<String, dynamic> json) => OpenHours(
+    day: json['day'],
+    openTime: TimeOfDay(
+      hour: json['openTime']['hours'],
+      minute: json['openTime']['minute'],
+    ),
+    closeTime: TimeOfDay(
+      hour: json['closeTime']['hours'],
+      minute: json['closeTime']['minute'],
+    ),
+  );
+  */
+
+//}
 
 class Schedule {
   final List<String> closedDays;

@@ -1,4 +1,6 @@
 import 'package:movegui_admin_panel/models/model.dart';
+import 'package:movegui_admin_panel/models/open_hours_model.dart';
+import 'package:movegui_admin_panel/models/person_model.dart';
 import 'package:movegui_admin_panel/models/store_model.dart';
 
 class RestaurantModel extends StoreModel {
@@ -13,12 +15,14 @@ class RestaurantModel extends StoreModel {
     required super.adresse,
     required super.email,
     required super.telephon,
-    required super.contact,
+    required super.contacts,
+    required super.weeklyHours,
+    super.longitude,
+    super.latitude,
     required this.restaurantType,
-     super.longitude,
-     super.latitude,
-     super.openDays,
-     super.openHours
+    
+    
+
   });
 
   @override
@@ -36,18 +40,22 @@ class RestaurantModel extends StoreModel {
         adresse: json['adresse'],
         email: json['email'],
         telephon: json['telephon'],
-        contact: json['contact'],
-        createdAt: json['createdAt'] != null ? json['createdAt'].toDate() : DateTime.now(),
+        contacts: (json['contacts'] as List? ?? [])
+            .map((e) => PersonModel.fromJson(e))
+            .toList(),
+        createdAt: json['createdAt'] != null
+            ? json['createdAt'].toDate()
+            : DateTime.now(),
         restaurantType: RestaurantTypeModel.fromJson(json['restaurantType']),
         longitude: json['longitude'],
         latitude: json['latitude'],
-        openDays: json['openDays'],
-        openHours: json['openHours']
+        weeklyHours: (json['weeklyHours'] as List? ?? [])
+            .map((e) => OpenHours.fromJson(e))
+            .toList(),
       );
 }
 
 class RestaurantTypeModel extends Model {
-
   RestaurantTypeModel({
     required super.id,
     required super.name,
@@ -64,6 +72,20 @@ class RestaurantTypeModel extends Model {
       RestaurantTypeModel(
         id: json['id'],
         name: json['name'],
-        createdAt: json['createdAt'] != null ? json['createdAt'].toDate() : DateTime.now()
+        createdAt: json['createdAt'] != null
+            ? json['createdAt'].toDate()
+            : DateTime.now(),
       );
+      
+        
+          get description => null;
+      
+     
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    return  'RestaurantModel(id: $id, name: $name, description: $description)';
+  }
+
 }

@@ -11,10 +11,13 @@ import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/validator.dart';
 import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
 import 'package:movegui_admin_panel/methods/show_alert.dart';
+import 'package:movegui_admin_panel/models/open_hours_model.dart';
+import 'package:movegui_admin_panel/models/person_model.dart';
 import 'package:movegui_admin_panel/models/super_markt_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/super_markts_service.dart';
+import 'package:movegui_admin_panel/widgets/app/add_contact_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/appbar.dart';
 import 'package:movegui_admin_panel/widgets/custom_button.dart';
 import 'package:movegui_admin_panel/widgets/custom_text_field.dart';
@@ -32,6 +35,7 @@ class SuperMarktAddWidgetPage extends StatefulWidget {
 class SuperMarktAddWidgetPageState extends State<SuperMarktAddWidgetPage> {
  
   GlobalKey<FormState> formKey = GlobalKey();
+     final GlobalKey<AddContactWidgetState> _contactWidgetKey = GlobalKey<AddContactWidgetState>();
   double? price;
   String dropdownValue = 'vegetable';
   int? _selectedValue = 1;
@@ -61,6 +65,7 @@ class SuperMarktAddWidgetPageState extends State<SuperMarktAddWidgetPage> {
   late FocusNode _companyFocusNode;
   late FocusNode _typeFocusNode;
 late FocusNode _descriptionFocusNode;
+late List<OpenHours> weeklyHours;
  
   @override
   void initState() {
@@ -84,6 +89,7 @@ late FocusNode _descriptionFocusNode;
     _companyFocusNode = FocusNode();
     _typeFocusNode = FocusNode();
     _descriptionFocusNode = FocusNode();
+    weeklyHours = [];
   }
 
   @override
@@ -173,7 +179,7 @@ late FocusNode _descriptionFocusNode;
                                           ],
                                         ),
                                         */
-
+                                        /*
                                         Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
@@ -466,6 +472,7 @@ late FocusNode _descriptionFocusNode;
                                             ),
                                           ],
                                         ),
+                                        */
                                       ],
                                     ),
                                   ),
@@ -482,6 +489,7 @@ late FocusNode _descriptionFocusNode;
                                   final form = formKey.currentState;
                                   if (form != null && form.validate()) {
                                     form.save();
+                                    List<PersonModel> contacts =   (_contactWidgetKey.currentState?.getContacts() ?? <PersonModel>[]) as List<PersonModel>;
                                     final _uuid = const Uuid().v4();
                                     try {
                                       if (_pickedImage != null) {
@@ -498,8 +506,9 @@ late FocusNode _descriptionFocusNode;
                                             adresse: _adresseController.text,
                                             telephon: _telephonController.text,
                                             email: _emailController.text,
-                                            contact: _contactController.text,
+                                            contacts: contacts,
                                             imageUrl: imageUrl,
+                                            weeklyHours: weeklyHours
                                           
                                           );
                                               superMarktsService.addModel(superMarkt);

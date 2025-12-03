@@ -89,9 +89,11 @@ class AllPatisserieWidgetState extends State<AllPatisserieWidget> {
                               Expanded(
                                 child: Text(patisseries[index].adresse ?? ''),
                               ),
+                              /*
                               Expanded(
                                 child: Text(patisseries[index].contact ?? ''),
                               ),
+                              */
                               Expanded(
                                 child: Text(patisseries[index].telephon ?? ''),
                               ),
