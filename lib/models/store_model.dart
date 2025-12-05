@@ -9,6 +9,7 @@ abstract class StoreModel extends Model {
   final double? latitude;
   final List<PersonModel> contacts;
   final List<OpenHours> weeklyHours;
+  final StoreTypeModel storeType;
 
   StoreModel({
     required super.id,
@@ -21,9 +22,10 @@ abstract class StoreModel extends Model {
     required this.telephon,
     required this.contacts,
     required this.weeklyHours,
+    required this.storeType,
     this.longitude,
     this.latitude,
-
+    
   });
 
   @override
@@ -41,7 +43,8 @@ abstract class StoreModel extends Model {
     'latitude': latitude,
     'weeklyHours': weeklyHours.map((weekHour){
        return weekHour.toJson();
-    }).toList()
+    }).toList(),
+    'storeType': storeType!.toJson()
     
   };
 
@@ -60,3 +63,41 @@ abstract class StoreModel extends Model {
     */
 
 }
+
+
+ abstract class StoreTypeModel extends Model {
+  StoreTypeModel({
+    required super.id,
+    required super.name,
+    required super.createdAt,
+  });
+
+  @override
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'name': name,
+    'createdAt': createdAt,
+  };
+
+/*
+  factory StoreTypeModel.fromJson(Map<String, dynamic> json) =>
+      StoreTypeModel(
+        id: json['id'],
+        name: json['name'],
+        createdAt: json['createdAt'] != null
+            ? json['createdAt'].toDate()
+            : DateTime.now(),
+      );
+      */
+        
+      
+     
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    return  'RestaurantModel(id: $id, name: $name, createdAt: $createdAt)';
+  }
+
+}
+

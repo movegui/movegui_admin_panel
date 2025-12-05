@@ -97,9 +97,11 @@ class AllIngredientsWidgetState extends State<AllIngredientsWidgetPage> {
                                       Expanded(
                                 child: Text(ingredients[index].category!.name),
                               ),
+                              /*
                                       Expanded(
                                 child: Text(ingredients[index].supplier!.company),
                               ),
+                              */
                                       Expanded(
                                 child: Text(ingredients[index].unit),
                               ),

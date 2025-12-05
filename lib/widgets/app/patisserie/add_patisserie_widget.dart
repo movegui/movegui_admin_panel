@@ -15,6 +15,7 @@ import 'package:movegui_admin_panel/models/categories_model.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
 import 'package:movegui_admin_panel/models/patisserie_model.dart';
 import 'package:movegui_admin_panel/models/person_model.dart';
+import 'package:movegui_admin_panel/models/restaurant_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/services/categories_service.dart';
 import 'package:movegui_admin_panel/services/patisseries_service.dart';
@@ -71,6 +72,7 @@ class PatisserieAddWidgetPageState extends State<PatisserieAddWidgetPage> {
   late FocusNode _typeFocusNode;
 late FocusNode _descriptionFocusNode;
 late List<OpenHours> weeklyHours;
+ late RestaurantTypeModel selectedRestaurantType;
  
   @override
   void initState() {
@@ -518,7 +520,8 @@ late List<OpenHours> weeklyHours;
                                             category: categories.isEmpty ? 
                                             CategoriesModel(id: const Uuid().v4(), name: 'Patisserie', createdAt: DateTime.now())
                                             : categories[0],
-                                            weeklyHours: weeklyHours
+                                            weeklyHours: weeklyHours,
+                                            storeType: selectedRestaurantType
                                           );
                                               patisseriesService.addModel(patisserie);
 

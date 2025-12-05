@@ -14,6 +14,7 @@ import 'package:movegui_admin_panel/methods/show_alert.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
 import 'package:movegui_admin_panel/models/person_model.dart';
 import 'package:movegui_admin_panel/models/pressing_model.dart';
+import 'package:movegui_admin_panel/models/restaurant_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/services/pressing_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
@@ -67,6 +68,7 @@ class PressingAddWidgetPageState extends State<PressingAddWidgetPage>{
   late FocusNode _typeFocusNode;
 late FocusNode _descriptionFocusNode;
 late List<OpenHours> weeklyHours;
+ late RestaurantTypeModel selectedRestaurantType;
  
   @override
   void initState() {
@@ -513,7 +515,9 @@ late List<OpenHours> weeklyHours;
                                             email: _emailController.text,
                                             contacts: contacts,
                                             imageUrl: imageUrl,
-                                            weeklyHours: weeklyHours
+                                            weeklyHours: weeklyHours,
+                                            storeType: selectedRestaurantType
+                                            
                                     
                                           );
                                               pressingService.addModel(pressing);

@@ -11,8 +11,10 @@ import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/validator.dart';
 import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
 import 'package:movegui_admin_panel/methods/show_alert.dart';
+import 'package:movegui_admin_panel/models/categories_model.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
 import 'package:movegui_admin_panel/models/person_model.dart';
+import 'package:movegui_admin_panel/models/restaurant_model.dart';
 import 'package:movegui_admin_panel/models/super_markt_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
@@ -66,6 +68,8 @@ class SuperMarktAddWidgetPageState extends State<SuperMarktAddWidgetPage> {
   late FocusNode _typeFocusNode;
 late FocusNode _descriptionFocusNode;
 late List<OpenHours> weeklyHours;
+ late RestaurantTypeModel selectedRestaurantType;
+ late CategoriesModel categoriesModel;
  
   @override
   void initState() {
@@ -90,6 +94,7 @@ late List<OpenHours> weeklyHours;
     _typeFocusNode = FocusNode();
     _descriptionFocusNode = FocusNode();
     weeklyHours = [];
+    categoriesModel = CategoriesModel(id: '0114', name: 'jjo', createdAt: DateTime.now());
   }
 
   @override
@@ -508,7 +513,9 @@ late List<OpenHours> weeklyHours;
                                             email: _emailController.text,
                                             contacts: contacts,
                                             imageUrl: imageUrl,
-                                            weeklyHours: weeklyHours
+                                            weeklyHours: weeklyHours,
+                                            storeType: selectedRestaurantType, 
+                                            category: categoriesModel
                                           
                                           );
                                               superMarktsService.addModel(superMarkt);

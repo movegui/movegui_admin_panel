@@ -457,6 +457,7 @@ class ProfessionnelAddWidgetPageState
                                                   i < personImages.length;
                                                   i++
                                                 ) {
+                                                  /*
                                                   final  professionnel =
                                                       ProfessionnelModel(
                                                         id: _uuid,
@@ -473,6 +474,7 @@ class ProfessionnelAddWidgetPageState
                                   
                                                   await professionnelService
                                                       .addModel(professionnel);   
+                                                      */
                                                       
 
                                                   setState(() {

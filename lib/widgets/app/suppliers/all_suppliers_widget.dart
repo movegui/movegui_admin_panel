@@ -101,9 +101,11 @@ class AllSuppliersWidgetState extends State<AllSuppliersWidgetPage> {
                               Expanded(
                                 child: Text(suppliers[index].name),
                               ),
+                              /*
                                       Expanded(
                                 child: Text(suppliers[index].company),
                               ),
+                              */
                                       Expanded(
                                 child: Text(suppliers[index].adresse),
                               ),

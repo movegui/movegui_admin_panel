@@ -1,6 +1,7 @@
 import 'package:movegui_admin_panel/models/categories_model.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
 import 'package:movegui_admin_panel/models/person_model.dart';
+import 'package:movegui_admin_panel/models/restaurant_model.dart';
 import 'package:movegui_admin_panel/models/store_model.dart';
 
 class PatisserieModel extends StoreModel {
@@ -16,6 +17,7 @@ class PatisserieModel extends StoreModel {
     required super.imageUrl,
     required super.telephon,
     required super.weeklyHours,
+    required super.storeType,
     super.longitude,
     super.latitude,
     required this.category,
@@ -41,6 +43,7 @@ class PatisserieModel extends StoreModel {
             .toList(),
         category: CategoriesModel.fromJson(json['category']),
         createdAt: json['createdAt'] != null ? json['createdAt'].toDate() : DateTime.now(),
-        weeklyHours: (json['weeklyHours'] as List? ?? []).map((e) => OpenHours.fromJson(e)).toList()
+        weeklyHours: (json['weeklyHours'] as List? ?? []).map((e) => OpenHours.fromJson(e)).toList(),
+         storeType: RestaurantTypeModel.fromJson(json['storeType']),
       );
 }

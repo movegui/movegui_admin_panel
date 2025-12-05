@@ -4,7 +4,7 @@ import 'package:movegui_admin_panel/models/person_model.dart';
 import 'package:movegui_admin_panel/models/store_model.dart';
 
 class RestaurantModel extends StoreModel {
-  final RestaurantTypeModel restaurantType;
+//  final RestaurantTypeModel restaurantType;
 
   RestaurantModel({
     required super.id,
@@ -19,7 +19,7 @@ class RestaurantModel extends StoreModel {
     required super.weeklyHours,
     super.longitude,
     super.latitude,
-    required this.restaurantType,
+    required super.storeType,
     
     
 
@@ -28,7 +28,7 @@ class RestaurantModel extends StoreModel {
   @override
   Map<String, dynamic> toJson() => {
     ...super.toJson(),
-    'restaurantType': restaurantType.toJson(),
+   // 'restaurantType': sto.toJson(),
   };
 
   factory RestaurantModel.fromJson(Map<String, dynamic> json) =>
@@ -46,7 +46,7 @@ class RestaurantModel extends StoreModel {
         createdAt: json['createdAt'] != null
             ? json['createdAt'].toDate()
             : DateTime.now(),
-        restaurantType: RestaurantTypeModel.fromJson(json['restaurantType']),
+        storeType: RestaurantTypeModel.fromJson(json['storeType']),
         longitude: json['longitude'],
         latitude: json['latitude'],
         weeklyHours: (json['weeklyHours'] as List? ?? [])
@@ -55,17 +55,16 @@ class RestaurantModel extends StoreModel {
       );
 }
 
-class RestaurantTypeModel extends Model {
+class RestaurantTypeModel extends StoreTypeModel {
   RestaurantTypeModel({
     required super.id,
     required super.name,
     required super.createdAt,
   });
 
+  @override
   Map<String, dynamic> toJson() => {
-    'id': id,
-    'name': name,
-    'createdAt': createdAt,
+    ...super.toJson()
   };
 
   factory RestaurantTypeModel.fromJson(Map<String, dynamic> json) =>
@@ -78,14 +77,11 @@ class RestaurantTypeModel extends Model {
       );
       
         
-          get description => null;
-      
-     
 
   @override
   String toString() {
     // TODO: implement toString
-    return  'RestaurantModel(id: $id, name: $name, description: $description)';
+    return  'RestaurantModel(id: $id, name: $name, createdAt: $createdAt)';
   }
 
 }

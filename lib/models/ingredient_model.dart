@@ -45,7 +45,7 @@ factory IngredientModel.fromJson(Map<String, dynamic> json) => IngredientModel (
   unit: json['unit'],
   isAllergic: json['isAllergic'],
   category: CategoryIngredient.fromJson(json['category']),
-  supplier: SupplierIngredients.fromJson(json['supplier']),
+  supplier: null,//SupplierIngredients.fromJson(json['supplier']),
   createdAt: json['createdAt'] != null ? json['createdAt'].toDate() : DateTime.now()
   );
   
