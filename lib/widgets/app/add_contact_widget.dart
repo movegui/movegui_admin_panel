@@ -1,10 +1,10 @@
-
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/models/person_model.dart';
 import 'package:movegui_admin_panel/services/professionnel_service.dart';
 import 'package:movegui_admin_panel/widgets/add_person_widget.dart';
@@ -74,30 +74,38 @@ class AddContactWidgetState extends State<AddContactWidget> {
   }
 
   // ✅ Expose contact data as a list of maps or a model
- Future<List<PersonModel>> getContacts() async {
-  List<PersonModel> contacts = [];
+  Future<List<PersonModel>> getContacts() async {
+    List<PersonModel> contacts = [];
 
-  for (int i = 0; i < firstNames.length; i++) {
-    contacts.add(PersonModel(
-      id: const Uuid().v4(),
-      firstName: firstNames[i].text,
-      lastName: lastNames[i].text,
-      name: "${firstNames[i].text} ${lastNames[i].text}",
-      createdAt: DateTime.now(),
-      middleName: middleNames[i].text.isEmpty ? null : middleNames[i].text,
-      profileImageUrl: await _uploadImageToFirebase(Uint8List(8), images[i]),
-      birthDate: birthdates[i],
-      address: addresses[i].text,
-      email: emails[i].text,
-      phone: phones[i].text,
-      gender: genders[i],
-    //  image: images[i],
-    ));
+    for (int i = 0; i < firstNames.length; i++) {
+      contacts.add(
+        PersonModel(
+          id: const Uuid().v4(),
+          firstName: firstNames[i].text,
+          lastName: lastNames[i].text,
+          name: "${firstNames[i].text} ${lastNames[i].text}",
+          createdAt: DateTime.now(),
+          middleName: middleNames[i].text.isEmpty ? null : middleNames[i].text,
+          profileImageUrl: await _uploadImageToFirebase(
+            Uint8List(8),
+            images[i],
+          ),
+          birthDate: birthdates[i],
+          address: addresses[i].text,
+          email: emails[i].text,
+          phone: phones[i].text,
+          gender: genders[i],
+          //  image: images[i],
+        ),
+      );
+    }
+    return contacts;
   }
-  return contacts;
- }
 
-   Future<String?> _uploadImageToFirebase(Uint8List webImage ,File? _pickedImage ) async {
+  Future<String?> _uploadImageToFirebase(
+    Uint8List webImage,
+    File? _pickedImage,
+  ) async {
     try {
       final storage = FirebaseStorage.instance;
 
@@ -135,49 +143,60 @@ class AddContactWidgetState extends State<AddContactWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var Size = MediaQuery.of(context).size;
+    double FontSize = Size.width < 600 ? 18 : 28;
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: firstNames.length,
       itemBuilder: (context, index) {
-        return Column(
-          children: [
-            AddPersonWidget(
-              formKey: formKeys[index],
-              firstNameController: firstNames[index],
-              lastNameController: lastNames[index],
-              middleNameController: middleNames[index],
-              adresseController: addresses[index],
-              emailController: emails[index],
-              telephonController: phones[index],
-              selectedGender: genders[index],
-              onGenderChanged: (value) {
-                setState(() => genders[index] = value!);
-              },
-              onBirthDateChanged: (value) {
-                setState(() => birthdates[index] = value!);
-              },
-              onImagePicked: (file) {
-                setState(() => images[index] = file);
-              },
+        return Center(
+          child: Container(
+            width: Size.width * 0.6,
+            //   height: Size.height * 0.3,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              color: AppColors.backgroundColor, //Colors.grey.withOpacity(0.3),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Column(
               children: [
-                ElevatedButton(
-                  onPressed: _addPerson,
-                  child: const Text("+ Ajouter un Contact"),
+                AddPersonWidget(
+                  formKey: formKeys[index],
+                  firstNameController: firstNames[index],
+                  lastNameController: lastNames[index],
+                  middleNameController: middleNames[index],
+                  adresseController: addresses[index],
+                  emailController: emails[index],
+                  telephonController: phones[index],
+                  selectedGender: genders[index],
+                  onGenderChanged: (value) {
+                    setState(() => genders[index] = value!);
+                  },
+                  onBirthDateChanged: (value) {
+                    setState(() => birthdates[index] = value!);
+                  },
+                  onImagePicked: (file) {
+                    setState(() => images[index] = file);
+                  },
                 ),
-                IconButton(
-                  onPressed: () => _removePerson(index),
-                  icon: const Icon(Icons.delete, color: Colors.red),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ElevatedButton(
+                      onPressed: _addPerson,
+                      child: const Text("+ Ajouter un Contact"),
+                    ),
+                    IconButton(
+                      onPressed: () => _removePerson(index),
+                      icon: const Icon(Icons.delete, color: Colors.red),
+                    ),
+                  ],
                 ),
               ],
             ),
-          ],
+          ),
         );
       },
     );
   }
 }
-

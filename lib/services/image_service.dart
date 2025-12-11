@@ -3,10 +3,11 @@ import 'dart:typed_data';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ImageService {
 
-    Future<String?> uploadImage({
+     Future<String?> uploadImage({
     required File? file,
     required Uint8List? webBytes,
     required String collectionName,
@@ -33,6 +34,30 @@ class ImageService {
 
     return await (await task).ref.getDownloadURL();
   }
+
+
+    static Future<Map<String?, dynamic>?>pickAnImage() async {
+   
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if(image == null) {
+        return null;
+      } else if(kIsWeb){
+        final bytes = await image.readAsBytes();
+        return {
+          "webImage": bytes,
+          "file": File('a')
+        };
+      }else {
+              return {
+        "webImage": null,
+        "file": File(image.path),
+      };
+      }
+
+  }
+
+  
 
 
 }

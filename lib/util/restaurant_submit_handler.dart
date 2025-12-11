@@ -1,9 +1,10 @@
 import 'package:movegui_admin_panel/models/restaurant_model.dart';
+import 'package:movegui_admin_panel/services/restaurants_service.dart';
 import 'package:movegui_admin_panel/util/store_form_controller.dart';
 import 'package:movegui_admin_panel/util/store_submit_hadler.dart';
 import 'package:uuid/uuid.dart';
 
-class RestaurantSubmitHandler extends StoreSubmitHadler{
+class RestaurantSubmitHandler extends StoreSubmitHadler<RestaurantModel, RestaurantsService>{
   RestaurantSubmitHandler({required super.service, required super.imageService, required super.collectionName});
 
    @override

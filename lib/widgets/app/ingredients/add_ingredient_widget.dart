@@ -152,6 +152,7 @@ class IngredientsUploaWidgetdstate extends State<IngredientsAddWidgetPage> {
                                                                     newValue;
                                                               });
                                                             },
+                                                            title: 'Ingredients Type',
                                                       ),
                                                     ],
                                                   ),
@@ -182,6 +183,7 @@ class IngredientsUploaWidgetdstate extends State<IngredientsAddWidgetPage> {
                                                                     newValue;
                                                               });
                                                             },
+                                                              title: 'Ingredients Type',
                                                       ),
                                                     ],
                                                   ),
@@ -214,6 +216,7 @@ class IngredientsUploaWidgetdstate extends State<IngredientsAddWidgetPage> {
                                                                 newValue;
                                                           });
                                                         },
+                                                          title: 'Ingredients Type',
                                                   ),
 
                                                   SizedBox(height: 18),
@@ -237,6 +240,7 @@ class IngredientsUploaWidgetdstate extends State<IngredientsAddWidgetPage> {
                                                                 newValue;
                                                           });
                                                         },
+                                                          title: 'Ingredients Type',
                                                   ),
                                                 ],
                                               ),

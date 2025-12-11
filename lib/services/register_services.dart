@@ -7,13 +7,15 @@ import 'package:movegui_admin_panel/services/pressing_service.dart';
 import 'package:movegui_admin_panel/services/professionnel_service.dart';
 import 'package:movegui_admin_panel/services/restaurant_type_service.dart';
 import 'package:movegui_admin_panel/services/restaurants_service.dart';
+import 'package:movegui_admin_panel/services/store_categories_service.dart';
 import 'package:movegui_admin_panel/services/super_markts_service.dart';
 import 'package:movegui_admin_panel/services/suppliers_service.dart';
 
 final getIt = GetIt.instance;
 
 void initServices(){
-  getIt.registerLazySingleton<CategoriesService>(() => CategoriesService());
+ // getIt.registerLazySingleton<CategoriesService>(() => CategoriesService());
+  getIt.registerLazySingleton<StoreCategoriesService>(() => StoreCategoriesService());
   getIt.registerLazySingleton<SuppliersService>(() => SuppliersService());
   getIt.registerLazySingleton<IngredientsService>(() => IngredientsService());
   getIt.registerLazySingleton<RestaurantsService>(() => RestaurantsService());

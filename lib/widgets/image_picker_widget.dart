@@ -1,43 +1,95 @@
 import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:movegui_admin_panel/consts/app_colors.dart';
 
-class ImagePickerWidget extends StatelessWidget{
-
-    final File? pickedImage;
+class ImagePickerWidget extends StatelessWidget {
   final Uint8List? webImage;
-  final VoidCallback onPick;
-  final VoidCallback onRemove;
+  final File? pickedImage;
+  final double width;
+  final double height;
+  final VoidCallback onPickImage;
+  final VoidCallback onRemoveImage;
+  final Color bgColor;
+  // final String chooseText;
 
   const ImagePickerWidget({
     super.key,
-    required this.pickedImage,
     required this.webImage,
-    required this.onPick,
-    required this.onRemove,
+    required this.pickedImage,
+    required this.onPickImage,
+    required this.onRemoveImage,
+    this.width = 250,
+    this.height = 300,
+    this.bgColor = const Color.fromARGB(90, 158, 158, 158),
+    //   this.chooseText = "Choose an image",
   });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        pickedImage == null && (webImage == null || webImage!.isEmpty)
-            ? Icon(Icons.image, size: 120)
-            : kIsWeb
-                ? Image.memory(webImage!, height: 120)
-                : Image.file(pickedImage!, height: 120),
-
-        ElevatedButton.icon(
-          onPressed: onPick,
-          icon: Icon(Icons.upload),
-          label: Text("Pick Image"),
-        ),
-        if (pickedImage != null || (webImage != null && webImage!.isNotEmpty))
-          TextButton(onPressed: onRemove, child: Text("Remove")),
-      ],
+    var Size = MediaQuery.of(context).size;
+    double FontSize = Size.width < 600 ? 18 : 28;
+    return Container(
+      width: width,
+      height: height,
+      padding: const EdgeInsets.all(6),
+      decoration: BoxDecoration(
+        color: bgColor,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: pickedImage != null || webImage != null
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: kIsWeb
+                      ? Image.memory(
+                          webImage!,
+                          width: width - 10,
+                          height: height - 80,
+                          fit: BoxFit.fill,
+                        )
+                      : Image.file(
+                          pickedImage!,
+                          width: width - 10,
+                          height: height - 80,
+                          fit: BoxFit.fill,
+                        ),
+                ),
+                TextButton(
+                  onPressed: onRemoveImage,
+                  child: const Text(
+                    'supprimer',
+                    style: TextStyle(color: Colors.red, fontSize: 18),
+                  ),
+                ),
+                TextButton(
+                  onPressed: onPickImage,
+                  child: const Text(
+                    'Changer l\'image',
+                    style: TextStyle(fontSize: 18, color: Colors.blue),
+                  ),
+                ),
+              ],
+            )
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  onPressed: onPickImage,
+                  icon: const Icon(Icons.image_outlined),
+                ),
+                Text(
+                  'Choisir une image',
+                  style: TextStyle(
+                    fontSize: FontSize,
+                    color: AppColors.textColor,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
     );
   }
 }

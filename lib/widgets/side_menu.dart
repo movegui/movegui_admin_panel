@@ -10,6 +10,7 @@ import 'package:movegui_admin_panel/screens/pressing_screen.dart';
 import 'package:movegui_admin_panel/screens/product_screen.dart';
 import 'package:movegui_admin_panel/screens/professionel_screen.dart';
 import 'package:movegui_admin_panel/screens/restaurant_type_screen.dart';
+import 'package:movegui_admin_panel/screens/store_categories_screen.dart';
 import 'package:movegui_admin_panel/screens/super_markt_screen.dart';
 import 'package:movegui_admin_panel/screens/supplier_screen.dart';
 import 'package:movegui_admin_panel/screens/login_screen.dart';
@@ -29,6 +30,8 @@ import 'package:movegui_admin_panel/widgets/app/restaurants/add_restaurant_type.
 import 'package:movegui_admin_panel/widgets/app/restaurants/add_restaurants_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/restaurants/all_restaurant_type_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/restaurants/all_restaurants_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/store/add_store_categories_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/store/all_store_categories_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/superMartkt/add_super_markt_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/superMartkt/all_super_markt_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/suppliers/add_suppliers_widget.dart';
@@ -180,8 +183,8 @@ class _SideMenuState extends State<SideMenu> {
             icon: Icons.icecream,
           ),
 
-          DrawerListTile(
-            title: "Restaurants Type",
+                              DrawerListTile(
+            title: " Store Type",
             press: () {
               Navigator.pushReplacement(
                 context,
@@ -190,7 +193,7 @@ class _SideMenuState extends State<SideMenu> {
                     pageScreen: RestaurantTypePage(
                       addModelWidget: RestaurantTypeAddWidgetPage(),
                       allModelWidget: AllRestaurantTypeWidgetPage(),
-                      title: 'Restaurants Types',
+                      title: ' Store Type',
                     ),
                   ),
                 ),
@@ -198,6 +201,27 @@ class _SideMenuState extends State<SideMenu> {
             },
             icon: Icons.icecream,
           ),
+
+
+          DrawerListTile(
+            title: "Store Categories",
+            press: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const StoreCategoriesScreen(
+                    pageScreen: StoreCategoriesPage(
+                      addModelWidget: StoreCategoriesAddWidgetPage(),
+                      allModelWidget: AllStoreCatgoriesWidgetPage(),
+                      title: 'Store Categories',
+                    ),
+                  ),
+                ),
+              );
+            },
+            icon: Icons.icecream,
+          ),
+
 
           DrawerListTile(
             title: "Patisserie",

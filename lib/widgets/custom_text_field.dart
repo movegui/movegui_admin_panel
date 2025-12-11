@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
 
+// ignore: must_be_immutable
 class CustomTextField extends StatelessWidget {
   CustomTextField({
-    Key? key,
+    super.key,
     this.hintText,
     this.inputType,
     this.onChanged,
@@ -21,7 +22,7 @@ class CustomTextField extends StatelessWidget {
     this.icon,
     this.labelText,
     this.maxLines,
-  }) : super(key: key);
+  });
 
   Function(String)? onChanged;
   String? hintText;

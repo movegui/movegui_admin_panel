@@ -1,9 +1,10 @@
 import 'package:movegui_admin_panel/models/pressing_model.dart';
+import 'package:movegui_admin_panel/services/pressing_service.dart';
 import 'package:movegui_admin_panel/util/store_form_controller.dart';
 import 'package:movegui_admin_panel/util/store_submit_hadler.dart';
 import 'package:uuid/uuid.dart';
 
-class PressingSubmitHandler extends StoreSubmitHadler{
+class PressingSubmitHandler extends StoreSubmitHadler<PressingModel, PressingService>{
 
   PressingSubmitHandler({
     required super.service,

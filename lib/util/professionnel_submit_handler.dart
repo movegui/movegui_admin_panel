@@ -1,10 +1,11 @@
 import 'package:movegui_admin_panel/models/categories_model.dart';
 import 'package:movegui_admin_panel/models/professionnel_model.dart';
+import 'package:movegui_admin_panel/services/professionnel_service.dart';
 import 'package:movegui_admin_panel/util/store_form_controller.dart';
 import 'package:movegui_admin_panel/util/store_submit_hadler.dart';
 import 'package:uuid/uuid.dart';
 
-class ProfessionnelSubmitHandler extends StoreSubmitHadler{
+class ProfessionnelSubmitHandler extends StoreSubmitHadler<ProfessionnelModel, ProfessionnelService>{
   final List<String> professions;
   final CategoriesModel categoriesModel;
   ProfessionnelSubmitHandler({

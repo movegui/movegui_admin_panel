@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:movegui_admin_panel/models/categories_model.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
 import 'package:movegui_admin_panel/models/person_model.dart';
 import 'package:movegui_admin_panel/models/restaurant_model.dart';
@@ -25,6 +26,7 @@ class StoreFormController {
   File? pickedImage;
   Uint8List? webImage;
   StoreTypeModel? selectedType;
+  CategoriesModel? categoriesModel;
 
   void dispose() {
     name.dispose();

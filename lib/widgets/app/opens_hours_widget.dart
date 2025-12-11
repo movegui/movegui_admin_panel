@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/app_constants.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
 
@@ -68,6 +69,8 @@ class _WeeklyHoursScreenState extends State<OpenHoursWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var Size = MediaQuery.of(context).size;
+    double FontSize = Size.width < 600 ? 18 : 28;
     return ListView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
@@ -85,7 +88,15 @@ class _WeeklyHoursScreenState extends State<OpenHoursWidget> {
             ? weeklyHours[second]
             : null;
 
-        return Row(
+        return   Center(
+          child: Container(
+            width: Size.width * 0.6,
+            //   height: Size.height * 0.3,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              color: AppColors.backgroundColor, //Colors.grey.withOpacity(0.3),
+            ),
+            child:Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
@@ -217,6 +228,8 @@ class _WeeklyHoursScreenState extends State<OpenHoursWidget> {
                   : SizedBox.shrink(),
             ),
           ],
+        )
+          )
         );
       },
     );

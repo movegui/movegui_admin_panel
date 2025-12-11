@@ -1,11 +1,12 @@
 import 'package:movegui_admin_panel/models/categories_model.dart';
 import 'package:movegui_admin_panel/models/pressing_model.dart';
 import 'package:movegui_admin_panel/models/super_markt_model.dart';
+import 'package:movegui_admin_panel/services/super_markts_service.dart';
 import 'package:movegui_admin_panel/util/store_form_controller.dart';
 import 'package:movegui_admin_panel/util/store_submit_hadler.dart';
 import 'package:uuid/uuid.dart';
 
-class SuperMarktSubmitHandler extends StoreSubmitHadler{
+class SuperMarktSubmitHandler extends StoreSubmitHadler<SuperMarktModel, SuperMarktsService>{
   final CategoriesModel categoriesModel;
   
   SuperMarktSubmitHandler({

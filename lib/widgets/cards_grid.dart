@@ -20,7 +20,8 @@ class _CardsGridState extends State<CardsGrid> {
     'Produit',
     'Menu',
     'Restaurant',
-    'Restaurant Types',
+    'Store Types',
+    'Store Categories',
     'Patisserie',
     'Super Marchés',
     'Pressing',
@@ -34,6 +35,7 @@ class _CardsGridState extends State<CardsGrid> {
       restaurantMenus = 0,
       restaurants = 0,
       restaurantsType = 0,
+      storeCategories = 0,
       patisseries = 0,
       superMarkts = 0,
       pressings = 0,
@@ -123,6 +125,16 @@ class _CardsGridState extends State<CardsGrid> {
         });
 
     FirebaseFirestore.instance
+        .collection('store_category_model')
+        .snapshots(includeMetadataChanges: true)
+        .first
+        .then((storeCategoriesSnapshot) {
+          setState(() {
+            storeCategories = storeCategoriesSnapshot.docs.length;
+          });
+        });
+
+    FirebaseFirestore.instance
         .collection('patisseries_model')
         .snapshots(includeMetadataChanges: true)
         .first
@@ -184,6 +196,7 @@ class _CardsGridState extends State<CardsGrid> {
     values.add(restaurantMenus.toString());
     values.add(restaurants.toString());
     values.add(restaurantsType.toString());
+    values.add(storeCategories.toString());
     values.add(patisseries.toString());
     values.add(superMarkts.toString());
     values.add(pressings.toString());
