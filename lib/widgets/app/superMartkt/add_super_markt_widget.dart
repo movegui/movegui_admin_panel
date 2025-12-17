@@ -44,10 +44,11 @@ class SuperMarktAddWidgetPage extends StatefulWidget {
 class SuperMarktAddWidgetPageState extends State<SuperMarktAddWidgetPage> {
   final formController = StoreFormController();
   final formKey = GlobalKey<FormState>();
+      final GlobalKey<AddContactWidgetState> addContactKey = GlobalKey();
+  final GlobalKey<WeeklyHoursScreenState> addOpenHoursKey = GlobalKey();
   bool isLoading = false;
   late SuperMarktsService superMarktsService;
   late RestaurantTypeService restaurantTypeService;
-  late List<OpenHours> weeklyHours;
   late SuperMarktConstants superMarktConstants;
   late StoreCategoriesService storeCategoriesService;
 
@@ -57,8 +58,7 @@ class SuperMarktAddWidgetPageState extends State<SuperMarktAddWidgetPage> {
     storeCategoriesService = getIt<StoreCategoriesService>();
     restaurantTypeService = getIt<RestaurantTypeService>();
     super.initState();
-    weeklyHours = [];
-    superMarktConstants = SuperMarktConstants();
+        superMarktConstants = SuperMarktConstants();
   }
 
   late final submitHandler = SuperMarktSubmitHandler(
@@ -80,8 +80,22 @@ class SuperMarktAddWidgetPageState extends State<SuperMarktAddWidgetPage> {
     setState(() => isLoading = true);
 
     try {
-      await submitHandler.submit(form: formController);
-      showAlertBar(context, superMarktConstants.getSaveSuccessText());
+                 formController.contacts = await addContactKey.currentState!.getContacts();
+      //  formController.weeklyHours = await addOpenHoursKey.currentState!.getOpenHours();
+      if (formController.weeklyHours.isNotEmpty &&
+          formController.contacts.isNotEmpty &&
+          formController.selectedType != null) {
+        print('jetz drin ......................');
+        await submitHandler.submit(form: formController);
+        showAlertBar(context, superMarktConstants.getSaveSuccessText());
+        addContactKey.currentState!.clear();
+        addOpenHoursKey.currentState!.resetOpenHours();
+        formController.clear();
+        /*
+        formController.dispose();
+        addContactKey.currentState!.dispose();
+        */
+      }
     } catch (e) {
       showBtmAlert(context, e.toString());
     }
@@ -193,7 +207,7 @@ class SuperMarktAddWidgetPageState extends State<SuperMarktAddWidgetPage> {
                     onRemoveImage: () {
                       setState(() {
                         formController.pickedImage = null;
-                        formController.webImage = Uint8List(8);
+                        formController.webImage = null;
                       });
                     },
                   ),
@@ -202,6 +216,7 @@ class SuperMarktAddWidgetPageState extends State<SuperMarktAddWidgetPage> {
                 Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: AddContactWidget(
+                    key: addContactKey,
                             onContactsChanged: (contacts) {
                       setState(() {
                         formController.contacts = contacts;
@@ -213,12 +228,13 @@ class SuperMarktAddWidgetPageState extends State<SuperMarktAddWidgetPage> {
                 Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: OpenHoursWidget(
+                    key: addOpenHoursKey,
                     onHoursChanged: (hours) {
                       setState(() {
                         print(
                           'hours is: ${hours.map((e) => (e.closeTime != null && e.openTime != null) ? e.toJson() : {}).toList()}',
                         );
-                        weeklyHours = hours; // Or whatever handling you want
+                        formController.weeklyHours = hours; // Or whatever handling you want
                       });
                     },
                   ),
