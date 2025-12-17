@@ -42,10 +42,11 @@ class SuppliersUploaWidgetdstate extends State<SupplierAddWidgetPage> {
 
  final formController = StoreFormController();
   final formKey = GlobalKey<FormState>();
+  final GlobalKey<AddContactWidgetState> addContactKey = GlobalKey();
+  final GlobalKey<WeeklyHoursScreenState> addOpenHoursKey = GlobalKey();
   bool isLoading = false;
   late SuppliersService suppliersService;
   late RestaurantTypeService restaurantTypeService;
-  late List<OpenHours> weeklyHours;
   late SupplierConstants supplierConstants;
 
   @override
@@ -54,7 +55,6 @@ class SuppliersUploaWidgetdstate extends State<SupplierAddWidgetPage> {
     restaurantTypeService = getIt<RestaurantTypeService>();
     supplierConstants = SupplierConstants();
     super.initState();
-    weeklyHours = [];
   }
 
   late final submitHandler = SupplierSubmitHandler(
@@ -75,8 +75,22 @@ class SuppliersUploaWidgetdstate extends State<SupplierAddWidgetPage> {
     setState(() => isLoading = true);
 
     try {
-      await submitHandler.submit(form: formController);
-      showAlertBar(context, supplierConstants.getSaveSuccessText());
+           formController.contacts = await addContactKey.currentState!.getContacts();
+      //  formController.weeklyHours = await addOpenHoursKey.currentState!.getOpenHours();
+      if (formController.weeklyHours.isNotEmpty &&
+          formController.contacts.isNotEmpty &&
+          formController.selectedType != null) {
+        print('jetz drin ......................');
+        await submitHandler.submit(form: formController);
+        showAlertBar(context, supplierConstants.getSaveSuccessText());
+        addContactKey.currentState!.clear();
+        addOpenHoursKey.currentState!.resetOpenHours();
+        formController.clear();
+        /*
+        formController.dispose();
+        addContactKey.currentState!.dispose();
+        */
+      }
     } catch (e) {
       showBtmAlert(context, e.toString());
     }
@@ -144,7 +158,7 @@ class SuppliersUploaWidgetdstate extends State<SupplierAddWidgetPage> {
                     onRemoveImage: () {
                       setState(() {
                         formController.pickedImage = null;
-                        formController.webImage = Uint8List(8);
+                        formController.webImage = null;
                       });
                     },
                   ),
@@ -153,6 +167,7 @@ class SuppliersUploaWidgetdstate extends State<SupplierAddWidgetPage> {
                 Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: AddContactWidget(
+                    key: addContactKey,
                             onContactsChanged: (contacts) {
                       setState(() {
                         formController.contacts = contacts;
@@ -164,12 +179,13 @@ class SuppliersUploaWidgetdstate extends State<SupplierAddWidgetPage> {
                 Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: OpenHoursWidget(
+                    key: addOpenHoursKey,
                     onHoursChanged: (hours) {
                       setState(() {
                         print(
                           'hours is: ${hours.map((e) => (e.closeTime != null && e.openTime != null) ? e.toJson() : {}).toList()}',
                         );
-                        weeklyHours = hours; // Or whatever handling you want
+                        formController.weeklyHours = hours; // Or whatever handling you want
                       });
                     },
                   ),

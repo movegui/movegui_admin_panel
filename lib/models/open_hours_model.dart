@@ -16,8 +16,8 @@ class OpenHours {
 
     Map<String, dynamic> toJson() => {
         'day': day,
-        'openTime': _timeOfDayToJson(openTime),
-        'closeTime': _timeOfDayToJson(closeTime),
+        'openTime': openTime != null ? _timeOfDayToJson(openTime) : null,
+        'closeTime': closeTime != null ? _timeOfDayToJson(closeTime) : null,
       };
 
   static Map<String, dynamic> _timeOfDayToJson(TimeOfDay? time) => {

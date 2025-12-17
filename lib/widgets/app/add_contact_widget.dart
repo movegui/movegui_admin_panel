@@ -131,7 +131,7 @@ class AddContactWidgetState extends State<AddContactWidget> {
   Future<List<PersonModel>> getContacts() async {
     List<PersonModel> contacts = [];
 
-    for (int i = 0; i < firstNames.length; i++) {
+    for (int i = 0; i < formKeys.length; i++) {
       contacts.add(
         PersonModel(
           id: const Uuid().v4(),
@@ -165,7 +165,7 @@ class AddContactWidgetState extends State<AddContactWidget> {
 
       // Create a unique file name
       String fileName =
-          'restaurant/${DateTime.now().millisecondsSinceEpoch}.jpg';
+          'persons/${DateTime.now().millisecondsSinceEpoch}.jpg';
       Reference ref = storage.ref().child(fileName);
 
       UploadTask uploadTask;

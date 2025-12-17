@@ -24,6 +24,7 @@ import 'package:movegui_admin_panel/models/store_model.dart';
     required super.storeType,
   });
 
+  @override
   Map<String, dynamic> toJson() => {
     ...super.toJson()
   };
@@ -47,7 +48,13 @@ import 'package:movegui_admin_panel/models/store_model.dart';
         longitude: json['longitude'],
         latitude: json['latitude'],
         weeklyHours: (json['weeklyHours'] as List? ?? [])
-            .map((e) => OpenHours.fromJson(e))
+            .map(
+              (e) => (e != null && e['openTime'] != null && e['closeTime'] != null && e['day'] != null)
+                  ? OpenHours.fromJson(e)
+                  : null,
+            )
+            .where((e) => e != null)
+            .cast<OpenHours>()
             .toList(),
       );
 
