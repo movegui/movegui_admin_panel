@@ -46,11 +46,12 @@ class PatisserieAddWidgetPage extends StatefulWidget {
 class PatisserieAddWidgetPageState extends State<PatisserieAddWidgetPage> {
   final formController = StoreFormController();
   final formKey = GlobalKey<FormState>();
+    final GlobalKey<AddContactWidgetState> addContactKey = GlobalKey();
+  final GlobalKey<WeeklyHoursScreenState> addOpenHoursKey = GlobalKey();
   bool isLoading = false;
   late PatisseriesService patisseriesService;
   late RestaurantTypeService restaurantTypeService;
   late StoreCategoriesService storeCategoriesService;
-  late List<OpenHours> weeklyHours;
   late PatisserieConstants patisserieConstants;
 
   @override
@@ -60,7 +61,6 @@ class PatisserieAddWidgetPageState extends State<PatisserieAddWidgetPage> {
     storeCategoriesService = getIt<StoreCategoriesService>();
     patisserieConstants = PatisserieConstants();
     super.initState();
-    weeklyHours = [];
   }
 
   late final submitHandler = PatisserieSubmitHandler(
@@ -82,8 +82,22 @@ class PatisserieAddWidgetPageState extends State<PatisserieAddWidgetPage> {
     setState(() => isLoading = true);
 
     try {
-      await submitHandler.submit(form: formController);
-      showAlertBar(context, patisserieConstants.getSaveSuccessText());
+                 formController.contacts = await addContactKey.currentState!.getContacts();
+      //  formController.weeklyHours = await addOpenHoursKey.currentState!.getOpenHours();
+      if (formController.weeklyHours.isNotEmpty &&
+          formController.contacts.isNotEmpty &&
+          formController.selectedType != null) {
+        print('jetz drin ......................');
+        await submitHandler.submit(form: formController);
+        showAlertBar(context, patisserieConstants.getSaveSuccessText());
+        addContactKey.currentState!.clear();
+        addOpenHoursKey.currentState!.resetOpenHours();
+        formController.clear();
+        /*
+        formController.dispose();
+        addContactKey.currentState!.dispose();
+        */
+      }
     } catch (e) {
       showBtmAlert(context, e.toString());
     }
@@ -193,9 +207,9 @@ class PatisserieAddWidgetPageState extends State<PatisserieAddWidgetPage> {
                 Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: AddContactWidget(
+                    key: addContactKey,
                             onContactsChanged: (contacts) {
                       setState(() {
-                        print('${contacts.map((c) => c.toJson().toString()).toList()}}',);
                         formController.contacts = contacts;
                       });
                     },
@@ -205,6 +219,7 @@ class PatisserieAddWidgetPageState extends State<PatisserieAddWidgetPage> {
                 Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: OpenHoursWidget(
+                    key: addOpenHoursKey,
                     onHoursChanged: (hours) {
                       setState(() {
                         print(
