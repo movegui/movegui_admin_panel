@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
+import 'package:movegui_admin_panel/consts/app_constants.dart';
 import 'package:movegui_admin_panel/consts/professions_list.dart';
 import 'package:movegui_admin_panel/consts/validator.dart';
 import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
@@ -37,7 +38,6 @@ class ProfessionnelAddWidgetPageState
       .toList();
 
   GlobalKey<FormState> formKey = GlobalKey();
-  Uint8List webImage = Uint8List(8);
   List<String?> genders = [];
   List<DateTime?> birthdates = [];
 
@@ -63,6 +63,9 @@ class ProfessionnelAddWidgetPageState
   late List<TextEditingController> addressesControllers;
   late ProfessionnelService professionnelService;
   late List<File?> personImages;
+    late Uint8List? webImage;
+  late File? pickedImage;
+  late ImageConstatnt imageConstatnt;
 
   // late PressingService pressingService;
 
@@ -347,11 +350,14 @@ class ProfessionnelAddWidgetPageState
                                                   emailsControllers[index],
                                               telephonController:
                                                   phonesControllers[index],
-                                              onImagePicked: (file) {
-                                                personImages.add(file);
-                                                addGender(index);
-                                                // store image in parent
+                                              onPickImage: pickAnImage,
+                                              onRemoveImage: (){
+                                                setState(() {
+                                                  personImages.removeAt(index);
+                                                });
                                               },
+                                              pickedImage: pickedImage,
+                                              webImage: webImage,
                                               formKey: formKeys[index],
                                               onGenderChanged: (value) {
                                                 setState(() {
@@ -619,7 +625,7 @@ class ProfessionnelAddWidgetPageState
         // Upload bytes for web
         UploadTask uploadTask = ref.putData(
           // webImage!, // from your _pickImage()
-          webImage,
+          webImage!,
           SettableMetadata(contentType: 'image/jpeg'),
         );
         TaskSnapshot snapshot = await uploadTask;
@@ -716,5 +722,38 @@ class ProfessionnelAddWidgetPageState
       );
     }
     return persons;
+  }
+
+  
+    Future<void> pickAnImage() async {
+    if (!kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var selected = File(image.path);
+        setState(() {
+        //  widget.pickedImage = selected;
+         pickedImage = selected;
+          personImages.add(selected);
+        });
+      } else {
+        showBtmAlert(context, imageConstatnt.getImageSelectionText());
+      }
+    } else if (kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var f = await image.readAsBytes();
+        setState(() {
+          webImage = f;
+          pickedImage = File('a');
+          personImages.add(pickedImage);
+        });
+      } else {
+        showBtmAlert(context, imageConstatnt.getImageSelectionText());
+      }
+    } else {
+      showBtmAlert(context, imageConstatnt.getImageSelectionErrorText());
+    }
   }
 }

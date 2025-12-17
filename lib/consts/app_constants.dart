@@ -28,7 +28,9 @@ static List<String> daysOfWeek = [
 
 }
 
-abstract class StoreConstants{
+
+
+abstract class StoreConstants extends ImageConstatnt{
 
   String getNameLabelText();
   String getNameHinterText();
@@ -44,7 +46,13 @@ abstract class StoreConstants{
   String getTypeStoreText();
   String getMenuTitleText();
    
-       String getImageSelectionErrorText() {
+
+}
+
+
+class ImageConstatnt {
+
+           String getImageSelectionErrorText() {
           return 'Veuillez choisir une Image svp !!';
        }
      

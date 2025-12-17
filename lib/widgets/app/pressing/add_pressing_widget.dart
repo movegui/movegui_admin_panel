@@ -173,7 +173,13 @@ class PressingAddWidgetPageState extends State<PressingAddWidgetPage>{
 
                 Padding(
                   padding: const EdgeInsets.all(2.0),
-                  child: AddContactWidget(),
+                  child: AddContactWidget(
+                            onContactsChanged: (contacts) {
+                      setState(() {
+                        formController.contacts = contacts;
+                      });
+                    },
+                  ),
                 ),
 
                 Padding(

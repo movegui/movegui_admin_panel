@@ -4,14 +4,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
+import 'package:movegui_admin_panel/consts/app_constants.dart';
+import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
 import 'package:movegui_admin_panel/models/person_model.dart';
 import 'package:movegui_admin_panel/services/professionnel_service.dart';
 import 'package:movegui_admin_panel/widgets/add_person_widget.dart';
 import 'package:uuid/uuid.dart';
 
 class AddContactWidget extends StatefulWidget {
-  const AddContactWidget({super.key});
+  const AddContactWidget({super.key, required this.onContactsChanged});
+  final Function(List<PersonModel>) onContactsChanged;
 
   @override
   AddContactWidgetState createState() => AddContactWidgetState();
@@ -28,11 +32,56 @@ class AddContactWidgetState extends State<AddContactWidget> {
   final List<String> genders = [];
   final List<DateTime?> birthdates = [];
   final List<File?> images = [];
+  late Uint8List? webImage;
+  late File? pickedImage;
+  late ImageConstatnt imageConstatnt;
 
   @override
   void initState() {
     super.initState();
+    webImage = null;
+    pickedImage = null;
+    imageConstatnt = ImageConstatnt();
+
     _addPerson();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    for (int i = 0; i < firstNames.length; i++) {
+      firstNames[i].dispose();
+      lastNames[i].dispose();
+      middleNames[i].dispose();
+      addresses[i].dispose();
+      emails[i].dispose();
+      phones[i].dispose();
+    }
+  }
+
+  void clear() {
+    for (int i = 0; i < formKeys.length; i++) {
+      remove(i);
+    }
+    firstNames.clear();
+    lastNames.clear();
+    middleNames.clear();
+    addresses.clear();
+    emails.clear();
+    phones.clear();
+    genders.clear();
+    images.clear();
+    birthdates.clear();
+    setState(() {
+      webImage = null;
+      pickedImage = null;
+    });
+    _addPerson();
+  }
+
+  Future<void> updateParent() async {
+    final contacts = await getContacts();
+    widget.onContactsChanged(contacts);
   }
 
   void _addPerson() {
@@ -48,10 +97,15 @@ class AddContactWidgetState extends State<AddContactWidget> {
       birthdates.add(null);
       images.add(null);
     });
+    updateParent();
   }
 
   void _removePerson(int index) {
     if (formKeys.length == 1) return;
+    remove(index);
+  }
+
+  void remove(int index) {
     setState(() {
       firstNames[index].dispose();
       lastNames[index].dispose();
@@ -175,9 +229,16 @@ class AddContactWidgetState extends State<AddContactWidget> {
                   onBirthDateChanged: (value) {
                     setState(() => birthdates[index] = value!);
                   },
-                  onImagePicked: (file) {
-                    setState(() => images[index] = file);
+                  onPickImage: pickAnImage,
+                  onRemoveImage: () {
+                    setState(() {
+                      pickedImage = null;
+                      webImage = null;
+                      images.removeAt(index);
+                    });
                   },
+                  pickedImage: pickedImage,
+                  webImage: webImage,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -198,5 +259,37 @@ class AddContactWidgetState extends State<AddContactWidget> {
         );
       },
     );
+  }
+
+  Future<void> pickAnImage() async {
+    if (!kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var selected = File(image.path);
+        setState(() {
+          //  widget.pickedImage = selected;
+          pickedImage = selected;
+          images.add(selected);
+        });
+      } else {
+        showBtmAlert(context, imageConstatnt.getImageSelectionText());
+      }
+    } else if (kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var f = await image.readAsBytes();
+        setState(() {
+          webImage = f;
+          pickedImage = File('a');
+          images.add(pickedImage);
+        });
+      } else {
+        showBtmAlert(context, imageConstatnt.getImageSelectionText());
+      }
+    } else {
+      showBtmAlert(context, imageConstatnt.getImageSelectionErrorText());
+    }
   }
 }

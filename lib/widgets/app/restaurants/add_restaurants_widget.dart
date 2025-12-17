@@ -35,10 +35,12 @@ class RestaurantAddWidgetPage extends StatefulWidget {
 class _RestaurantAddWidgetPageState extends State<RestaurantAddWidgetPage> {
   final formController = StoreFormController();
   final formKey = GlobalKey<FormState>();
+  final GlobalKey<AddContactWidgetState> addContactKey = GlobalKey();
+  final GlobalKey<WeeklyHoursScreenState> addOpenHoursKey = GlobalKey();
   bool isLoading = false;
   late RestaurantsService restaurantsService;
   late RestaurantTypeService restaurantTypeService;
-  late List<OpenHours> weeklyHours;
+  // late List<OpenHours> weeklyHours;
   late RestaurantConstants restaurantConstants;
 
   @override
@@ -47,7 +49,7 @@ class _RestaurantAddWidgetPageState extends State<RestaurantAddWidgetPage> {
     restaurantTypeService = getIt<RestaurantTypeService>();
     restaurantConstants = RestaurantConstants();
     super.initState();
-    weeklyHours = [];
+    //  weeklyHours = [];
   }
 
   late final submitHandler = RestaurantSubmitHandler(
@@ -55,7 +57,6 @@ class _RestaurantAddWidgetPageState extends State<RestaurantAddWidgetPage> {
     imageService: ImageService(),
     collectionName: widget.collectionName,
   );
-  
 
   @override
   void dispose() {
@@ -69,8 +70,22 @@ class _RestaurantAddWidgetPageState extends State<RestaurantAddWidgetPage> {
     setState(() => isLoading = true);
 
     try {
-      await submitHandler.submit(form: formController);
-      showAlertBar(context, restaurantConstants.getSaveSuccessText());
+      formController.contacts = await addContactKey.currentState!.getContacts();
+      //  formController.weeklyHours = await addOpenHoursKey.currentState!.getOpenHours();
+      if (formController.weeklyHours.isNotEmpty &&
+          formController.contacts.isNotEmpty &&
+          formController.selectedType != null) {
+        print('jetz drin ......................');
+        await submitHandler.submit(form: formController);
+        showAlertBar(context, restaurantConstants.getSaveSuccessText());
+        addContactKey.currentState!.clear();
+        addOpenHoursKey.currentState!.resetOpenHours();
+        formController.clear();
+        /*
+        formController.dispose();
+        addContactKey.currentState!.dispose();
+        */
+      }
     } catch (e) {
       showBtmAlert(context, e.toString());
     }
@@ -110,8 +125,10 @@ class _RestaurantAddWidgetPageState extends State<RestaurantAddWidgetPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-         appBar: Responsive.isDesktop(context)
-          ? AdminPanelAppBarDesktop(title: restaurantConstants.getMenuTitleText())
+      appBar: Responsive.isDesktop(context)
+          ? AdminPanelAppBarDesktop(
+              title: restaurantConstants.getMenuTitleText(),
+            )
           : AdminPanelAppBar(title: restaurantConstants.getMenuTitleText()),
       drawer: SideMenu(),
       body: ModalProgressHUD(
@@ -121,20 +138,23 @@ class _RestaurantAddWidgetPageState extends State<RestaurantAddWidgetPage> {
             key: formKey,
             child: Column(
               children: [
-                
                 Padding(
                   padding: const EdgeInsets.all(1.0),
                   child: SizedBox(
                     width: 400,
                     child: CustomDropDown(
-                      onChanged: (RestaurantTypeModel type) =>
-                          formController.selectedType = type,
+                      onChanged: (RestaurantTypeModel type) => {
+                        setState(() {
+                          formController.selectedType = type;
+                        }),
+                      },
+
                       service: restaurantTypeService,
                       title: 'Type Restaurants',
                     ),
                   ),
                 ),
-                
+
                 Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: StoreWidget(
@@ -155,27 +175,31 @@ class _RestaurantAddWidgetPageState extends State<RestaurantAddWidgetPage> {
                     onRemoveImage: () {
                       setState(() {
                         formController.pickedImage = null;
-                        formController.webImage = Uint8List(8);
+                        formController.webImage = null;
                       });
                     },
                   ),
                 ),
-              
 
                 Padding(
                   padding: const EdgeInsets.all(2.0),
-                  child: AddContactWidget(),
+                  child: AddContactWidget(
+                    key: addContactKey,
+                    onContactsChanged: (contacts) {
+                      setState(() {
+                        formController.contacts = contacts;
+                      });
+                    },
+                  ),
                 ),
 
                 Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: OpenHoursWidget(
+                    key: addOpenHoursKey,
                     onHoursChanged: (hours) {
                       setState(() {
-                        print(
-                          'hours is: ${hours.map((e) => (e.closeTime != null && e.openTime != null) ? e.toJson() : {}).toList()}',
-                        );
-                        weeklyHours = hours; // Or whatever handling you want
+                        formController.weeklyHours = hours;
                       });
                     },
                   ),
@@ -197,4 +221,3 @@ class _RestaurantAddWidgetPageState extends State<RestaurantAddWidgetPage> {
     );
   }
 }
-

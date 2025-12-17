@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:movegui_admin_panel/consts/app_constants.dart';
 import 'package:movegui_admin_panel/consts/validator.dart';
 import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
 import 'package:movegui_admin_panel/responsive.dart';
@@ -17,7 +18,11 @@ class AddPersonWidget extends StatefulWidget {
   final TextEditingController adresseController;
   final TextEditingController telephonController;
   final TextEditingController emailController;
-  final Function(File?) onImagePicked; // Add callback
+  final Uint8List? webImage;
+  final File? pickedImage;
+  final VoidCallback onPickImage;
+  final VoidCallback onRemoveImage;
+
   final GlobalKey<FormState> formKey;
   final ValueChanged<String?> onGenderChanged;
   final ValueChanged<DateTime?>? onBirthDateChanged;
@@ -31,11 +36,14 @@ class AddPersonWidget extends StatefulWidget {
     required this.adresseController,
     required this.telephonController,
     required this.emailController,
-    required this.onImagePicked,
     required this.formKey,
     required this.onBirthDateChanged,
     required this.onGenderChanged, // Pass callback
     required this.selectedGender,
+    required this.webImage,
+    required this.pickedImage,
+    required this.onPickImage,
+    required this.onRemoveImage,
   });
 
   @override
@@ -43,16 +51,13 @@ class AddPersonWidget extends StatefulWidget {
 }
 
 class AddPersonWidgetState extends State<AddPersonWidget> {
-  Uint8List? webImage; // = Uint8List(8);
-  File? _pickedImage;
-  // late PressingService pressingService;
-
   late FocusNode _firstNameFocusNode;
   late FocusNode _lastNameFocusNode;
   late FocusNode _middleNameFocusNode;
   late FocusNode _adresseFocusNode;
   late FocusNode _telephonFocusNode;
   late FocusNode _emailFocusNode;
+
 
   @override
   void initState() {
@@ -63,6 +68,7 @@ class AddPersonWidgetState extends State<AddPersonWidget> {
     _adresseFocusNode = FocusNode();
     _telephonFocusNode = FocusNode();
     _emailFocusNode = FocusNode();
+
   }
 
   @override
@@ -213,15 +219,10 @@ class AddPersonWidgetState extends State<AddPersonWidget> {
                         Flexible(
                           flex: 2,
                           child: ImagePickerWidget(
-                            webImage: webImage,
-                            pickedImage: _pickedImage,
-                            onPickImage: _pickImage,
-                            onRemoveImage: () {
-                              setState(() {
-                                _pickedImage = null;
-                                webImage = Uint8List(8);
-                              });
-                            },
+                            webImage: widget.webImage,
+                            pickedImage: widget.pickedImage,
+                            onPickImage: widget.onPickImage,
+                            onRemoveImage: widget.onRemoveImage,
                           ),
                         ),
                       ],
@@ -237,34 +238,5 @@ class AddPersonWidgetState extends State<AddPersonWidget> {
     );
   }
 
-  Future<void> _pickImage() async {
-    if (!kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        var selected = File(image.path);
-        setState(() {
-          widget.onImagePicked(selected);
-          _pickedImage = selected;
-        });
-      } else {
-        showBtmAlert(context, 'Veuillez choisir une Image');
-      }
-    } else if (kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        var f = await image.readAsBytes();
-        setState(() {
-          webImage = f;
-          widget.onImagePicked(File(image.path)); // File('a');
-          _pickedImage = File(image.path);
-        });
-      } else {
-        showBtmAlert(context, 'Veuillez choisir une Image');
-      }
-    } else {
-      showBtmAlert(context, 'Un problème est survenu !!!');
-    }
-  }
+
 }

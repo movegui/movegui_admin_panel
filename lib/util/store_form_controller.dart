@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/models/categories_model.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
 import 'package:movegui_admin_panel/models/person_model.dart';
-import 'package:movegui_admin_panel/models/restaurant_model.dart';
 import 'package:movegui_admin_panel/models/store_model.dart';
 
 class StoreFormController {
@@ -20,9 +19,8 @@ class StoreFormController {
   final adresseFocus = FocusNode();
   final emailFocus = FocusNode(); 
   final telephonFocus = FocusNode(); 
-  final contacts = <PersonModel>[];
-  final weeklyHours = <OpenHours>[];
-
+  List<PersonModel> contacts = [];
+  List<OpenHours> weeklyHours = [];
   File? pickedImage;
   Uint8List? webImage;
   StoreTypeModel? selectedType;
@@ -35,4 +33,22 @@ class StoreFormController {
     email.dispose();
     description.dispose();
   }
+
+  void clear(){
+    name.clear();
+    adresse.clear();
+    description.clear();
+    telephon.clear();
+    email.clear();
+    pickedImage = null;
+    webImage = null;
+    //contacts.clear();
+    //weeklyHours.clear();
+   // pickedImage = null;
+   // webImage = null;
+    ///dispose();
+
+  }
+
+ 
 }

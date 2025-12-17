@@ -152,7 +152,13 @@ class SuppliersUploaWidgetdstate extends State<SupplierAddWidgetPage> {
               
                 Padding(
                   padding: const EdgeInsets.all(2.0),
-                  child: AddContactWidget(),
+                  child: AddContactWidget(
+                            onContactsChanged: (contacts) {
+                      setState(() {
+                        formController.contacts = contacts;
+                      });
+                    },
+                  ),
                 ),
 
                 Padding(

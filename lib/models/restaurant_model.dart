@@ -4,7 +4,7 @@ import 'package:movegui_admin_panel/models/person_model.dart';
 import 'package:movegui_admin_panel/models/store_model.dart';
 
 class RestaurantModel extends StoreModel {
-//  final RestaurantTypeModel restaurantType;
+  //  final RestaurantTypeModel restaurantType;
 
   RestaurantModel({
     required super.id,
@@ -20,15 +20,12 @@ class RestaurantModel extends StoreModel {
     super.longitude,
     super.latitude,
     required super.storeType,
-    
-    
-
   });
 
   @override
   Map<String, dynamic> toJson() => {
     ...super.toJson(),
-   // 'restaurantType': sto.toJson(),
+    // 'restaurantType': sto.toJson(),
   };
 
   factory RestaurantModel.fromJson(Map<String, dynamic> json) =>
@@ -49,9 +46,22 @@ class RestaurantModel extends StoreModel {
         storeType: RestaurantTypeModel.fromJson(json['storeType']),
         longitude: json['longitude'],
         latitude: json['latitude'],
+
         weeklyHours: (json['weeklyHours'] as List? ?? [])
-            .map((e) => OpenHours.fromJson(e))
+            .map(
+              (e) => (e != null && e['openTime'] != null && e['closeTime'] != null && e['day'] != null)
+                  ? OpenHours.fromJson(e)
+                  : null,
+            )
+            .where((e) => e != null)
+            .cast<OpenHours>()
             .toList(),
+
+        /*
+        weeklyHours: (json['weeklyHours'] as List? ?? [])
+            .map((e) => (e.openTime != null && e.closeTime != null)? OpenHours.fromJson(e) : )
+            .toList(),
+            */
       );
 }
 
@@ -63,9 +73,7 @@ class RestaurantTypeModel extends StoreTypeModel {
   });
 
   @override
-  Map<String, dynamic> toJson() => {
-    ...super.toJson()
-  };
+  Map<String, dynamic> toJson() => {...super.toJson()};
 
   factory RestaurantTypeModel.fromJson(Map<String, dynamic> json) =>
       RestaurantTypeModel(
@@ -75,13 +83,10 @@ class RestaurantTypeModel extends StoreTypeModel {
             ? json['createdAt'].toDate()
             : DateTime.now(),
       );
-      
-        
 
   @override
   String toString() {
     // TODO: implement toString
-    return  'RestaurantModel(id: $id, name: $name, createdAt: $createdAt)';
+    return 'RestaurantModel(id: $id, name: $name, createdAt: $createdAt)';
   }
-
 }

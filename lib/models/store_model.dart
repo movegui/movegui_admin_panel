@@ -42,7 +42,8 @@ abstract class StoreModel extends Model {
     'longitude': longitude,
     'latitude': latitude,
     'weeklyHours': weeklyHours.map((weekHour){
-       return weekHour.toJson();
+      return (weekHour.closeTime != null && weekHour.openTime != null) ?
+         weekHour.toJson() : {};
     }).toList(),
     'storeType': storeType!.toJson()
     

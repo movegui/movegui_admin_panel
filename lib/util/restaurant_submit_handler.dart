@@ -30,10 +30,12 @@ class RestaurantSubmitHandler extends StoreSubmitHadler<RestaurantModel, Restaur
       weeklyHours: form.weeklyHours,
       storeType: form.selectedType!,
       createdAt: DateTime.now(),
-      imageUrl: imageUrl, 
+      imageUrl: imageUrl,
     );
 
-    await service.addModel(restaurant);
+    // print(restaurant.toJson().toString());
+
+     await service.addModel(restaurant);
   }
 
 }

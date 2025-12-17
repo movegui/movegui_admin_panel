@@ -192,7 +192,14 @@ class PatisserieAddWidgetPageState extends State<PatisserieAddWidgetPage> {
 
                 Padding(
                   padding: const EdgeInsets.all(2.0),
-                  child: AddContactWidget(),
+                  child: AddContactWidget(
+                            onContactsChanged: (contacts) {
+                      setState(() {
+                        print('${contacts.map((c) => c.toJson().toString()).toList()}}',);
+                        formController.contacts = contacts;
+                      });
+                    },
+                  ),
                 ),
 
                 Padding(
@@ -203,7 +210,7 @@ class PatisserieAddWidgetPageState extends State<PatisserieAddWidgetPage> {
                         print(
                           'hours is: ${hours.map((e) => (e.closeTime != null && e.openTime != null) ? e.toJson() : {}).toList()}',
                         );
-                        weeklyHours = hours; // Or whatever handling you want
+                        formController.weeklyHours = hours; // Or whatever handling you want
                       });
                     },
                   ),
