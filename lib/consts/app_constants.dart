@@ -328,7 +328,7 @@ class PressingConstants extends StoreConstants {
        
          @override
          String getTypeStoreText() {
-           return 'Types Patisserie';
+           return 'Types Pressing';
          }
 
               

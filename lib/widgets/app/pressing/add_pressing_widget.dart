@@ -47,10 +47,11 @@ class PressingAddWidgetPageState extends State<PressingAddWidgetPage>{
 
    final formController = StoreFormController();
   final formKey = GlobalKey<FormState>();
+        final GlobalKey<AddContactWidgetState> addContactKey = GlobalKey();
+  final GlobalKey<WeeklyHoursScreenState> addOpenHoursKey = GlobalKey();
   bool isLoading = false;
   late PressingService pressingService;
   late RestaurantTypeService restaurantTypeService;
-  late List<OpenHours> weeklyHours;
   late PressingConstants pressingConstants;
 
   @override
@@ -58,7 +59,6 @@ class PressingAddWidgetPageState extends State<PressingAddWidgetPage>{
     pressingService = getIt<PressingService>();
     restaurantTypeService = getIt<RestaurantTypeService>();
     super.initState();
-    weeklyHours = [];
     pressingConstants = PressingConstants();
   }
 
@@ -80,8 +80,22 @@ class PressingAddWidgetPageState extends State<PressingAddWidgetPage>{
     setState(() => isLoading = true);
 
     try {
-      await submitHandler.submit(form: formController);
-      showAlertBar(context, pressingConstants.getSaveSuccessText());
+                   formController.contacts = await addContactKey.currentState!.getContacts();
+      //  formController.weeklyHours = await addOpenHoursKey.currentState!.getOpenHours();
+      if (formController.weeklyHours.isNotEmpty &&
+          formController.contacts.isNotEmpty &&
+          formController.selectedType != null) {
+        print('jetz drin ......................');
+        await submitHandler.submit(form: formController);
+        showAlertBar(context, pressingConstants.getSaveSuccessText());
+        addContactKey.currentState!.clear();
+        addOpenHoursKey.currentState!.resetOpenHours();
+        formController.clear();
+        /*
+        formController.dispose();
+        addContactKey.currentState!.dispose();
+        */
+      }
     } catch (e) {
       showBtmAlert(context, e.toString());
     }
@@ -174,6 +188,7 @@ class PressingAddWidgetPageState extends State<PressingAddWidgetPage>{
                 Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: AddContactWidget(
+                    key: addContactKey,
                             onContactsChanged: (contacts) {
                       setState(() {
                         formController.contacts = contacts;
@@ -185,12 +200,13 @@ class PressingAddWidgetPageState extends State<PressingAddWidgetPage>{
                 Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: OpenHoursWidget(
+                    key: addOpenHoursKey,
                     onHoursChanged: (hours) {
                       setState(() {
                         print(
                           'hours is: ${hours.map((e) => (e.closeTime != null && e.openTime != null) ? e.toJson() : {}).toList()}',
                         );
-                        weeklyHours = hours; // Or whatever handling you want
+                        formController.weeklyHours = hours; // Or whatever handling you want
                       });
                     },
                   ),
