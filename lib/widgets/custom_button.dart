@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomButon extends StatelessWidget {
-  CustomButon({Key? key, this.onTap, required this.text, this.icon, this.color}) : super(key: key);
+  CustomButon({super.key, this.onTap, required this.text, this.icon, this.color});
   VoidCallback? onTap;
   final IconData? icon;
   String text;

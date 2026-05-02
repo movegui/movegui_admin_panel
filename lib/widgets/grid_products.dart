@@ -6,8 +6,8 @@ import '../responsive.dart';
 
 class ProductGridWidget extends StatelessWidget {
   const ProductGridWidget({
-    Key? key, required this.isMain,
-  }) : super(key: key);
+    super.key, required this.isMain,
+  });
   final bool isMain;
   @override
   Widget build(BuildContext context) {

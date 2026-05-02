@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../providers/dark_theme_provider.dart';
 class DashBordCards extends StatelessWidget {
-  const DashBordCards({Key? key, required this.title, required this.value}) : super(key: key);
+  const DashBordCards({super.key, required this.title, required this.value});
   final String title;
   final String value;
   @override

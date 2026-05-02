@@ -5,7 +5,7 @@ import 'package:movegui_admin_panel/widgets/header.dart';
 import '../responsive.dart';
 import '../widgets/order_widget.dart';
 class OrderGrid extends StatefulWidget {
-   OrderGrid({Key? key, this.count, required this.isMain }) : super(key: key);
+   const OrderGrid({super.key, this.count, required this.isMain });
    final int? count;
    final bool isMain;
 

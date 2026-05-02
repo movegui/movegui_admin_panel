@@ -23,7 +23,8 @@ class IngredientModel extends Model {
     required this.supplier,
     });
 
-    Map<String, dynamic> toJson() => {
+    @override
+  Map<String, dynamic> toJson() => {
   'id':id,
   'name': name,
  // 'quantity': quantity,

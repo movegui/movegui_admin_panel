@@ -6,11 +6,11 @@ class Responsive extends StatelessWidget {
   final Widget desktop;
 
   const Responsive({
-    Key? key,
+    super.key,
     required this.mobile,
     required this.tablet,
     required this.desktop,
-  }) : super(key: key);
+  });
 
   // This isMobile, isTablet, isDesktop help us later
   static bool isMobile(BuildContext context) =>
@@ -25,13 +25,13 @@ class Responsive extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size _size = MediaQuery.of(context).size;
+    final Size size = MediaQuery.of(context).size;
     // If our width is more than or equal to 1100 then we consider it a desktop
-    if (_size.width >= 1100) {
+    if (size.width >= 1100) {
       return desktop;
     }
     // If width is less than 850 we consider it as mobile
-    else if (_size.width < 600) {
+    else if (size.width < 600) {
       return mobile;
     }
     // If width is between 850 and 1100 we consider it as tablet

@@ -1,6 +1,5 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:movegui_admin_panel/models/restaurant_model.dart';
 import 'package:movegui_admin_panel/services/model_service.dart';
 

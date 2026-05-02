@@ -1,15 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:movegui_admin_panel/responsive.dart';
-import 'package:movegui_admin_panel/widgets/app/appbar.dart';
-import 'package:movegui_admin_panel/widgets/side_menu.dart';
 
 
-import 'package:flutter/material.dart';
 
 
 class CreateRecettePage extends StatefulWidget {
+  const CreateRecettePage({super.key});
+
   @override
   _CreateRecettePageState createState() => _CreateRecettePageState();
 }
@@ -166,7 +163,7 @@ class _CreateRecettePageState extends State<CreateRecettePage> {
                           ),
                         ),
                       );
-                    }).toList(),
+                    }),
                     ElevatedButton(
                       onPressed: addIngredient,
                       child: Text('+ Ajouter un ingrédient'),

@@ -1,7 +1,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
@@ -32,7 +31,7 @@ class RestaurantTypeUploaWidgetdstate extends State<RestaurantTypeAddWidgetPage>
   GlobalKey<FormState> formKey = GlobalKey();
   double? price;
   String dropdownValue = 'vegetable';
-  int? _selectedValue = 1;
+  final int _selectedValue = 1;
   String unit = "KG";
   bool _isLoading = false;
   double? salePrice;
@@ -144,9 +143,9 @@ class RestaurantTypeUploaWidgetdstate extends State<RestaurantTypeAddWidgetPage>
                                   if (form != null && form.validate()) {
                         
                                       form.save();
-                                      final _uuid = const Uuid().v4();
+                                      final uuid = const Uuid().v4();
                                       try {                                  
-                                        final restaurantType = RestaurantTypeModel(id: _uuid, name: _nameController.text, createdAt: DateTime.now(), );
+                                        final restaurantType = RestaurantTypeModel(id: uuid, name: _nameController.text, createdAt: DateTime.now(), );
                                         restaurantTypeService.addModel(restaurantType);
                                         setState(() {
                                           _nameController.clear();

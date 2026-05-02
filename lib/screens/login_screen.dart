@@ -1,22 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hive/hive.dart';
 import 'package:iconly/iconly.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/validator.dart';
-import 'package:movegui_admin_panel/methods/show_error_alert.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/screens/dashboard_screen.dart';
 import 'package:movegui_admin_panel/screens/main_screen.dart';
-import 'package:movegui_admin_panel/screens/pin_code_screen.dart';
 import 'package:movegui_admin_panel/services/my_app_functions.dart';
-import 'package:movegui_admin_panel/widgets/custom_text_field.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -25,7 +21,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool obscureTextForm = true;
   int index = 0;
-  GlobalKey<FormState> _formkey = GlobalKey();
+  final GlobalKey<FormState> _formkey = GlobalKey();
   List<UserModel>? users;
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;

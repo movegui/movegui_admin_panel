@@ -1,5 +1,4 @@
 import 'package:movegui_admin_panel/models/model.dart';
-import 'package:movegui_admin_panel/models/professionnel_model.dart';
 import 'package:uuid/uuid.dart';
 
 class PersonModel extends Model {
@@ -84,6 +83,6 @@ class PersonModel extends Model {
   @override
   String toString() {
     
-    return super.toString() + firstName + ' ' + lastName + ' '+ email + ' ' + phone;
+    return '$firstName $lastName $email $phone';
   }
 }

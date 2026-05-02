@@ -1,17 +1,9 @@
 import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/app_constants.dart';
 import 'package:movegui_admin_panel/consts/validator.dart';
-import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
-import 'package:movegui_admin_panel/services/register_services.dart';
-import 'package:movegui_admin_panel/services/restaurant_type_service.dart';
-import 'package:movegui_admin_panel/services/restaurants_service.dart';
 import 'package:movegui_admin_panel/widgets/custom_text_field.dart';
 import 'package:movegui_admin_panel/widgets/image_picker_widget.dart';
 

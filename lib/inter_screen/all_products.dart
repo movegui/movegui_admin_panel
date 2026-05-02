@@ -4,11 +4,10 @@ import '../consts/constants.dart';
 import '../responsive.dart';
 import '../widgets/grid_products.dart';
 import '../widgets/header.dart';
-import '../widgets/product_widget.dart';
 
 class ProductScreen extends StatelessWidget {
 
-  const ProductScreen({Key? key}) : super(key: key);
+  const ProductScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

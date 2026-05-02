@@ -1,10 +1,7 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:movegui_admin_panel/consts/app_constants.dart';
 import 'package:movegui_admin_panel/consts/validator.dart';
-import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/widgets/birthdate_picker.dart';
 import 'package:movegui_admin_panel/widgets/custom_text_field.dart';

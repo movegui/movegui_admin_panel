@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/widgets/app/appbar.dart';
-import 'package:movegui_admin_panel/widgets/app/categories/add_categories_widget.dart';
-import 'package:movegui_admin_panel/widgets/app/categories/all_categories_widget.dart';
 import 'package:movegui_admin_panel/widgets/custom_button.dart';
 import 'package:movegui_admin_panel/widgets/side_menu.dart';
-import 'package:provider/provider.dart';
 import '../responsive.dart';
-import 'dashboard_screen.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key, required this.pageScreen});

@@ -428,7 +428,7 @@ class ProfessionnelAddWidgetPageState
                                             ),
                                           ],
                                         );
-                                      }).toList(),
+                                      }),
                       
                                       SizedBox(height: 10),
                       
@@ -446,7 +446,7 @@ class ProfessionnelAddWidgetPageState
                                               form.validate() &&
                                               selectedProfessions.isNotEmpty) {
                                             form.save();
-                                            final _uuid = const Uuid().v4();
+                                            final uuid = const Uuid().v4();
                                             try {
                                               bool allValid = true;
                                               for (final key in formKeys) {
@@ -727,8 +727,8 @@ class ProfessionnelAddWidgetPageState
   
     Future<void> pickAnImage() async {
     if (!kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         var selected = File(image.path);
         setState(() {
@@ -740,8 +740,8 @@ class ProfessionnelAddWidgetPageState
         showBtmAlert(context, imageConstatnt.getImageSelectionText());
       }
     } else if (kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         var f = await image.readAsBytes();
         setState(() {

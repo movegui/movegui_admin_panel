@@ -1,15 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
 import 'package:movegui_admin_panel/methods/show_alert.dart';
 import 'package:movegui_admin_panel/models/categories_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
-import 'package:movegui_admin_panel/screens/main_screen.dart';
 import 'package:movegui_admin_panel/services/categories_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/widgets/app/appbar.dart';
@@ -41,7 +38,7 @@ class CategoriesUploaWidgetdstate extends State<CategoryAddWidgetPage> {
   GlobalKey<FormState> formKey = GlobalKey();
   double? price;
   String dropdownValue = 'vegetable';
-  int? _selectedValue = 1;
+  final int _selectedValue = 1;
   String unit = "KG";
   bool _isLoading = false;
   double? salePrice;
@@ -153,9 +150,9 @@ class CategoriesUploaWidgetdstate extends State<CategoryAddWidgetPage> {
                                   if (form != null && form.validate()) {
                         
                                       form.save();
-                                      final _uuid = const Uuid().v4();
+                                      final uuid = const Uuid().v4();
                                       try {                                  
-                                        final category = CategoriesModel(id: _uuid, name: _nameController.text, createdAt: DateTime.now(), );
+                                        final category = CategoriesModel(id: uuid, name: _nameController.text, createdAt: DateTime.now(), );
                                         categoriesService.addModel(category);
                                         setState(() {
                                           _nameController.clear();

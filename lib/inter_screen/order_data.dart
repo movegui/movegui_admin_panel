@@ -6,7 +6,7 @@ import '../responsive.dart';
 import '../widgets/side_menu.dart';
 
 class OrderData extends StatelessWidget {
-  const OrderData({Key? key, required this.title, required this.unit, required this.userName, required this.imageUrl, required this.quantity, required this.totalPrice, required this.date, required this.address, required this.email, required this.paymentMethod}) : super(key: key);
+  const OrderData({super.key, required this.title, required this.unit, required this.userName, required this.imageUrl, required this.quantity, required this.totalPrice, required this.date, required this.address, required this.email, required this.paymentMethod});
   final String title, unit, userName, imageUrl, quantity, totalPrice,date,address,email,paymentMethod;
   @override
   Widget build(BuildContext context) {

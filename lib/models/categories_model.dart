@@ -21,8 +21,9 @@ factory CategoriesModel.fromJson(Map<String, dynamic> json)  {
    );
 }
 
-String toString(){
-  return id+' '+name!+' '+createdAt!.toString();
+@override
+  String toString(){
+  return '$id $name $createdAt';
 }
   
 }
@@ -40,16 +41,13 @@ factory CategoryIngredient.fromJson(Map<String, dynamic> json)  {
    );
 }
 
-@override
-  Map<String, dynamic> toJson() {
-    return super.toJson();
-  }
   
 }
 
 class Categoryrecipe extends Model {
   Categoryrecipe({required super.id, required super.name, required super.createdAt});
 
+  @override
   Map<String, dynamic> toJson() => {
   'id':id,
   'name': name,
@@ -75,6 +73,7 @@ class CategoryRestaurant extends Model {
      });
 
 
+  @override
   Map<String, dynamic> toJson() => {
     'id':id,
     'name': name,

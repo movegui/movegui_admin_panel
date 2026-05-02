@@ -9,15 +9,13 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/widgets/custom_button.dart';
 import 'package:movegui_admin_panel/widgets/radio_btns%20copy.dart';
-import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 import '../methods/showBtmAlert.dart';
 import '../methods/show_alert.dart';
 import '../widgets/custom_text_field.dart';
-import '../widgets/onsale_widget.dart';
 import '../widgets/side_menu.dart';
 class ProductEdit extends StatefulWidget {
-  const ProductEdit({Key? key, required this.name, required this.price, required this.salePrice, required this.unit, required this.productCat, required this.id, required this.imageUrl}) : super(key: key);
+  const ProductEdit({super.key, required this.name, required this.price, required this.salePrice, required this.unit, required this.productCat, required this.id, required this.imageUrl});
   final String name;
   final double price;
   final double salePrice;
@@ -322,11 +320,11 @@ class _ProductEditState extends State<ProductEdit> {
                                   });
                                   String image='';
                                   if (_pickedImage != null) {
-                                    final _uuid = const Uuid().v4();
+                                    final uuid = const Uuid().v4();
                                     try {
                                       final ref = FirebaseStorage.instance.ref()
                                           .child('userImages')
-                                          .child('$_uuid.jpg');
+                                          .child('$uuid.jpg');
                                       if (kIsWeb) {
                                         await ref.putData(webImage);
                                       } else {
@@ -375,8 +373,8 @@ class _ProductEditState extends State<ProductEdit> {
   }
   Future<void> _pickImage() async {
     if (!kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         var selected = File(image.path);
         setState(() {
@@ -386,8 +384,8 @@ class _ProductEditState extends State<ProductEdit> {
         showBtmAlert(context, 'please select an image');
       }
     } else if (kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         var f = await image.readAsBytes();
         setState(() {

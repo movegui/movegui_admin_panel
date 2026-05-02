@@ -1,6 +1,5 @@
 
 import 'package:get_it/get_it.dart';
-import 'package:movegui_admin_panel/services/categories_service.dart';
 import 'package:movegui_admin_panel/services/ingredients_service.dart';
 import 'package:movegui_admin_panel/services/patisseries_service.dart';
 import 'package:movegui_admin_panel/services/pressing_service.dart';

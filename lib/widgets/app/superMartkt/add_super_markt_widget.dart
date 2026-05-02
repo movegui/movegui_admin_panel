@@ -1,27 +1,20 @@
 import 'dart:io';
 
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/app_constants.dart';
 import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
 import 'package:movegui_admin_panel/methods/show_alert.dart';
 import 'package:movegui_admin_panel/models/categories_model.dart';
-import 'package:movegui_admin_panel/models/open_hours_model.dart';
-import 'package:movegui_admin_panel/models/person_model.dart';
 import 'package:movegui_admin_panel/models/restaurant_model.dart';
-import 'package:movegui_admin_panel/models/super_markt_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/services/image_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/restaurant_type_service.dart';
-import 'package:movegui_admin_panel/services/restaurants_service.dart';
 import 'package:movegui_admin_panel/services/store_categories_service.dart';
 import 'package:movegui_admin_panel/services/super_markts_service.dart';
-import 'package:movegui_admin_panel/util/restaurant_submit_handler.dart';
 import 'package:movegui_admin_panel/util/store_form_controller.dart';
 import 'package:movegui_admin_panel/util/super_markt_submit_handler.dart';
 import 'package:movegui_admin_panel/widgets/app/add_contact_widget.dart';
@@ -31,7 +24,6 @@ import 'package:movegui_admin_panel/widgets/custom_button.dart';
 import 'package:movegui_admin_panel/widgets/custom_drop_down.dart';
 import 'package:movegui_admin_panel/widgets/side_menu.dart';
 import 'package:movegui_admin_panel/widgets/store_widget.dart';
-import 'package:uuid/uuid.dart';
 
 class SuperMarktAddWidgetPage extends StatefulWidget {
   const SuperMarktAddWidgetPage({super.key});
@@ -105,8 +97,8 @@ class SuperMarktAddWidgetPageState extends State<SuperMarktAddWidgetPage> {
 
   Future<void> pickAnImage() async {
     if (!kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         var selected = File(image.path);
         setState(() {
@@ -116,8 +108,8 @@ class SuperMarktAddWidgetPageState extends State<SuperMarktAddWidgetPage> {
         showBtmAlert(context, superMarktConstants.getImageSelectionText());
       }
     } else if (kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         var f = await image.readAsBytes();
         setState(() {

@@ -1,16 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/app_constants.dart';
 import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
 import 'package:movegui_admin_panel/methods/show_alert.dart';
 import 'package:movegui_admin_panel/models/categories_model.dart';
-import 'package:movegui_admin_panel/models/restaurant_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
-import 'package:movegui_admin_panel/services/restaurant_type_service.dart';
 import 'package:movegui_admin_panel/services/store_categories_service.dart';
 import 'package:movegui_admin_panel/widgets/app/appbar.dart';
 import 'package:movegui_admin_panel/widgets/custom_button.dart';
@@ -151,10 +148,10 @@ class StoreCategoriesUploaWidgetdstate
       final form = formKey.currentState;
       if (form != null && form.validate()) {
         form.save();
-        final _uuid = const Uuid().v4();
+        final uuid = const Uuid().v4();
         try {
           final category = CategoriesModel(
-            id: _uuid,
+            id: uuid,
             name: _nameController.text,
             createdAt: DateTime.now(),
           );

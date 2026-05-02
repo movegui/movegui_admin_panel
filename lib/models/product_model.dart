@@ -17,7 +17,8 @@ final List<RecipeModel> recipes;
     required this.recipes
     });
 
-    Map<String, dynamic> toJson() => {
+    @override
+  Map<String, dynamic> toJson() => {
       'id': id,
       'name': name,
       'imageUrl': imageUrl,

@@ -8,6 +8,7 @@ class RecipeModel extends Model {
   final String description;
   final Categoryrecipe category;
   final List<IngredientModel> ingredients;
+  @override
   final DateTime createdAt;
   final double price;
 
@@ -34,7 +35,8 @@ class RecipeModel extends Model {
         );
     }
 
-    Map<String, dynamic> toJson() {
+    @override
+  Map<String, dynamic> toJson() {
       return {
         'name': name,
         'description': description,

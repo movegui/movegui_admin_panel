@@ -7,7 +7,7 @@ import '../services/utils.dart';
 
 class OrdersWidget extends StatelessWidget {
   const OrdersWidget({
-    Key? key,
+    super.key,
     required this.title,
     required this.unit,
     required this.userName,
@@ -15,7 +15,7 @@ class OrdersWidget extends StatelessWidget {
     required this.quantity,
     required this.totalPrice,
     required this.date, required this.address, required this.email, required this.paymentMethod,
-  }) : super(key: key);
+  });
 
   final String title, unit, userName, imageUrl, address,email,paymentMethod;
   final double quantity, totalPrice;

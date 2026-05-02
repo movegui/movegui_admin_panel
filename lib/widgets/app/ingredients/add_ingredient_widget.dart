@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
@@ -304,10 +303,10 @@ class IngredientsUploaWidgetdstate extends State<IngredientsAddWidgetPage> {
                                   final form = formKey.currentState;
                                   if (form != null && form.validate()) {
                                     form.save();
-                                    final _uuid = const Uuid().v4();
+                                    final uuid = const Uuid().v4();
                                     try {
                                      final ingredient = IngredientModel(
-                                      id: _uuid, 
+                                      id: uuid, 
                                       name: _nameController.text, 
                                       unit: unit, 
                                       isAllergic: false, 

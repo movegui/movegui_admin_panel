@@ -4,7 +4,7 @@ import 'package:movegui_admin_panel/widgets/side_menu.dart';
 import '../responsive.dart';
 
 class OrderScreen extends StatelessWidget {
-  const OrderScreen({Key? key}) : super(key: key);
+  const OrderScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

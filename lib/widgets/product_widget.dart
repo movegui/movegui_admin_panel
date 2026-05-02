@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../inter_screen/edit_product.dart';
 import '../methods/showBtmAlert.dart';
 class ProductWidget extends StatefulWidget {
-  const ProductWidget({Key? key, required this.id}) : super(key: key);
+  const ProductWidget({super.key, required this.id});
   @override
   State<ProductWidget> createState() => _ProductWidgetState();
   final String id;
@@ -28,19 +28,15 @@ class _ProductWidgetState extends State<ProductWidget> {
           .collection('products')
           .doc(widget.id)
           .get();
-      if (productDoc == null) {
-        return;
-      } else {
-        setState(() {
-          title = productDoc.get('name');
-          productCat = productDoc.get('category');
-          imageUrl = productDoc.get('imageUrl');
-          price = productDoc.get('price');
-          salePrice = productDoc.get('salePrice');
-          unit = productDoc.get('unit');
-        });
-      }
-    } catch (error) {
+      setState(() {
+        title = productDoc.get('name');
+        productCat = productDoc.get('category');
+        imageUrl = productDoc.get('imageUrl');
+        price = productDoc.get('price');
+        salePrice = productDoc.get('salePrice');
+        unit = productDoc.get('unit');
+      });
+        } catch (error) {
       showBtmAlert(context, error.toString());
     }
   }
@@ -119,6 +115,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                       itemBuilder: (context) => [
 
                         PopupMenuItem(
+                          value: 1,
                           child: InkWell(
                             onTap:(){
                               Navigator.push(context, MaterialPageRoute(builder: (context)=>ProductEdit(name: title, price: price, salePrice: salePrice, unit: unit, productCat:productCat, id: widget.id, imageUrl: imageUrl,),),);
@@ -131,9 +128,17 @@ class _ProductWidgetState extends State<ProductWidget> {
                               ], ),
                             ),
                           ),
-                          value: 1,
                         ),
                         PopupMenuItem(
+                            value: 2,
+                            onTap: () {
+                              setState(() {
+                                FirebaseFirestore.instance
+                                    .collection('products')
+                                    .doc(widget.id)
+                                    .delete();
+                              });
+                            },
                             child: Row(
                               children: const [
                                 Text(
@@ -143,16 +148,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                                 Spacer(),
                                 Icon(Icons.delete_sweep_outlined,size: 18,color: Colors.red,)
                               ],
-                            ),
-                            value: 2,
-                            onTap: () {
-                              setState(() {
-                                FirebaseFirestore.instance
-                                    .collection('products')
-                                    .doc(widget.id)
-                                    .delete();
-                              });
-                            }),
+                            )),
 
                       ])
                 ],

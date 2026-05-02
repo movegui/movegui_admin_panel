@@ -1,0 +1,241 @@
+{
+    
+
+    
+    "search": "Rechercher",
+    "@search": {
+        "description": "Text pour le Button de recherche"
+    },
+    "company_adresse_label": "Adresse",
+    "@company_adresse_label": {
+        "description": "Le label adresse"
+    },
+    "company_label_phone": "Téléphone",
+    "@company_label_phone": {
+        "description": "le label de telephone"
+    },
+    "company_label_email": "Email",
+    "@company_label_email": {
+        "description": "le label Email"
+    },
+    "success_send_message_title": "Message envoyée",
+    "@success_send_message_title": {},
+    "success_send_message_message": "Merci pour votre message",
+    "@success_send_message_message": {},
+    "success_registration_new_user": "Votre Compte a été créer avec succes",
+    "@success_registration_new_user": {},
+    "success_login_message": "Connexion réussie",
+    "@success_login_message": {},
+    "success_login_reset_password": "Lien envoyé avec Succes",
+    "@success_login_reset_password": {},
+
+    "error_send_mail_title": "Erreur d'Authentification",
+    "@error_send_mail_title": {},
+    "error_send_mail_message": "Vous devez être enregistrer pour utilisé cette fonctionnalité",
+    "@error_send_mail_message": {},
+    "error_input_hint_message": "Veuillez entrer votre message.",
+    "@error_input_hint_message": {},
+    "error_firebase_initialisation": "Erreur Initialisation FirebaseAuth ",
+    "@error_firebase_initialisation": {},
+    "error_login_message": "Échec de la connexion",
+    "@error_login_message": {},
+    "error_register_with_phone_title": "Erreur d'enregistrement",
+    "@error_register_with_phone_title": {},
+    "error_register_with_phone_message": "Echec d'enregistrement de votre numéro de téléphone, Veuillez réessayer svp !",
+    "@error_register_with_phone_message": {},
+
+    
+    
+    "btn_close_label": "Fermer",
+    "@btn_close_label": {},
+    "btn_send_label": "Envoyer",
+    "@btn_send_label": {},
+    "btn_register_label": "Enregistrer",
+    "@btn_register_label": {},
+    "verify_otp": "Envoyer Code",
+    "@verify_otp": {},
+    "resend_code": "Renvoyer Code",
+    "@resend_code": {},
+
+     "form_contact_title":"Formulaire de Contact:",
+    "@form_contact_title": {},
+
+    "input_hint_first_name": "Nom",
+    "@input_hint_first_name": {},
+    "input_hint_last_name": "Prénom",
+    "@input_hint_last_name": {},
+    "input_hint_adress_email": "Adresse Email",
+    "@input_hint_adress_email": {},
+    "input_hint_message": "Votre Message...",
+    "@input_hint_message": {},
+    "input_hint_adress": "Adresse",
+    "@input_hint_adress": {},
+
+    "movegui_info_title":"MoveGui – Livraison & Transport à Moto en Guinée",
+    "@movegui_info_title": {},
+    "movegui_info_text_1":"MoveGui est une entreprise innovante spécialisée dans la livraison de nourriture et le transport à moto en Guinée.Notre mission est de rendre la livraison plus accessible, plus transparente et plus économique pour tous.",
+    "@movegui_info_text_1": {},
+    "movegui_info_text_2": "Nous proposons un tarif fixe pour chaque course, quelle que soit la distance, garantissant une transparence totale pour nos clients.Plus de surprises sur le prix, juste un service rapide, fiable et simple.",
+    "@movegui_info_text_2": {},
+    "movegui_info_text_3": "Grâce à nos partenariats avec des restaurants locaux, nous offrons des livraisons à moindre coût tout en soutenant l’économie locale.MoveGui, c’est la fusion parfaite entre technologie, accessibilité et efficacité.",
+    "@movegui_info_text_3": {},
+    "login_forget_password_txt": "Saisissez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe ",
+    "@login_forget_password_txt": {},
+
+    "deactivate_button_title": "Service Indisponible",
+    "@deactivate_button_title": {},
+    "deactivate_button_message": "Service indisponible pour le moment",
+    "@deactivate_button_message": {},
+    "deactivate_button_attach_message": "Bientôt disponible",
+    "@deactivate_button_attach_message": {},
+    "activate_button_attach_message": "Disponible",
+    "@activate_button_attach_message": {},
+
+    "category_courses_name": "Courses",
+    "@category_courses_name": {},
+    "category_restaurant_name": "Restaurant",
+    "@category_restaurant_name": {},
+    "category_patisserie_name": "Patisserie",
+    "@category_patisserie_name": {},
+    "category_supermarche_name": "Super Marché",
+    "@category_supermarche_name": {},
+    "category_supplier_name": "Fournisseur",
+    "@category_supplier_name": {},
+    "category_pressing_name": "Pressing",
+    "@category_pressing_name": {},
+    "category_discovery_name": "Discovery",
+    "@category_discovery_name": {},
+    "category_boulangerie_name": "Boulangerie",
+    "@category_boulangerie_name": {},
+    "category_pharmacy_name": "Pharmacie",
+    "@category_pharmacy_name": {},
+    "category_beauty_name": "Beauté & Soins",
+    "@category_beauty_name": {},
+    "categroy_store_name": "Magasin",
+    "@categroy_store_name": {},
+    "category_shop_name": "Boutique",
+    "@category_shop_name": {},
+    "category_wholesaler_name": "Grossiste",
+    "@category_wholesaler_name": {},
+    "category_profession_name": "Metiers",
+    "@category_profession_name": {},
+    "category_fast_food_name": "Fast Food",
+    "@category_fast_food_name": {},
+
+    "home_title": "Accueil",
+    "@home_title": {},
+    "movegui_title": "Movegui",
+    "@movegui_title": {},
+    "command_title": "Commande",
+    "@command_title": {},
+    "delivery_title": "Livraison",
+    "@delivery_title": {},
+    "courier_title": "Courses",
+    "@courier_title": {},
+    "pressing_title": "Pressing",
+    "@pressing_title": {},
+    "my_orders_title": "Mes Commandes",
+    "@my_orders_title": {},
+    "my_deliveries_title": "Mes Livraisons",
+    "@my_deliveries_title": {},
+    "profile_title": "Profil",
+    "@profile_title": {},
+    "login_title": "Connexion",
+    "@login_title": {},
+    "register_title": "Enregistrement",
+    "@register_title": {},
+    "forget_password_title":"Mot de pass Oublié",
+    "@forget_password_title": {},
+
+
+    "navigation_menu_tooltip" : "Navigation Menu",
+    "@navigation_menu_tooltip": {},
+
+    "label_login_forget_password": "Mot de pass oublier?",
+    "@label_login_forget_password": {},
+    "label_login": "se connecter",
+    "@label_login": {},
+    "label_login_connect_using": "Ou connectez-vous via",
+    "@label_login_connect_using": {},
+    "label_login_invite": "Invité ?",
+    "@label_login_invite": {},
+    "label_login_new_user": "Nouveau ?",
+    "@label_login_new_user": {},
+    "label_registration": "Enregistrez-vous",
+    "@label_registration": {},
+    "label_login_facebook": "Facebook",
+    "@label_login_facebook": {},
+    "label_login_google": "Google",
+    "@label_login_google": {},
+    "label_enter_your_code": "Entrez votre Code:",
+    "@label_enter_your_code": {},
+    
+
+    "exception_login_message": "Les identifiants utilisateur fournis sont incorrects, veuillez verifier votre email et mot de pass",
+    "@exception_login_message": {},
+
+    "tooltip_sign_in_with_google": "Se connecter avec Google",
+    "@tooltip_sign_in_with_google": {},
+    "tooltip_sign_in_with_facebook": "Se connecter avec Facebook",
+    "@tooltip_sign_in_with_facebook": {},
+    "tooltip_sign_in":"Cliquez ici pour se connecter",
+    "@tooltip_sign_in": {},
+    "tooltip_forget_password": "Cliquez Ici pour réinitialiser votre mot de pass :)",
+    "@tooltip_forget_password": {},
+    "tooltip_registration": "Cliquez ici pour vous enregistrer :)",
+    "@tooltip_registration": {},
+    "tooltip_btn_send": "Cliquez ici pour envoyer votre code",
+    "@tooltip_btn_send": {},
+
+    "profile_menu_invite_people": "Inviter un proche",
+    "@profile_menu_invite_people": {},
+    "profile_menu_orders": "Commades",
+    "@profile_menu_orders": {},
+    "profile_menu_message": "Messages de diffusion",
+    "@profile_menu_message": {},
+    "profile_menu_important": "Important",
+    "@profile_menu_important": {},
+    "profile_menu_devices": "Appareils connectés",
+    "@profile_menu_devices": {},
+    "profile_menu_account": "Compte",
+    "@profile_menu_account": {},
+    "profile_menu_confidentiality":"Confidentialité",
+    "@profile_menu_confidentiality": {},
+    "profile_menu_discussions": "Discussions",
+    "@profile_menu_discussions": {},
+    "profile_menu_notification": "Notifications",
+    "@profile_menu_notification": {},
+    "profile_menu_delete_account": "Supprimer Compte",
+    "@profile_menu_delete_account": {},
+    "profile_menu_logout":"Deconnexion",
+    "@profile_menu_logout": {},
+    "profile_menu_login":"Connexion",
+    "@profile_menu_login": {},
+
+    "add": "Ajouter",
+    "@add": {}
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+    
+    
+    
+
+
+ 
+
+
+
+
+
+
+}

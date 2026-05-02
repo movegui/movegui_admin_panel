@@ -29,7 +29,7 @@ class CategoriesUploaWidgetdstate extends State<AddModelWidget> {
   GlobalKey<FormState> formKey = GlobalKey();
   double? price;
   String dropdownValue = 'vegetable';
-  int? _selectedValue = 1;
+  final int _selectedValue = 1;
   String unit = "KG";
   bool _isLoading = false;
   double? salePrice;
@@ -138,9 +138,9 @@ class CategoriesUploaWidgetdstate extends State<AddModelWidget> {
                                   if (form != null && form.validate()) {
                         
                                       form.save();
-                                      final _uuid = const Uuid().v4();
+                                      final uuid = const Uuid().v4();
                                       try {                                  
-                                        final category = CategoriesModel(id: _uuid, name: _nameController.text, createdAt: DateTime.now(), );
+                                        final category = CategoriesModel(id: uuid, name: _nameController.text, createdAt: DateTime.now(), );
                                         categoriesService.addModel(category);
                                         setState(() {
                                           _nameController.clear();

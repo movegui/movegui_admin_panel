@@ -155,7 +155,7 @@ class AddContactWidgetState extends State<AddContactWidget> {
 
   Future<String?> _uploadImageToFirebase(
     Uint8List webImage,
-    File? _pickedImage,
+    File? pickedImage,
   ) async {
     try {
       final storage = FirebaseStorage.instance;
@@ -170,7 +170,7 @@ class AddContactWidgetState extends State<AddContactWidget> {
       if (kIsWeb) {
         // Upload bytes for web
         UploadTask uploadTask = ref.putData(
-          webImage!, // from your _pickImage()
+          webImage, // from your _pickImage()
           SettableMetadata(contentType: 'image/jpeg'),
         );
         TaskSnapshot snapshot = await uploadTask;
@@ -179,7 +179,7 @@ class AddContactWidgetState extends State<AddContactWidget> {
       } else {
         // Upload file for mobile
         UploadTask uploadTask = ref.putFile(
-          _pickedImage!,
+          pickedImage!,
           SettableMetadata(contentType: 'image/jpeg'),
         );
         TaskSnapshot snapshot = await uploadTask;
@@ -260,8 +260,8 @@ class AddContactWidgetState extends State<AddContactWidget> {
 
   Future<void> pickAnImage() async {
     if (!kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         var selected = File(image.path);
         setState(() {
@@ -273,8 +273,8 @@ class AddContactWidgetState extends State<AddContactWidget> {
         showBtmAlert(context, imageConstatnt.getImageSelectionText());
       }
     } else if (kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         var f = await image.readAsBytes();
         setState(() {

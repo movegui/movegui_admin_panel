@@ -22,7 +22,7 @@ class OpenHours {
 
   static Map<String, dynamic> _timeOfDayToJson(TimeOfDay? time) => {
         'hour': time!.hour,
-        'minute': time!.minute,
+        'minute': time.minute,
       };
 
   factory OpenHours.fromJson(Map<String, dynamic> json) => OpenHours(

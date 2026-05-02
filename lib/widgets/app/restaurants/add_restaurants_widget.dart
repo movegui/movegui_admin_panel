@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -7,7 +6,6 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:movegui_admin_panel/consts/app_constants.dart';
 import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
 import 'package:movegui_admin_panel/methods/show_alert.dart';
-import 'package:movegui_admin_panel/models/open_hours_model.dart';
 import 'package:movegui_admin_panel/models/restaurant_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/services/image_service.dart';
@@ -75,7 +73,6 @@ class _RestaurantAddWidgetPageState extends State<RestaurantAddWidgetPage> {
       if (formController.weeklyHours.isNotEmpty &&
           formController.contacts.isNotEmpty &&
           formController.selectedType != null) {
-        print('jetz drin ......................');
         await submitHandler.submit(form: formController);
         showAlertBar(context, restaurantConstants.getSaveSuccessText());
         addContactKey.currentState!.clear();
@@ -95,8 +92,8 @@ class _RestaurantAddWidgetPageState extends State<RestaurantAddWidgetPage> {
 
   Future<void> pickAnImage() async {
     if (!kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         var selected = File(image.path);
         setState(() {
@@ -106,8 +103,8 @@ class _RestaurantAddWidgetPageState extends State<RestaurantAddWidgetPage> {
         showBtmAlert(context, restaurantConstants.getImageSelectionText());
       }
     } else if (kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         var f = await image.readAsBytes();
         setState(() {

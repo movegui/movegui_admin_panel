@@ -45,7 +45,7 @@ abstract class StoreModel extends Model {
       return (weekHour.closeTime != null && weekHour.openTime != null) ?
          weekHour.toJson() : {};
     }).toList(),
-    'storeType': storeType!.toJson()
+    'storeType': storeType.toJson()
     
   };
 

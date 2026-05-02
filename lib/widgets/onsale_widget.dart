@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class onSaleWidget extends StatefulWidget {
-  onSaleWidget({Key? key, this.onChanged}) : super(key: key);
+  const onSaleWidget({super.key, this.onChanged});
 
   final Function(String)? onChanged;
   @override
@@ -12,7 +12,7 @@ class onSaleWidget extends StatefulWidget {
 class _onSaleWidgetState extends State<onSaleWidget> {
   bool showTextForm = false;
   bool isOnSale = false;
-  TextEditingController _onSaleController = TextEditingController();
+  final TextEditingController _onSaleController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {

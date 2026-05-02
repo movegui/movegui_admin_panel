@@ -1,27 +1,19 @@
 
 import 'dart:io';
 
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/app_constants.dart';
-import 'package:movegui_admin_panel/consts/validator.dart';
 import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
 import 'package:movegui_admin_panel/methods/show_alert.dart';
-import 'package:movegui_admin_panel/models/open_hours_model.dart';
-import 'package:movegui_admin_panel/models/person_model.dart';
-import 'package:movegui_admin_panel/models/pressing_model.dart';
 import 'package:movegui_admin_panel/models/restaurant_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/services/image_service.dart';
 import 'package:movegui_admin_panel/services/pressing_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/restaurant_type_service.dart';
-import 'package:movegui_admin_panel/services/restaurants_service.dart';
 import 'package:movegui_admin_panel/util/pressing_submit_handler.dart';
 import 'package:movegui_admin_panel/util/store_form_controller.dart';
 import 'package:movegui_admin_panel/widgets/app/add_contact_widget.dart';
@@ -29,10 +21,8 @@ import 'package:movegui_admin_panel/widgets/app/appbar.dart';
 import 'package:movegui_admin_panel/widgets/app/opens_hours_widget.dart';
 import 'package:movegui_admin_panel/widgets/custom_button.dart';
 import 'package:movegui_admin_panel/widgets/custom_drop_down.dart';
-import 'package:movegui_admin_panel/widgets/custom_text_field.dart';
 import 'package:movegui_admin_panel/widgets/side_menu.dart';
 import 'package:movegui_admin_panel/widgets/store_widget.dart';
-import 'package:uuid/uuid.dart';
 
 class PressingAddWidgetPage extends StatefulWidget{
   const PressingAddWidgetPage({super.key});
@@ -105,8 +95,8 @@ class PressingAddWidgetPageState extends State<PressingAddWidgetPage>{
 
   Future<void> pickAnImage() async {
     if (!kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         var selected = File(image.path);
         setState(() {
@@ -116,8 +106,8 @@ class PressingAddWidgetPageState extends State<PressingAddWidgetPage>{
         showBtmAlert(context, pressingConstants.getImageSelectionText());
       }
     } else if (kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         var f = await image.readAsBytes();
         setState(() {

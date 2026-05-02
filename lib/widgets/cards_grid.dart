@@ -5,7 +5,7 @@ import 'package:movegui_admin_panel/widgets/dashbord_cards.dart';
 import '../responsive.dart';
 
 class CardsGrid extends StatefulWidget {
-  CardsGrid({Key? key}) : super(key: key);
+  const CardsGrid({super.key});
 
   @override
   State<CardsGrid> createState() => _CardsGridState();

@@ -1,9 +1,5 @@
 
-import 'package:flutter/material.dart';
-import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/screens/main_screen.dart';
-import 'package:movegui_admin_panel/widgets/app/appbar.dart';
-import 'package:movegui_admin_panel/widgets/side_menu.dart';
 
 
 class IngredientsScreen extends MainScreen{

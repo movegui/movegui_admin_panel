@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/models/model.dart';
 import 'package:movegui_admin_panel/services/model_service.dart';
@@ -70,7 +69,7 @@ class CustomDropDownState<M extends Model, S extends ModelService<M>>
             value: dropdownValue,
             onChanged: (M? newValue) {
               setState(() {
-                dropdownValue = newValue!;
+                dropdownValue = newValue as M;
               });
               widget.onChanged(newValue!);
             },

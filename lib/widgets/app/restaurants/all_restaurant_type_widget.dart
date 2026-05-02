@@ -1,9 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:movegui_admin_panel/models/restaurant_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
-import 'package:movegui_admin_panel/screens/restaurant_type_screen.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/restaurant_type_service.dart';
 import 'package:movegui_admin_panel/widgets/app/appbar.dart';
@@ -82,7 +80,7 @@ class AllRestaurantsTypeWidgetState extends State<AllRestaurantTypeWidgetPage> {
                               Expanded(
                                 child: Text(
                                   restaurantTypes[index].createdAt
-                                          ?.toLocal()
+                                          .toLocal()
                                           .toIso8601String() ??
                                       '',
                                 ),

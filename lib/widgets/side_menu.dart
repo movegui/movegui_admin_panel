@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
-import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/providers/dark_theme_provider.dart';
 import 'package:movegui_admin_panel/screens/categories_screen.dart';
 import 'package:movegui_admin_panel/screens/dashboard_screen.dart';
@@ -17,7 +16,6 @@ import 'package:movegui_admin_panel/screens/login_screen.dart';
 import 'package:movegui_admin_panel/screens/recipes_screen.dart';
 import 'package:movegui_admin_panel/screens/restaurant_screen.dart';
 import 'package:movegui_admin_panel/services/utils.dart';
-import 'package:movegui_admin_panel/widgets/add_person_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/ingredients/add_ingredient_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/ingredients/all_ingredient_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/patisserie/add_patisserie_widget.dart';
@@ -40,11 +38,10 @@ import 'package:movegui_admin_panel/widgets/app/categories/add_categories_widget
 import 'package:movegui_admin_panel/widgets/app/categories/all_categories_widget.dart';
 import 'package:movegui_admin_panel/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
-import '../inter_screen/orders_screen.dart';
 import '../screens/main_screen.dart' hide CategoryPage;
 
 class SideMenu extends StatefulWidget {
-  const SideMenu({Key? key}) : super(key: key);
+  const SideMenu({super.key});
 
   @override
   State<SideMenu> createState() => _SideMenuState();
@@ -356,12 +353,12 @@ class _SideMenuState extends State<SideMenu> {
 
 class DrawerListTile extends StatelessWidget {
   const DrawerListTile({
-    Key? key,
+    super.key,
     // For selecting those three line once press "Command+D"
     required this.title,
     required this.press,
     required this.icon,
-  }) : super(key: key);
+  });
 
   final String title;
   final VoidCallback press;
