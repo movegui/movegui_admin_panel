@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/widgets/dashbord_cards.dart';
 
 import '../responsive.dart';
@@ -12,21 +13,27 @@ class CardsGrid extends StatefulWidget {
 }
 
 class _CardsGridState extends State<CardsGrid> {
-  final titles = [
-    'Category',
-    'Fournisseur',
-    'Ingredient',
-    'Recette',
-    'Produit',
-    'Menu',
-    'Restaurant',
-    'Store Types',
-    'Store Categories',
-    'Patisserie',
-    'Super Marchés',
-    'Pressing',
-    'Professionnel',
-  ];
+  late List<String> titles = [];
+
+  Future<List<String>> initTitles() async {
+    final myTitles = [
+      AppLocalizations.of(context)!.menu_categories,
+      AppLocalizations.of(context)!.menu_supplier,
+      AppLocalizations.of(context)!.menu_ingredient,
+      AppLocalizations.of(context)!.menu_recipe,
+      AppLocalizations.of(context)!.menu_product,
+      AppLocalizations.of(context)!.menu_menu,
+      AppLocalizations.of(context)!.menu_restaurant,
+      AppLocalizations.of(context)!.menu_store_type,
+      AppLocalizations.of(context)!.menu_store_categories,
+      AppLocalizations.of(context)!.menu_pastry,
+      AppLocalizations.of(context)!.menu_super_market,
+      AppLocalizations.of(context)!.menu_pressing,
+      AppLocalizations.of(context)!.menu_professionel,
+    ];
+    return myTitles;
+  }
+
   late int categories = 0,
       suppliers = 0,
       ingredients = 0,
@@ -44,6 +51,10 @@ class _CardsGridState extends State<CardsGrid> {
 
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      titles = await initTitles();
+    });
+
     FirebaseFirestore.instance
         .collection('categories_model')
         .snapshots(includeMetadataChanges: true)
@@ -179,14 +190,6 @@ class _CardsGridState extends State<CardsGrid> {
 
   @override
   Widget build(BuildContext context) {
-    /*
-    if (products == null) {
-      return const Padding(
-        padding: EdgeInsets.all(50),
-        child: CircularProgressIndicator(),
-      );
-    } else {
-      */
     values.clear();
     values.add(categories.toString());
     values.add(suppliers.toString());
@@ -216,11 +219,7 @@ class _CardsGridState extends State<CardsGrid> {
             : 1,
       ),
       itemBuilder: (context, index) {
-        return DashBordCards(
-          title: titles[index],
-          value:
-              values[index], //index == 0 ? '\$ ${values[index]}' : values[index],
-        );
+        return DashBordCards(title: titles[index], value: values[index]);
       },
     );
   }

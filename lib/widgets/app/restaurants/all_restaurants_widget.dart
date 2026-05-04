@@ -4,7 +4,7 @@ import 'package:movegui_admin_panel/models/restaurant_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/restaurants_service.dart';
-import 'package:movegui_admin_panel/widgets/app/appbar.dart';
+import 'package:movegui_admin_panel/widgets/app/admin_panel_appbar.dart';
 import 'package:movegui_admin_panel/widgets/side_menu.dart';
 
 class AllRestaurantsWidget extends StatefulWidget {
@@ -36,10 +36,6 @@ class AllRestaurantsWidgetState extends State<AllRestaurantsWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Responsive.isDesktop(context)
-          ? AdminPanelAppBarDesktop(title: 'All Restaurants')
-          : AdminPanelAppBar(title: 'All Restaurants'),
-      drawer: SideMenu(),
       body: Column(
         children: [
           Row(

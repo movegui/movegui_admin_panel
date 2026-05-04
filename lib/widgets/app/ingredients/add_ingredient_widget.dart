@@ -12,7 +12,7 @@ import 'package:movegui_admin_panel/services/categories_service.dart';
 import 'package:movegui_admin_panel/services/ingredients_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/suppliers_service.dart';
-import 'package:movegui_admin_panel/widgets/app/appbar.dart';
+import 'package:movegui_admin_panel/widgets/app/admin_panel_appbar.dart';
 import 'package:movegui_admin_panel/widgets/custom_button.dart';
 import 'package:movegui_admin_panel/widgets/custom_drop_down.dart';
 import 'package:movegui_admin_panel/widgets/custom_text_field.dart';
@@ -62,10 +62,6 @@ class IngredientsUploaWidgetdstate extends State<IngredientsAddWidgetPage> {
     double FontSize = Size.width < 600 ? 18 : 28;
 
     return Scaffold(
-      appBar: Responsive.isDesktop(context)
-          ? AdminPanelAppBarDesktop(title: 'Ajouter une categorie')
-          : AdminPanelAppBar(title: 'Ajouter une categorie'),
-      drawer: SideMenu(),
       body: Builder(
         builder: (context) => SafeArea(
           child: Row(

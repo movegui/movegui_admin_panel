@@ -111,6 +111,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get movegui_info_text_3 => 'Grâce à nos partenariats avec des restaurants locaux, nous offrons des livraisons à moindre coût tout en soutenant l’économie locale.MoveGui, c’est la fusion parfaite entre technologie, accessibilité et efficacité.';
 
   @override
+  String get movegui_panel => 'Paneau de Configuration Movegui';
+
+  @override
   String get deactivate_button_title => 'Service Indisponible';
 
   @override
@@ -168,6 +171,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get category_fast_food_name => 'Fast Food';
 
   @override
+  String get category_category_name => 'Categorie';
+
+  @override
   String get home_title => 'Accueil';
 
   @override
@@ -205,6 +211,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get forget_password_title => 'Mot de pass Oublié';
+
+  @override
+  String get dashbord_title => 'Panneau de Configuration';
 
   @override
   String get label_login_forget_password => 'Mot de pass oublier?';
@@ -286,4 +295,49 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get add => 'Ajouter';
+
+  @override
+  String get add_all => 'Tout afficher';
+
+  @override
+  String get menu_main => 'Acceuil';
+
+  @override
+  String get menu_categories => 'Catégories';
+
+  @override
+  String get menu_supplier => 'Fournisseurs';
+
+  @override
+  String get menu_ingredient => 'Ingrédients';
+
+  @override
+  String get menu_recipe => 'Recettes';
+
+  @override
+  String get menu_product => 'Produits';
+
+  @override
+  String get menu_restaurant => 'Restaurants';
+
+  @override
+  String get menu_store_type => 'Types magasins';
+
+  @override
+  String get menu_store_categories => 'Magasins Categories';
+
+  @override
+  String get menu_pastry => 'Patisserie';
+
+  @override
+  String get menu_super_market => 'Super Marchés';
+
+  @override
+  String get menu_pressing => 'Pressing';
+
+  @override
+  String get menu_professionel => 'Professionnel';
+
+  @override
+  String get menu_menu => 'Menus';
 }

@@ -6,11 +6,11 @@ class PersonModel extends Model {
   final String lastName;
   final String? middleName;
   final String? profileImageUrl;
-  final String email;
-  final String phone;
+  final String? email;
+  final String? phone;
   final String gender;
   final DateTime? birthDate;
-  final String address;
+  final List<String?> addresses;
   final String? nationality;
 
   PersonModel({
@@ -25,8 +25,8 @@ class PersonModel extends Model {
     required this.phone,
     required this.gender,
     required this.birthDate,
-    required this.address,
-    this.nationality
+    required this.addresses,
+    this.nationality,
   });
 
   @override
@@ -39,10 +39,9 @@ class PersonModel extends Model {
     'email': email,
     'phone': phone,
     'gender': gender,
-    'birthDate': birthDate!.toIso8601String(),
-    'address': address,
+    'birthDate': birthDate?.toIso8601String() ?? '',
+    'addresses': addresses,
     'nationality': nationality,
-
   };
 
   factory PersonModel.fromJson(Map<String, dynamic> json) => PersonModel(
@@ -56,13 +55,14 @@ class PersonModel extends Model {
     email: json['email'],
     phone: json['phone'],
     gender: json['gender'],
-    birthDate: json['birthDate'] != null
-    ? DateTime.parse(json['birthDate'])
-    : null,
-    address: json['address'],
-    nationality: json['nationality']
+    birthDate: json['birthDate'] != null && !json['birthDate'].isEmpty
+        ? DateTime.parse(json['birthDate'])
+        : null,
+    addresses: json['addresses'] != null
+        ? List<String?>.from(json['addresses'])
+        : [],
+    nationality: json['nationality'],
   );
-
 
   factory PersonModel.empty() => PersonModel(
     id: Uuid().v4(),
@@ -76,13 +76,12 @@ class PersonModel extends Model {
     phone: '',
     gender: '',
     birthDate: DateTime(1800, 1, 1),
-    address: '',
-    nationality: ''
+    addresses: [],
+    nationality: '',
   );
 
   @override
   String toString() {
-    
-    return '$firstName $lastName $email $phone';
+    return '$firstName $lastName ${email!} ${phone!}';
   }
 }

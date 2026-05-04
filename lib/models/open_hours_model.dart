@@ -26,9 +26,9 @@ class OpenHours {
       };
 
   factory OpenHours.fromJson(Map<String, dynamic> json) => OpenHours(
-        day: json['day'],
-        openTime: _timeOfDayFromJson(json['openTime']),
-        closeTime: _timeOfDayFromJson(json['closeTime']),
+        day: json['day'] ?? '',
+        openTime: json['openTime'] != null ? _timeOfDayFromJson(json['openTime']) : null,
+        closeTime: json['closeTime'] != null ?  _timeOfDayFromJson(json['closeTime']) : null,
       );
 
   static TimeOfDay _timeOfDayFromJson(Map<String, dynamic> json) =>

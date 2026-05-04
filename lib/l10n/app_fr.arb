@@ -79,6 +79,9 @@
     "@movegui_info_text_2": {},
     "movegui_info_text_3": "Grâce à nos partenariats avec des restaurants locaux, nous offrons des livraisons à moindre coût tout en soutenant l’économie locale.MoveGui, c’est la fusion parfaite entre technologie, accessibilité et efficacité.",
     "@movegui_info_text_3": {},
+    "movegui_panel": "Paneau de Configuration Movegui",
+    "@movegui_panel": {},
+    
     "login_forget_password_txt": "Saisissez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe ",
     "@login_forget_password_txt": {},
 
@@ -121,6 +124,8 @@
     "@category_profession_name": {},
     "category_fast_food_name": "Fast Food",
     "@category_fast_food_name": {},
+    "category_category_name": "Categorie",
+    "@category_category_name": {},
 
     "home_title": "Accueil",
     "@home_title": {},
@@ -146,6 +151,8 @@
     "@register_title": {},
     "forget_password_title":"Mot de pass Oublié",
     "@forget_password_title": {},
+    "dashbord_title": "Panneau de Configuration",
+    "@dashbord_title": {},
 
 
     "navigation_menu_tooltip" : "Navigation Menu",
@@ -213,7 +220,38 @@
     "@profile_menu_login": {},
 
     "add": "Ajouter",
-    "@add": {}
+    "@add": {},
+    "add_all": "Tout afficher",
+    "@add_all": {},
+    "menu_main": "Acceuil",
+    "@menu_main": {},
+    "menu_categories": "Catégories",
+    "@menu_categories": {},
+    "menu_supplier": "Fournisseurs",
+    "@menu_supplier": {},
+    "menu_ingredient": "Ingrédients",
+    "@menu_ingredient": {},
+    "menu_recipe": "Recettes",
+    "@menu_recipe": {},
+    "menu_product": "Produits",
+    "@menu_product": {},
+    "menu_restaurant": "Restaurants",
+    "@menu_restaurant": {},
+    "menu_store_type": "Types magasins",
+    "@menu_store_type": {},
+    "menu_store_categories": "Magasins Categories",
+    "@menu_store_categories": {},
+    "menu_pastry": "Patisserie",
+    "@menu_pastry": {},
+    "menu_super_market": "Super Marchés",
+    "@menu_super_market": {},
+    "menu_pressing": "Pressing",
+    "@menu_pressing": {},
+    "menu_professionel": "Professionnel",
+    "@menu_professionel": {},
+    "menu_menu": "Menus",
+    "@menu_menu": {}
+
 
 
 

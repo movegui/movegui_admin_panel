@@ -13,7 +13,7 @@ import 'package:movegui_admin_panel/services/suppliers_service.dart';
 import 'package:movegui_admin_panel/util/store_form_controller.dart';
 import 'package:movegui_admin_panel/util/supplier_submit_handler.dart';
 import 'package:movegui_admin_panel/widgets/app/add_contact_widget.dart';
-import 'package:movegui_admin_panel/widgets/app/appbar.dart';
+import 'package:movegui_admin_panel/widgets/app/admin_panel_appbar.dart';
 import 'package:movegui_admin_panel/widgets/app/opens_hours_widget.dart';
 import 'package:movegui_admin_panel/widgets/custom_button.dart';
 import 'package:movegui_admin_panel/widgets/custom_drop_down.dart';
@@ -111,10 +111,6 @@ class SuppliersUploaWidgetdstate extends State<SupplierAddWidgetPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Responsive.isDesktop(context)
-          ? AdminPanelAppBarDesktop(title: supplierConstants.getMenuTitleText())
-          : AdminPanelAppBar(title: supplierConstants.getMenuTitleText()),
-      drawer: SideMenu(),
       body: ModalProgressHUD(
         inAsyncCall: isLoading,
         child: SingleChildScrollView(

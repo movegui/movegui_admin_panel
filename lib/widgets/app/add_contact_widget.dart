@@ -142,7 +142,7 @@ class AddContactWidgetState extends State<AddContactWidget> {
             images[i],
           ),
           birthDate: birthdates[i],
-          address: addresses[i].text,
+          addresses: [addresses[i].text],
           email: emails[i].text,
           phone: phones[i].text,
           gender: genders[i],

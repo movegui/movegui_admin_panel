@@ -111,6 +111,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get movegui_info_text_3 => 'Thanks to our partnerships with local restaurants, we offer low-cost deliveries whilst supporting the local economy.MoveGui is the perfect blend of technology, accessibility and efficiency.';
 
   @override
+  String get movegui_panel => 'Movegui Configuration Panel';
+
+  @override
   String get deactivate_button_title => 'Service Unavailable ';
 
   @override
@@ -168,6 +171,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get category_fast_food_name => 'Fast Food';
 
   @override
+  String get category_category_name => 'Category';
+
+  @override
   String get home_title => 'Home';
 
   @override
@@ -205,6 +211,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get forget_password_title => 'Forgetten Password';
+
+  @override
+  String get dashbord_title => 'Panneau de Configuration';
 
   @override
   String get label_login_forget_password => 'Forgotten your password?';
@@ -286,4 +295,49 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get add => 'Ajouter';
+
+  @override
+  String get add_all => 'View All';
+
+  @override
+  String get menu_main => 'Home';
+
+  @override
+  String get menu_categories => 'Categories';
+
+  @override
+  String get menu_supplier => 'Suppliers';
+
+  @override
+  String get menu_ingredient => 'Ingredients';
+
+  @override
+  String get menu_recipe => 'Recipes';
+
+  @override
+  String get menu_product => 'Products';
+
+  @override
+  String get menu_restaurant => 'Restaurants';
+
+  @override
+  String get menu_store_type => 'Store Types';
+
+  @override
+  String get menu_store_categories => 'Store Categories';
+
+  @override
+  String get menu_pastry => 'Pastry';
+
+  @override
+  String get menu_super_market => 'Super Market';
+
+  @override
+  String get menu_pressing => 'Dry Cleaner';
+
+  @override
+  String get menu_professionel => 'Professionnel';
+
+  @override
+  String get menu_menu => 'Menus';
 }

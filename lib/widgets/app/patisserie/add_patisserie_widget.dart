@@ -16,7 +16,7 @@ import 'package:movegui_admin_panel/services/store_categories_service.dart';
 import 'package:movegui_admin_panel/util/patisserie_submit_handler.dart';
 import 'package:movegui_admin_panel/util/store_form_controller.dart';
 import 'package:movegui_admin_panel/widgets/app/add_contact_widget.dart';
-import 'package:movegui_admin_panel/widgets/app/appbar.dart';
+import 'package:movegui_admin_panel/widgets/app/admin_panel_appbar.dart';
 import 'package:movegui_admin_panel/widgets/app/opens_hours_widget.dart';
 import 'package:movegui_admin_panel/widgets/custom_button.dart';
 import 'package:movegui_admin_panel/widgets/custom_drop_down.dart';
@@ -110,10 +110,6 @@ class PatisserieAddWidgetPageState extends State<PatisserieAddWidgetPage> {
         var Size = MediaQuery.of(context).size;
     double FontSize = Size.width < 600 ? 18 : 28;
     return Scaffold(
-      appBar: Responsive.isDesktop(context)
-          ? AdminPanelAppBarDesktop(title: patisserieConstants.getMenuTitleText())
-          : AdminPanelAppBar(title: patisserieConstants.getMenuTitleText()),
-      drawer: SideMenu(),
       body: ModalProgressHUD(
         inAsyncCall: isLoading,
         child: SingleChildScrollView(

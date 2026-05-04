@@ -299,6 +299,12 @@ abstract class AppLocalizations {
   /// **'Thanks to our partnerships with local restaurants, we offer low-cost deliveries whilst supporting the local economy.MoveGui is the perfect blend of technology, accessibility and efficiency.'**
   String get movegui_info_text_3;
 
+  /// No description provided for @movegui_panel.
+  ///
+  /// In en, this message translates to:
+  /// **'Movegui Configuration Panel'**
+  String get movegui_panel;
+
   /// No description provided for @deactivate_button_title.
   ///
   /// In en, this message translates to:
@@ -413,6 +419,12 @@ abstract class AppLocalizations {
   /// **'Fast Food'**
   String get category_fast_food_name;
 
+  /// No description provided for @category_category_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get category_category_name;
+
   /// No description provided for @home_title.
   ///
   /// In en, this message translates to:
@@ -490,6 +502,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Forgetten Password'**
   String get forget_password_title;
+
+  /// No description provided for @dashbord_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Panneau de Configuration'**
+  String get dashbord_title;
 
   /// No description provided for @label_login_forget_password.
   ///
@@ -652,6 +670,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Ajouter'**
   String get add;
+
+  /// No description provided for @add_all.
+  ///
+  /// In en, this message translates to:
+  /// **'View All'**
+  String get add_all;
+
+  /// No description provided for @menu_main.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get menu_main;
+
+  /// No description provided for @menu_categories.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get menu_categories;
+
+  /// No description provided for @menu_supplier.
+  ///
+  /// In en, this message translates to:
+  /// **'Suppliers'**
+  String get menu_supplier;
+
+  /// No description provided for @menu_ingredient.
+  ///
+  /// In en, this message translates to:
+  /// **'Ingredients'**
+  String get menu_ingredient;
+
+  /// No description provided for @menu_recipe.
+  ///
+  /// In en, this message translates to:
+  /// **'Recipes'**
+  String get menu_recipe;
+
+  /// No description provided for @menu_product.
+  ///
+  /// In en, this message translates to:
+  /// **'Products'**
+  String get menu_product;
+
+  /// No description provided for @menu_restaurant.
+  ///
+  /// In en, this message translates to:
+  /// **'Restaurants'**
+  String get menu_restaurant;
+
+  /// No description provided for @menu_store_type.
+  ///
+  /// In en, this message translates to:
+  /// **'Store Types'**
+  String get menu_store_type;
+
+  /// No description provided for @menu_store_categories.
+  ///
+  /// In en, this message translates to:
+  /// **'Store Categories'**
+  String get menu_store_categories;
+
+  /// No description provided for @menu_pastry.
+  ///
+  /// In en, this message translates to:
+  /// **'Pastry'**
+  String get menu_pastry;
+
+  /// No description provided for @menu_super_market.
+  ///
+  /// In en, this message translates to:
+  /// **'Super Market'**
+  String get menu_super_market;
+
+  /// No description provided for @menu_pressing.
+  ///
+  /// In en, this message translates to:
+  /// **'Dry Cleaner'**
+  String get menu_pressing;
+
+  /// No description provided for @menu_professionel.
+  ///
+  /// In en, this message translates to:
+  /// **'Professionnel'**
+  String get menu_professionel;
+
+  /// No description provided for @menu_menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Menus'**
+  String get menu_menu;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

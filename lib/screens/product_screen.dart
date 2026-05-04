@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/responsive.dart';
-import 'package:movegui_admin_panel/widgets/app/appbar.dart';
+import 'package:movegui_admin_panel/widgets/app/admin_panel_appbar.dart';
 import 'package:movegui_admin_panel/widgets/side_menu.dart';
 
 class ProductScreen  extends StatelessWidget{
