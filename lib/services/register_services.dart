@@ -1,5 +1,7 @@
 
 import 'package:get_it/get_it.dart';
+import 'package:movegui_admin_panel/config/env.dart';
+import 'package:movegui_admin_panel/services/api_service.dart';
 import 'package:movegui_admin_panel/services/image_service.dart';
 import 'package:movegui_admin_panel/services/ingredients_service.dart';
 import 'package:movegui_admin_panel/services/patisseries_service.dart';
@@ -14,17 +16,18 @@ import 'package:movegui_admin_panel/services/user_service.dart';
 
 final getIt = GetIt.instance;
 
-void initServices(){
+void initServices(Env env){
  // getIt.registerLazySingleton<CategoriesService>(() => CategoriesService());
-  getIt.registerLazySingleton<StoreCategoriesService>(() => StoreCategoriesService());
-  getIt.registerLazySingleton<SuppliersService>(() => SuppliersService());
-  getIt.registerLazySingleton<IngredientsService>(() => IngredientsService());
-  getIt.registerLazySingleton<RestaurantsService>(() => RestaurantsService());
-  getIt.registerLazySingleton<RestaurantTypeService>(() => RestaurantTypeService());
-  getIt.registerLazySingleton<PatisseriesService>(() => PatisseriesService());
-  getIt.registerLazySingleton<SuperMarktsService>(() => SuperMarktsService());
-  getIt.registerLazySingleton<PressingService>(() => PressingService());
-  getIt.registerLazySingleton<ProfessionnelService>(() => ProfessionnelService());
-  getIt.registerLazySingleton<UserService>(() => UserService());
+ final api = ApiService(env);
+  getIt.registerLazySingleton<StoreCategoriesService>(() => StoreCategoriesService(api: api));
+  getIt.registerLazySingleton<SuppliersService>(() => SuppliersService(api: api));
+  getIt.registerLazySingleton<IngredientsService>(() => IngredientsService(api: api));
+  getIt.registerLazySingleton<RestaurantsService>(() => RestaurantsService(api: api));
+  getIt.registerLazySingleton<RestaurantTypeService>(() => RestaurantTypeService(api: api));
+  getIt.registerLazySingleton<PatisseriesService>(() => PatisseriesService(api: api));
+  getIt.registerLazySingleton<SuperMarktsService>(() => SuperMarktsService(api: api));
+  getIt.registerLazySingleton<PressingService>(() => PressingService(api: api));
+  getIt.registerLazySingleton<ProfessionnelService>(() => ProfessionnelService(api: api));
+  getIt.registerLazySingleton<UserService>(() => UserService(api: api));
   getIt.registerLazySingleton<ImageService>(() => ImageService());
 }

@@ -17,8 +17,8 @@ class ToggleButtonExample extends StatefulWidget {
 class _ToggleButtonExampleState extends State<ToggleButtonExample> {
   List<bool> isSelected = [true, false];
   int _selectedIndex = 0;
-  bool _isHoveringEmailText = false;
-  bool _isHoveringPhoneText = false;
+  final bool _isHoveringEmailText = false;
+  final bool _isHoveringPhoneText = false;
   late Color backgroundColor;
 
   @override

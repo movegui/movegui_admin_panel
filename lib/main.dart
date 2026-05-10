@@ -5,6 +5,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:movegui_admin_panel/app_router.dart';
+import 'package:movegui_admin_panel/config/env.dart';
+import 'package:movegui_admin_panel/config/env_dev.dart';
+import 'package:movegui_admin_panel/config/firebase_config.dart';
 import 'package:movegui_admin_panel/consts/theme_data.dart';
 import 'package:movegui_admin_panel/firebase_options.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
@@ -19,17 +22,22 @@ void main() async {
   await Hive.initFlutter();
   await Hive.openBox<UserModel>('user_box');
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  final env = EnvDev();
   FirebaseUIAuth.configureProviders([
     EmailAuthProvider(),
-
+// flutter run --flavor dev -t lib/main_dev.dart
     // ... other providers
   ]);
-  initServices();
-  runApp(const MyApp());
+  initServices(env);
+    await FirebaseConfig.init(env);
+
+  runApp( MyApp(env: env,));
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+
+final Env env;
+  const MyApp({super.key, required this.env , });
 
   @override
   State<MyApp> createState() => _MyAppState();

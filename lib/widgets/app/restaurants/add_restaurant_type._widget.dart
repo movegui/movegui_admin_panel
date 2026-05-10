@@ -9,10 +9,8 @@ import 'package:movegui_admin_panel/models/restaurant_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/restaurant_type_service.dart';
-import 'package:movegui_admin_panel/widgets/app/admin_panel_appbar.dart';
 import 'package:movegui_admin_panel/widgets/custom_button.dart';
 import 'package:movegui_admin_panel/widgets/custom_text_field.dart';
-import 'package:movegui_admin_panel/widgets/side_menu.dart';
 import 'package:uuid/uuid.dart';
 
 class RestaurantTypeAddWidgetPage extends StatefulWidget {

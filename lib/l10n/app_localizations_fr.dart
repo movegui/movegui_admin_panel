@@ -9,7 +9,7 @@ class AppLocalizationsFr extends AppLocalizations {
   AppLocalizationsFr([String locale = 'fr']) : super(locale);
 
   @override
-  String get search => 'Rechercher';
+  String get search_title => 'Rechercher';
 
   @override
   String get company_adresse_label => 'Adresse';
@@ -27,7 +27,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get success_send_message_message => 'Merci pour votre message';
 
   @override
-  String get success_registration_new_user => 'Votre Compte a été créer avec succes';
+  String get success_registration_new_user =>
+      'Votre Compte a été créer avec succes';
 
   @override
   String get success_login_message => 'Connexion réussie';
@@ -36,19 +37,22 @@ class AppLocalizationsFr extends AppLocalizations {
   String get success_login_reset_password => 'Lien envoyé avec Succes';
 
   @override
-  String get login_forget_password_txt => 'Saisissez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe ';
+  String get login_forget_password_txt =>
+      'Saisissez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe ';
 
   @override
   String get error_send_mail_title => 'Erreur d\'Authentification';
 
   @override
-  String get error_send_mail_message => 'Vous devez être enregistrer pour utilisé cette fonctionnalité';
+  String get error_send_mail_message =>
+      'Vous devez être enregistrer pour utilisé cette fonctionnalité';
 
   @override
   String get error_input_hint_message => 'Veuillez entrer votre message.';
 
   @override
-  String get error_firebase_initialisation => 'Erreur Initialisation FirebaseAuth ';
+  String get error_firebase_initialisation =>
+      'Erreur Initialisation FirebaseAuth ';
 
   @override
   String get error_login_message => 'Échec de la connexion';
@@ -57,7 +61,15 @@ class AppLocalizationsFr extends AppLocalizations {
   String get error_register_with_phone_title => 'Erreur d\'enregistrement';
 
   @override
-  String get error_register_with_phone_message => 'Echec d\'enregistrement de votre numéro de téléphone, Veuillez réessayer svp !';
+  String get error_register_with_phone_message =>
+      'Echec d\'enregistrement de votre numéro de téléphone, Veuillez réessayer svp !';
+
+  @override
+  String get error_application => 'Il y a plus d\'un Super Admin';
+
+  @override
+  String get error_register_with_email_message =>
+      'Echec d\'enregistrement de votre email, Veuillez réessayer svp !';
 
   @override
   String get label_login_facebook => 'Facebook';
@@ -99,16 +111,20 @@ class AppLocalizationsFr extends AppLocalizations {
   String get input_hint_adress => 'Adresse';
 
   @override
-  String get movegui_info_title => 'MoveGui – Livraison & Transport à Moto en Guinée';
+  String get movegui_info_title =>
+      'MoveGui – Livraison & Transport à Moto en Guinée';
 
   @override
-  String get movegui_info_text_1 => 'MoveGui est une entreprise innovante spécialisée dans la livraison de nourriture et le transport à moto en Guinée.Notre mission est de rendre la livraison plus accessible, plus transparente et plus économique pour tous.';
+  String get movegui_info_text_1 =>
+      'MoveGui est une entreprise innovante spécialisée dans la livraison de nourriture et le transport à moto en Guinée.Notre mission est de rendre la livraison plus accessible, plus transparente et plus économique pour tous.';
 
   @override
-  String get movegui_info_text_2 => 'Nous proposons un tarif fixe pour chaque course, quelle que soit la distance, garantissant une transparence totale pour nos clients.Plus de surprises sur le prix, juste un service rapide, fiable et simple.';
+  String get movegui_info_text_2 =>
+      'Nous proposons un tarif fixe pour chaque course, quelle que soit la distance, garantissant une transparence totale pour nos clients.Plus de surprises sur le prix, juste un service rapide, fiable et simple.';
 
   @override
-  String get movegui_info_text_3 => 'Grâce à nos partenariats avec des restaurants locaux, nous offrons des livraisons à moindre coût tout en soutenant l’économie locale.MoveGui, c’est la fusion parfaite entre technologie, accessibilité et efficacité.';
+  String get movegui_info_text_3 =>
+      'Grâce à nos partenariats avec des restaurants locaux, nous offrons des livraisons à moindre coût tout en soutenant l’économie locale.MoveGui, c’est la fusion parfaite entre technologie, accessibilité et efficacité.';
 
   @override
   String get movegui_panel => 'Paneau de Configuration Movegui';
@@ -174,6 +190,24 @@ class AppLocalizationsFr extends AppLocalizations {
   String get category_category_name => 'Categorie';
 
   @override
+  String get category_ingredient_name => 'Ingrédients';
+
+  @override
+  String get category_pastry_name => 'Patisserie';
+
+  @override
+  String get category_product_name => 'Produits';
+
+  @override
+  String get category_recipe_name => 'Recettes';
+
+  @override
+  String get category_super_market_name => 'Super Marchés';
+
+  @override
+  String get notification_title => 'Notifications';
+
+  @override
   String get home_title => 'Accueil';
 
   @override
@@ -187,9 +221,6 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get courier_title => 'Courses';
-
-  @override
-  String get pressing_title => 'Pressing';
 
   @override
   String get my_orders_title => 'Mes Commandes';
@@ -237,7 +268,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get label_enter_your_code => 'Entrez votre Code:';
 
   @override
-  String get exception_login_message => 'Les identifiants utilisateur fournis sont incorrects, veuillez verifier votre email et mot de pass';
+  String get exception_login_message =>
+      'Les identifiants utilisateur fournis sont incorrects, veuillez verifier votre email et mot de pass';
 
   @override
   String get tooltip_sign_in_with_google => 'Se connecter avec Google';
@@ -249,7 +281,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get tooltip_sign_in => 'Cliquez ici pour se connecter';
 
   @override
-  String get tooltip_forget_password => 'Cliquez Ici pour réinitialiser votre mot de pass :)';
+  String get tooltip_forget_password =>
+      'Cliquez Ici pour réinitialiser votre mot de pass :)';
 
   @override
   String get tooltip_registration => 'Cliquez ici pour vous enregistrer :)';
@@ -282,9 +315,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get profile_menu_discussions => 'Discussions';
 
   @override
-  String get profile_menu_notification => 'Notifications';
-
-  @override
   String get profile_menu_delete_account => 'Supprimer Compte';
 
   @override
@@ -303,40 +333,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get menu_main => 'Acceuil';
 
   @override
-  String get menu_categories => 'Catégories';
-
-  @override
-  String get menu_supplier => 'Fournisseurs';
-
-  @override
-  String get menu_ingredient => 'Ingrédients';
-
-  @override
-  String get menu_recipe => 'Recettes';
-
-  @override
-  String get menu_product => 'Produits';
-
-  @override
-  String get menu_restaurant => 'Restaurants';
-
-  @override
   String get menu_store_type => 'Types magasins';
 
   @override
   String get menu_store_categories => 'Magasins Categories';
 
   @override
-  String get menu_pastry => 'Patisserie';
-
-  @override
-  String get menu_super_market => 'Super Marchés';
-
-  @override
-  String get menu_pressing => 'Pressing';
-
-  @override
-  String get menu_professionel => 'Professionnel';
+  String get menu_restaurant_type => 'Restaurant Type';
 
   @override
   String get menu_menu => 'Menus';

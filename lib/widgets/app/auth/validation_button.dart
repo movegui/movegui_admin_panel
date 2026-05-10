@@ -19,13 +19,13 @@ class ValidationButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size _size = MediaQuery.of(context).size;
+    final Size size = MediaQuery.of(context).size;
     return Row(
       children: [
         Flexible(
           child: Center(
             child: SizedBox(
-              width: Responsive.isMobile(context) ? _size.width * 0.5 : 300,
+              width: Responsive.isMobile(context) ? size.width * 0.5 : 300,
               child: ButtonWidget(
                 onPressed: fn,
                 buttonItem: buttonItem,

@@ -43,8 +43,8 @@ class ImageService {
 
     static Future<Map<String?, dynamic>?>pickAnImage() async {
    
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(source: ImageSource.gallery);
       if(image == null) {
         return null;
       } else if(kIsWeb){

@@ -14,14 +14,11 @@ import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
 import 'package:movegui_admin_panel/methods/show_alert.dart';
 import 'package:movegui_admin_panel/models/person_model.dart';
 import 'package:movegui_admin_panel/models/professionnel_model.dart';
-import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/services/professionnel_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/widgets/add_person_widget.dart';
-import 'package:movegui_admin_panel/widgets/app/admin_panel_appbar.dart';
 import 'package:movegui_admin_panel/widgets/custom_button.dart';
 import 'package:movegui_admin_panel/widgets/custom_text_field.dart';
-import 'package:movegui_admin_panel/widgets/side_menu.dart';
 import 'package:uuid/uuid.dart';
 
 class ProfessionnelAddWidgetPage extends StatefulWidget {

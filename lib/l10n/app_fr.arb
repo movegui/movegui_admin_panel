@@ -2,8 +2,8 @@
     
 
     
-    "search": "Rechercher",
-    "@search": {
+    "search_title": "Rechercher",
+    "@search_title": {
         "description": "Text pour le Button de recherche"
     },
     "company_adresse_label": "Adresse",
@@ -43,6 +43,10 @@
     "@error_register_with_phone_title": {},
     "error_register_with_phone_message": "Echec d'enregistrement de votre numéro de téléphone, Veuillez réessayer svp !",
     "@error_register_with_phone_message": {},
+    "error_application": "Il y a plus d'un Super Admin",
+    "@error_application": {},
+    "error_register_with_email_message": "Echec d'enregistrement de votre email, Veuillez réessayer svp !",
+    "@error_register_with_email_message": {}, 
 
     
     
@@ -126,7 +130,22 @@
     "@category_fast_food_name": {},
     "category_category_name": "Categorie",
     "@category_category_name": {},
+    "category_ingredient_name": "Ingrédients",
+    "@category_ingredient_name": {},
+    "category_pastry_name": "Patisserie",
+    "@category_pastry_name": {},
+    "category_product_name": "Produits",
+    "@category_product_name": {},
+    "category_recipe_name": "Recettes",
+    "@category_recipe_name": {},
+    "category_super_market_name": "Super Marchés",
+    "@category_super_market_name": {},
 
+
+
+
+    "notification_title": "Notifications",
+    "@notification_title": {},
     "home_title": "Accueil",
     "@home_title": {},
     "movegui_title": "Movegui",
@@ -137,8 +156,6 @@
     "@delivery_title": {},
     "courier_title": "Courses",
     "@courier_title": {},
-    "pressing_title": "Pressing",
-    "@pressing_title": {},
     "my_orders_title": "Mes Commandes",
     "@my_orders_title": {},
     "my_deliveries_title": "Mes Livraisons",
@@ -210,8 +227,7 @@
     "@profile_menu_confidentiality": {},
     "profile_menu_discussions": "Discussions",
     "@profile_menu_discussions": {},
-    "profile_menu_notification": "Notifications",
-    "@profile_menu_notification": {},
+
     "profile_menu_delete_account": "Supprimer Compte",
     "@profile_menu_delete_account": {},
     "profile_menu_logout":"Deconnexion",
@@ -225,30 +241,12 @@
     "@add_all": {},
     "menu_main": "Acceuil",
     "@menu_main": {},
-    "menu_categories": "Catégories",
-    "@menu_categories": {},
-    "menu_supplier": "Fournisseurs",
-    "@menu_supplier": {},
-    "menu_ingredient": "Ingrédients",
-    "@menu_ingredient": {},
-    "menu_recipe": "Recettes",
-    "@menu_recipe": {},
-    "menu_product": "Produits",
-    "@menu_product": {},
-    "menu_restaurant": "Restaurants",
-    "@menu_restaurant": {},
     "menu_store_type": "Types magasins",
     "@menu_store_type": {},
     "menu_store_categories": "Magasins Categories",
     "@menu_store_categories": {},
-    "menu_pastry": "Patisserie",
-    "@menu_pastry": {},
-    "menu_super_market": "Super Marchés",
-    "@menu_super_market": {},
-    "menu_pressing": "Pressing",
-    "@menu_pressing": {},
-    "menu_professionel": "Professionnel",
-    "@menu_professionel": {},
+    "menu_restaurant_type": "Restaurant Type",
+    "@menu_restaurant_type": {},
     "menu_menu": "Menus",
     "@menu_menu": {}
 

@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
-import 'package:movegui_admin_panel/providers/appbar_title_provider.dart';
 import 'package:movegui_admin_panel/responsive.dart';
+import 'package:movegui_admin_panel/widgets/app/admin_panel_appbar.dart';
 import 'package:movegui_admin_panel/widgets/app/app_image.dart';
 import 'package:movegui_admin_panel/widgets/app/separator_widget.dart';
 import 'package:movegui_admin_panel/widgets/auth/login_forget_password_page.dart';
-import 'package:provider/provider.dart';
 
 
 class MoveguiForgotPasswordScreen extends StatefulWidget {
@@ -28,16 +27,6 @@ class _ForgotPasswordScreenState extends State<MoveguiForgotPasswordScreen> {
     super.initState();
   }
 
-  
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<AppbarTitleProvider>().setTitle(
-        AppLocalizations.of(context)!.forget_password_title,
-      );
-    });
-  }
 
   @override
   void dispose() {
@@ -56,16 +45,10 @@ class _ForgotPasswordScreenState extends State<MoveguiForgotPasswordScreen> {
 
     @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-        setState(() {
-        });
-      },
-      child: Scaffold(
+    return  Scaffold(
+      appBar: AdminPanelAppBar(title: AppLocalizations.of(context)!.forget_password_title),
         body: Responsive.isDesktop(context) ? buildDeskop() : buildMobil(),
         resizeToAvoidBottomInset: true,
-      ),
     );
   }
 

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/dark_theme_provider.dart';
 
-class DashBordCards extends StatelessWidget {
+class DashBordCards extends ConsumerWidget {
   const DashBordCards({super.key, required this.title, required this.value});
   final String title;
   final String value;
   @override
-  Widget build(BuildContext context) {
-    final themeState = Provider.of<DarkThemeProvider>(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeState = ref.read(DarkThemeProvider.themeProvider);// Provider.of<DarkThemeProvider>(context);
     final Color color = themeState.getDarkTheme ? Colors.white : Colors.black;
     var size = MediaQuery.of(context).size;
     double FontSize = size.width < 600 ? 25 : 32;

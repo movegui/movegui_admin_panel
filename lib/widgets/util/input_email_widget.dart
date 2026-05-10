@@ -10,7 +10,7 @@ class InputEmailWidget extends StatelessWidget {
   final FocusNode emailFocusNode;
   final FocusNode? nextFocusNode;
 
-  InputEmailWidget({
+  const InputEmailWidget({
     super.key,
     this.nextFocusNode,
     required this.emailController,

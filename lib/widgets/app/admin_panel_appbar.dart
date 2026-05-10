@@ -1,17 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/route_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/responsive.dart';
-import 'package:movegui_admin_panel/screens/movegui_profile_screen.dart';
+import 'package:movegui_admin_panel/services/register_services.dart';
+import 'package:movegui_admin_panel/services/user_service.dart';
 import 'package:movegui_admin_panel/util/profile_menu_title.dart';
 
 class AdminPanelAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const AdminPanelAppBar({super.key, required this.title});
+  AdminPanelAppBar({super.key, required this.title});
   final String title;
+  final userService = getIt<UserService>();
 
   @override
   Widget build(BuildContext context) {
@@ -66,16 +67,36 @@ class AdminPanelAppBar extends StatelessWidget implements PreferredSizeWidget {
             hoverColor: AppColors.selectionColor,
             onPressed: () async {
               if (FirebaseAuth.instance.currentUser != null) {
-                await showMenu<String>(
-                  context: context,
-                  position: const RelativeRect.fromLTRB(100, 80, 0, 0),
-                  items: [
-                    const PopupMenuItem(
-                      value: '1',
-                      child: MoveguiProfileScreen(),
-                    ),
-                  ],
-                );
+                if (Responsive.isMobile(context)) {
+                  context.go(RouteConstants.PROFILE_ROUTE);
+                } else {
+                  await showMenu<String>(
+                    context: context,
+                    position: const RelativeRect.fromLTRB(100, 80, 0, 0),
+                    items: [
+                      PopupMenuItem(
+                        value: '1',
+                        child: ProfileMenuTitle(
+                          icon: Icons.logout,
+                          title: AppLocalizations.of(
+                            context,
+                          )!.profile_menu_logout,
+                          onTap: () async {
+                            await userService.signOut();
+                            context.go(RouteConstants.LOGIN_ROUTE);
+                            /*
+                setState(() {
+                  currentUser == null;
+                });
+                */
+                          },
+                          enabled: true,
+                          routeName: RouteConstants.LOGIN_ROUTE,
+                        ), //MoveguiProfileScreen(),
+                      ),
+                    ],
+                  );
+                }
               } else {
                 await showMenu<String>(
                   context: context,
@@ -95,7 +116,7 @@ class AdminPanelAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ],
                 );
               }
-          
+
               //        context.go(RouteConstants.PROFILE_ROUTE);
             },
           ),

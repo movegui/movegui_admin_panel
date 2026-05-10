@@ -1,26 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconly/iconly.dart';
 import 'package:movegui_admin_panel/consts/route_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/providers/dark_theme_provider.dart';
-import 'package:movegui_admin_panel/services/utils.dart';
 import 'package:movegui_admin_panel/util/profile_menu_title.dart';
-import 'package:provider/provider.dart';
 
-class SideMenu extends StatefulWidget {
+class SideMenu extends ConsumerWidget {
   const SideMenu({super.key});
-
+  
   @override
-  State<SideMenu> createState() => _SideMenuState();
-}
-
-class _SideMenuState extends State<SideMenu> {
-  @override
-  Widget build(BuildContext context) {
-    final theme = Utils(context).getTheme;
-    final themeState = Provider.of<DarkThemeProvider>(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+        final theme = ref.read(DarkThemeProvider.themeProvider).getDarkTheme;
+    final themeState = ref.read(DarkThemeProvider.themeProvider); //Provider.of<DarkThemeProvider>(context);
     final Color drawerColor = themeState.getDarkTheme
         ? const Color(0xFF1a1f3c)
         : Colors.white;
@@ -46,42 +39,42 @@ class _SideMenuState extends State<SideMenu> {
             ),
 
             ProfileMenuTitle(
-              title: AppLocalizations.of(context)!.menu_categories,
+              title: AppLocalizations.of(context)!.category_category_name,
               icon: Icons.category,
               enabled: false,
               routeName: RouteConstants.CATEGORY_ROUTE,
             ),
 
             ProfileMenuTitle(
-              title: AppLocalizations.of(context)!.menu_supplier,
+              title: AppLocalizations.of(context)!.category_supplier_name,
               icon: Icons.business,
               enabled: false,
               routeName: RouteConstants.SUPPLIER_ROUTE,
             ),
 
             ProfileMenuTitle(
-              title: AppLocalizations.of(context)!.menu_ingredient,
+              title: AppLocalizations.of(context)!.category_ingredient_name,
               icon: Icons.emoji_food_beverage,
               enabled: false,
               routeName: RouteConstants.INGREDIENT_ROUTE,
             ),
 
             ProfileMenuTitle(
-              title: AppLocalizations.of(context)!.menu_recipe,
+              title: AppLocalizations.of(context)!.category_recipe_name,
               icon: Icons.icecream,
               enabled: false,
               routeName: RouteConstants.RECIPE_ROUTER,
             ),
 
             ProfileMenuTitle(
-              title: AppLocalizations.of(context)!.menu_product,
+              title: AppLocalizations.of(context)!.category_product_name,
               icon: Icons.shopping_bag,
               enabled: false,
               routeName: RouteConstants.PRODUCT_ROUTE,
             ),
 
             ProfileMenuTitle(
-              title: AppLocalizations.of(context)!.menu_restaurant,
+              title: AppLocalizations.of(context)!.category_restaurant_name,
               icon: Icons.restaurant,
               enabled: false,
               routeName: RouteConstants.RESTAURANT_ROUTE,
@@ -95,28 +88,28 @@ class _SideMenuState extends State<SideMenu> {
             ),
 
             ProfileMenuTitle(
-              title: AppLocalizations.of(context)!.menu_pastry,
+              title: AppLocalizations.of(context)!.category_pastry_name,
               icon: Icons.cake,
               enabled: false,
               routeName: RouteConstants.PASTRY_ROUTE,
             ),
 
             ProfileMenuTitle(
-              title: AppLocalizations.of(context)!.menu_super_market,
+              title: AppLocalizations.of(context)!.category_super_market_name,
               icon: Icons.store,
               enabled: false,
               routeName: RouteConstants.SUPER_MARKET_ROUTE,
             ),
 
             ProfileMenuTitle(
-              title: AppLocalizations.of(context)!.menu_pressing,
+              title: AppLocalizations.of(context)!.category_pressing_name,
               icon: Icons.touch_app,
               enabled: true,
               routeName: RouteConstants.PRESSING_ROUTE,
             ),
 
             ProfileMenuTitle(
-              title: AppLocalizations.of(context)!.menu_professionel,
+              title: AppLocalizations.of(context)!.category_profession_name,
               icon: Icons.work,
               enabled: false,
               routeName: RouteConstants.PROFESSIONEL_ROUTE,
@@ -131,9 +124,7 @@ class _SideMenuState extends State<SideMenu> {
               ),
               value: theme,
               onChanged: (value) {
-                setState(() {
-                  themeState.setDarkTheme = value;
-                });
+                ref.read(DarkThemeProvider.themeProvider).setDarkTheme = value;
               },
             ),
             ProfileMenuTitle(
@@ -153,6 +144,7 @@ class _SideMenuState extends State<SideMenu> {
       ),
     );
   }
+
 
   Widget _sectionCard(List<Widget> children) {
     return Container(

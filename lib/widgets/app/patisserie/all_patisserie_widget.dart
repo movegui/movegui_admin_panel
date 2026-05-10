@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/models/patisserie_model.dart';
-import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/services/patisseries_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
-import 'package:movegui_admin_panel/widgets/app/admin_panel_appbar.dart';
-import 'package:movegui_admin_panel/widgets/side_menu.dart';
 
 class AllPatisserieWidget extends StatefulWidget {
   const AllPatisserieWidget({super.key});

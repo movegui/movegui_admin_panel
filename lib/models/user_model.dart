@@ -2,14 +2,13 @@
 
 import 'package:movegui_admin_panel/models/model.dart';
 import 'package:movegui_admin_panel/models/person_model.dart';
-import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
 
 class UserModel extends Model {
   final String? username;
   final DateTime? updatedAt;
   final PersonModel? personModel;
   late bool isVerified;
-  final UserRole role;
+  late String role;
 
   UserModel({
     required this.updatedAt,
@@ -37,7 +36,7 @@ class UserModel extends Model {
     name: json['name'] ?? '',
     createdAt: json['createdAt'].toDate() ?? '',
     username: json['username'] ?? '',
-    updatedAt: json['updateAt'].toDate() ?? '',
+    updatedAt: json['updatedAt'].toDate() ?? '',
     personModel: PersonModel.fromJson(json['person']),
     isVerified: json['isVerified'] ?? false,
     role: json['role'] ?? ''

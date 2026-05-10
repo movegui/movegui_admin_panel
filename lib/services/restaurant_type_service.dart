@@ -3,6 +3,8 @@ import 'package:movegui_admin_panel/models/restaurant_model.dart';
 import 'package:movegui_admin_panel/services/model_service.dart';
 
 class RestaurantTypeService extends ModelService<RestaurantTypeModel>{
+  RestaurantTypeService({required super.api});
+
 
 
   @override

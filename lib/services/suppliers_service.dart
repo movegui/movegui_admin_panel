@@ -3,6 +3,8 @@ import 'package:movegui_admin_panel/models/supplier_model.dart';
 import 'package:movegui_admin_panel/services/model_service.dart';
 
 class SuppliersService extends ModelService<SupplierModel>{
+  SuppliersService({required super.api});
+
 
   @override
   Future<void> addModel(SupplierModel model) async {

@@ -9,7 +9,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get search => 'Search';
+  String get search_title => 'Search';
 
   @override
   String get company_adresse_label => 'Adress';
@@ -27,7 +27,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get success_send_message_message => 'Thank you for your message';
 
   @override
-  String get success_registration_new_user => 'Your account has been successfully created';
+  String get success_registration_new_user =>
+      'Your account has been successfully created';
 
   @override
   String get success_login_message => 'Login successful';
@@ -36,19 +37,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get success_login_reset_password => 'Lien envoyé avec Succes';
 
   @override
-  String get login_forget_password_txt => 'Enter your email address and we will send you a link to reset your password ';
+  String get login_forget_password_txt =>
+      'Enter your email address and we will send you a link to reset your password ';
 
   @override
   String get error_send_mail_title => 'Authentication Error';
 
   @override
-  String get error_send_mail_message => 'You must sign before using this functionnality';
+  String get error_send_mail_message =>
+      'You must sign before using this functionnality';
 
   @override
   String get error_input_hint_message => 'Please write your message.';
 
   @override
-  String get error_firebase_initialisation => 'FirebaseAuth initialization failed:';
+  String get error_firebase_initialisation =>
+      'FirebaseAuth initialization failed:';
 
   @override
   String get error_login_message => 'Login failed';
@@ -57,7 +61,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get error_register_with_phone_title => 'Registration Error';
 
   @override
-  String get error_register_with_phone_message => 'We were unable to register your phone number. Please try again !';
+  String get error_register_with_phone_message =>
+      'We were unable to register your phone number. Please try again !';
+
+  @override
+  String get error_application => 'We have more then one Super Admin';
+
+  @override
+  String get error_register_with_email_message =>
+      'We were unable to register your email. Please try again !';
 
   @override
   String get label_login_facebook => 'Facebook';
@@ -99,16 +111,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String get input_hint_adress => 'Address';
 
   @override
-  String get movegui_info_title => 'MoveGui – Motorcycle Delivery & Transport in Guinea';
+  String get movegui_info_title =>
+      'MoveGui – Motorcycle Delivery & Transport in Guinea';
 
   @override
-  String get movegui_info_text_1 => 'MoveGui is an innovative company specialising in food delivery and motorcycle transport in Guinea.Our mission is to make delivery more accessible, more transparent and more affordable for everyone.';
+  String get movegui_info_text_1 =>
+      'MoveGui is an innovative company specialising in food delivery and motorcycle transport in Guinea.Our mission is to make delivery more accessible, more transparent and more affordable for everyone.';
 
   @override
-  String get movegui_info_text_2 => 'We offer a fixed price for every journey, regardless of the distance, ensuring complete transparency for our customers.No more price surprises – just a fast, reliable and straightforward service..';
+  String get movegui_info_text_2 =>
+      'We offer a fixed price for every journey, regardless of the distance, ensuring complete transparency for our customers.No more price surprises – just a fast, reliable and straightforward service..';
 
   @override
-  String get movegui_info_text_3 => 'Thanks to our partnerships with local restaurants, we offer low-cost deliveries whilst supporting the local economy.MoveGui is the perfect blend of technology, accessibility and efficiency.';
+  String get movegui_info_text_3 =>
+      'Thanks to our partnerships with local restaurants, we offer low-cost deliveries whilst supporting the local economy.MoveGui is the perfect blend of technology, accessibility and efficiency.';
 
   @override
   String get movegui_panel => 'Movegui Configuration Panel';
@@ -174,6 +190,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get category_category_name => 'Category';
 
   @override
+  String get category_ingredient_name => 'Ingredients';
+
+  @override
+  String get category_pastry_name => 'Pastry';
+
+  @override
+  String get category_product_name => 'Products';
+
+  @override
+  String get category_recipe_name => 'Recipes';
+
+  @override
+  String get category_super_market_name => 'Super Market';
+
+  @override
+  String get notification_title => 'Notifications';
+
+  @override
   String get home_title => 'Home';
 
   @override
@@ -187,9 +221,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get courier_title => 'Courier';
-
-  @override
-  String get pressing_title => 'Dry Cleaning';
 
   @override
   String get my_orders_title => 'Mes Commandes';
@@ -237,7 +268,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get label_enter_your_code => 'Enter your Code:';
 
   @override
-  String get exception_login_message => 'The Supplied User credential is incorrect, Please check your email address and password';
+  String get exception_login_message =>
+      'The Supplied User credential is incorrect, Please check your email address and password';
 
   @override
   String get tooltip_sign_in_with_google => 'Sign in with Google';
@@ -282,9 +314,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profile_menu_discussions => 'Discussions';
 
   @override
-  String get profile_menu_notification => 'Notifications';
-
-  @override
   String get profile_menu_delete_account => 'Delete Account';
 
   @override
@@ -303,40 +332,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get menu_main => 'Home';
 
   @override
-  String get menu_categories => 'Categories';
-
-  @override
-  String get menu_supplier => 'Suppliers';
-
-  @override
-  String get menu_ingredient => 'Ingredients';
-
-  @override
-  String get menu_recipe => 'Recipes';
-
-  @override
-  String get menu_product => 'Products';
-
-  @override
-  String get menu_restaurant => 'Restaurants';
-
-  @override
   String get menu_store_type => 'Store Types';
 
   @override
   String get menu_store_categories => 'Store Categories';
 
   @override
-  String get menu_pastry => 'Pastry';
-
-  @override
-  String get menu_super_market => 'Super Market';
-
-  @override
-  String get menu_pressing => 'Dry Cleaner';
-
-  @override
-  String get menu_professionel => 'Professionnel';
+  String get menu_restaurant_type => 'Restaurant Type';
 
   @override
   String get menu_menu => 'Menus';

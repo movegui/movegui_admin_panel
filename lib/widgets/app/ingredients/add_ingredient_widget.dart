@@ -12,12 +12,10 @@ import 'package:movegui_admin_panel/services/categories_service.dart';
 import 'package:movegui_admin_panel/services/ingredients_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/suppliers_service.dart';
-import 'package:movegui_admin_panel/widgets/app/admin_panel_appbar.dart';
 import 'package:movegui_admin_panel/widgets/custom_button.dart';
 import 'package:movegui_admin_panel/widgets/custom_drop_down.dart';
 import 'package:movegui_admin_panel/widgets/custom_text_field.dart';
 import 'package:movegui_admin_panel/widgets/radio_btns%20copy.dart';
-import 'package:movegui_admin_panel/widgets/side_menu.dart';
 import 'package:uuid/uuid.dart';
 
 class IngredientsAddWidgetPage extends StatefulWidget {
@@ -167,7 +165,7 @@ class IngredientsUploaWidgetdstate extends State<IngredientsAddWidgetPage> {
                                                       ),
                                                       CustomDropDown(
                                                         service:
-                                                            SuppliersService(),
+                                                            suppliersService,
                                                         onChanged:
                                                             (
                                                               SupplierModel
@@ -224,7 +222,7 @@ class IngredientsUploaWidgetdstate extends State<IngredientsAddWidgetPage> {
                                                     ),
                                                   ),
                                                   CustomDropDown(
-                                                    service: SuppliersService(),
+                                                    service: suppliersService,
                                                     onChanged:
                                                         (
                                                           SupplierModel

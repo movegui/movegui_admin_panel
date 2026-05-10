@@ -5,7 +5,6 @@ import 'package:movegui_admin_panel/consts/app_constants.dart';
 import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
 import 'package:movegui_admin_panel/methods/show_alert.dart';
 import 'package:movegui_admin_panel/models/restaurant_model.dart';
-import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/services/image_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/restaurant_type_service.dart';
@@ -13,11 +12,9 @@ import 'package:movegui_admin_panel/services/suppliers_service.dart';
 import 'package:movegui_admin_panel/util/store_form_controller.dart';
 import 'package:movegui_admin_panel/util/supplier_submit_handler.dart';
 import 'package:movegui_admin_panel/widgets/app/add_contact_widget.dart';
-import 'package:movegui_admin_panel/widgets/app/admin_panel_appbar.dart';
 import 'package:movegui_admin_panel/widgets/app/opens_hours_widget.dart';
 import 'package:movegui_admin_panel/widgets/custom_button.dart';
 import 'package:movegui_admin_panel/widgets/custom_drop_down.dart';
-import 'package:movegui_admin_panel/widgets/side_menu.dart';
 import 'package:movegui_admin_panel/widgets/store_widget.dart';
 
 

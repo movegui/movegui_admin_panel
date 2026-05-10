@@ -5,6 +5,8 @@ import 'package:movegui_admin_panel/models/patisserie_model.dart';
 import 'package:movegui_admin_panel/services/model_service.dart';
 
 class PatisseriesService extends ModelService<PatisserieModel>{
+  PatisseriesService({required super.api});
+
   @override
   Future<void> addModel(PatisserieModel patisserie) async {
        await FirebaseFirestore.instance

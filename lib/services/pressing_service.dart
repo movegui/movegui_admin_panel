@@ -4,6 +4,8 @@ import 'package:movegui_admin_panel/models/pressing_model.dart';
 import 'package:movegui_admin_panel/services/model_service.dart';
 
 class PressingService extends ModelService<PressingModel>{
+  PressingService({required super.api});
+
   
   @override
   Future<void> addModel(PressingModel pressing) async{

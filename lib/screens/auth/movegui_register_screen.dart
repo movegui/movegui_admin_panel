@@ -4,11 +4,11 @@ import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/providers/appbar_title_provider.dart';
 import 'package:movegui_admin_panel/responsive.dart';
+import 'package:movegui_admin_panel/widgets/app/admin_panel_appbar.dart';
 import 'package:movegui_admin_panel/widgets/app/app_image.dart';
 import 'package:movegui_admin_panel/widgets/app/separator_widget.dart';
 import 'package:movegui_admin_panel/widgets/auth/register_email_page.dart';
 import 'package:movegui_admin_panel/widgets/subtitle_text.dart';
-import 'package:provider/provider.dart';
 
 class MoveguiRegisterScreen extends StatefulWidget {
   const MoveguiRegisterScreen({super.key});
@@ -29,16 +29,6 @@ class _RegisterScreenState extends State<MoveguiRegisterScreen> {
     super.initState();
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<AppbarTitleProvider>().setTitle(
-        AppLocalizations.of(context)!.register_title,
-      );
-    });
-  }
-
   void updateState(int state) {
     setState(() {
       currentLoginScreen = state;
@@ -48,14 +38,11 @@ class _RegisterScreenState extends State<MoveguiRegisterScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-        setState(() {});
-      },
-      child: Scaffold(
-        body: Responsive.isDesktop(context) ? buildDesktop() : buildMobil(),
+    return Scaffold(
+      appBar: AdminPanelAppBar(
+        title: AppLocalizations.of(context)!.register_title,
       ),
+      body: Responsive.isDesktop(context) ? buildDesktop() : buildMobil(),
     );
   }
 
@@ -111,6 +98,5 @@ class _RegisterScreenState extends State<MoveguiRegisterScreen> {
         ),
       ),
     );
-
   }
 }

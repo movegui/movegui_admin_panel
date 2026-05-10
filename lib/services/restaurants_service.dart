@@ -4,6 +4,8 @@ import 'package:movegui_admin_panel/models/restaurant_model.dart';
 import 'package:movegui_admin_panel/services/model_service.dart';
 
 class RestaurantsService extends ModelService<RestaurantModel> {
+  RestaurantsService({required super.api});
+
 
   @override
   Future<void> addModel(RestaurantModel model) async {

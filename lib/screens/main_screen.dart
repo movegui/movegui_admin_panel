@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/providers/appbar_title_provider.dart';
-import 'package:movegui_admin_panel/screens/auth/login_screen.dart';
-import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/user_service.dart';
 import 'package:movegui_admin_panel/widgets/app/admin_panel_appbar.dart';
 import 'package:movegui_admin_panel/widgets/custom_button.dart';
 import 'package:movegui_admin_panel/widgets/side_menu.dart';
-import 'package:provider/provider.dart';
 import '../responsive.dart';
 
 class MainScreen extends StatefulWidget {
@@ -23,6 +20,7 @@ class MainScreen extends StatefulWidget {
 class MainScreenState extends State<MainScreen> {
   UserModel? currentUser;
   late UserService userService;
+  bool isAuthorize = false;
 
   @override
   void initState() {
@@ -30,12 +28,11 @@ class MainScreenState extends State<MainScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (mounted) {
         if (AppLocalizations.of(context) != null) {
-          context.read<AppbarTitleProvider>().setTitle(
-            AppLocalizations.of(context)!.dashbord_title,
-          );
           final user = await userService.getCurrentUser();
+          final autorization = await userService.isAuthorize(user);
           setState(() {
             currentUser = user;
+            isAuthorize = autorization;
           });
         }
       }
@@ -45,18 +42,15 @@ class MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
-      appBar: AdminPanelAppBar(
-        title: context.watch<AppbarTitleProvider>().title,
-      ),
-      drawer: Responsive.isMobile(context) ? SideMenu() : null,
-      body: (currentUser != null && currentUser!.role == UserRole.Admin)
+      appBar: AdminPanelAppBar(title: AppLocalizations.of(context)!.dashbord_title),
+      body: (currentUser != null && isAuthorize)
           ? Builder(
               builder: (context) => SafeArea(
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // We want this side menu only for large screen
                     if (Responsive.isDesktop(context))
                       const Expanded(child: SideMenu()),
                     Expanded(flex: 5, child: widget.pageScreen),
@@ -64,31 +58,11 @@ class MainScreenState extends State<MainScreen> {
                 ),
               ),
             )
-          : LoginScreen(),
+          : Text('No Authorization !!!'),
     );
   }
 }
 
-/*
-    return  SafeArea(
-      child: Scaffold(
-        drawer: const SideMenu(),
-        body: Builder(
-          builder: (context) => SafeArea(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // We want this side menu only for large screen
-                if (Responsive.isDesktop(context))
-                  const Expanded(child: SideMenu()),
-                Expanded(flex: 5, child: pageScreen),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-    */
 
 abstract class MainPage extends StatelessWidget {
   const MainPage({
@@ -103,8 +77,6 @@ abstract class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AdminPanelAppBar(title: title),
-      drawer: SideMenu(),
       body: Column(
         children: [
           Row(

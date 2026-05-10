@@ -3,6 +3,8 @@ import 'package:movegui_admin_panel/models/categories_model.dart';
 import 'package:movegui_admin_panel/services/model_service.dart';
 
 abstract class CategoriesService<M extends CategoriesModel> extends ModelService<M> {
+  CategoriesService({required super.api});
+
 
 
   @override

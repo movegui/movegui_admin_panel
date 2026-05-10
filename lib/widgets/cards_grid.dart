@@ -17,19 +17,19 @@ class _CardsGridState extends State<CardsGrid> {
 
   Future<List<String>> initTitles() async {
     final myTitles = [
-      AppLocalizations.of(context)!.menu_categories,
-      AppLocalizations.of(context)!.menu_supplier,
-      AppLocalizations.of(context)!.menu_ingredient,
-      AppLocalizations.of(context)!.menu_recipe,
-      AppLocalizations.of(context)!.menu_product,
+      AppLocalizations.of(context)!.category_category_name,
+      AppLocalizations.of(context)!.category_supplier_name,
+      AppLocalizations.of(context)!.category_ingredient_name,
+      AppLocalizations.of(context)!.category_recipe_name,
+      AppLocalizations.of(context)!.category_product_name,
       AppLocalizations.of(context)!.menu_menu,
-      AppLocalizations.of(context)!.menu_restaurant,
+      AppLocalizations.of(context)!.category_restaurant_name,
       AppLocalizations.of(context)!.menu_store_type,
       AppLocalizations.of(context)!.menu_store_categories,
-      AppLocalizations.of(context)!.menu_pastry,
-      AppLocalizations.of(context)!.menu_super_market,
-      AppLocalizations.of(context)!.menu_pressing,
-      AppLocalizations.of(context)!.menu_professionel,
+      AppLocalizations.of(context)!.category_pastry_name,
+      AppLocalizations.of(context)!.category_super_market_name,
+      AppLocalizations.of(context)!.category_pressing_name,
+      AppLocalizations.of(context)!.category_profession_name,
     ];
     return myTitles;
   }

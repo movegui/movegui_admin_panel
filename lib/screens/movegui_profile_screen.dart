@@ -9,7 +9,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
-import 'package:movegui_admin_panel/consts/app_constants.dart';
 import 'package:movegui_admin_panel/consts/route_constants.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/error/message_widget.dart';
@@ -24,7 +23,6 @@ import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/user_service.dart';
 import 'package:movegui_admin_panel/util/profile_menu_title.dart';
 import 'package:movegui_admin_panel/widgets/auth/movegui_profile_header_widget.dart';
-import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 class MoveguiProfileScreen extends StatefulWidget {
@@ -53,7 +51,7 @@ class MoveguiProfileScreenState extends State<MoveguiProfileScreen> {
 
   Future<void> onNameUpdate(String? value) async {
     nameController.text = value!;
-    if (!value.isEmpty && currentUser != null) {
+    if (value.isNotEmpty && currentUser != null) {
       UserModel updatedUser = UserModel(
         updatedAt: DateTime.now(),
         id: currentUser!.id,
@@ -232,7 +230,7 @@ class MoveguiProfileScreenState extends State<MoveguiProfileScreen> {
               birthDate: null,
               addresses: [],
             ),
-            role: UserRole.Guest,
+            role: UserRole.Guest.name,
           );
         });
       }
@@ -351,7 +349,7 @@ class MoveguiProfileScreenState extends State<MoveguiProfileScreen> {
       ),
       ProfileMenuTitle(
         icon: Icons.notifications_none,
-        title: AppLocalizations.of(context)!.profile_menu_notification,
+        title: AppLocalizations.of(context)!.notification_title,
         onTap: () => notImplemented(),
         enabled: false, routeName: '',
       ),

@@ -1,13 +1,6 @@
 {
   "emulators": {
-    "dataconnect": {
-      "dataDir": "dataconnect/.dataconnect/pgliteData",
-      "port": 9399
-    },
-    "apphosting": {
-      "port": 5002,
-      "rootDirectory": "./"
-    },
+    
     "auth": {
       "port": 9099
     },
@@ -18,7 +11,8 @@
       "port": 5000
     },
     "pubsub": {
-      "port": 8085
+      "port": 7085,
+      "host": "localhost"
     },
     "storage": {
       "port": 9199
@@ -26,7 +20,19 @@
     "ui": {
       "enabled": true
     },
-    "singleProjectMode": true
+    "singleProjectMode": true,
+    "database": {
+      "port": 9000
+    },
+    "functions": {
+      "port": 5001
+    },
+    "eventarc": {
+      "port": 9299
+    },
+    "tasks": {
+      "port": 9499
+    }
   },
   "dataconnect": {
     "source": "dataconnect"
@@ -37,20 +43,20 @@
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },
- "hosting": {
-    "public": "build/web",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
-  },
+"hosting": {
+  "public": "build/web",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ],
+  "rewrites": [
+    {
+      "source": "**",
+      "destination": "/index.html"
+    }
+  ]
+},
   "storage": {
     "rules": "storage.rules"
   },
@@ -60,5 +66,22 @@
   "extensions": {},
   "database": {
     "rules": "database.rules.json"
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "disallowLegacyRuntimeConfig": true,
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ]
+    }
+  ],
+  "auth": {
+    "providers": {}
   }
 }

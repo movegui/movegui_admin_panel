@@ -1,9 +1,9 @@
-// ignore_for_file: use_build_context_synchronously
-
+import 'dart:convert';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/error/message_widget.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
@@ -15,6 +15,8 @@ import 'package:uuid/uuid.dart';
 
 class UserService extends ModelService<UserModel> implements IUserService {
   final auth = FirebaseAuth.instance;
+  UserService({required super.api});
+  
   @override
   Future<void> addModel(UserModel model) async {
     await FirebaseFirestore.instance
@@ -62,29 +64,51 @@ class UserService extends ModelService<UserModel> implements IUserService {
   @override
   Future<UserModel?> registerWithEmail(
     BuildContext context,
-    UserModel model,
+    String email,
     String password,
   ) async {
+    UserModel? model;
+    UserCredential? credential;
     try {
-      UserCredential credential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(
-            email: model.personModel!.email!,
-            password: password,
-          );
+      credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
       User? user = credential.user;
-      if (user != null && !user.emailVerified) {
-        await user.sendEmailVerification();
+      if (user != null) {
+        print('je suis la');
+        model = await initializeUserWithEmailAndUID(email, user.uid);
+        if (!user.emailVerified) {
+          await user.sendEmailVerification();
+        }
+        if (user.emailVerified) {
+          model.isVerified = true;
+        }
+        final superAdmins = await getSuperAdmins();
+        if (superAdmins.isEmpty) {
+          await setSuperAdminRole(context, model.id);
+          model.role = UserRole.SuperAdmin.name;
+        } else if (superAdmins.length > 1) {
+          MessageWidget.errorMessage(
+            context,
+            AppLocalizations.of(context)!.error_register_with_phone_title,
+            AppLocalizations.of(context)!.error_application,
+            Icon(Icons.error, color: AppColors.error),
+            FlushbarPosition.TOP,
+          );
+          return null;
+        }
+        await addModel(model);
+        return model;
       }
-      if (user!.emailVerified) {
-        model.isVerified = true;
-      }
-      await addModel(model);
-      return model;
-    } on FirebaseException {
+    } on FirebaseException catch (e) {
+      print(e);
+      await credential!.user!.delete();
       MessageWidget.errorMessage(
         context,
         AppLocalizations.of(context)!.error_register_with_phone_title,
-        AppLocalizations.of(context)!.error_register_with_phone_message,
+        AppLocalizations.of(context)!.error_register_with_email_message,
         Icon(Icons.error, color: AppColors.error),
         FlushbarPosition.TOP,
       );
@@ -128,12 +152,15 @@ class UserService extends ModelService<UserModel> implements IUserService {
     await FirebaseAuth.instance.signOut();
   }
 
-  Future<UserModel> initializeUserWithEmail(String email) async {
+  Future<UserModel> initializeUserWithEmailAndUID(
+    String email,
+    String uuid,
+  ) async {
     late UserModel currentUser;
 
     currentUser = UserModel(
       updatedAt: DateTime.now(),
-      id: Uuid().v4(),
+      id: uuid,
       name: email,
       createdAt: DateTime.now(),
       username: email,
@@ -151,7 +178,7 @@ class UserService extends ModelService<UserModel> implements IUserService {
         birthDate: null,
         addresses: [],
       ),
-      role: UserRole.Guest,
+      role: UserRole.Guest.name,
     );
     return currentUser;
   }
@@ -162,13 +189,112 @@ class UserService extends ModelService<UserModel> implements IUserService {
     if (user != null) {
       UserModel? userModel = await getByEmail(user.email!);
       if (userModel != null) {
-        final idTokenResult = await user.getIdTokenResult();
+        final idTokenResult = await user.getIdTokenResult(true);
+        print(idTokenResult.claims);
         final role = idTokenResult.claims?['role'];
+        print('claims is $role');
         if (role != null && role == userModel.role) {
           return userModel;
         }
       }
     }
     return null;
+  }
+
+  @override
+  Future<void> setSuperAdminRole(BuildContext context, String uid) async {
+
+    try {
+          final url = Uri.parse(
+      //  'https://us-central1-movegui-253e0.cloudfunctions.net/setSuperAdminRole',
+      // 'https://setsuperadminrole-b2xn772ova-uc.a.run.app',
+      //'http://127.0.0.1:5001/movegui-253e0/us-central1/setSuperAdminRole',
+    '${api.env.baseUrl}/movegui-253e0/us-central1/setSuperAdminRole'
+    );
+
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'uid': uid, 'role': UserRole.SuperAdmin.name}),
+    );
+    if (response.statusCode == 200) {
+      print('Success: ${response.body}');
+    } else {
+      print('Error: ${response.body}');
+    }
+
+    } on Exception {
+      await FirebaseAuth.instance.currentUser?.delete();
+      MessageWidget.errorMessage(
+        context,
+        AppLocalizations.of(context)!.error_register_with_phone_title,
+        AppLocalizations.of(context)!.error_register_with_email_message,
+        Icon(Icons.error, color: AppColors.error),
+        FlushbarPosition.TOP,
+      );
+      
+    }
+
+
+  }
+
+  @override
+  Future<void> setAdminRole(BuildContext context, String uid) async {
+
+    try {
+
+    } on Exception {
+      await FirebaseAuth.instance.currentUser?.delete();
+            MessageWidget.errorMessage(
+        context,
+        AppLocalizations.of(context)!.error_register_with_phone_title,
+        AppLocalizations.of(context)!.error_register_with_email_message,
+        Icon(Icons.error, color: AppColors.error),
+        FlushbarPosition.TOP,
+      );
+      
+    }
+    final url = Uri.parse(
+      //  'https://us-central1-movegui-253e0.cloudfunctions.net/setAdminRole',
+     // 'http://127.0.0.1:5001/movegui-253e0/us-central1/setAdminRole',
+     '${api.env.baseUrl}/movegui-253e0/us-central1/setAdminRole'
+    );
+
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'uid': uid, 'role': UserRole.Admin}),
+    );
+    if (response.statusCode == 200) {
+      print('Success: ${response.body}');
+    } else {
+      print('Error: ${response.body}');
+    }
+  }
+
+  @override
+  Future<List<UserModel?>> getSuperAdmins() async {
+    final firestore = FirebaseFirestore.instance;
+
+    final snapshot = await firestore
+        .collection(getCollectionName())
+        .where('role', isEqualTo: UserRole.SuperAdmin.name)
+        .get();
+
+    if (snapshot.docs.isEmpty) return [];
+
+    return snapshot.docs.map((doc) => UserModel.fromJson(doc.data())).toList();
+  }
+
+  @override
+  Future<bool> isAuthorize(UserModel? user) async {
+    print('role: ${user?.role}');
+    if (user == null) return false;
+    if (user.role == UserRole.SuperAdmin.name ||
+        user.role == UserRole.Admin.name ||
+        user.role == UserRole.Employe.name) {
+      return true;
+    }
+    return false;
   }
 }

@@ -7,15 +7,15 @@ import 'package:movegui_admin_panel/consts/route_constants.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/button_item.dart';
-import 'package:movegui_admin_panel/providers/appbar_title_provider.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/services/my_app_functions.dart';
+import 'package:movegui_admin_panel/services/register_services.dart';
+import 'package:movegui_admin_panel/services/user_service.dart';
 import 'package:movegui_admin_panel/widgets/app/auth/auth_link_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/auth/validation_button.dart';
 import 'package:movegui_admin_panel/widgets/app/separator_widget.dart';
 import 'package:movegui_admin_panel/widgets/util/input_email_widget.dart';
 import 'package:movegui_admin_panel/widgets/util/password_widget.dart';
-import 'package:provider/provider.dart';
 
 class LoginEmailPage extends StatefulWidget {
   const LoginEmailPage({super.key,});
@@ -36,19 +36,8 @@ class LoginEmailPageState extends State<LoginEmailPage> {
 
   bool isloading = false;
   FirebaseAuth? auth;
+  late UserService userService;
 
-/*
-  
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<AppbarTitleProvider>().setTitle(
-        AppLocalizations.of(context)!.login_title,
-      );
-    });
-  }
-  */
 
   @override
   void initState() {
@@ -58,6 +47,7 @@ class LoginEmailPageState extends State<LoginEmailPage> {
     _passwordFocusNode = FocusNode();
     try {
       auth = FirebaseAuth.instance;
+      userService = getIt<UserService>();
     } catch (e) {
       MyAppFunctions.showErrorOrWarningDialog(
         context: context,
@@ -96,7 +86,6 @@ class LoginEmailPageState extends State<LoginEmailPage> {
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         );
-
         if (userCredential?.user != null) {
           Fluttertoast.showToast(
             msg: AppLocalizations.of(context)!.success_login_message,
@@ -107,8 +96,10 @@ class LoginEmailPageState extends State<LoginEmailPage> {
             textColor: Colors.white,
             fontSize: 16.0,
           );
-           //Navigator.pushNamed(context, item.routeName!);
-           context.go(item.routeName!);
+           final currentUser = await userService.getByEmail(_emailController.text.trim());        
+           if (!mounted) return; 
+           print('la route est: ${item.routeName}');
+           context.go(item.routeName!, extra: currentUser);
         } else {
           Fluttertoast.showToast(
             msg: AppLocalizations.of(context)!.error_login_message,
@@ -172,7 +163,7 @@ class LoginEmailPageState extends State<LoginEmailPage> {
                       AppLocalizations.of(context)!.label_login,
                       AppLocalizations.of(context)!.tooltip_sign_in,
                       true,
-                      routeName: RouteConstants.PROFILE_ROUTE,
+                      routeName:  RouteConstants.HOME_ROUTE  
                     ),
                   ),
                 ),

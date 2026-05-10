@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 import 'package:movegui_admin_panel/consts/route_constants.dart';
 import 'package:movegui_admin_panel/consts/validator.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
@@ -38,6 +39,7 @@ class RegisterEmailPageState extends State<RegisterEmailPage> {
   bool isloading = false;
   FirebaseAuth? auth;
   late UserService userService;
+  UserModel? currentUser;
 
   @override
   void initState() {
@@ -85,16 +87,14 @@ class RegisterEmailPageState extends State<RegisterEmailPage> {
         setState(() {
           isloading = true;
         });
-        UserModel initUser = await userService.initializeUserWithEmail(
-          _emailController.text.trim(),
-        );
 
-        UserModel? createUser = await userService.registerWithEmail(
+        currentUser = await userService.registerWithEmail(
           context,
-          initUser,
+          _emailController.text.trim(),
           _passwordController.text.trim(),
         );
-        Navigator.pushNamed(context, item.routeName!, arguments: createUser);
+        if(currentUser != null){
+        context.go(item.routeName!, extra: currentUser);
         Fluttertoast.showToast(
           msg: AppLocalizations.of(context)!.success_registration_new_user,
           toastLength: Toast.LENGTH_SHORT,
@@ -104,6 +104,8 @@ class RegisterEmailPageState extends State<RegisterEmailPage> {
           textColor: Colors.white,
           fontSize: 16.0,
         );
+        }
+
       } catch (error) {
         MyAppFunctions.showErrorOrWarningDialog(
           context: context,
@@ -158,7 +160,7 @@ class RegisterEmailPageState extends State<RegisterEmailPage> {
                 AppLocalizations.of(context)!.btn_register_label,
                 AppLocalizations.of(context)!.tooltip_registration,
                 true,
-                routeName: RouteConstants.PROFILE_ROUTE,
+                routeName: RouteConstants.HOME_ROUTE,
               ),
             ),
           ),

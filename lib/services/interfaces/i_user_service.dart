@@ -8,16 +8,22 @@ enum UserRole {
   Admin,
   User,
   Employe,
-  Guest
+  Guest,
+  SuperAdmin
 }
 
 abstract class IUserService {
   Future<UserModel?> getByUsername(String username);
-  Future<UserModel?> registerWithEmail(BuildContext context, UserModel model, String password);
+  Future<UserModel?> registerWithEmail(BuildContext context, String email, String password);
   Future<void> update(UserModel model);
   Future<UserModel?> getByEmail(String email);
   Future<void> signOut();
   Future<UserModel?> getCurrentUser();
+  Future<List<UserModel?>> getSuperAdmins();
+  Future<void> setAdminRole(BuildContext context, String uid);
+  Future<void> setSuperAdminRole(BuildContext context, String uid);
+  Future<bool> isAuthorize(UserModel? user);
+  
 
 
 

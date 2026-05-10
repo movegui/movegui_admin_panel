@@ -62,7 +62,8 @@ import 'app_localizations_fr.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale)
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -70,7 +71,8 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -82,24 +84,25 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
-    Locale('fr')
+    Locale('fr'),
   ];
 
   /// Text for search Button
   ///
   /// In en, this message translates to:
   /// **'Search'**
-  String get search;
+  String get search_title;
 
   /// the adress label
   ///
@@ -196,6 +199,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'We were unable to register your phone number. Please try again !'**
   String get error_register_with_phone_message;
+
+  /// No description provided for @error_application.
+  ///
+  /// In en, this message translates to:
+  /// **'We have more then one Super Admin'**
+  String get error_application;
+
+  /// No description provided for @error_register_with_email_message.
+  ///
+  /// In en, this message translates to:
+  /// **'We were unable to register your email. Please try again !'**
+  String get error_register_with_email_message;
 
   /// No description provided for @label_login_facebook.
   ///
@@ -425,6 +440,42 @@ abstract class AppLocalizations {
   /// **'Category'**
   String get category_category_name;
 
+  /// No description provided for @category_ingredient_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Ingredients'**
+  String get category_ingredient_name;
+
+  /// No description provided for @category_pastry_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Pastry'**
+  String get category_pastry_name;
+
+  /// No description provided for @category_product_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Products'**
+  String get category_product_name;
+
+  /// No description provided for @category_recipe_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Recipes'**
+  String get category_recipe_name;
+
+  /// No description provided for @category_super_market_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Super Market'**
+  String get category_super_market_name;
+
+  /// No description provided for @notification_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notification_title;
+
   /// No description provided for @home_title.
   ///
   /// In en, this message translates to:
@@ -454,12 +505,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Courier'**
   String get courier_title;
-
-  /// No description provided for @pressing_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Dry Cleaning'**
-  String get pressing_title;
 
   /// No description provided for @my_orders_title.
   ///
@@ -641,12 +686,6 @@ abstract class AppLocalizations {
   /// **'Discussions'**
   String get profile_menu_discussions;
 
-  /// No description provided for @profile_menu_notification.
-  ///
-  /// In en, this message translates to:
-  /// **'Notifications'**
-  String get profile_menu_notification;
-
   /// No description provided for @profile_menu_delete_account.
   ///
   /// In en, this message translates to:
@@ -683,42 +722,6 @@ abstract class AppLocalizations {
   /// **'Home'**
   String get menu_main;
 
-  /// No description provided for @menu_categories.
-  ///
-  /// In en, this message translates to:
-  /// **'Categories'**
-  String get menu_categories;
-
-  /// No description provided for @menu_supplier.
-  ///
-  /// In en, this message translates to:
-  /// **'Suppliers'**
-  String get menu_supplier;
-
-  /// No description provided for @menu_ingredient.
-  ///
-  /// In en, this message translates to:
-  /// **'Ingredients'**
-  String get menu_ingredient;
-
-  /// No description provided for @menu_recipe.
-  ///
-  /// In en, this message translates to:
-  /// **'Recipes'**
-  String get menu_recipe;
-
-  /// No description provided for @menu_product.
-  ///
-  /// In en, this message translates to:
-  /// **'Products'**
-  String get menu_product;
-
-  /// No description provided for @menu_restaurant.
-  ///
-  /// In en, this message translates to:
-  /// **'Restaurants'**
-  String get menu_restaurant;
-
   /// No description provided for @menu_store_type.
   ///
   /// In en, this message translates to:
@@ -731,29 +734,11 @@ abstract class AppLocalizations {
   /// **'Store Categories'**
   String get menu_store_categories;
 
-  /// No description provided for @menu_pastry.
+  /// No description provided for @menu_restaurant_type.
   ///
   /// In en, this message translates to:
-  /// **'Pastry'**
-  String get menu_pastry;
-
-  /// No description provided for @menu_super_market.
-  ///
-  /// In en, this message translates to:
-  /// **'Super Market'**
-  String get menu_super_market;
-
-  /// No description provided for @menu_pressing.
-  ///
-  /// In en, this message translates to:
-  /// **'Dry Cleaner'**
-  String get menu_pressing;
-
-  /// No description provided for @menu_professionel.
-  ///
-  /// In en, this message translates to:
-  /// **'Professionnel'**
-  String get menu_professionel;
+  /// **'Restaurant Type'**
+  String get menu_restaurant_type;
 
   /// No description provided for @menu_menu.
   ///
@@ -762,7 +747,8 @@ abstract class AppLocalizations {
   String get menu_menu;
 }
 
-class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -771,25 +757,26 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['en', 'fr'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      <String>['en', 'fr'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
-
-
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'en': return AppLocalizationsEn();
-    case 'fr': return AppLocalizationsFr();
+    case 'en':
+      return AppLocalizationsEn();
+    case 'fr':
+      return AppLocalizationsFr();
   }
 
   throw FlutterError(
     'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
     'an issue with the localizations generation tool. Please file an issue '
     'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
+    'that was used.',
   );
 }

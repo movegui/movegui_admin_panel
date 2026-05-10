@@ -11,6 +11,8 @@ class ImageBanner extends StatelessWidget {
    AssetsManager.pressing3Image,
   ];
 
+  const ImageBanner({super.key});
+
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(

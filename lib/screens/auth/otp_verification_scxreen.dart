@@ -21,7 +21,7 @@ class OtpVerificationScreen extends StatefulWidget {
   final UserModel currentUser;
   final ConfirmationResult? confirmationResult;
 
-  OtpVerificationScreen({
+  const OtpVerificationScreen({
     super.key,
     required this.verificationId,
     required this.currentUser,
@@ -49,10 +49,11 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     setState(() => isLoading = true);
 
     try {
-      if (kIsWeb || widget.confirmationResult != null)
+      if (kIsWeb || widget.confirmationResult != null) {
         await widget.confirmationResult?.confirm(otpCode);
-      else
+      } else {
         await userService.verifyOtp(widget.verificationId, otpCode);
+      }
       Fluttertoast.showToast(
         msg: AppLocalizations.of(context)!.success_registration_new_user,
         toastLength: Toast.LENGTH_SHORT,

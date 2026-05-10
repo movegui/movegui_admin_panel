@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class TextWidget extends StatelessWidget {
   TextWidget({
-    Key? key,
+    super.key,
     required this.text,
     required this.color,
     this.textSize = 16,
     this.maxLines = 10,
     this.isTitle = false,
     required this.height
-  }) : super(key: key);
+  });
   final String text;
   final Color color;
   final double textSize;
@@ -27,8 +27,8 @@ class TextWidget extends StatelessWidget {
           color: color,
           overflow: TextOverflow.ellipsis,
           fontWeight: isTitle ? FontWeight.w600 : FontWeight.w400),
-          height: this.height,
-          textAlign: this.textAlign
+          height: height,
+          textAlign: textAlign
     );
   }
 }

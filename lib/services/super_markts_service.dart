@@ -3,6 +3,8 @@ import 'package:movegui_admin_panel/models/super_markt_model.dart';
 import 'package:movegui_admin_panel/services/model_service.dart';
 
 class SuperMarktsService extends ModelService<SuperMarktModel> {
+  SuperMarktsService({required super.api});
+
   @override
   Future<void> addModel(SuperMarktModel superMarkt) async {
     await FirebaseFirestore.instance

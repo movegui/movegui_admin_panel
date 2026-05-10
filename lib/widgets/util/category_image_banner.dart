@@ -6,6 +6,8 @@ import 'package:movegui/l10n/app_localizations.dart';
 
 
 class CategoryImageBanner extends StatelessWidget {
+  const CategoryImageBanner({super.key});
+
 
   @override
   Widget build(BuildContext context) {

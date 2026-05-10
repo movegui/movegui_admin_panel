@@ -1,6 +1,6 @@
 class RouteConstants {
   // ignore: constant_identifier_names
-  static const HOME_ROUTE = '/';
+  static const HOME_ROUTE = '/home';
   static const LOGIN_ROUTE = '/login';
   static const LOGOUT_ROUTE = '/logout';
   static const CATEGORY_ROUTE = '/category';
@@ -18,10 +18,7 @@ class RouteConstants {
   static const PROFILE_ROUTE = '/profile';
   static const SEARCH_ROUTE = '/search';
   static const NOTIFICATION_ROUTE = '/notification';
-    static const FORGET_PASSWORD_ROUTE = '/forgetPassword';
-      static const REGISTER_ROUTE = '/register';
-
-
-
-
+  static const FORGET_PASSWORD_ROUTE = '/forgetPassword';
+  static const REGISTER_ROUTE = '/register';
+  static const SPLASH_ROUTE = '/';
 }

@@ -40,7 +40,6 @@ class AuthLinkWidgetState extends State<AuthLinkWidget> {
       );
       */
     }
-    ;
   }
 
   @override

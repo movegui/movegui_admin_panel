@@ -1,6 +1,6 @@
 {
-    "search": "Search",
-    "@search": {
+    "search_title": "Search",
+    "@search_title": {
         "description": "Text for search Button"
     },
 
@@ -47,8 +47,10 @@
     "@error_register_with_phone_title": {},
     "error_register_with_phone_message": "We were unable to register your phone number. Please try again !",
     "@error_register_with_phone_message": {},
-
-
+    "error_application": "We have more then one Super Admin",
+    "@error_application": {},
+    "error_register_with_email_message": "We were unable to register your email. Please try again !",
+    "@error_register_with_email_message": {}, 
 
     "label_login_facebook": "Facebook",
     "@label_login_facebook": {},
@@ -133,6 +135,22 @@
     "@category_fast_food_name": {},
     "category_category_name": "Category",
     "@category_category_name": {},
+     "category_ingredient_name": "Ingredients",
+    "@category_ingredient_name": {},
+    "category_pastry_name": "Pastry",
+    "@category_pastry_name": {},
+    "category_product_name": "Products",
+    "@category_product_name": {},
+    "category_recipe_name": "Recipes",
+    "@category_recipe_name": {},
+    "category_super_market_name": "Super Market",
+    "@category_super_market_name": {},
+
+
+
+
+    "notification_title": "Notifications",
+    "@notification_title": {},
 
     "home_title": "Home",
     "@home_title": {},
@@ -144,8 +162,6 @@
     "@delivery_title": {},
     "courier_title": "Courier",
     "@courier_title": {},
-    "pressing_title": "Dry Cleaning",
-    "@pressing_title": {},
     "my_orders_title": "Mes Commandes",
     "@my_orders_title": {},
     "my_deliveries_title": "Mes Livraisons",
@@ -211,8 +227,6 @@
     "@profile_menu_confidentiality": {},
     "profile_menu_discussions": "Discussions",
     "@profile_menu_discussions": {},
-    "profile_menu_notification": "Notifications",
-    "@profile_menu_notification": {},
     "profile_menu_delete_account": "Delete Account",
     "@profile_menu_delete_account": {},
     "profile_menu_logout":"Logout",
@@ -224,32 +238,14 @@
     "@add": {},
     "add_all": "View All",
     "@add_all": {},
-        "menu_main": "Home",
+    "menu_main": "Home",
     "@menu_main": {},
-    "menu_categories": "Categories",
-    "@menu_categories": {},
-    "menu_supplier": "Suppliers",
-    "@menu_supplier": {},
-    "menu_ingredient": "Ingredients",
-    "@menu_ingredient": {},
-    "menu_recipe": "Recipes",
-    "@menu_recipe": {},
-    "menu_product": "Products",
-    "@menu_product": {},
-    "menu_restaurant": "Restaurants",
-    "@menu_restaurant": {},
     "menu_store_type": "Store Types",
     "@menu_store_type": {},
     "menu_store_categories": "Store Categories",
     "@menu_store_categories": {},
-    "menu_pastry": "Pastry",
-    "@menu_pastry": {},
-    "menu_super_market": "Super Market",
-    "@menu_super_market": {},
-    "menu_pressing": "Dry Cleaner",
-    "@menu_pressing": {},
-    "menu_professionel": "Professionnel",
-    "@menu_professionel": {},
-        "menu_menu": "Menus",
+    "menu_restaurant_type": "Restaurant Type",
+    "@menu_restaurant_type": {},
+    "menu_menu": "Menus",
     "@menu_menu": {}
 }

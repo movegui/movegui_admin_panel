@@ -7,11 +7,11 @@ class TabButton extends StatelessWidget {
   final VoidCallback? onTap;
 
   const TabButton({
-    Key? key,
+    super.key,
     required this.child,
     this.selected = false,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

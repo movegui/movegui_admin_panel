@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/models/ingredient_model.dart';
-import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/services/ingredients_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
-import 'package:movegui_admin_panel/widgets/app/admin_panel_appbar.dart';
-import 'package:movegui_admin_panel/widgets/side_menu.dart';
 
 class AllIngredientsWidgetPage extends StatefulWidget {
   const AllIngredientsWidgetPage({super.key});
