@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movegui_admin_panel/config/env.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
-import 'package:movegui_admin_panel/main_dev.dart';
-import 'package:movegui_admin_panel/providers/appbar_title_provider.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/widgets/app/admin_panel_appbar.dart';
 import 'package:movegui_admin_panel/widgets/app/app_image.dart';
@@ -14,12 +11,8 @@ import 'package:movegui_admin_panel/widgets/subtitle_text.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
-
-
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
-
-
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

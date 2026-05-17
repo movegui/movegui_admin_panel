@@ -6,7 +6,7 @@ import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/widgets/util/button_widget.dart';
 
 class ValidationButton extends StatelessWidget {
-  final Future<void> Function(BuildContext context, ButtonItem item) fn;
+  final Future<void> Function( ButtonItem item) fn;
   final ButtonItem buttonItem;
   final IconData? icon;
 
@@ -14,7 +14,7 @@ class ValidationButton extends StatelessWidget {
     super.key,
     required this.fn,
     required this.buttonItem,
-    this.icon,
+    this.icon = IconlyLight.send,
   });
 
   @override
@@ -29,7 +29,7 @@ class ValidationButton extends StatelessWidget {
               child: ButtonWidget(
                 onPressed: fn,
                 buttonItem: buttonItem,
-                icon: IconlyLight.send,
+                icon: icon,
                 fontSize:
                     Responsive.isMobile(context)
                         ? WidgetConstants.buttonFonsize * 2

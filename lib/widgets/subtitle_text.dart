@@ -28,6 +28,7 @@ class SubtitleTextWidget extends StatelessWidget {
         color: color,
         fontStyle: fontStyle,
       ),
+      textAlign: TextAlign.center,
     );
   }
 }

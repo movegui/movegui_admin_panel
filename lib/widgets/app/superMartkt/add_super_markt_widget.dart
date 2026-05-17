@@ -74,9 +74,8 @@ class SuperMarktAddWidgetPageState extends State<SuperMarktAddWidgetPage> {
       if (formController.weeklyHours.isNotEmpty &&
           formController.contacts.isNotEmpty &&
           formController.selectedType != null) {
-        print('jetz drin ......................');
         await submitHandler.submit(form: formController);
-        showAlertBar(context, superMarktConstants.getSaveSuccessText());
+        showAlertBar(context, superMarktConstants.getSaveSuccessText(context));
         addContactKey.currentState!.clear();
         addOpenHoursKey.currentState!.resetOpenHours();
         formController.clear();

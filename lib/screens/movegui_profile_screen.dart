@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
@@ -15,25 +16,25 @@ import 'package:movegui_admin_panel/error/message_widget.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/person_model.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
+import 'package:movegui_admin_panel/providers/current_user_provider.dart';
 import 'package:movegui_admin_panel/screens/auth/login_screen.dart';
 import 'package:movegui_admin_panel/services/image_service.dart';
-import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
 import 'package:movegui_admin_panel/services/my_app_functions.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/user_service.dart';
 import 'package:movegui_admin_panel/util/profile_menu_title.dart';
 import 'package:movegui_admin_panel/widgets/auth/movegui_profile_header_widget.dart';
-import 'package:uuid/uuid.dart';
 
-class MoveguiProfileScreen extends StatefulWidget {
-  const MoveguiProfileScreen({super.key, this.currentUser});
-  final UserModel? currentUser;
-
+class MoveguiProfileScreen extends ConsumerStatefulWidget {
+  const MoveguiProfileScreen({super.key,});
+  
   @override
-  State<StatefulWidget> createState() => MoveguiProfileScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => MoveguiProfileScreenState();
+
+
 }
 
-class MoveguiProfileScreenState extends State<MoveguiProfileScreen> {
+class MoveguiProfileScreenState extends ConsumerState<MoveguiProfileScreen> {
   FirebaseAuth? auth;
   File? pickedImage;
   Uint8List? webImage;
@@ -130,41 +131,39 @@ class MoveguiProfileScreenState extends State<MoveguiProfileScreen> {
           webBytes: bytes,
           collectionName: userService.getCollectionName(),
         );
-        if (url != null) {
-          UserModel updatedUser = UserModel(
-            updatedAt: DateTime.now(),
-            id: currentUser!.id,
-            name: currentUser!.name,
-            createdAt: currentUser!.createdAt,
-            username: currentUser!.username,
-            isVerified: currentUser!.isVerified,
+        UserModel updatedUser = UserModel(
+          updatedAt: DateTime.now(),
+          id: currentUser!.id,
+          name: currentUser!.name,
+          createdAt: currentUser!.createdAt,
+          username: currentUser!.username,
+          isVerified: currentUser!.isVerified,
 
-            personModel: PersonModel(
-              id: currentUser!.personModel!.id,
-              name: currentUser!.name,
-              createdAt: DateTime.now(),
-              firstName: currentUser!.name,
-              lastName: currentUser!.personModel!.lastName,
-              profileImageUrl: url,
-              email: currentUser!.personModel!.email,
-              phone: currentUser!.personModel!.phone,
-              gender: currentUser!.personModel!.gender,
-              birthDate: currentUser!.personModel!.birthDate,
-              addresses: currentUser!.personModel!.addresses,
-            ),
-            role: currentUser!.role,
-          );
-          if (isNew) {
-            await userService.addModel(updatedUser);
-          } else {
-            await userService.update(updatedUser);
-            isNew = false;
-          }
-          setState(() {
-            currentUser = updatedUser;
-          });
+          personModel: PersonModel(
+            id: currentUser!.personModel!.id,
+            name: currentUser!.name,
+            createdAt: DateTime.now(),
+            firstName: currentUser!.name,
+            lastName: currentUser!.personModel!.lastName,
+            profileImageUrl: url,
+            email: currentUser!.personModel!.email,
+            phone: currentUser!.personModel!.phone,
+            gender: currentUser!.personModel!.gender,
+            birthDate: currentUser!.personModel!.birthDate,
+            addresses: currentUser!.personModel!.addresses,
+          ),
+          role: currentUser!.role,
+        );
+        if (isNew) {
+          await userService.addModel(updatedUser);
+        } else {
+          await userService.update(updatedUser);
+          isNew = false;
         }
-      } else {
+        setState(() {
+          currentUser = updatedUser;
+        });
+            } else {
         MessageWidget.errorMessage(
           context,
           AppLocalizations.of(context)!.error_send_mail_title,
@@ -193,48 +192,12 @@ class MoveguiProfileScreenState extends State<MoveguiProfileScreen> {
   }
 
   Future<void> _initialize() async {
-    if (widget.currentUser != null) currentUser = widget.currentUser;
-    if (auth?.currentUser != null) {
-      if (auth?.currentUser?.email != null) {
-        setState(() {
-          WidgetsBinding.instance.addPostFrameCallback((_) async {
-            currentUser = await userService.getByEmail(
-              auth?.currentUser?.email ?? '',
-            );
-            isNew = false;
-            setState(() {});
-          });
-        });
-      }
-      if (currentUser == null) {
-        isNew = true;
-        setState(() {
-          currentUser = UserModel(
-            updatedAt: DateTime.now(),
-            id: auth?.currentUser?.uid ?? '',
-            name: auth?.currentUser?.displayName ?? '',
-            createdAt: DateTime.now(),
-            username: auth?.currentUser?.email,
-            isVerified: false,
-            personModel: PersonModel(
-              id: Uuid().v4(),
-              name: auth?.currentUser?.displayName ?? '',
-              createdAt: DateTime.now(),
-              firstName: '',
-              lastName: auth?.currentUser?.displayName ?? '',
-              profileImageUrl: null,
-              email: auth?.currentUser?.email,
-
-              phone: null,
-              gender: '',
-              birthDate: null,
-              addresses: [],
-            ),
-            role: UserRole.Guest.name,
-          );
-        });
-      }
-    }
+     final  loggedUser = await userService.getCurrentUser(ref);
+     if(loggedUser != null){
+      setState(() {
+        currentUser = loggedUser;
+      });
+     }
   }
 
   @override
@@ -277,9 +240,9 @@ class MoveguiProfileScreenState extends State<MoveguiProfileScreen> {
               icon: Icons.logout,
               title: AppLocalizations.of(context)!.profile_menu_logout,
               onTap: () async {
-                await userService.signOut();
+                await userService.signOut(ref);
                 setState(() {
-                  currentUser == null;
+                  currentUser = null;
                 });
               },
               enabled: true,

@@ -25,7 +25,7 @@ class _CardsGridState extends State<CardsGrid> {
       AppLocalizations.of(context)!.menu_menu,
       AppLocalizations.of(context)!.category_restaurant_name,
       AppLocalizations.of(context)!.menu_store_type,
-      AppLocalizations.of(context)!.menu_store_categories,
+      AppLocalizations.of(context)!.category_category_name,
       AppLocalizations.of(context)!.category_pastry_name,
       AppLocalizations.of(context)!.category_super_market_name,
       AppLocalizations.of(context)!.category_pressing_name,
@@ -210,13 +210,13 @@ class _CardsGridState extends State<CardsGrid> {
       shrinkWrap: true,
       itemCount: titles.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        childAspectRatio: Responsive.isDesktop(context) ? 3 : 2.9,
+        childAspectRatio: Responsive.isDesktop(context) ? 3 : 2,
         crossAxisSpacing: 10,
         crossAxisCount: Responsive.isDesktop(context)
             ? 4
             : Responsive.isTablet(context)
-            ? 2
-            : 1,
+            ? 3
+            : 2,
       ),
       itemBuilder: (context, index) {
         return DashBordCards(title: titles[index], value: values[index]);

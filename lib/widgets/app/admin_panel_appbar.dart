@@ -1,26 +1,29 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/route_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
+import 'package:movegui_admin_panel/providers/current_user_provider.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/user_service.dart';
 import 'package:movegui_admin_panel/util/profile_menu_title.dart';
 
-class AdminPanelAppBar extends StatelessWidget implements PreferredSizeWidget {
+class AdminPanelAppBar extends ConsumerWidget implements PreferredSizeWidget {
   AdminPanelAppBar({super.key, required this.title});
   final String title;
   final userService = getIt<UserService>();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentUser = ref.watch(CurrentUserProvider.currentUserProvider).currentUser;
     return AppBar(
       title: Center(child: Text(title)),
       titleTextStyle: TextStyle(
         color: AppColors.textColor, // Set the title color
-        fontSize: 26,
+        fontSize: Responsive.isDesktop(context) ? 26 : 20,
       ),
 
       leading: Responsive.isMobile(context)
@@ -82,7 +85,7 @@ class AdminPanelAppBar extends StatelessWidget implements PreferredSizeWidget {
                             context,
                           )!.profile_menu_logout,
                           onTap: () async {
-                            await userService.signOut();
+                            await userService.signOut(ref);
                             context.go(RouteConstants.LOGIN_ROUTE);
                             /*
                 setState(() {

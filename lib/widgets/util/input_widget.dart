@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 
 class InputWidget extends StatelessWidget {
@@ -41,7 +42,8 @@ class InputWidget extends StatelessWidget {
         keyboardType: textInputType,
         decoration: InputDecoration(
           hintText: hinterText,
-          prefixIcon: Icon(icon),
+          prefixIcon: Icon(icon, color: AppColors.backgroundColor,),
+          hintStyle: TextStyle(color: AppColors.placeHolderText)
         ),
         style: TextStyle(
           fontSize: fontSize,

@@ -1,3 +1,4 @@
+import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
 import 'package:movegui_admin_panel/models/person_model.dart';
 import 'package:movegui_admin_panel/models/restaurant_model.dart';
@@ -9,15 +10,14 @@ class PressingModel extends StoreModel {
     required super.name,
     required super.createdAt,
     required super.description,
-    required super.adresse,
+    required super.address,
     required super.contacts,
     required super.email,
     required super.imageUrl,
     required super.telephon,
     required super.weeklyHours,
     required super.storeType,
-    super.longitude,
-    super.latitude
+
   });
 
     @override
@@ -31,7 +31,7 @@ class PressingModel extends StoreModel {
         name: json['name'],
         description: json['description'],
         imageUrl: json['imageUrl'],
-        adresse: json['adresse'],
+        address: AdressModel.fromJson(json['adresse']),
         email: json['email'],
         telephon: json['telephon'],
         contacts: (json['contacts'] as List? ?? [])

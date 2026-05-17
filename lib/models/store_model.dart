@@ -1,12 +1,12 @@
+import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/model.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
 import 'package:movegui_admin_panel/models/person_model.dart';
 
 abstract class StoreModel extends Model {
 
-  final String adresse, telephon, email, imageUrl, description;
-  final double? longitude;
-  final double? latitude;
+  final String  telephon, email, imageUrl, description;
+  final AdressModel address; 
   final List<PersonModel> contacts;
   final List<OpenHours> weeklyHours;
   final StoreTypeModel storeType;
@@ -16,15 +16,14 @@ abstract class StoreModel extends Model {
     required super.name,
     required super.createdAt,
     required this.description,
-    required this.adresse,
     required this.email,
     required this.imageUrl,
     required this.telephon,
     required this.contacts,
     required this.weeklyHours,
     required this.storeType,
-    this.longitude,
-    this.latitude,
+    required this.address
+
     
   });
 
@@ -32,20 +31,18 @@ abstract class StoreModel extends Model {
   Map<String, dynamic> toJson() => {
     ...super.toJson(),
     'description': description,
-    'adresse': adresse,
     'contacts': contacts.map((contact) {
       return contact.toJson();
     }).toList(),
     'email': email,
     'imageUrl': imageUrl,
     'telephon': telephon,
-    'longitude': longitude,
-    'latitude': latitude,
     'weeklyHours': weeklyHours.map((weekHour){
       return (weekHour.closeTime != null && weekHour.openTime != null) ?
          weekHour.toJson() : {};
     }).toList(),
-    'storeType': storeType.toJson()
+    'storeType': storeType.toJson(),
+    'address': address.toJson(), 
     
   };
 

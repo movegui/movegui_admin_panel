@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movegui_admin_panel/consts/route_constants.dart';
@@ -17,14 +18,14 @@ import 'package:movegui_admin_panel/widgets/app/separator_widget.dart';
 import 'package:movegui_admin_panel/widgets/util/input_email_widget.dart';
 import 'package:movegui_admin_panel/widgets/util/password_widget.dart';
 
-class LoginEmailPage extends StatefulWidget {
-  const LoginEmailPage({super.key,});
+class LoginEmailPage extends ConsumerStatefulWidget {
+  const LoginEmailPage({super.key});
 
   @override
-  State<StatefulWidget> createState() => LoginEmailPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => LoginEmailPageState();
 }
 
-class LoginEmailPageState extends State<LoginEmailPage> {
+class LoginEmailPageState extends ConsumerState<LoginEmailPage> {
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
 
@@ -38,7 +39,6 @@ class LoginEmailPageState extends State<LoginEmailPage> {
   FirebaseAuth? auth;
   late UserService userService;
 
-
   @override
   void initState() {
     _emailController = TextEditingController();
@@ -51,10 +51,9 @@ class LoginEmailPageState extends State<LoginEmailPage> {
     } catch (e) {
       MyAppFunctions.showErrorOrWarningDialog(
         context: context,
-        subtitle:
-            AppLocalizations.of(
-              context,
-            )!.error_firebase_initialisation.toString(),
+        subtitle: AppLocalizations.of(
+          context,
+        )!.error_firebase_initialisation.toString(),
         fct: () {},
       );
     }
@@ -72,7 +71,7 @@ class LoginEmailPageState extends State<LoginEmailPage> {
     super.dispose();
   }
 
-  Future<void> _loginFct(BuildContext context, ButtonItem item) async {
+  Future<void> _loginFct(ButtonItem item) async {
     final isValid = _formkey.currentState!.validate();
     FocusScope.of(context).unfocus();
 
@@ -96,10 +95,12 @@ class LoginEmailPageState extends State<LoginEmailPage> {
             textColor: Colors.white,
             fontSize: 16.0,
           );
-           final currentUser = await userService.getByEmail(_emailController.text.trim());        
-           if (!mounted) return; 
-           print('la route est: ${item.routeName}');
-           context.go(item.routeName!, extra: currentUser);
+      
+          await userService.getCurrentUserByMail(
+            _emailController.text.trim(), ref
+          );
+          if (!mounted) return;
+          context.go(item.routeName!);
         } else {
           Fluttertoast.showToast(
             msg: AppLocalizations.of(context)!.error_login_message,
@@ -136,8 +137,12 @@ class LoginEmailPageState extends State<LoginEmailPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                InputEmailWidget(nextFocusNode: _passwordFocusNode, emailController: _emailController, emailFocusNode: _emailFocusNode,),
-              //  SeparatorWidget(height: WidgetConstants.sepWidgetHeight * 2),
+                InputEmailWidget(
+                  nextFocusNode: _passwordFocusNode,
+                  emailController: _emailController,
+                  emailFocusNode: _emailFocusNode,
+                ),
+                //  SeparatorWidget(height: WidgetConstants.sepWidgetHeight * 2),
                 PasswordWidget(
                   passwordController: _passwordController,
                   passwordFocusNode: _passwordFocusNode,
@@ -148,9 +153,13 @@ class LoginEmailPageState extends State<LoginEmailPage> {
                     });
                   },
                 ),
-                 Responsive.isDesktop(context) ? SeparatorWidget(height: 20,) : SizedBox(),
+                Responsive.isDesktop(context)
+                    ? SeparatorWidget(height: 20)
+                    : SizedBox(),
                 AuthLinkWidget(),
-                Responsive.isDesktop(context) ? SeparatorWidget(height: 20,) : SizedBox(),
+                Responsive.isDesktop(context)
+                    ? SeparatorWidget(height: 20)
+                    : SizedBox(),
 
                 Padding(
                   padding: const EdgeInsets.only(
@@ -161,9 +170,9 @@ class LoginEmailPageState extends State<LoginEmailPage> {
                     fn: _loginFct,
                     buttonItem: ButtonItem(
                       AppLocalizations.of(context)!.label_login,
-                      AppLocalizations.of(context)!.tooltip_sign_in,
-                      true,
-                      routeName:  RouteConstants.HOME_ROUTE  
+                      tooltipText:  AppLocalizations.of(context)!.tooltip_sign_in,
+                       enabled: true,
+                      routeName: RouteConstants.HOME_ROUTE, onPress: () {  },
                     ),
                   ),
                 ),

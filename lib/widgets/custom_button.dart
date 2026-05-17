@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movegui_admin_panel/consts/app_colors.dart';
 
 class CustomButon extends StatelessWidget {
   CustomButon({super.key, this.onTap, required this.text, this.icon, this.color});
@@ -16,7 +17,7 @@ class CustomButon extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
         child: Container(
           decoration: BoxDecoration(
-            color: color ?? Colors.blue,
+            color: color ?? AppColors.backgroundColor,
             borderRadius: BorderRadius.circular(8),
           ),
           height: 40,
@@ -28,12 +29,12 @@ class CustomButon extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(icon,color: Colors.white,),
+                          Icon(icon,color: AppColors.textColor,),
                           Text(
                             text,
                             style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.textColor,
                             ),
                           ),
                         ],

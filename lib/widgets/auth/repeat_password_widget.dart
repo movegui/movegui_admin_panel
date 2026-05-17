@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/validator.dart';
-
 
 class RepeatPasswordWidget extends StatefulWidget {
   final TextEditingController passwordController, repeatPasswordController;
@@ -43,7 +43,10 @@ class RepeatPasswordWidgetState extends State<RepeatPasswordWidget> {
           obscureText: obscureText,
           decoration: InputDecoration(
             hintText: "***********",
-            prefixIcon: const Icon(IconlyLight.lock),
+            prefixIcon: const Icon(
+              Icons.lock,
+              color: AppColors.backgroundColor,
+            ),
             suffixIcon: IconButton(
               onPressed: () {
                 setState(() {
@@ -69,7 +72,10 @@ class RepeatPasswordWidgetState extends State<RepeatPasswordWidget> {
           obscureText: obscureText,
           decoration: InputDecoration(
             hintText: "Repeter Mot de pass",
-            prefixIcon: const Icon(IconlyLight.lock),
+            prefixIcon: const Icon(
+              Icons.lock,
+              color: AppColors.backgroundColor,
+            ),
             suffixIcon: IconButton(
               onPressed: () {
                 setState(() {

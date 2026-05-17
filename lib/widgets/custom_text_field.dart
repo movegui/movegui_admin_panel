@@ -62,7 +62,7 @@ class CustomTextField extends StatelessWidget {
             borderSide: const BorderSide(color: AppColors.textColor),
             borderRadius: BorderRadius.circular(8),
           ),
-          prefixIcon: Icon(icon, color: AppColors.textColor),
+          prefixIcon: Icon(icon, color: AppColors.backgroundColor),
           labelText: labelText,
           labelStyle: TextStyle(color: AppColors.textColor),
           errorStyle: TextStyle(color: Colors.orange), // change validator color

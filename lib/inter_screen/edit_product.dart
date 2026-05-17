@@ -48,7 +48,7 @@ class _ProductEditState extends State<ProductEdit> {
     var Size = MediaQuery.of(context).size;
     double FontSize = Size.width < 600 ? 14 : 20;
     return Scaffold(
-        drawer: const SideMenu(),
+        drawer:  SideMenu(),
         body: Builder(
         builder: (context) => SafeArea(
       child: Row(
@@ -56,7 +56,7 @@ class _ProductEditState extends State<ProductEdit> {
         children: [
           // We want this side menu only for large screen
           if (Responsive.isDesktop(context))
-            const Expanded(
+             Expanded(
               child: SideMenu(),
             ),
           Expanded(

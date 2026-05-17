@@ -77,7 +77,7 @@ class SuppliersUploaWidgetdstate extends State<SupplierAddWidgetPage> {
           formController.selectedType != null) {
         print('jetz drin ......................');
         await submitHandler.submit(form: formController);
-        showAlertBar(context, supplierConstants.getSaveSuccessText());
+        showAlertBar(context, supplierConstants.getSaveSuccessText(context));
         addContactKey.currentState!.clear();
         addOpenHoursKey.currentState!.resetOpenHours();
         formController.clear();

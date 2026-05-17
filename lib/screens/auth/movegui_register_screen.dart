@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
-import 'package:movegui_admin_panel/providers/appbar_title_provider.dart';
 import 'package:movegui_admin_panel/responsive.dart';
+import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
 import 'package:movegui_admin_panel/widgets/app/admin_panel_appbar.dart';
 import 'package:movegui_admin_panel/widgets/app/app_image.dart';
 import 'package:movegui_admin_panel/widgets/app/separator_widget.dart';
@@ -55,7 +55,7 @@ class _RegisterScreenState extends State<MoveguiRegisterScreen> {
           children: [
             AppImage(heightScale: 0.10),
             SeparatorWidget(),
-            RegisterEmailPage(),
+            RegisterEmailPage(role: UserRole.Guest,),
           ],
         ),
       ),
@@ -92,7 +92,7 @@ class _RegisterScreenState extends State<MoveguiRegisterScreen> {
                 ),
               ),
               SeparatorWidget(height: 30),
-              RegisterEmailPage(),
+              RegisterEmailPage(role: UserRole.Guest,),
             ],
           ),
         ),

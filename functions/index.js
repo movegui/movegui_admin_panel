@@ -91,51 +91,117 @@ export const sendEmail = onCall(
 );
 */
 
-
+/*
 exports.setAdminRole = functions.https.onRequest(async (req, res) => {
-    cors(req, res, async () => {
-        try {
+  cors(req, res, async () => {
+    try {
 
-            if (!req.auth) {
-                throw new HttpsError(
-                    "Non authentifié",
-                    "Vous devez etre enregistrer pour utiliser ce functionnalité"
-                );
-            }
-            const uid = req.body.uid;
-            const role = req.body.role;
+      if (!req.auth) {
+        throw new HttpsError(
+          "Non authentifié",
+          "Vous devez etre enregistrer pour utiliser ce functionnalité"
+        );
+      }
+      const uid = req.body.uid;
+      const role = req.body.role;
 
-            await admin.auth().setCustomUserClaims(uid, {
-                role: role,
-            });
+      await admin.auth().setCustomUserClaims(uid, {
+        role: role,
+      });
 
-            res.status(200).send({ success: true });
-        } catch (error) {
-            res.status(500).send({ error: error.message });
-        }
-    });
+      res.status(200).send({ success: true });
+    } catch (error) {
+      res.status(500).send({ error: error.message });
+    }
+  });
 
 });
+*/
 
 
 exports.setSuperAdminRole = functions.https.onRequest(async (req, res) => {
 
+  cors(req, res, async () => {
+    try {
+      const uid = req.body.uid;
+      const role = req.body.role;
 
-    cors(req, res, async () => {
-        try {
-            const uid = req.body.uid;
-            const role = req.body.role;
+      await admin.auth().setCustomUserClaims(uid, {
+        role: role,
+      });
 
-            await admin.auth().setCustomUserClaims(uid, {
-                role: role,
-            });
-
-            res.status(200).send({ success: true });
-        } catch (error) {
-            res.status(500).send({ error: error.message });
-        }
-    });
+      res.status(200).send({ success: true });
+    } catch (error) {
+      res.status(500).send({ error: error.message });
+    }
+  });
 
 
 
 });
+
+
+
+exports.createUser = functions.https.onRequest(async (req, res) => {
+  cors(req, res, async () => {
+  try {
+    // Get token from Authorization header
+    const authHeader = req.headers.authorization;
+  console.log(authHeader);
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({
+        error: 'Unauthorized',
+      });
+    }
+
+    // Extract token
+    const idToken = authHeader.split('Bearer ')[1];
+    // Verify Firebase token
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    
+    // Example: only admins can create users
+    if (decodedToken.role !== 'Admin' && decodedToken.role !== 'SuperAdmin') {
+      return res.status(403).json({
+        error: 'Forbidden',
+      });
+    }
+
+    const { email, password, role } = req.body;
+
+    // Create user
+    const user = await admin.auth().createUser({
+      email,
+      password,
+    });
+
+    await admin.auth().setCustomUserClaims(user.uid, {
+      role: role,
+    });
+
+    res.status(200).json({
+      uid: user.uid,
+      email: user.email,
+      role: role
+    });
+
+  } catch (e) {
+    console.error(e);
+
+    res.status(401).json({
+      error: e.message,
+    });
+  }
+})
+});
+
+async function authenticate(req) {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader?.startsWith('Bearer ')) {
+    throw new Error('Unauthorized');
+  }
+
+  const token = authHeader.split('Bearer ')[1];
+
+  return await admin.auth().verifyIdToken(token);
+}

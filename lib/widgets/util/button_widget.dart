@@ -10,7 +10,7 @@ class ButtonWidget extends StatelessWidget {
   final FontStyle? fontStyle;
   final TextDecoration? textDecoration;
   final double? fontSize;
-  final Future<void> Function(BuildContext context, ButtonItem item) onPressed;
+  final Future<void> Function( ButtonItem item) onPressed;
 
   const ButtonWidget({
     super.key,
@@ -38,7 +38,7 @@ class ButtonWidget extends StatelessWidget {
           if (states.contains(WidgetState.pressed)) {
             return AppColors.selectionColor;
           }
-          return AppColors.backgroundColor;
+          return backgroundColor != null ? backgroundColor! : AppColors.backgroundColor;
         }),
         foregroundColor: WidgetStateProperty.resolveWith<Color>((states) {
           if (states.contains(WidgetState.hovered)) {
@@ -51,9 +51,9 @@ class ButtonWidget extends StatelessWidget {
           icon != null
               ? Icon(icon!, color: AppColors.textColor)
               : const SizedBox(),
-      label: Text(buttonItem.title!, style: TextStyle(fontSize: fontSize)),
+      label: Text(buttonItem.title!, style: TextStyle(fontSize: fontSize, color: AppColors.textColor)),
       onPressed: () async {
-        await onPressed(context, buttonItem);
+        await onPressed(buttonItem);
       },
     );
   }

@@ -5,9 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/app_constants.dart';
+import 'package:movegui_admin_panel/consts/widget_constants.dart';
+import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
+import 'package:movegui_admin_panel/models/adress_model.dart';
+import 'package:movegui_admin_panel/models/button_item.dart';
 import 'package:movegui_admin_panel/models/person_model.dart';
+import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/widgets/add_person_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/auth/validation_button.dart';
+import 'package:movegui_admin_panel/widgets/app/separator_widget.dart';
+import 'package:movegui_admin_panel/widgets/util/button_widget.dart';
 import 'package:uuid/uuid.dart';
 
 class AddContactWidget extends StatefulWidget {
@@ -26,12 +34,15 @@ class AddContactWidgetState extends State<AddContactWidget> {
   final List<TextEditingController> addresses = [];
   final List<TextEditingController> emails = [];
   final List<TextEditingController> phones = [];
+   final List<TextEditingController> quartiers = [];
   final List<String> genders = [];
   final List<DateTime?> birthdates = [];
   final List<File?> images = [];
   late Uint8List? webImage;
   late File? pickedImage;
   late ImageConstatnt imageConstatnt;
+  final List<String?> addressSlectedTypes = [];
+   final List<String?> selectedCommunes = [];
 
   @override
   void initState() {
@@ -53,6 +64,7 @@ class AddContactWidgetState extends State<AddContactWidget> {
       addresses[i].dispose();
       emails[i].dispose();
       phones[i].dispose();
+      quartiers[i].dispose();
     }
   }
 
@@ -69,6 +81,9 @@ class AddContactWidgetState extends State<AddContactWidget> {
     genders.clear();
     images.clear();
     birthdates.clear();
+    addressSlectedTypes.clear();
+    quartiers.clear();
+    selectedCommunes.clear();
     setState(() {
       webImage = null;
       pickedImage = null;
@@ -81,7 +96,7 @@ class AddContactWidgetState extends State<AddContactWidget> {
     widget.onContactsChanged(contacts);
   }
 
-  void _addPerson() {
+  Future<void> _addPerson() async {
     setState(() {
       formKeys.add(GlobalKey<FormState>());
       firstNames.add(TextEditingController());
@@ -90,9 +105,12 @@ class AddContactWidgetState extends State<AddContactWidget> {
       addresses.add(TextEditingController());
       emails.add(TextEditingController());
       phones.add(TextEditingController());
+      quartiers.add(TextEditingController());
       genders.add("m");
       birthdates.add(null);
       images.add(null);
+      addressSlectedTypes.add('h');
+      selectedCommunes.add('di');
     });
     updateParent();
   }
@@ -121,6 +139,9 @@ class AddContactWidgetState extends State<AddContactWidget> {
       genders.removeAt(index);
       birthdates.removeAt(index);
       images.removeAt(index);
+      addressSlectedTypes.removeAt(index);
+      selectedCommunes.removeAt(index);
+      quartiers.removeAt(index);
     });
   }
 
@@ -142,7 +163,7 @@ class AddContactWidgetState extends State<AddContactWidget> {
             images[i],
           ),
           birthDate: birthdates[i],
-          addresses: [addresses[i].text],
+          addresses: [ AdressModel(address: addresses[i].text, id: Uuid().v4(), name: addressSlectedTypes[i]!, createdAt: DateTime.now(), quartier: quartiers[i].text, commune: selectedCommunes[i]) ],
           email: emails[i].text,
           phone: phones[i].text,
           gender: genders[i],
@@ -161,8 +182,7 @@ class AddContactWidgetState extends State<AddContactWidget> {
       final storage = FirebaseStorage.instance;
 
       // Create a unique file name
-      String fileName =
-          'persons/${DateTime.now().millisecondsSinceEpoch}.jpg';
+      String fileName = 'persons/${DateTime.now().millisecondsSinceEpoch}.jpg';
       Reference ref = storage.ref().child(fileName);
 
       UploadTask uploadTask;
@@ -196,14 +216,16 @@ class AddContactWidgetState extends State<AddContactWidget> {
   Widget build(BuildContext context) {
     var Size = MediaQuery.of(context).size;
     double FontSize = Size.width < 600 ? 18 : 28;
-    return ListView.builder(
+    return ListView.separated(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: firstNames.length,
       itemBuilder: (context, index) {
         return Center(
           child: Container(
-            width: Size.width * 0.6,
+            width: Responsive.isDesktop(context)
+                ? Size.width * 0.4
+                : double.infinity,
             //   height: Size.height * 0.3,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
@@ -235,25 +257,56 @@ class AddContactWidgetState extends State<AddContactWidget> {
                     });
                   },
                   pickedImage: pickedImage,
-                  webImage: webImage,
+                  webImage: webImage, 
+                  adresseType: addressSlectedTypes[index], 
+                  onAdressTypeChange: (String? selectedValue) { 
+                    setState(() {
+                      addressSlectedTypes[index] = selectedValue!;
+                    });
+                   }, quartierController: quartiers[index], commune: selectedCommunes[index], onCommuneChange: (String? value) { 
+                    setState(() {
+                      selectedCommunes[index] = value;
+                    });
+                    },
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    ElevatedButton(
-                      onPressed: _addPerson,
-                      child: const Text("+ Ajouter un Contact"),
+                    Expanded(
+                      child: ButtonWidget(
+                        onPressed: (item) async {
+                          _addPerson();
+                        },
+                        buttonItem: ButtonItem(
+                          AppLocalizations.of(context)!.btn_add_contact,
+                          onPress: () {},
+                          tooltipText: AppLocalizations.of(
+                            context,
+                          )!.tooltip_btn_add_contact,
+                          enabled: true,
+                          routeName: '',
+                        ),
+                        icon: Icons.add,
+                        backgroundColor: AppColors.darkPrimary,
+                      ),
                     ),
-                    IconButton(
-                      onPressed: () => _removePerson(index),
-                      icon: const Icon(Icons.delete, color: Colors.red),
+
+                    Expanded(
+                      child: IconButton(
+                        onPressed: () => _removePerson(index),
+                        icon: const Icon(Icons.delete, color: Colors.red),
+                      ),
                     ),
                   ],
                 ),
+                SeparatorWidget(height: WidgetConstants.sepWidget),
               ],
             ),
           ),
         );
+      },
+      separatorBuilder: (context, index) {
+        return const SizedBox(height: WidgetConstants.sepWidget);
       },
     );
   }

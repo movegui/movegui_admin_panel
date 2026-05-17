@@ -98,6 +98,162 @@ abstract class AppLocalizations {
     Locale('fr'),
   ];
 
+  /// No description provided for @commune_title.
+  ///
+  /// In en, this message translates to:
+  /// **'City'**
+  String get commune_title;
+
+  /// No description provided for @admin_bar_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Admin Configuration'**
+  String get admin_bar_title;
+
+  /// No description provided for @admin_add_bar_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Admin'**
+  String get admin_add_bar_title;
+
+  /// No description provided for @admin_all_bar_title.
+  ///
+  /// In en, this message translates to:
+  /// **'All Admins'**
+  String get admin_all_bar_title;
+
+  /// No description provided for @employe_bar_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Employe Configuration'**
+  String get employe_bar_title;
+
+  /// No description provided for @employe_add_bar_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Employe'**
+  String get employe_add_bar_title;
+
+  /// No description provided for @employe_all_bar_title.
+  ///
+  /// In en, this message translates to:
+  /// **'All Employes'**
+  String get employe_all_bar_title;
+
+  /// No description provided for @pressing_add_bar_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add dry Cleaner '**
+  String get pressing_add_bar_title;
+
+  /// No description provided for @pressing_all_bar_title.
+  ///
+  /// In en, this message translates to:
+  /// **'All Dry Cleaners '**
+  String get pressing_all_bar_title;
+
+  /// No description provided for @pressing_bar_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Configuration dry Cleaner '**
+  String get pressing_bar_title;
+
+  /// No description provided for @restaurant_add_bar_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Restaurant'**
+  String get restaurant_add_bar_title;
+
+  /// No description provided for @restaurant_all_bar_title.
+  ///
+  /// In en, this message translates to:
+  /// **'All Restaurants'**
+  String get restaurant_all_bar_title;
+
+  /// No description provided for @restaurant_bar_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Configuration Restaurant'**
+  String get restaurant_bar_title;
+
+  /// Add a new {storeCategory}
+  ///
+  /// In en, this message translates to:
+  /// **'Add a {storeCategory}'**
+  String store_add_bar_title(Object storeCategory);
+
+  /// View all {storeCategory}
+  ///
+  /// In en, this message translates to:
+  /// **'All the {storeCategory}'**
+  String store_all_bar_title(Object storeCategory);
+
+  /// Panneau de Configuration {storeCategory}
+  ///
+  /// In en, this message translates to:
+  /// **'Configuration {storeCategory}'**
+  String store_bar_title(Object storeCategory);
+
+  /// Adress of the {storeCategory}
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter the adress of {storeCategory}'**
+  String store_adress_hinter_text(Object storeCategory);
+
+  /// Please enter a few words to describe your business
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter the description {storeCategory}'**
+  String store_description_hinter_text(Object storeCategory);
+
+  /// email of the {storeCategory}
+  ///
+  /// In en, this message translates to:
+  /// **'Please Enter the email of the {storeCategory}'**
+  String store_email_hinter_text(Object storeCategory);
+
+  /// Name of the {storeCategory}
+  ///
+  /// In en, this message translates to:
+  /// **'Please Enter the name of the {storeCategory}'**
+  String store_name_hinter_text(Object storeCategory);
+
+  /// Name of the {storeCategory}
+  ///
+  /// In en, this message translates to:
+  /// **'Name of the{storeCategory}'**
+  String store_name_label(Object storeCategory);
+
+  /// Phone number of the {storeCategory}
+  ///
+  /// In en, this message translates to:
+  /// **'Please Enter the phone number of the {storeCategory}'**
+  String store_phone_hinter_text(Object storeCategory);
+
+  /// success message
+  ///
+  /// In en, this message translates to:
+  /// **'{storeCategory} addedd successfully'**
+  String store_add_success_message(Object storeCategory);
+
+  /// Type of {storeCategory]
+  ///
+  /// In en, this message translates to:
+  /// **'Type {storeCategory}'**
+  String store_type(Object storeCategory);
+
+  /// No description provided for @description_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get description_title;
+
+  /// No description provided for @description_hint_text.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter the Description'**
+  String get description_hint_text;
+
   /// Text for search Button
   ///
   /// In en, this message translates to:
@@ -212,6 +368,18 @@ abstract class AppLocalizations {
   /// **'We were unable to register your email. Please try again !'**
   String get error_register_with_email_message;
 
+  /// No description provided for @error_authorization.
+  ///
+  /// In en, this message translates to:
+  /// **'Not Authorize'**
+  String get error_authorization;
+
+  /// No description provided for @error_occur.
+  ///
+  /// In en, this message translates to:
+  /// **'An error Occured'**
+  String get error_occur;
+
   /// No description provided for @label_login_facebook.
   ///
   /// In en, this message translates to:
@@ -241,6 +409,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Register'**
   String get btn_register_label;
+
+  /// No description provided for @btn_add_contact.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a Contact'**
+  String get btn_add_contact;
 
   /// No description provided for @verify_otp.
   ///
@@ -290,6 +464,18 @@ abstract class AppLocalizations {
   /// **'Address'**
   String get input_hint_adress;
 
+  /// No description provided for @input_hint_middle_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Nickname'**
+  String get input_hint_middle_name;
+
+  /// No description provided for @input_hint_quartier.
+  ///
+  /// In en, this message translates to:
+  /// **'District'**
+  String get input_hint_quartier;
+
   /// No description provided for @movegui_info_title.
   ///
   /// In en, this message translates to:
@@ -319,6 +505,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Movegui Configuration Panel'**
   String get movegui_panel;
+
+  /// No description provided for @movegui_panel_mobile.
+  ///
+  /// In en, this message translates to:
+  /// **'Configuration Panel'**
+  String get movegui_panel_mobile;
 
   /// No description provided for @deactivate_button_title.
   ///
@@ -470,6 +662,36 @@ abstract class AppLocalizations {
   /// **'Super Market'**
   String get category_super_market_name;
 
+  /// No description provided for @category_admin_manager.
+  ///
+  /// In en, this message translates to:
+  /// **'Admin'**
+  String get category_admin_manager;
+
+  /// No description provided for @category_employe_manager.
+  ///
+  /// In en, this message translates to:
+  /// **'Employé'**
+  String get category_employe_manager;
+
+  /// No description provided for @category_buisiness_manager.
+  ///
+  /// In en, this message translates to:
+  /// **'Manager'**
+  String get category_buisiness_manager;
+
+  /// No description provided for @tooltip_add.
+  ///
+  /// In en, this message translates to:
+  /// **'Clic here to Add '**
+  String get tooltip_add;
+
+  /// No description provided for @tooltip_all.
+  ///
+  /// In en, this message translates to:
+  /// **'Clic here to see All'**
+  String get tooltip_all;
+
   /// No description provided for @notification_title.
   ///
   /// In en, this message translates to:
@@ -554,6 +776,42 @@ abstract class AppLocalizations {
   /// **'Panneau de Configuration'**
   String get dashbord_title;
 
+  /// No description provided for @register_admin_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Admin Registration'**
+  String get register_admin_title;
+
+  /// No description provided for @register_employe_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Employee Registration'**
+  String get register_employe_title;
+
+  /// No description provided for @address_office_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Bureau'**
+  String get address_office_title;
+
+  /// No description provided for @address_neighbor_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Voisin'**
+  String get address_neighbor_title;
+
+  /// No description provided for @address_home_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Maison'**
+  String get address_home_title;
+
+  /// No description provided for @address_other_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Autre'**
+  String get address_other_title;
+
   /// No description provided for @label_login_forget_password.
   ///
   /// In en, this message translates to:
@@ -596,6 +854,54 @@ abstract class AppLocalizations {
   /// **'Enter your Code:'**
   String get label_enter_your_code;
 
+  /// No description provided for @label_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get label_name;
+
+  /// No description provided for @lable_username.
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get lable_username;
+
+  /// No description provided for @label_adress.
+  ///
+  /// In en, this message translates to:
+  /// **'Adress'**
+  String get label_adress;
+
+  /// No description provided for @label_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get label_email;
+
+  /// No description provided for @label_phone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone'**
+  String get label_phone;
+
+  /// No description provided for @label_role.
+  ///
+  /// In en, this message translates to:
+  /// **'Role'**
+  String get label_role;
+
+  /// No description provided for @label_firstname.
+  ///
+  /// In en, this message translates to:
+  /// **'Firstname'**
+  String get label_firstname;
+
+  /// No description provided for @label_lastname.
+  ///
+  /// In en, this message translates to:
+  /// **'Lastname'**
+  String get label_lastname;
+
   /// No description provided for @exception_login_message.
   ///
   /// In en, this message translates to:
@@ -637,6 +943,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Click here to submit your code'**
   String get tooltip_btn_send;
+
+  /// No description provided for @tooltip_btn_add_contact.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a new Contact'**
+  String get tooltip_btn_add_contact;
 
   /// No description provided for @profile_menu_invite_people.
   ///
@@ -745,6 +1057,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Menus'**
   String get menu_menu;
+
+  /// No description provided for @day_lundi.
+  ///
+  /// In en, this message translates to:
+  /// **'Monday'**
+  String get day_lundi;
+
+  /// No description provided for @day_mardi.
+  ///
+  /// In en, this message translates to:
+  /// **'Tuesday'**
+  String get day_mardi;
+
+  /// No description provided for @day_mercredi.
+  ///
+  /// In en, this message translates to:
+  /// **'Wednesday'**
+  String get day_mercredi;
+
+  /// No description provided for @day_jeudi.
+  ///
+  /// In en, this message translates to:
+  /// **'Thursday'**
+  String get day_jeudi;
+
+  /// No description provided for @day_vendredi.
+  ///
+  /// In en, this message translates to:
+  /// **'Friday'**
+  String get day_vendredi;
+
+  /// No description provided for @day_samedi.
+  ///
+  /// In en, this message translates to:
+  /// **'Saturday'**
+  String get day_samedi;
+
+  /// No description provided for @day_dimanche.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunday'**
+  String get day_dimanche;
 }
 
 class _AppLocalizationsDelegate

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/validator.dart';
 import 'package:movegui_admin_panel/widgets/util/input_widget.dart';
 
@@ -25,6 +26,7 @@ class InputNameWidget extends StatelessWidget {
       nextFocusNode: nextFocusNode,
       textInputType: TextInputType.name,
       hinterText: hinterText!,
+      textColor: AppColors.textColor,
       validator: (value) {
         return MyValidators.textNameValidator(value);
       },

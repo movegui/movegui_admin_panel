@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:movegui/consts/validator.dart';
-import 'package:movegui/l10n/app_localizations.dart';
-import 'package:movegui/widgets/util/input_widget.dart';
+import 'package:movegui_admin_panel/consts/app_colors.dart';
+import 'package:movegui_admin_panel/consts/validator.dart';
+import 'package:movegui_admin_panel/l10n/app_localizations.dart';
+import 'package:movegui_admin_panel/widgets/util/input_widget.dart';
+
 
 class InputAdressWidget extends StatelessWidget {
 
@@ -25,6 +27,7 @@ class InputAdressWidget extends StatelessWidget {
       nextFocusNode: nextFocusNode,
       textInputType: TextInputType.streetAddress,
       hinterText: AppLocalizations.of(context)!.input_hint_adress,
+      textColor: AppColors.textColor,
       validator: (value) {
         return MyValidators.textNameValidator(value);
       },

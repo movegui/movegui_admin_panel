@@ -74,7 +74,7 @@ class PatisserieAddWidgetPageState extends State<PatisserieAddWidgetPage> {
           formController.selectedType != null) {
         print('jetz drin ......................');
         await submitHandler.submit(form: formController);
-        showAlertBar(context, patisserieConstants.getSaveSuccessText());
+        showAlertBar(context, patisserieConstants.getSaveSuccessText(context));
         addContactKey.currentState!.clear();
         addOpenHoursKey.currentState!.resetOpenHours();
         formController.clear();

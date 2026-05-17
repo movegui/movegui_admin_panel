@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/app_constants.dart';
+import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
+import 'package:movegui_admin_panel/responsive.dart';
 
 class OpenHoursWidget extends StatefulWidget {
   const OpenHoursWidget({super.key, required this.onHoursChanged});
@@ -108,7 +110,7 @@ class WeeklyHoursScreenState extends State<OpenHoursWidget> {
 
         return Center(
           child: Container(
-            width: Size.width * 0.6,
+            width: Responsive.isDesktop(context) ? Size.width * 0.4 : double.infinity,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               color: AppColors.backgroundColor,
@@ -137,7 +139,8 @@ class WeeklyHoursScreenState extends State<OpenHoursWidget> {
                                       },
                                     ),
                                     Text(
-                                      item1.day,
+                                     // item1.day,
+                                     getDayText(first, context),
                                       style: const TextStyle(fontSize: 18),
                                     ),
                                   ],
@@ -198,7 +201,8 @@ class WeeklyHoursScreenState extends State<OpenHoursWidget> {
                                       },
                                     ),
                                     Text(
-                                      item2.day,
+                                     // item2.day,
+                                      getDayText(second, context),
                                       style: const TextStyle(fontSize: 18),
                                     ),
                                   ],
@@ -243,5 +247,19 @@ class WeeklyHoursScreenState extends State<OpenHoursWidget> {
         );
       },
     );
+  }
+
+  String getDayText(int index, BuildContext context) {
+    switch(index){
+      case 0: return AppLocalizations.of(context)!.day_lundi;
+      case 1: return AppLocalizations.of(context)!.day_mardi;
+      case 2: return AppLocalizations.of(context)!.day_mercredi;
+      case 3: return AppLocalizations.of(context)!.day_jeudi;
+      case 4: return AppLocalizations.of(context)!.day_vendredi;
+      case 5: return AppLocalizations.of(context)!.day_samedi;
+      case 6: return AppLocalizations.of(context)!.day_dimanche;
+      default: return '';
+    }
+
   }
 }

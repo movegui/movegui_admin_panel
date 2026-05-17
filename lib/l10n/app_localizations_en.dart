@@ -9,6 +9,106 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get commune_title => 'City';
+
+  @override
+  String get admin_bar_title => 'Admin Configuration';
+
+  @override
+  String get admin_add_bar_title => 'Add Admin';
+
+  @override
+  String get admin_all_bar_title => 'All Admins';
+
+  @override
+  String get employe_bar_title => 'Employe Configuration';
+
+  @override
+  String get employe_add_bar_title => 'Add Employe';
+
+  @override
+  String get employe_all_bar_title => 'All Employes';
+
+  @override
+  String get pressing_add_bar_title => 'Add dry Cleaner ';
+
+  @override
+  String get pressing_all_bar_title => 'All Dry Cleaners ';
+
+  @override
+  String get pressing_bar_title => 'Configuration dry Cleaner ';
+
+  @override
+  String get restaurant_add_bar_title => 'Add Restaurant';
+
+  @override
+  String get restaurant_all_bar_title => 'All Restaurants';
+
+  @override
+  String get restaurant_bar_title => 'Configuration Restaurant';
+
+  @override
+  String store_add_bar_title(Object storeCategory) {
+    return 'Add a $storeCategory';
+  }
+
+  @override
+  String store_all_bar_title(Object storeCategory) {
+    return 'All the $storeCategory';
+  }
+
+  @override
+  String store_bar_title(Object storeCategory) {
+    return 'Configuration $storeCategory';
+  }
+
+  @override
+  String store_adress_hinter_text(Object storeCategory) {
+    return 'Please enter the adress of $storeCategory';
+  }
+
+  @override
+  String store_description_hinter_text(Object storeCategory) {
+    return 'Please enter the description $storeCategory';
+  }
+
+  @override
+  String store_email_hinter_text(Object storeCategory) {
+    return 'Please Enter the email of the $storeCategory';
+  }
+
+  @override
+  String store_name_hinter_text(Object storeCategory) {
+    return 'Please Enter the name of the $storeCategory';
+  }
+
+  @override
+  String store_name_label(Object storeCategory) {
+    return 'Name of the$storeCategory';
+  }
+
+  @override
+  String store_phone_hinter_text(Object storeCategory) {
+    return 'Please Enter the phone number of the $storeCategory';
+  }
+
+  @override
+  String store_add_success_message(Object storeCategory) {
+    return '$storeCategory addedd successfully';
+  }
+
+  @override
+  String store_type(Object storeCategory) {
+    return 'Type $storeCategory';
+  }
+
+  @override
+  String get description_title => 'Description';
+
+  @override
+  String get description_hint_text => 'Please enter the Description';
+
+  @override
   String get search_title => 'Search';
 
   @override
@@ -72,6 +172,12 @@ class AppLocalizationsEn extends AppLocalizations {
       'We were unable to register your email. Please try again !';
 
   @override
+  String get error_authorization => 'Not Authorize';
+
+  @override
+  String get error_occur => 'An error Occured';
+
+  @override
   String get label_login_facebook => 'Facebook';
 
   @override
@@ -85,6 +191,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get btn_register_label => 'Register';
+
+  @override
+  String get btn_add_contact => 'Add a Contact';
 
   @override
   String get verify_otp => 'Send Code';
@@ -111,6 +220,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get input_hint_adress => 'Address';
 
   @override
+  String get input_hint_middle_name => 'Nickname';
+
+  @override
+  String get input_hint_quartier => 'District';
+
+  @override
   String get movegui_info_title =>
       'MoveGui – Motorcycle Delivery & Transport in Guinea';
 
@@ -128,6 +243,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get movegui_panel => 'Movegui Configuration Panel';
+
+  @override
+  String get movegui_panel_mobile => 'Configuration Panel';
 
   @override
   String get deactivate_button_title => 'Service Unavailable ';
@@ -205,6 +323,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get category_super_market_name => 'Super Market';
 
   @override
+  String get category_admin_manager => 'Admin';
+
+  @override
+  String get category_employe_manager => 'Employé';
+
+  @override
+  String get category_buisiness_manager => 'Manager';
+
+  @override
+  String get tooltip_add => 'Clic here to Add ';
+
+  @override
+  String get tooltip_all => 'Clic here to see All';
+
+  @override
   String get notification_title => 'Notifications';
 
   @override
@@ -247,6 +380,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dashbord_title => 'Panneau de Configuration';
 
   @override
+  String get register_admin_title => 'Admin Registration';
+
+  @override
+  String get register_employe_title => 'Employee Registration';
+
+  @override
+  String get address_office_title => 'Bureau';
+
+  @override
+  String get address_neighbor_title => 'Voisin';
+
+  @override
+  String get address_home_title => 'Maison';
+
+  @override
+  String get address_other_title => 'Autre';
+
+  @override
   String get label_login_forget_password => 'Forgotten your password?';
 
   @override
@@ -266,6 +417,30 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get label_enter_your_code => 'Enter your Code:';
+
+  @override
+  String get label_name => 'Name';
+
+  @override
+  String get lable_username => 'Username';
+
+  @override
+  String get label_adress => 'Adress';
+
+  @override
+  String get label_email => 'Email';
+
+  @override
+  String get label_phone => 'Phone';
+
+  @override
+  String get label_role => 'Role';
+
+  @override
+  String get label_firstname => 'Firstname';
+
+  @override
+  String get label_lastname => 'Lastname';
 
   @override
   String get exception_login_message =>
@@ -288,6 +463,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tooltip_btn_send => 'Click here to submit your code';
+
+  @override
+  String get tooltip_btn_add_contact => 'Add a new Contact';
 
   @override
   String get profile_menu_invite_people => 'Invite a Friend';
@@ -342,4 +520,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get menu_menu => 'Menus';
+
+  @override
+  String get day_lundi => 'Monday';
+
+  @override
+  String get day_mardi => 'Tuesday';
+
+  @override
+  String get day_mercredi => 'Wednesday';
+
+  @override
+  String get day_jeudi => 'Thursday';
+
+  @override
+  String get day_vendredi => 'Friday';
+
+  @override
+  String get day_samedi => 'Saturday';
+
+  @override
+  String get day_dimanche => 'Sunday';
 }

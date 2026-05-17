@@ -75,7 +75,7 @@ class _GenderAndBirthdatePickerState extends State<BirthdatePicker> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     _selectedDate != null ? 
-                    Text(formattedDate, style: TextStyle(color: AppColors.textColor, fontSize: 14),) : Text('Selectionner la Date de Naissance ', style: TextStyle(color: AppColors.textColor, fontSize: 14),),
+                    Text(formattedDate, style: TextStyle(color: AppColors.textColor, fontSize: 14),) : Flexible(child: Text('Selectionner votre date de Naissance', style: TextStyle(color: AppColors.textColor, fontSize: 14),)),
                     const Icon(
                       Icons.calendar_today,
                       color: AppColors.textColor,

@@ -6,8 +6,8 @@ import 'package:movegui_admin_panel/consts/app_colors.dart';
 class ImagePickerWidget extends StatelessWidget {
   final Uint8List? webImage;
   final File? pickedImage;
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
   final VoidCallback onPickImage;
   final VoidCallback onRemoveImage;
   final Color bgColor;
@@ -46,14 +46,14 @@ class ImagePickerWidget extends StatelessWidget {
                   child: kIsWeb
                       ? Image.memory(
                           webImage!,
-                          width: width - 10,
-                          height: height - 80,
+                          width: width! - 10,
+                          height: height! - 80,
                           fit: BoxFit.fill,
                         )
                       : Image.file(
                           pickedImage!,
-                          width: width - 10,
-                          height: height - 80,
+                          width: width! - 10,
+                          height: height! - 80,
                           fit: BoxFit.fill,
                         ),
                 ),

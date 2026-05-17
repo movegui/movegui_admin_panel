@@ -83,7 +83,7 @@ class AllRestaurantsWidgetState extends State<AllRestaurantsWidget> {
                               ),
                               Expanded(
                                 child: Text(
-                                  restaurants[index].adresse ?? '' ),
+                                  restaurants[index].address.address ?? '' ),
                               ),
                               /*
                                        Expanded(

@@ -13,8 +13,8 @@ import 'package:movegui_admin_panel/firebase_options.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/providers/dark_theme_provider.dart';
+import 'package:movegui_admin_panel/services/init_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
@@ -25,10 +25,11 @@ void main() async {
     EmailAuthProvider(),
 
     // ... other providers
+    
   ]);
   initServices(env);
   await FirebaseConfig.init(env);
-
+  await  createSuperUser();
   runApp(ProviderScope(child: MoveguiAdminApp(env: env)));
 }
 

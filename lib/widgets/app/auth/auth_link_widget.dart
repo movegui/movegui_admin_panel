@@ -32,13 +32,6 @@ class AuthLinkWidgetState extends State<AuthLinkWidget> {
       );
     } else {
       context.go(item.routeName!, extra: {widget.email});
-      /*
-      Navigator.pushNamed(
-        context,
-        item.routeName!,
-        arguments: {'item': item, 'email': widget.email},
-      );
-      */
     }
   }
 
@@ -51,14 +44,14 @@ class AuthLinkWidgetState extends State<AuthLinkWidget> {
           child: Padding(
             padding: const EdgeInsets.all(6),
             child: ButtonWidget(
-              onPressed: (context, buttomItem) async {
+              onPressed: (buttomItem) async {
                 _onPressed(context, buttomItem);
               },
               buttonItem: ButtonItem(
                 AppLocalizations.of(context)!.label_login_forget_password,
-                AppLocalizations.of(context)!.tooltip_forget_password,
-                true,
-                routeName: RouteConstants.FORGET_PASSWORD_ROUTE,
+                tooltipText:  AppLocalizations.of(context)!.tooltip_forget_password,
+                enabled: true,
+                routeName: RouteConstants.FORGET_PASSWORD_ROUTE, onPress: () {  },
               ),
               icon: Ionicons.key_outline,
               fontSize: Responsive.isMobile(context) ? WidgetConstants.buttonFonsize * 1.4 : WidgetConstants.buttonFonsize * 2,
@@ -69,14 +62,16 @@ class AuthLinkWidgetState extends State<AuthLinkWidget> {
           child: Padding(
             padding: const EdgeInsets.only(left: WidgetConstants.sepWidgetHeight, right: WidgetConstants.sepWidgetHeight,),
             child: ButtonWidget(
-              onPressed: (context, buttomItem) async {
+              onPressed: (buttomItem) async {
                 _onPressed(context, buttomItem);
+               null;
               },
+              backgroundColor: AppColors.placeHolderText,
               buttonItem: ButtonItem(
                 AppLocalizations.of(context)!.label_registration,
-                AppLocalizations.of(context)!.tooltip_registration,
-                true,
-                routeName: RouteConstants.REGISTER_ROUTE,
+               tooltipText:  AppLocalizations.of(context)!.tooltip_registration,
+               enabled:  false,
+                routeName: RouteConstants.REGISTER_ROUTE, onPress: () {  },
               ),
               icon: Ionicons.person,
               fontSize: Responsive.isMobile(context) ? WidgetConstants.buttonFonsize * 1.4 : WidgetConstants.buttonFonsize * 2,

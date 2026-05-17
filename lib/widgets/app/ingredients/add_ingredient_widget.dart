@@ -309,7 +309,6 @@ class IngredientsUploaWidgetdstate extends State<IngredientsAddWidgetPage> {
                                       createdAt: DateTime.now()
                                       );
                                       await ingredientsService.addModel(ingredient);
-                                     print('categrie: ${ingredient.category.toString()}');
                                       setState(() {
                                         _nameController.clear();
                                         _nameFocusNode.requestFocus();

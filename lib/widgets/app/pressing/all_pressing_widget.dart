@@ -4,14 +4,14 @@ import 'package:movegui_admin_panel/models/pressing_model.dart';
 import 'package:movegui_admin_panel/services/pressing_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 
-class AllPressingWidgetPage extends StatefulWidget {
-  const AllPressingWidgetPage({super.key});
+class AllPressingWidget extends StatefulWidget {
+  const AllPressingWidget({super.key});
 
   @override
   State<StatefulWidget> createState() => AllPressingWidgetPageState();
 }
 
-class AllPressingWidgetPageState extends State<AllPressingWidgetPage>{
+class AllPressingWidgetPageState extends State<AllPressingWidget>{
  
   List<PressingModel> pressings = [];
   late PressingService pressingService;
@@ -81,7 +81,7 @@ class AllPressingWidgetPageState extends State<AllPressingWidgetPage>{
                                 child: Text(pressings[index].name ?? ''),
                               ),
                               Expanded(
-                                child: Text(pressings[index].adresse ?? ''),
+                                child: Text(pressings[index].address.address ?? ''),
                               ),
                               /*
                               Expanded(
@@ -93,24 +93,6 @@ class AllPressingWidgetPageState extends State<AllPressingWidgetPage>{
                               ),
                             ],
                           ),
-
-                          // Header row
-
-                          // Data rows
-                          /*
-                          ...categories.map((category) {
-                            return Row(
-                              children: [
-                                Expanded(child: Text(category.name ?? '')),
-                                Expanded(
-                                  child: Text(
-                                    category.createdAt?.toLocal().toIso8601String() ?? '',
-                                  ),
-                                ),
-                              ],
-                            );
-                          }).toList(),
-                          */
                         ],
                       ),
                       onTap: () {

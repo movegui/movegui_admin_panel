@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
-import 'package:movegui_admin_panel/providers/appbar_title_provider.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/user_service.dart';
 import 'package:movegui_admin_panel/widgets/app/admin_panel_appbar.dart';
+import 'package:movegui_admin_panel/widgets/app/main/main_page_widget.dart';
 import 'package:movegui_admin_panel/widgets/custom_button.dart';
 import 'package:movegui_admin_panel/widgets/side_menu.dart';
 import '../responsive.dart';
 
-class MainScreen extends StatefulWidget {
+class MainScreen extends ConsumerStatefulWidget {
   const MainScreen({super.key, required this.pageScreen});
   final Widget pageScreen;
 
   @override
-  State<StatefulWidget> createState() => MainScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => MainScreenState();
 }
 
-class MainScreenState extends State<MainScreen> {
+class MainScreenState extends ConsumerState<MainScreen> {
   UserModel? currentUser;
   late UserService userService;
   bool isAuthorize = false;
@@ -28,7 +29,7 @@ class MainScreenState extends State<MainScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (mounted) {
         if (AppLocalizations.of(context) != null) {
-          final user = await userService.getCurrentUser();
+          final user = await userService.getCurrentUser(ref);
           final autorization = await userService.isAuthorize(user);
           setState(() {
             currentUser = user;
@@ -44,7 +45,12 @@ class MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     
     return Scaffold(
-      appBar: AdminPanelAppBar(title: AppLocalizations.of(context)!.dashbord_title),
+      appBar: AdminPanelAppBar(
+        title: Responsive.isDesktop(context)
+            ? AppLocalizations.of(context)!.movegui_panel
+            : AppLocalizations.of(context)!.movegui_panel_mobile,
+      ),
+      drawer: Responsive.isMobile(context) ? SideMenu() : null,
       body: (currentUser != null && isAuthorize)
           ? Builder(
               builder: (context) => SafeArea(
@@ -52,7 +58,7 @@ class MainScreenState extends State<MainScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     if (Responsive.isDesktop(context))
-                      const Expanded(child: SideMenu()),
+                      Expanded(child: SideMenu()),
                     Expanded(flex: 5, child: widget.pageScreen),
                   ],
                 ),
@@ -63,17 +69,13 @@ class MainScreenState extends State<MainScreen> {
   }
 }
 
-
 abstract class MainPage extends StatelessWidget {
   const MainPage({
     super.key,
     required this.addModelWidget,
     required this.allModelWidget,
-    required this.title,
   });
-  final Widget addModelWidget, allModelWidget;
-  final String title;
-
+  final MainPageWidget addModelWidget, allModelWidget;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,15 +84,9 @@ abstract class MainPage extends StatelessWidget {
           Row(
             children: [
               CustomButon(
-                text: 'Add New',
+                text: addModelWidget.buttonItem.title!,
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          MainScreen(pageScreen: addModelWidget),
-                    ),
-                  );
+                  addModelWidget.buttonItem.onPress();
                 },
                 icon: Icons.add,
               ),
@@ -98,15 +94,9 @@ abstract class MainPage extends StatelessWidget {
               const Spacer(),
 
               CustomButon(
-                text: 'View All',
+                text: allModelWidget.buttonItem.title!,
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          MainScreen(pageScreen: allModelWidget),
-                    ),
-                  );
+                  allModelWidget.buttonItem.onPress();
                 },
                 icon: Icons.list_alt,
               ),

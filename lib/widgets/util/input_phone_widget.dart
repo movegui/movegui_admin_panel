@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:movegui/consts/validator.dart';
-import 'package:movegui/widgets/util/input_widget.dart';
+import 'package:movegui_admin_panel/consts/app_colors.dart';
+import 'package:movegui_admin_panel/consts/validator.dart';
+import 'package:movegui_admin_panel/widgets/util/input_widget.dart';
+
 
 class InputPhoneWidget extends StatelessWidget {
   final TextEditingController phoneController;
@@ -8,7 +10,7 @@ class InputPhoneWidget extends StatelessWidget {
   final FocusNode? nextFocusNode;
   final double? fontSize;
   final String? fontFamily;
-  final Color? textColor;
+
 
   const InputPhoneWidget({
     super.key,
@@ -17,7 +19,6 @@ class InputPhoneWidget extends StatelessWidget {
     this.nextFocusNode,
     this.fontSize,
     this.fontFamily,
-    this.textColor,
   });
 
   @override
@@ -34,7 +35,7 @@ class InputPhoneWidget extends StatelessWidget {
       },
       fontSize: fontSize,
       fontFamily: fontFamily,
-      textColor: textColor,
+      textColor: AppColors.textColor,
     );
   }
 }

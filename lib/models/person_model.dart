@@ -1,3 +1,4 @@
+import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/model.dart';
 import 'package:uuid/uuid.dart';
 
@@ -10,7 +11,7 @@ class PersonModel extends Model {
   final String? phone;
   final String gender;
   final DateTime? birthDate;
-  final List<String?> addresses;
+  final List<AdressModel?> addresses;
   final String? nationality;
 
   PersonModel({
@@ -58,12 +59,9 @@ class PersonModel extends Model {
     birthDate: json['birthDate'] != null && !json['birthDate'].isEmpty
         ? DateTime.parse(json['birthDate'])
         : null,
-    addresses: json['addresses'] != null
-        ? List<String?>.from(json['addresses'])
-        : [],
+    addresses: (json['addresses'] as List? ?? []).map((e) => AdressModel.fromJson(e)).toList(),
     nationality: json['nationality'],
   );
-
   factory PersonModel.empty() => PersonModel(
     id: Uuid().v4(),
     name: '',

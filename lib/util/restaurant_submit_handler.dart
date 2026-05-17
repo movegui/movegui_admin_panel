@@ -23,7 +23,7 @@ class RestaurantSubmitHandler extends StoreSubmitHadler<RestaurantModel, Restaur
       id: const Uuid().v4(),
       name: form.name.text,
       description: form.description.text,
-      adresse: form.adresse.text,
+      address: form.adressModel!,
       telephon: form.telephon.text,
       email: form.email.text,
       contacts: form.contacts,

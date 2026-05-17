@@ -15,7 +15,7 @@ class ProductScreen extends StatelessWidget {
     double FontSize = size.width <600 ? 20 :28;
     return SafeArea(
         child: Scaffold(
-          drawer: const SideMenu(),
+          drawer:  SideMenu(),
           body: Builder(
           builder: (context) => SafeArea(
             child: Row(
@@ -23,7 +23,7 @@ class ProductScreen extends StatelessWidget {
               children: [
                 // We want this side menu only for large screen
                 if (Responsive.isDesktop(context))
-                  const Expanded(
+                   Expanded(
                     child: SideMenu(),
                   ),
 

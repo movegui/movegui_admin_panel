@@ -1,7 +1,132 @@
 {
+    "commune_title": "Commune",
+    "@commune_title": {},
+
+    "admin_bar_title": "Configuration Admin",
+    "@admin_bar_title": {},
+    "admin_add_bar_title": "Ajouter Admin",
+    "@admin_add_bar_title": {},
+    "admin_all_bar_title": "Tous les Admins",
+    "@admin_all_bar_title": {},
+
+
+    "employe_add_bar_title": "Ajouter Employé",
+    "@employe_add_bar_title": {},
+    "employe_all_bar_title": "Tous les Employés",
+    "@employe_all_bar_title": {},
+    "employe_bar_title": "Configuration Employé",
+    "@employe_bar_title": {},
+
+
+    "pressing_add_bar_title": "Ajouter un Pressing",
+    "@pressing_add_bar_title": {},
+    "pressing_all_bar_title": "Tous les Pressings",
+    "@pressing_all_bar_title": {},
+    "pressing_bar_title": "Configuration Pressing",
+    "@pressing_bar_title": {},
+
+
+    "restaurant_add_bar_title": "Ajouter un Restaurant",
+    "@restaurant_add_bar_title": {},
+    "restaurant_all_bar_title": "Tous les Restaurant",
+    "@restaurant_all_bar_title": {},
+    "restaurant_bar_title": "Configuration Restaurant",
+    "@restaurant_bar_title": {},
+
+
+    "store_add_bar_title": "Ajouter un {storeCategory}",
+    "@store_add_bar_title": {
+        "description": "Ajouter un Nouveau {storeCategory}",
+        "placeholders": {
+            "storeCategory":{}
+        }
+    },
+    "store_all_bar_title": "Tous les {storeCategory}",
+    "@store_all_bar_title": {
+        "description": "Afficher Tous les  {storeCategory}",
+        "placeholders": {
+            "storeCategory":{}
+        }
+    },
     
+    "store_bar_title": "Configuration {storeCategory}",
+    "@store_bar_title": {
+        "description": "Panneau de Configuration {storeCategory}",
+        "placeholders": {
+         "storeCategory":{}
+        }
+    },
+
+    "store_adress_hinter_text": "Veuillez saisir l'adresse du {storeCategory}",
+    "@store_adress_hinter_text": {
+        "description": "l'adresse du {storeCategory}",
+        "placeholders": {
+            "storeCategory":{}
+        }
+    },
+
+    "store_description_hinter_text": "Veuillez saisir la description du {storeCategory}",
+    "@store_description_hinter_text": {
+        "description": "Veuillez saisir quelques mots afin de décrire votre activité",
+        "placeholders": {
+            "storeCategory":{}
+        }
+    },
+
+    "store_email_hinter_text": "Veuillez saisir l'email du {storeCategory}",
+    "@store_email_hinter_text": {
+        "description": "l'email du {storeCategory} ",
+        "placeholders": {
+            "storeCategory":{}
+        }
+    },
+    
+    "store_name_hinter_text": "Veuillez saisir le nom du {storeCategory}",
+    "@store_name_hinter_text": {
+        "description": "le nom du {storeCategory}",
+        "placeholders": {
+            "storeCategory":{}
+        }
+    },
 
     
+    "store_name_label": "Nom du {storeCategory}",
+    "@store_name_label": {
+        "description": "Nom du {storeCategory}",
+        "placeholders": {
+            "storeCategory":{}
+        }
+    },
+    
+    "store_phone_hinter_text": "Veuillez saisir le téléphone du {storeCategory}",
+    "@store_phone_hinter_text": {
+        "description": "le téléphone du {storeCategory}",
+        "placeholders": {
+            "storeCategory":{}
+        }
+    },
+    
+    "store_add_success_message" : "{storeCategory} ajouté avec succès",
+    "@store_add_success_message": {
+        "description": "message de succes",
+        "placeholders": {
+            "storeCategory":{}
+        }
+    },
+    
+    "store_type": "Type {storeCategory}",
+    "@store_type": {
+        "description": "Type de {storeCategory}",
+        "placeholders": {
+            "storeCategory": {}
+        }
+    },
+
+
+    "description_title": "Description",
+    "@description_title": {},
+    "description_hint_text": "Veuillez saisir la Description",
+    "@description_hint_text": {},
     "search_title": "Rechercher",
     "@search_title": {
         "description": "Text pour le Button de recherche"
@@ -47,6 +172,10 @@
     "@error_application": {},
     "error_register_with_email_message": "Echec d'enregistrement de votre email, Veuillez réessayer svp !",
     "@error_register_with_email_message": {}, 
+    "error_authorization": "Access Non Autorisé",
+    "@error_authorization": {},
+    "error_occur": "Une erreur s'est produite",
+    "@error_occur": {},
 
     
     
@@ -56,6 +185,11 @@
     "@btn_send_label": {},
     "btn_register_label": "Enregistrer",
     "@btn_register_label": {},
+    "btn_add_contact": "Ajouter un Contact",
+    "@btn_add_contact": {},
+
+
+
     "verify_otp": "Envoyer Code",
     "@verify_otp": {},
     "resend_code": "Renvoyer Code",
@@ -74,6 +208,10 @@
     "@input_hint_message": {},
     "input_hint_adress": "Adresse",
     "@input_hint_adress": {},
+    "input_hint_middle_name": "Surnom",
+    "@input_hint_middle_name": {},
+    "input_hint_quartier": "Quartier",
+    "@input_hint_quartier": {},
 
     "movegui_info_title":"MoveGui – Livraison & Transport à Moto en Guinée",
     "@movegui_info_title": {},
@@ -85,6 +223,8 @@
     "@movegui_info_text_3": {},
     "movegui_panel": "Paneau de Configuration Movegui",
     "@movegui_panel": {},
+    "movegui_panel_mobile": "Panneau de Configuration ",
+    "@movegui_panel_mobile": {},
     
     "login_forget_password_txt": "Saisissez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe ",
     "@login_forget_password_txt": {},
@@ -140,9 +280,13 @@
     "@category_recipe_name": {},
     "category_super_market_name": "Super Marchés",
     "@category_super_market_name": {},
-
-
-
+    "category_admin_manager": "Admin",
+    "@category_admin_manager": {},
+    "category_employe_manager": "Employé",
+    "@category_employe_manager": {},
+    "category_buisiness_manager": "Manager",
+    "@category_buisiness_manager": {},
+    
 
     "notification_title": "Notifications",
     "@notification_title": {},
@@ -170,8 +314,19 @@
     "@forget_password_title": {},
     "dashbord_title": "Panneau de Configuration",
     "@dashbord_title": {},
-
-
+    "register_admin_title": "Enregistrement Admin",
+    "@register_admin_title": {},
+    "register_employe_title": "Enregistrement Employé",
+    "@register_employe_title": {},
+    "address_office_title": "Bureau",
+    "@address_office_title": {},
+    "address_neighbor_title": "Voisin",
+    "@address_neighbor_title": {},
+    "address_home_title": "Maison",
+    "@address_home_title": {},
+    "address_other_title": "Autre",
+    "@address_other_title": {},
+    
     "navigation_menu_tooltip" : "Navigation Menu",
     "@navigation_menu_tooltip": {},
 
@@ -193,7 +348,22 @@
     "@label_login_google": {},
     "label_enter_your_code": "Entrez votre Code:",
     "@label_enter_your_code": {},
-    
+    "label_name": "Nom",
+    "@label_name": {},
+    "lable_username": "Nom Utilisateur",
+    "@lable_username": {},
+    "label_adress": "Adresse",
+    "@label_adress": {},
+    "label_email": "Email",
+    "@label_email": {},
+    "label_phone": "Téléphone",
+    "@label_phone": {},
+    "label_role": "Role",
+    "@label_role": {},
+    "label_firstname": "Nom",
+    "@label_firstname": {},
+    "label_lastname": "Prénom",
+    "@label_lastname": {},
 
     "exception_login_message": "Les identifiants utilisateur fournis sont incorrects, veuillez verifier votre email et mot de pass",
     "@exception_login_message": {},
@@ -210,6 +380,12 @@
     "@tooltip_registration": {},
     "tooltip_btn_send": "Cliquez ici pour envoyer votre code",
     "@tooltip_btn_send": {},
+    "tooltip_add": "Cliquez ici pour Ajouter",
+    "@tooltip_add": {},
+    "tooltip_all": "Cliquez ici pour voir Tout",
+    "@tooltip_all": {},
+    "tooltip_btn_add_contact": "Ajouter un Nouveau Contact de plus",
+    "@tooltip_btn_add_contact": {},
 
     "profile_menu_invite_people": "Inviter un proche",
     "@profile_menu_invite_people": {},
@@ -248,7 +424,23 @@
     "menu_restaurant_type": "Restaurant Type",
     "@menu_restaurant_type": {},
     "menu_menu": "Menus",
-    "@menu_menu": {}
+    "@menu_menu": {},
+
+    "day_lundi": "Lundi",
+    "@day_lundi": {},
+    "day_mardi": "Mardi",
+    "@day_mardi": {},
+    "day_mercredi": "Mercredi",
+    "@day_mercredi": {},
+    "day_jeudi": "Jeudi",
+    "@day_jeudi": {},
+    "day_vendredi": "Vendredi",
+    "@day_vendredi": {},
+    "day_samedi": "Samedi",
+    "@day_samedi": {},
+    "day_dimanche": "Dimanche",
+    "@day_dimanche": {}
+
 
 
 

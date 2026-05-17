@@ -1,4 +1,132 @@
 {
+
+     "commune_title": "City",
+    "@commune_title": {},
+
+    "admin_bar_title": "Admin Configuration",
+    "@admin_bar_title": {},
+    "admin_add_bar_title": "Add Admin",
+    "@admin_add_bar_title": {},
+    "admin_all_bar_title": "All Admins",
+    "@admin_all_bar_title": {},
+
+    "employe_bar_title": "Employe Configuration",
+    "@employe_bar_title": {},
+    "employe_add_bar_title": "Add Employe",
+    "@employe_add_bar_title": {},
+    "employe_all_bar_title": "All Employes",
+    "@employe_all_bar_title": {},
+
+    "pressing_add_bar_title": "Add dry Cleaner ",
+    "@pressing_add_bar_title": {},
+    "pressing_all_bar_title": "All Dry Cleaners ",
+    "@pressing_all_bar_title": {},
+    "pressing_bar_title": "Configuration dry Cleaner ",
+    "@pressing_bar_title": {},
+
+    "restaurant_add_bar_title": "Add Restaurant",
+    "@restaurant_add_bar_title": {},
+    "restaurant_all_bar_title": "All Restaurants",
+    "@restaurant_all_bar_title": {},
+    "restaurant_bar_title": "Configuration Restaurant",
+    "@restaurant_bar_title": {},
+
+
+
+    "store_add_bar_title": "Add a {storeCategory}",
+    "@store_add_bar_title": {
+        "description": "Add a new {storeCategory}",
+        "placeholders": {
+            "storeCategory":{}
+        }
+    },
+
+    "store_all_bar_title": "All the {storeCategory}",
+    "@store_all_bar_title": {
+        "description": "View all {storeCategory}",
+        "placeholders": {
+            "storeCategory":{}
+        }
+    },
+    
+    "store_bar_title": "Configuration {storeCategory}",
+    "@store_bar_title": {
+        "description": "Panneau de Configuration {storeCategory}",
+        "placeholders": {
+         "storeCategory":{}
+        }
+    },
+
+    "store_adress_hinter_text": "Please enter the adress of {storeCategory}",
+    "@store_adress_hinter_text": {
+        "description": "Adress of the {storeCategory}",
+        "placeholders": {
+            "storeCategory":{}
+        }
+    },
+
+    "store_description_hinter_text": "Please enter the description {storeCategory}",
+    "@store_description_hinter_text": {
+        "description": "Please enter a few words to describe your business",
+        "placeholders": {
+            "storeCategory":{}
+        }
+    },
+
+    "store_email_hinter_text": "Please Enter the email of the {storeCategory}",
+    "@store_email_hinter_text": {
+        "description": "email of the {storeCategory} ",
+        "placeholders": {
+            "storeCategory":{}
+        }
+    },
+    
+    "store_name_hinter_text": "Please Enter the name of the {storeCategory}",
+    "@store_name_hinter_text": {
+        "description": "Name of the {storeCategory}",
+        "placeholders": {
+            "storeCategory":{}
+        }
+    },
+
+    
+    "store_name_label": "Name of the{storeCategory}",
+    "@store_name_label": {
+        "description": "Name of the {storeCategory}",
+        "placeholders": {
+            "storeCategory":{}
+        }
+    },
+    
+    "store_phone_hinter_text": "Please Enter the phone number of the {storeCategory}",
+    "@store_phone_hinter_text": {
+        "description": "Phone number of the {storeCategory}",
+        "placeholders": {
+            "storeCategory":{}
+        }
+    },
+    
+    "store_add_success_message" : "{storeCategory} addedd successfully",
+    "@store_add_success_message": {
+        "description": "success message",
+        "placeholders": {
+            "storeCategory":{}
+        }
+    },
+    
+    "store_type": "Type {storeCategory}",
+    "@store_type": {
+        "description": "Type of {storeCategory]",
+        "placeholders": {
+            "storeCategory": {}
+        }
+    },
+
+
+    "description_title": "Description",
+    "@description_title": {},
+    "description_hint_text": "Please enter the Description",
+    "@description_hint_text": {},
     "search_title": "Search",
     "@search_title": {
         "description": "Text for search Button"
@@ -51,6 +179,10 @@
     "@error_application": {},
     "error_register_with_email_message": "We were unable to register your email. Please try again !",
     "@error_register_with_email_message": {}, 
+    "error_authorization": "Not Authorize",
+    "@error_authorization": {},
+    "error_occur": "An error Occured",
+    "@error_occur": {},
 
     "label_login_facebook": "Facebook",
     "@label_login_facebook": {},
@@ -63,6 +195,10 @@
     "@btn_send_label": {},
     "btn_register_label": "Register",
     "@btn_register_label": {},
+    "btn_add_contact": "Add a Contact",
+    "@btn_add_contact": {},
+
+
      "verify_otp": "Send Code",
     "@verify_otp": {},
     "resend_code": "Resend Code",
@@ -79,8 +215,12 @@
     "@input_hint_adress_email": {},
     "input_hint_message": "Your Message...",
     "@input_hint_message": {},
-        "input_hint_adress": "Address",
+    "input_hint_adress": "Address",
     "@input_hint_adress": {},
+    "input_hint_middle_name": "Nickname",
+    "@input_hint_middle_name": {},
+    "input_hint_quartier": "District",
+    "@input_hint_quartier": {},
 
      "movegui_info_title":"MoveGui – Motorcycle Delivery & Transport in Guinea",
     "@movegui_info_title": {},
@@ -92,6 +232,8 @@
     "@movegui_info_text_3": {},
     "movegui_panel": "Movegui Configuration Panel",
     "@movegui_panel": {},
+    "movegui_panel_mobile": "Configuration Panel",
+    "@movegui_panel_mobile": {},
 
 
     "deactivate_button_title": "Service Unavailable ",
@@ -145,6 +287,19 @@
     "@category_recipe_name": {},
     "category_super_market_name": "Super Market",
     "@category_super_market_name": {},
+    "category_admin_manager": "Admin",
+    "@category_admin_manager": {},
+    "category_employe_manager": "Employé",
+    "@category_employe_manager": {},
+    "category_buisiness_manager": "Manager",
+    "@category_buisiness_manager": {},
+
+
+
+    "tooltip_add": "Clic here to Add ",
+    "@tooltip_add": {},
+    "tooltip_all": "Clic here to see All",
+    "@tooltip_all": {},
 
 
 
@@ -170,14 +325,26 @@
     "@profile_title": {},
     "navigation_menu_tooltip" : "Navigation Menu",
     "@navigation_menu_tooltip": {},
-        "login_title": "Login",
+    "login_title": "Login",
     "@login_title": {},
     "register_title": "Registration",
     "@register_title": {},
      "forget_password_title":"Forgetten Password",
     "@forget_password_title": {},
-        "dashbord_title": "Panneau de Configuration",
+    "dashbord_title": "Panneau de Configuration",
     "@dashbord_title": {},
+    "register_admin_title": "Admin Registration",
+    "@register_admin_title": {},
+    "register_employe_title": "Employee Registration",
+    "@register_employe_title": {},
+    "address_office_title": "Bureau",
+    "@address_office_title": {},
+    "address_neighbor_title": "Voisin",
+    "@address_neighbor_title": {},
+    "address_home_title": "Maison",
+    "@address_home_title": {},
+    "address_other_title": "Autre",
+    "@address_other_title": {},
 
      "label_login_forget_password": "Forgotten your password?",
     "@label_login_forget_password": {},
@@ -194,6 +361,23 @@
       "label_enter_your_code": "Enter your Code:",
     "@label_enter_your_code": {},
 
+    "label_name": "Name",
+    "@label_name": {},
+    "lable_username": "Username",
+    "@lable_username": {},
+    "label_adress": "Adress",
+    "@label_adress": {},
+    "label_email": "Email",
+    "@label_email": {},
+    "label_phone": "Phone",
+    "@label_phone": {},
+    "label_role": "Role",
+    "@label_role": {},
+    "label_firstname": "Firstname",
+    "@label_firstname": {},
+    "label_lastname": "Lastname",
+    "@label_lastname": {},
+
 
     "exception_login_message": "The Supplied User credential is incorrect, Please check your email address and password",
     "@exception_login_message": {},
@@ -208,8 +392,10 @@
     "@tooltip_forget_password": {},
     "tooltip_registration": "Cliquez ici pour vous enregistrer :)",
     "@tooltip_registration": {},
-        "tooltip_btn_send": "Click here to submit your code",
+    "tooltip_btn_send": "Click here to submit your code",
     "@tooltip_btn_send": {},
+    "tooltip_btn_add_contact": "Add a new Contact",
+    "@tooltip_btn_add_contact": {},
 
     "profile_menu_invite_people": "Invite a Friend",
     "@profile_menu_invite_people": {},
@@ -247,5 +433,20 @@
     "menu_restaurant_type": "Restaurant Type",
     "@menu_restaurant_type": {},
     "menu_menu": "Menus",
-    "@menu_menu": {}
+    "@menu_menu": {},
+
+        "day_lundi": "Monday",
+    "@day_lundi": {},
+    "day_mardi": "Tuesday",
+    "@day_mardi": {},
+    "day_mercredi": "Wednesday",
+    "@day_mercredi": {},
+    "day_jeudi": "Thursday",
+    "@day_jeudi": {},
+    "day_vendredi": "Friday",
+    "@day_vendredi": {},
+    "day_samedi": "Saturday",
+    "@day_samedi": {},
+    "day_dimanche": "Sunday",
+    "@day_dimanche": {}
 }

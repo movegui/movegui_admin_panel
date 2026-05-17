@@ -1,5 +1,6 @@
 
 
+import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
 import 'package:movegui_admin_panel/models/person_model.dart';
 import 'package:movegui_admin_panel/models/restaurant_model.dart';
@@ -13,13 +14,11 @@ import 'package:movegui_admin_panel/models/store_model.dart';
     required super.createdAt,
     required super.description,
     required super.imageUrl,
-    required super.adresse,
+    required super.address,
     required super.email,
     required super.telephon,
     required super.contacts,
     required super.weeklyHours,
-    super.longitude,
-    super.latitude,
     required super.storeType,
   });
 
@@ -34,7 +33,7 @@ import 'package:movegui_admin_panel/models/store_model.dart';
         name: json['name'],
         description: json['description'],
         imageUrl: json['imageUrl'],
-        adresse: json['adresse'],
+        address: AdressModel.fromJson(json['adresse']),
         email: json['email'],
         telephon: json['telephon'],
         contacts: (json['contacts'] as List? ?? [])
@@ -44,8 +43,6 @@ import 'package:movegui_admin_panel/models/store_model.dart';
             ? json['createdAt'].toDate()
             : DateTime.now(),
         storeType: RestaurantTypeModel.fromJson(json['storeType']),
-        longitude: json['longitude'],
-        latitude: json['latitude'],
         weeklyHours: (json['weeklyHours'] as List? ?? [])
             .map(
               (e) => (e != null && e['openTime'] != null && e['closeTime'] != null && e['day'] != null)

@@ -71,7 +71,7 @@ class _RestaurantAddWidgetPageState extends State<RestaurantAddWidgetPage> {
           formController.contacts.isNotEmpty &&
           formController.selectedType != null) {
         await submitHandler.submit(form: formController);
-        showAlertBar(context, restaurantConstants.getSaveSuccessText());
+        showAlertBar(context, restaurantConstants.getSaveSuccessText(context));
         addContactKey.currentState!.clear();
         addOpenHoursKey.currentState!.resetOpenHours();
         formController.clear();

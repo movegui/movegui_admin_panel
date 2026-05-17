@@ -7,5 +7,6 @@ class ButtonItem extends WidgetItem{
   final String tooltipText;
   final double fontSize;
   final bool enabled;
-  ButtonItem(super.title, this.tooltipText, this.enabled, {this.fontSize=WidgetConstants.buttonFonsize, required super.routeName});
+  final  Function() onPress;
+  ButtonItem(super.title,{required  this.onPress, required this.tooltipText, required this.enabled, this.fontSize=WidgetConstants.buttonFonsize, required super.routeName});
 }
