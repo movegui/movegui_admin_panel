@@ -73,7 +73,7 @@ class CommuneWidgetPickerState extends State<CommuneWidgetPicker> {
 
               onChanged: (value) {
                 setState(() => _selectedCommune = value);
-                widget.onCommuneChange.call(value!);
+                widget.onCommuneChange.call(getCommuneLabel(value!));
               },
               validator: (value) {
                 return MyValidators.textValidator(value);
@@ -85,5 +85,24 @@ class CommuneWidgetPickerState extends State<CommuneWidgetPicker> {
         ),
       ),
     );
+  }
+
+  String getCommuneLabel(String value){
+    switch(value) {
+                case 'di': return COMMUNE_DIXINN;
+                case 'gb': return COMMUNE_GBESSIA;
+                case 'ka': return COMMUNE_KALOUM;
+                case 'kg': return COMMUNE_KAGBELEN;
+                case 'ks': return COMMUNE_KASSA;
+                case 'la': return COMMUNE_LAMBANYI;
+                case 'ma': return COMMUNE_MATAM;
+                case 'mn': return COMMUNE_MANEAH;
+                case 'mt': return COMMUNE_MATOTO;
+                case 'ra': return COMMUNE_RATOMA;
+                case 'so': return COMMUNE_SONFONIA;
+                case 'sn': return COMMUNE_SANOYAH;
+                case 'to': return COMMUNE_TOMBOLIA;
+                default: return '';
+    }
   }
 }

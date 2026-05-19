@@ -354,8 +354,6 @@ class UserService extends ModelService<UserModel> implements IUserService {
 
     final idToken = await user?.getIdToken();
 
-    print('Role User: $role');
-
     final response = await http.post(
       Uri.parse('${api.env.baseUrl}/movegui-253e0/us-central1/createUser'),
       headers: {

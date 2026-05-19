@@ -10,7 +10,6 @@ import 'package:movegui_admin_panel/providers/auth_provider.dart';
 import 'package:movegui_admin_panel/providers/current_user_provider.dart';
 import 'package:movegui_admin_panel/providers/dark_theme_provider.dart';
 import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
-import 'package:movegui_admin_panel/services/permission_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/user_service.dart';
 import 'package:movegui_admin_panel/util/profile_menu_title.dart';

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/widgets/address_widget.dart';
@@ -18,6 +19,8 @@ class AddPersonWidget extends StatefulWidget {
   final TextEditingController telephonController;
   final TextEditingController emailController;
   final TextEditingController quartierController;
+  final TextEditingController longitudeController;
+  final TextEditingController latitudeController;
   final Uint8List? webImage;
   final File? pickedImage;
   final VoidCallback onPickImage;
@@ -31,6 +34,7 @@ class AddPersonWidget extends StatefulWidget {
   final void Function(String?) onAdressTypeChange;
   final String? commune;
   final ValueChanged<String?> onCommuneChange;
+  final Color? textColor;
 
   const AddPersonWidget({
     super.key,
@@ -54,6 +58,9 @@ class AddPersonWidget extends StatefulWidget {
     required this.onAdressTypeChange,
     required this.commune,
     required this.onCommuneChange,
+    required this.longitudeController,
+    required this.latitudeController, 
+    this.textColor = AppColors.textColor,
   });
 
   @override
@@ -67,6 +74,9 @@ class AddPersonWidgetState extends State<AddPersonWidget> {
   late FocusNode _adresseFocusNode;
   late FocusNode _telephonFocusNode;
   late FocusNode _emailFocusNode;
+  late FocusNode _quartierFocusNode;
+  late FocusNode _longitudeFocusNode;
+  late FocusNode _latitudeFocusNode;
 
   @override
   void initState() {
@@ -77,6 +87,9 @@ class AddPersonWidgetState extends State<AddPersonWidget> {
     _adresseFocusNode = FocusNode();
     _telephonFocusNode = FocusNode();
     _emailFocusNode = FocusNode();
+    _quartierFocusNode = FocusNode();
+    _longitudeFocusNode = FocusNode();
+    _latitudeFocusNode = FocusNode();
   }
 
   @override
@@ -122,8 +135,7 @@ class AddPersonWidgetState extends State<AddPersonWidget> {
                   hinterText: AppLocalizations.of(
                     context,
                   )!.input_hint_first_name,
-                 
-                 
+                  textColor: widget.textColor,
                 ),
 
                 InputNameWidget(
@@ -132,21 +144,29 @@ class AddPersonWidgetState extends State<AddPersonWidget> {
                   hinterText: AppLocalizations.of(
                     context,
                   )!.input_hint_last_name,
+                  textColor: widget.textColor,
                 ),
 
                 InputPhoneWidget(
                   phoneController: widget.telephonController,
                   phoneFocusNode: _telephonFocusNode,
+                  textColor: widget.textColor,
                 ),
 
                 AddressWidget(
                   addressController: widget.adresseController,
                   adresseType: widget.adresseType,
                   onAdressTypeChange: widget.onAdressTypeChange,
-                  focusNode: _adresseFocusNode,
+                  addressfocusNode: _adresseFocusNode,
+                  quartierFocusNode: _quartierFocusNode,
                   quartierController: widget.quartierController,
                   commune: widget.commune,
                   onCommuneChange: widget.onCommuneChange,
+                  longitudeController: widget.longitudeController,
+                  latitudeController: widget.latitudeController,
+                  longitudeFocusNode: _longitudeFocusNode,
+                  latitudeFocusNode: _latitudeFocusNode,
+                  textColor: widget.textColor,
                 ),
               ],
             ),
@@ -221,27 +241,36 @@ class AddPersonWidgetState extends State<AddPersonWidget> {
             nameController: widget.firstNameController,
             nameFocusNode: _firstNameFocusNode,
             hinterText: AppLocalizations.of(context)!.input_hint_first_name,
+            textColor: widget.textColor,
           ),
 
           InputNameWidget(
             nameController: widget.lastNameController,
             nameFocusNode: _lastNameFocusNode,
             hinterText: AppLocalizations.of(context)!.input_hint_last_name,
+            textColor: widget.textColor,
           ),
 
           InputPhoneWidget(
             phoneController: widget.telephonController,
             phoneFocusNode: _telephonFocusNode,
+            textColor: widget.textColor,
           ),
 
           AddressWidget(
             addressController: widget.adresseController,
             adresseType: widget.adresseType,
             onAdressTypeChange: widget.onAdressTypeChange,
-            focusNode: _adresseFocusNode,
+            addressfocusNode: _adresseFocusNode,
+            quartierFocusNode: _quartierFocusNode,
             quartierController: widget.quartierController,
             commune: widget.commune,
             onCommuneChange: widget.onCommuneChange,
+            longitudeController: widget.longitudeController,
+            latitudeController: widget.latitudeController,
+            longitudeFocusNode: _longitudeFocusNode,
+            latitudeFocusNode: _latitudeFocusNode,
+            textColor: widget.textColor,
           ),
         ],
       ),

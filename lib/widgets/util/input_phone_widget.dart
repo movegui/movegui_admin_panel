@@ -10,6 +10,7 @@ class InputPhoneWidget extends StatelessWidget {
   final FocusNode? nextFocusNode;
   final double? fontSize;
   final String? fontFamily;
+  final Color? textColor;
 
 
   const InputPhoneWidget({
@@ -19,6 +20,7 @@ class InputPhoneWidget extends StatelessWidget {
     this.nextFocusNode,
     this.fontSize,
     this.fontFamily,
+     this.textColor = AppColors.textColor,
   });
 
   @override
@@ -35,7 +37,7 @@ class InputPhoneWidget extends StatelessWidget {
       },
       fontSize: fontSize,
       fontFamily: fontFamily,
-      textColor: AppColors.textColor,
+      textColor: textColor,
     );
   }
 }

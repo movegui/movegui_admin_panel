@@ -4,7 +4,6 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
@@ -19,9 +18,11 @@ import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
 import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/button_item.dart';
+import 'package:movegui_admin_panel/models/geo_cordinates_model.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/providers/auth_provider.dart';
 import 'package:movegui_admin_panel/responsive.dart';
+import 'package:movegui_admin_panel/services/address_service.dart';
 import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
 import 'package:movegui_admin_panel/services/my_app_functions.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
@@ -51,7 +52,9 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
       middleNameController,
       adresseController,
       telephonController,
-      quartierController;
+      quartierController,
+      longitudeController,
+      latitudeController;
 
   String? selectAdresseType;
   String? selectCommune;
@@ -65,6 +68,7 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
   bool isloading = false;
   FirebaseAuth? auth;
   late UserService userService;
+  late AddressService addressService;
   UserModel? currentUser;
   String? selectedGender;
   late Uint8List? webImage;
@@ -83,10 +87,13 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
     adresseController = TextEditingController();
     telephonController = TextEditingController();
     quartierController = TextEditingController();
+    longitudeController = TextEditingController();
+    latitudeController = TextEditingController();
     _emailFocusNode = FocusNode();
     _passwordFocusNode = FocusNode();
     _repeatPasswordFocusNode = FocusNode();
     userService = getIt<UserService>();
+    addressService = getIt<AddressService>();
     webImage = null;
     pickedImage = null;
     imageConstatnt = ImageConstatnt();
@@ -124,7 +131,6 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
   Future<void> _registerFCT(ButtonItem item) async {
     final isValid = _formkey.currentState!.validate() && birthDate != null;
     final authProvider = ref.read(authStateProvider);
-    UserModel? adminUser;
 
     FocusScope.of(context).unfocus();
 
@@ -146,6 +152,19 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
                 await userService.isSuperUser(context, ref) ||
                 await userService.isAdmin(context, ref);
             if (isAuthorize) {
+              final addressModel = AdressModel(
+                address: adresseController.text.trim(),
+                id: Uuid().v4(),
+                name: selectAdresseType!,
+                createdAt: DateTime.now(),
+                quartier: quartierController.text,
+                commune: selectCommune,
+              );
+              GeoCordinatesModel? geoCoord = await addressService.getCoordinates(
+                addressModel.getMapAddress(),
+              );
+              // ignore: prefer_conditional_assignment
+              if(geoCoord == null) geoCoord = GeoCordinatesModel(longitude: double.parse(longitudeController.text.trim()), latitude: double.parse(latitudeController.text.trim()));
               final adminUser = await userService.createUser(
                 _emailController.text.trim(),
                 _passwordController.text.trim(),
@@ -158,8 +177,11 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
                     id: Uuid().v4(),
                     name: selectAdresseType!,
                     createdAt: DateTime.now(),
-                    quartier: quartierController.text,
+                    quartier: quartierController.text.trim(),
                     commune: selectCommune,
+                    geoCordinates: geoCoord,
+                    zoneId:
+                        '$selectCommune _ ${quartierController.text.trim()} _ ${adresseController.text.trim()}',
                   ),
                 ],
                 telephonController.text.trim(),
@@ -185,6 +207,7 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
                   fontSize: 16.0,
                 );
               } else {
+                FirebaseAuth.instance.currentUser?.delete();
                 MessageWidget.errorMessage(
                   context,
                   AppLocalizations.of(context)!.error_register_with_phone_title,
@@ -247,6 +270,7 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
               validator: (value) {
                 return MyValidators.emailValidator(value);
               },
+          
             ),
 
             const SizedBox(height: 8.0),
@@ -299,6 +323,9 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
                   selectCommune = value;
                 });
               },
+              longitudeController: longitudeController,
+              latitudeController: latitudeController,
+              textColor: AppColors.backgroundColor
             ),
 
             Responsive.isDesktop(context)

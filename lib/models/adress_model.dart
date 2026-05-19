@@ -1,8 +1,8 @@
+import 'package:movegui_admin_panel/models/geo_cordinates_model.dart';
 import 'package:movegui_admin_panel/models/model.dart';
 
 class AdressModel extends Model {
-  final double? longitude;
-  final double? latitude;
+  final GeoCordinatesModel? geoCordinates;
   final String? zoneId;
   final String address;
   final String? quartier;
@@ -11,8 +11,7 @@ class AdressModel extends Model {
   final String? ville;
   final String? pays;
   AdressModel({
-    this.longitude,
-    this.latitude,
+    this.geoCordinates,
     this.zoneId,
     required this.address,
     required super.id,
@@ -28,8 +27,7 @@ class AdressModel extends Model {
   @override
   Map<String, dynamic> toJson() => {
     ...super.toJson(),
-    'longitude': longitude,
-    'latitude': latitude,
+    'geoCordinates': geoCordinates?.toJson(),
     'zoneId': zoneId,
     'address': address,
     'quartier': quartier,
@@ -40,18 +38,21 @@ class AdressModel extends Model {
   };
 
   factory AdressModel.fromJson(Map<String, dynamic> json) => AdressModel(
-    id: json['id'],
-    name: json['name'],
+    id: json['id'] ?? '',
+    name: json['name'] ?? '',
     createdAt: json['createdAt'] != null
         ? json['createdAt'].toDate()
         : DateTime.now(),
-    longitude: json['longitude'],
-    latitude: json['latitude'],
-    address: json['adress'],
-    quartier: json['quartier'],
-    commune: json['commune'],
-    zipCode: json['zipCode'],
-    ville: json['ville'],
-    pays: json['pays'],
+    geoCordinates: json['geoCordinates'] != null ? GeoCordinatesModel.fromJson(json['geoCordinates']) : null,
+    address: json['adress'] ?? '',
+    quartier: json['quartier'] ?? '',
+    commune: json['commune'] ?? '',
+    zipCode: json['zipCode'] ?? '',
+    ville: json['ville'] ?? '',
+    pays: json['pays'] ?? '',
   );
+
+  String getMapAddress(){
+    return '$address , $quartier, $commune, $ville, $pays';
+  }
 }

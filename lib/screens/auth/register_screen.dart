@@ -39,37 +39,40 @@ class RegisterScreen extends ConsumerWidget {
   }
 
   Widget buildDesktop(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Center(
-      child: Container(
-        width: 700,
-        height: 800,
-        decoration: BoxDecoration(
-          color: AppColors.textColor,
-          border: Border.all(color: AppColors.backgroundColor, width: 10),
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                width: double.infinity,
-                color: AppColors.backgroundColor,
-                margin: EdgeInsets.only(left: 50, right: 50),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 35, right: 30),
-                  child: SubtitleTextWidget(
-                    label: title,
-                    fontSize: WidgetConstants.subTitleFontSize * 2,
-                    color: AppColors.textColor,
+      child: SingleChildScrollView(
+        child: Container(
+          width: 700,
+          height: size.height * 0.9,
+          decoration: BoxDecoration(
+            color: AppColors.textColor,
+            border: Border.all(color: AppColors.backgroundColor, width: 10),
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: double.infinity,
+                  color: AppColors.backgroundColor,
+                  margin: EdgeInsets.only(left: 50, right: 50),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 35, right: 30),
+                    child: SubtitleTextWidget(
+                      label: title,
+                      fontSize: WidgetConstants.subTitleFontSize * 2,
+                      color: AppColors.textColor,
+                    ),
                   ),
                 ),
-              ),
-              SeparatorWidget(height: 30),
-              RegisterEmailPage(role: role,),
-            ],
+                SeparatorWidget(height: 30),
+                RegisterEmailPage(role: role,),
+              ],
+            ),
           ),
         ),
       ),

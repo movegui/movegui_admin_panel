@@ -31,15 +31,6 @@ Future<void> createSuperUser() async {
             await credential.user!.delete();
             throw Exception('Error Creation Super Admin !!!');
 
-            /*
-        MessageWidget.errorMessage(
-          context,
-          "Error",
-          "Impossible de Creer User",
-          Icon(Icons.error, color: AppColors.error),
-          FlushbarPosition.TOP,
-        );
-        */
           }
           if (!user.emailVerified) {
             await user.sendEmailVerification();
@@ -66,3 +57,12 @@ Future<Map<String, dynamic>> loadConfig() async {
 
 // firebase emulators:start --export-on-exit=./emulator-data
 // firebase emulators:start --import=./emulator-data
+
+/*
+netstat -ano | findstr :9399
+netstat -ano | findstr :8080
+netstat -ano | findstr :9000
+netstat -ano | findstr :5432
+------------------------------------------------
+taskkill /PID 12345 /F
+*/

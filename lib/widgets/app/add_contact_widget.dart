@@ -13,7 +13,6 @@ import 'package:movegui_admin_panel/models/button_item.dart';
 import 'package:movegui_admin_panel/models/person_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/widgets/add_person_widget.dart';
-import 'package:movegui_admin_panel/widgets/app/auth/validation_button.dart';
 import 'package:movegui_admin_panel/widgets/app/separator_widget.dart';
 import 'package:movegui_admin_panel/widgets/util/button_widget.dart';
 import 'package:uuid/uuid.dart';
@@ -267,7 +266,7 @@ class AddContactWidgetState extends State<AddContactWidget> {
                     setState(() {
                       selectedCommunes[index] = value;
                     });
-                    },
+                    }, longitudeController: TextEditingController(), latitudeController: TextEditingController(),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

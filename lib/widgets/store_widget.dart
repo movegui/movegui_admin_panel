@@ -61,6 +61,7 @@ class StoreWidget extends StatelessWidget {
         //   height: Size.height * 0.3,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
+       //   border: Border.all(color: AppColors.backgroundColor)
           color: AppColors.backgroundColor, //Colors.grey.withOpacity(0.3),
         ),
         child: Row(

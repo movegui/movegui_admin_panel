@@ -212,6 +212,10 @@
     "@input_hint_middle_name": {},
     "input_hint_quartier": "Quartier",
     "@input_hint_quartier": {},
+    "input_hint_longitude": "Longitude",
+    "@input_hint_longitude": {},
+    "input_hint_latitude": "Latitude",
+    "@input_hint_latitude": {},
 
     "movegui_info_title":"MoveGui – Livraison & Transport à Moto en Guinée",
     "@movegui_info_title": {},

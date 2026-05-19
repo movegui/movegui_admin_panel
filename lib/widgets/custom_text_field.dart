@@ -22,6 +22,7 @@ class CustomTextField extends StatelessWidget {
     this.icon,
     this.labelText,
     this.maxLines,
+    this.textColor = AppColors.textColor
   });
 
   Function(String)? onChanged;
@@ -40,6 +41,8 @@ class CustomTextField extends StatelessWidget {
   String? labelText;
   IconData? icon;
   int? maxLines;
+  final Color? textColor;
+
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +50,7 @@ class CustomTextField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: TextFormField(
         enabled: isEnabled ?? true,
-        cursorColor: AppColors.textColor,
+        cursorColor: textColor,
         controller: controller,
         focusNode: focusNode,
         validator: validator,
@@ -56,21 +59,21 @@ class CustomTextField extends StatelessWidget {
         keyboardType: inputType,
         maxLines: maxLines,
         textInputAction: textInputAction,
-        style: TextStyle(color: AppColors.textColor),
+        style: TextStyle(color: textColor),
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: AppColors.textColor),
+            borderSide:  BorderSide(color: textColor!),
             borderRadius: BorderRadius.circular(8),
           ),
-          prefixIcon: Icon(icon, color: AppColors.backgroundColor),
+          prefixIcon: Icon(icon, color: textColor),
           labelText: labelText,
-          labelStyle: TextStyle(color: AppColors.textColor),
-          errorStyle: TextStyle(color: Colors.orange), // change validator color
+          labelStyle: TextStyle(color: textColor),
+          errorStyle: TextStyle(color: AppColors.error), // change validator color
           errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.orange),
+            borderSide: BorderSide(color: AppColors.error),
           ),
           focusedErrorBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.orange, width: 2),
+            borderSide: BorderSide(color: AppColors.error, width: 2),
           ),
 
           /*

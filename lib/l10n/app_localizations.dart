@@ -476,6 +476,18 @@ abstract class AppLocalizations {
   /// **'District'**
   String get input_hint_quartier;
 
+  /// No description provided for @input_hint_longitude.
+  ///
+  /// In en, this message translates to:
+  /// **'Longitude'**
+  String get input_hint_longitude;
+
+  /// No description provided for @input_hint_latitude.
+  ///
+  /// In en, this message translates to:
+  /// **'Latitude'**
+  String get input_hint_latitude;
+
   /// No description provided for @movegui_info_title.
   ///
   /// In en, this message translates to:

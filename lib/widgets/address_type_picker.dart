@@ -45,7 +45,7 @@ class AddressTypePickerState extends State<AddressTypePicker> {
             //  const SizedBox(height: 12),
             // Gender dropdown
             DropdownButtonFormField<String>(
-              decoration:  InputDecoration(
+              decoration: InputDecoration(
                 filled: true,
                 fillColor: AppColors.backgroundColor,
                 labelText: AppLocalizations.of(context)!.input_hint_adress,
@@ -65,7 +65,29 @@ class AddressTypePickerState extends State<AddressTypePicker> {
               ],
               onChanged: (value) {
                 setState(() => _selectedAdressType = value);
-                widget.onAdressTypeChange.call(value!);
+
+                switch (value) {
+                  case 'h':
+                    widget.onAdressTypeChange.call(
+                      AppLocalizations.of(context)!.address_home_title,
+                    );
+                  case 'o':
+                    widget.onAdressTypeChange.call(
+                      AppLocalizations.of(context)!.address_office_title,
+                    );
+                  case 'n':
+                    widget.onAdressTypeChange.call(
+                      AppLocalizations.of(context)!.address_neighbor_title,
+                    );
+                  case 'ot':
+                    widget.onAdressTypeChange.call(
+                      AppLocalizations.of(context)!.address_other_title,
+                    );
+                  default:
+                    return widget.onAdressTypeChange.call('');
+                }
+
+                //    widget.onAdressTypeChange.call(getAddressTypeLabel(value!));
               },
               validator: (value) {
                 MyValidators.textValidator(value);
@@ -78,5 +100,20 @@ class AddressTypePickerState extends State<AddressTypePicker> {
         ),
       ),
     );
+  }
+
+  String getAddressTypeLabel(String value) {
+    switch (value) {
+      case 'h':
+        return AppLocalizations.of(context)!.address_home_title;
+      case 'o':
+        return AppLocalizations.of(context)!.address_office_title;
+      case 'n':
+        return AppLocalizations.of(context)!.address_neighbor_title;
+      case 'ot':
+        return AppLocalizations.of(context)!.address_other_title;
+      default:
+        return '';
+    }
   }
 }

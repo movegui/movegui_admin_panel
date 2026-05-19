@@ -41,7 +41,10 @@ class PersonModel extends Model {
     'phone': phone,
     'gender': gender,
     'birthDate': birthDate?.toIso8601String() ?? '',
-    'addresses': addresses,
+    'addresses': addresses
+        .where((e) => e != null)
+        .map((el) => el!.toJson())
+        .toList(),
     'nationality': nationality,
   };
 
@@ -59,7 +62,19 @@ class PersonModel extends Model {
     birthDate: json['birthDate'] != null && !json['birthDate'].isEmpty
         ? DateTime.parse(json['birthDate'])
         : null,
-    addresses: (json['addresses'] as List? ?? []).map((e) => AdressModel.fromJson(e)).toList(),
+    addresses: (json['addresses'] as List<dynamic>? ?? [])
+        .map((e) {
+          if (e is Map<String, dynamic>) {
+            return AdressModel.fromJson(e);
+          } else {
+            print("Warning: invalid address entry: $e");
+            return null;
+          }
+        })
+        .where((e) => e != null)
+        .cast<AdressModel>()
+        .toList(),
+    // addresses: (json['addresses'] as List? ?? []).map((e) => AdressModel.fromJson(e)).toList(),
     nationality: json['nationality'],
   );
   factory PersonModel.empty() => PersonModel(

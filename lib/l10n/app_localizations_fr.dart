@@ -226,6 +226,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get input_hint_quartier => 'Quartier';
 
   @override
+  String get input_hint_longitude => 'Longitude';
+
+  @override
+  String get input_hint_latitude => 'Latitude';
+
+  @override
   String get movegui_info_title =>
       'MoveGui – Livraison & Transport à Moto en Guinée';
 

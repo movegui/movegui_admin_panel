@@ -6,7 +6,6 @@ import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/button_item.dart';
 import 'package:movegui_admin_panel/providers/appbar_title_provider.dart';
 import 'package:movegui_admin_panel/screens/main_screen.dart';
-import 'package:movegui_admin_panel/widgets/app/main/add_model_btn_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/main/main_page_widget.dart';
 
 

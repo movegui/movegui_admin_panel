@@ -16,7 +16,6 @@ import 'package:movegui_admin_panel/error/message_widget.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/person_model.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
-import 'package:movegui_admin_panel/providers/current_user_provider.dart';
 import 'package:movegui_admin_panel/screens/auth/login_screen.dart';
 import 'package:movegui_admin_panel/services/image_service.dart';
 import 'package:movegui_admin_panel/services/my_app_functions.dart';

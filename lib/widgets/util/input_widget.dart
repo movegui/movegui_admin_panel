@@ -25,7 +25,7 @@ class InputWidget extends StatelessWidget {
     this.validator,
     this.fontSize,
     this.fontFamily,
-    this.textColor,
+    this.textColor = AppColors.textColor,
   });
 
   @override
@@ -42,7 +42,7 @@ class InputWidget extends StatelessWidget {
         keyboardType: textInputType,
         decoration: InputDecoration(
           hintText: hinterText,
-          prefixIcon: Icon(icon, color: AppColors.backgroundColor,),
+          prefixIcon: Icon(icon, color: textColor,),
           hintStyle: TextStyle(color: AppColors.placeHolderText)
         ),
         style: TextStyle(

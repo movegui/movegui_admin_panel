@@ -205,3 +205,48 @@ async function authenticate(req) {
 
   return await admin.auth().verifyIdToken(token);
 }
+
+exports.geocodeAddress = functions.https.onRequest(async (req, res) => {
+
+  cors(req, res, async () => {
+    try {
+        const address = req.query.address;
+
+      if (!address) {
+        return res.status(400).json({
+          error: "Address is required",
+        });
+      }
+
+      const url =
+        `https://nominatim.openstreetmap.org/search` +
+        `?q=${encodeURIComponent(address)}` +
+        `&format=json&limit=1`;
+
+      const response = await axios.get(url, {
+        headers: {
+          "User-Agent": "FirebaseGeocoder/1.0",
+        },
+      });
+
+      const data = response.data;
+
+      if (!data || data.length === 0) {
+        return res.status(404).json({
+          error: "Location not found",
+        });
+      }
+
+      return res.json({
+        latitude: parseFloat(data[0].lat),
+        longitude: parseFloat(data[0].lon),
+      });
+
+    } catch (error) {
+      res.status(500).send({ error: error.message });
+    }
+  });
+
+
+
+});
