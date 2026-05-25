@@ -19,7 +19,7 @@ import 'package:movegui_admin_panel/services/professionnel_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/widgets/add_person_widget.dart';
 import 'package:movegui_admin_panel/widgets/custom_button.dart';
-import 'package:movegui_admin_panel/widgets/custom_text_field.dart';
+import 'package:movegui_admin_panel/widgets/input/custom_text_field.dart';
 import 'package:uuid/uuid.dart';
 
 class ProfessionnelAddWidgetPage extends StatefulWidget {

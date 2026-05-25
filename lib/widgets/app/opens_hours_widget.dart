@@ -7,7 +7,7 @@ import 'package:movegui_admin_panel/responsive.dart';
 
 class OpenHoursWidget extends StatefulWidget {
   const OpenHoursWidget({super.key, required this.onHoursChanged});
-  final Function(List<OpenHours>) onHoursChanged;
+  final Function(List<OpenHoursModel>) onHoursChanged;
 
   @override
   // ignore: library_private_types_in_public_api
@@ -15,13 +15,13 @@ class OpenHoursWidget extends StatefulWidget {
 }
 
 class WeeklyHoursScreenState extends State<OpenHoursWidget> {
-  late List<OpenHours> weeklyHours;
+  late List<OpenHoursModel> weeklyHours;
 
   @override
   void initState() {
     super.initState();
     weeklyHours = AppConstants.daysOfWeek.map((day) {
-      return OpenHours(
+      return OpenHoursModel(
         day: day,
         isClosed: true,
         openTime: null,
@@ -30,13 +30,13 @@ class WeeklyHoursScreenState extends State<OpenHoursWidget> {
     }).toList();
   }
 
-  Future<List<OpenHours>> getOpenHours() async {
+  Future<List<OpenHoursModel>> getOpenHours() async {
     return weeklyHours;
   }
 
   Future<void> resetOpenHours() async {
     weeklyHours = AppConstants.daysOfWeek.map((day) {
-      return OpenHours(
+      return OpenHoursModel(
         day: day,
         isClosed: true,
         openTime: null,
@@ -52,11 +52,11 @@ class WeeklyHoursScreenState extends State<OpenHoursWidget> {
     }
   }
 
-  void updateCheckboxParent(int index, OpenHours? item) {
+  void updateCheckboxParent(int index, OpenHoursModel? item) {
     if (weeklyHours.isNotEmpty && item != null) {
       setState(() {
         // Update the weeklyHours state directly
-        weeklyHours[index] = OpenHours(
+        weeklyHours[index] = OpenHoursModel(
           day: item.day,
           isClosed: item.isClosed,
           openTime: item.openTime,
@@ -68,7 +68,7 @@ class WeeklyHoursScreenState extends State<OpenHoursWidget> {
   }
 
   Future<void> pickTime({required int index, required bool isOpenTime}) async {
-    OpenHours item = weeklyHours[index];
+    OpenHoursModel item = weeklyHours[index];
 
     final picked = await showTimePicker(
       context: context,
@@ -101,16 +101,16 @@ class WeeklyHoursScreenState extends State<OpenHoursWidget> {
         int first = index * 2;
         int second = first + 1;
 
-        OpenHours? item1 = first < weeklyHours.length
+        OpenHoursModel? item1 = first < weeklyHours.length
             ? weeklyHours[first]
             : null;
-        OpenHours? item2 = second < weeklyHours.length
+        OpenHoursModel? item2 = second < weeklyHours.length
             ? weeklyHours[second]
             : null;
 
         return Center(
           child: Container(
-            width: Responsive.isDesktop(context) ? Size.width * 0.4 : double.infinity,
+            width: Responsive.isDesktop(context) ? Size.width * 0.5 : double.infinity,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               color: AppColors.backgroundColor,

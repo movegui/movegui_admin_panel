@@ -1,4 +1,3 @@
-
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -8,20 +7,24 @@ import 'package:movegui_admin_panel/models/categories_model.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
 import 'package:movegui_admin_panel/models/person_model.dart';
 import 'package:movegui_admin_panel/models/store_model.dart';
+import 'package:movegui_admin_panel/util/address_form_controller.dart';
+import 'package:movegui_admin_panel/util/form_controller.dart';
+import 'package:movegui_admin_panel/util/person_form_controller.dart';
 
-class StoreFormController {
-    final name = TextEditingController();
-  final adresse = TextEditingController();
-  final telephon = TextEditingController();
+abstract class StoreFormController<T extends StoreModel>
+    extends FormController<T> {
+  final name = TextEditingController();
+  final phone = TextEditingController();
   final email = TextEditingController();
   final description = TextEditingController();
   final nameFocus = FocusNode();
-  final descriptionFocus = FocusNode() ;
-  final adresseFocus = FocusNode();
-  final emailFocus = FocusNode(); 
-  final telephonFocus = FocusNode(); 
+  final descriptionFocus = FocusNode();
+  final emailFocus = FocusNode();
+  final telephonFocus = FocusNode();
+  final addressForm = AddressFormController();
+  final personForms = [PersonFormController()];
   List<PersonModel> contacts = [];
-  List<OpenHours> weeklyHours = [];
+  List<OpenHoursModel> weeklyHours = [];
   File? pickedImage;
   Uint8List? webImage;
   StoreTypeModel? selectedType;
@@ -30,27 +33,48 @@ class StoreFormController {
 
   void dispose() {
     name.dispose();
-    adresse.dispose();
-    telephon.dispose();
+    phone.dispose();
     email.dispose();
     description.dispose();
+    addressForm.dispose();
   }
 
-  void clear(){
+  void clear() {
     name.clear();
-    adresse.clear();
     description.clear();
-    telephon.clear();
+    phone.clear();
     email.clear();
+    addressForm.clear();
     pickedImage = null;
     webImage = null;
-    //contacts.clear();
-    //weeklyHours.clear();
-   // pickedImage = null;
-   // webImage = null;
-    ///dispose();
-
+    for (final personForm in personForms) {
+      personForm.clear();
+    }
+    /*
+    personForms.map((personForm) {
+       personForm.clear();
+    });
+    */
+    contacts.clear();
+    weeklyHours.clear();
+    selectedType = null;
+    categoriesModel = null;
+    adressModel = null;
   }
 
- 
+  @override
+  Future<void> setData(T model) async {
+    name.text = model.name;
+    phone.text = model.phone;
+    email.text = model.email;
+    description.text = model.description;
+    await addressForm.setData(model.address);
+    await Future.wait(
+      personForms.asMap().entries.map((entry) async {
+        final index = entry.key;
+        final personForm = entry.value;
+        await personForm.setData(model.contacts[index]);
+      }),
+    );
+  }
 }

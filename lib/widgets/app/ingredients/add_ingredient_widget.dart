@@ -13,8 +13,8 @@ import 'package:movegui_admin_panel/services/ingredients_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/suppliers_service.dart';
 import 'package:movegui_admin_panel/widgets/custom_button.dart';
-import 'package:movegui_admin_panel/widgets/custom_drop_down.dart';
-import 'package:movegui_admin_panel/widgets/custom_text_field.dart';
+import 'package:movegui_admin_panel/widgets/picker/custom_drop_down.dart';
+import 'package:movegui_admin_panel/widgets/input/custom_text_field.dart';
 import 'package:movegui_admin_panel/widgets/radio_btns%20copy.dart';
 import 'package:uuid/uuid.dart';
 

@@ -5,7 +5,7 @@ abstract class ModelService<T extends Model> {
   final ApiService api;
 
   ModelService({required this.api});
-  Future<void> addModel(T model);
+  Future<T> addModel(T model);
   Future<List<T>> allModels();
   Future<List<T>> getByName(String name);
   String getCollectionName();

@@ -62,7 +62,7 @@ class CustomTextField extends StatelessWidget {
         style: TextStyle(color: textColor),
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
-            borderSide:  BorderSide(color: textColor!),
+            borderSide:  BorderSide(color: AppColors.selectionColor, width: 2),
             borderRadius: BorderRadius.circular(8),
           ),
           prefixIcon: Icon(icon, color: textColor),
@@ -75,17 +75,6 @@ class CustomTextField extends StatelessWidget {
           focusedErrorBorder: OutlineInputBorder(
             borderSide: BorderSide(color: AppColors.error, width: 2),
           ),
-
-          /*
-          suffixIcon: hasIcon? GestureDetector(
-            onTap: (){
-              onTap!();
-            },
-              child:Icon(
-            Icons.remove_red_eye_outlined,
-            color: AppColors.textColor,
-          )):const SizedBox(width: 0,height: 0,),
-          */
           hintText: hintText,
           hintStyle: TextStyle(color: AppColors.placeHolderText),
           enabledBorder: OutlineInputBorder(

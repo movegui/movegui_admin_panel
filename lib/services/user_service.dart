@@ -21,11 +21,12 @@ class UserService extends ModelService<UserModel> implements IUserService {
   UserService({required super.api});
 
   @override
-  Future<void> addModel(UserModel model) async {
+  Future<UserModel> addModel(UserModel model) async {
     await FirebaseFirestore.instance
         .collection(getCollectionName())
         .doc(model.id)
         .set(model.toJson());
+    return model;
   }
 
   @override
@@ -96,7 +97,7 @@ class UserService extends ModelService<UserModel> implements IUserService {
       await credential!.user!.delete();
       MessageWidget.errorMessage(
         context,
-        AppLocalizations.of(context)!.error_register_with_phone_title,
+        AppLocalizations.of(context)!.error_register_title,
         AppLocalizations.of(context)!.error_register_with_email_message,
         Icon(Icons.error, color: AppColors.error),
         FlushbarPosition.TOP,
@@ -255,7 +256,7 @@ class UserService extends ModelService<UserModel> implements IUserService {
       await FirebaseAuth.instance.currentUser?.delete();
       MessageWidget.errorMessage(
         context,
-        AppLocalizations.of(context)!.error_register_with_phone_title,
+        AppLocalizations.of(context)!.error_register_title,
         AppLocalizations.of(context)!.error_register_with_email_message,
         Icon(Icons.error, color: AppColors.error),
         FlushbarPosition.TOP,

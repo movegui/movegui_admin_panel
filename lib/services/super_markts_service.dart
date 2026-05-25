@@ -6,11 +6,12 @@ class SuperMarktsService extends ModelService<SuperMarktModel> {
   SuperMarktsService({required super.api});
 
   @override
-  Future<void> addModel(SuperMarktModel superMarkt) async {
+  Future<SuperMarktModel> addModel(SuperMarktModel superMarkt) async {
     await FirebaseFirestore.instance
         .collection(getCollectionName())
         .doc(superMarkt.id)
         .set(superMarkt.toJson());
+    return superMarkt;
   }
 
   @override

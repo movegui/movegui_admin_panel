@@ -8,11 +8,12 @@ class IngredientsService  extends ModelService<IngredientModel>{
 
   
   @override
-  Future<void> addModel(IngredientModel ingredient) async {
+  Future<IngredientModel> addModel(IngredientModel ingredient) async {
     await FirebaseFirestore.instance
     .collection(getCollectionName())
     .doc(ingredient.id)
     .set(ingredient.toJson());
+    return ingredient;
   }
 
   @override

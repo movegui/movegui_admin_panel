@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:movegui_admin_panel/models/pressing_model.dart';
+import 'package:movegui_admin_panel/models/pressing/pressing_model.dart';
 import 'package:movegui_admin_panel/services/pressing_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 
@@ -89,7 +89,7 @@ class AllPressingWidgetPageState extends State<AllPressingWidget>{
                               ),
                               */
                               Expanded(
-                                child: Text(pressings[index].telephon ?? ''),
+                                child: Text(pressings[index].phone ?? ''),
                               ),
                             ],
                           ),

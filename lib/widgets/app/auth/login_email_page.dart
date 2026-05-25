@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
+import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/route_constants.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
@@ -15,8 +16,8 @@ import 'package:movegui_admin_panel/services/user_service.dart';
 import 'package:movegui_admin_panel/widgets/app/auth/auth_link_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/auth/validation_button.dart';
 import 'package:movegui_admin_panel/widgets/app/separator_widget.dart';
-import 'package:movegui_admin_panel/widgets/util/input_email_widget.dart';
-import 'package:movegui_admin_panel/widgets/util/password_widget.dart';
+import 'package:movegui_admin_panel/widgets/input/input_email_widget.dart';
+import 'package:movegui_admin_panel/widgets/input/password_widget.dart';
 
 class LoginEmailPage extends ConsumerStatefulWidget {
   const LoginEmailPage({super.key});
@@ -141,6 +142,7 @@ class LoginEmailPageState extends ConsumerState<LoginEmailPage> {
                   nextFocusNode: _passwordFocusNode,
                   emailController: _emailController,
                   emailFocusNode: _emailFocusNode,
+                  textColor: AppColors.backgroundColor,
                 ),
                 //  SeparatorWidget(height: WidgetConstants.sepWidgetHeight * 2),
                 PasswordWidget(
@@ -152,6 +154,7 @@ class LoginEmailPageState extends ConsumerState<LoginEmailPage> {
                       obscureText = !obscureText;
                     });
                   },
+                  textColor: AppColors.backgroundColor,
                 ),
                 Responsive.isDesktop(context)
                     ? SeparatorWidget(height: 20)

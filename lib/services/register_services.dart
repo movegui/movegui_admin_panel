@@ -1,4 +1,5 @@
 
+import 'package:faker/faker.dart';
 import 'package:get_it/get_it.dart';
 import 'package:movegui_admin_panel/config/env.dart';
 import 'package:movegui_admin_panel/services/address_service.dart';
@@ -6,10 +7,12 @@ import 'package:movegui_admin_panel/services/api_service.dart';
 import 'package:movegui_admin_panel/services/image_service.dart';
 import 'package:movegui_admin_panel/services/ingredients_service.dart';
 import 'package:movegui_admin_panel/services/patisseries_service.dart';
+import 'package:movegui_admin_panel/services/pressing_form_service.dart';
 import 'package:movegui_admin_panel/services/pressing_service.dart';
 import 'package:movegui_admin_panel/services/professionnel_service.dart';
 import 'package:movegui_admin_panel/services/restaurant_type_service.dart';
 import 'package:movegui_admin_panel/services/restaurants_service.dart';
+import 'package:movegui_admin_panel/services/seed_service.dart';
 import 'package:movegui_admin_panel/services/store_categories_service.dart';
 import 'package:movegui_admin_panel/services/super_markts_service.dart';
 import 'package:movegui_admin_panel/services/suppliers_service.dart';
@@ -32,4 +35,9 @@ void initServices(Env env){
   getIt.registerLazySingleton<UserService>(() => UserService(api: api));
   getIt.registerLazySingleton<ImageService>(() => ImageService());
   getIt.registerLazySingleton<AddressService>(() => AddressService(api: api));
+   getIt.registerLazySingleton<PressingFormService>(() => PressingFormService(api: api));
+   getIt.registerLazySingleton<SeedService>(() =>  SeedService(api: api, faker: Faker()));
+
+
+  //
 }

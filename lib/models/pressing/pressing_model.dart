@@ -14,10 +14,9 @@ class PressingModel extends StoreModel {
     required super.contacts,
     required super.email,
     required super.imageUrl,
-    required super.telephon,
+    required super.phone,
     required super.weeklyHours,
     required super.storeType,
-
   });
 
     @override
@@ -33,13 +32,13 @@ class PressingModel extends StoreModel {
         imageUrl: json['imageUrl'],
         address: AdressModel.fromJson(json['adresse']),
         email: json['email'],
-        telephon: json['telephon'],
+        phone: json['telephon'],
         contacts: (json['contacts'] as List? ?? [])
             .map((e) => PersonModel.fromJson(e))
             .toList(),
         createdAt: json['createdAt'] != null ? json['createdAt'].toDate() : DateTime.now(),
-        weeklyHours: (json['weeklyHours'] as List? ?? []).map((e) => OpenHours.fromJson(e)).toList(),
-         storeType: RestaurantTypeModel.fromJson(json['storeType']),
+        weeklyHours: (json['weeklyHours'] as List? ?? []).map((e) => OpenHoursModel.fromJson(e)).toList(),
+         storeType: json['storeType'] != null ? RestaurantTypeModel.fromJson(json['storeType']) : null,
       );
 
 }

@@ -12,7 +12,7 @@ import 'package:movegui_admin_panel/widgets/radio_btns%20copy.dart';
 import 'package:uuid/uuid.dart';
 import '../methods/showBtmAlert.dart';
 import '../methods/show_alert.dart';
-import '../widgets/custom_text_field.dart';
+import '../widgets/input/custom_text_field.dart';
 import '../widgets/side_menu.dart';
 class ProductEdit extends StatefulWidget {
   const ProductEdit({super.key, required this.name, required this.price, required this.salePrice, required this.unit, required this.productCat, required this.id, required this.imageUrl});

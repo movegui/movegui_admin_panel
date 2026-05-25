@@ -1,27 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/validator.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 
-
-class PasswordWidget extends StatefulWidget {
+class PasswordWidget extends StatelessWidget {
   final TextEditingController passwordController;
   final FocusNode passwordFocusNode;
   final bool obscureText;
   final VoidCallback onPressObscur;
+  final Color? textColor;
+
   const PasswordWidget({
     super.key,
     required this.passwordController,
     required this.passwordFocusNode,
     required this.obscureText,
     required this.onPressObscur,
+    required this.textColor,
   });
-  @override
-  State<StatefulWidget> createState() => PasswordWidgetState();
-}
 
-class PasswordWidgetState extends State<PasswordWidget> {
-  @override
+ @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
@@ -29,20 +27,30 @@ class PasswordWidgetState extends State<PasswordWidget> {
         right: WidgetConstants.sepWidgetHeight * 1.5,
       ),
       child: TextFormField(
-        obscureText: widget.obscureText,
-        controller: widget.passwordController,
-        focusNode: widget.passwordFocusNode,
+        obscureText: obscureText,
+        controller: passwordController,
+        focusNode: passwordFocusNode,
         textInputAction: TextInputAction.done,
         keyboardType: TextInputType.visiblePassword,
         decoration: InputDecoration(
           suffixIcon: IconButton(
-            onPressed: widget.onPressObscur,
+            onPressed: onPressObscur,
             icon: Icon(
-              widget.obscureText ? Icons.visibility : Icons.visibility_off,
+              obscureText ? Icons.visibility : Icons.visibility_off,
+              color: textColor!,
             ),
           ),
           hintText: "***********",
-          prefixIcon: const Icon(IconlyLight.lock),
+          prefixIcon:  Icon(Icons.lock, color: textColor,),
+          border: UnderlineInputBorder(
+            borderSide: BorderSide(color: textColor!, width: 1),
+          ),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: textColor!, width: 1),
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: AppColors.selectionColor, width: 2),
+          ),
         ),
         validator: (value) {
           return MyValidators.passwordValidator(value);

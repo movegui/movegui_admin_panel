@@ -1,47 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
+import 'package:movegui_admin_panel/consts/validator.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/movegui_platform.dart';
 import 'package:movegui_admin_panel/responsive.dart';
-import 'package:movegui_admin_panel/widgets/address_type_picker.dart';
-import 'package:movegui_admin_panel/widgets/commune_widget_picker.dart';
-import 'package:movegui_admin_panel/widgets/util/input_widget.dart';
+import 'package:movegui_admin_panel/util/address_form_controller.dart';
+import 'package:movegui_admin_panel/widgets/picker/address_type_picker.dart';
+import 'package:movegui_admin_panel/widgets/app/separator_widget.dart';
+import 'package:movegui_admin_panel/widgets/picker/commune_widget_picker.dart';
+import 'package:movegui_admin_panel/widgets/input/input_widget.dart';
 
 class AddressWidget extends StatelessWidget {
-  final TextEditingController addressController;
-  final TextEditingController quartierController;
-  final TextEditingController? longitudeController;
-  final TextEditingController? latitudeController;
-  final String? commune;
-  final String? adresseType;
+  final AddressFormController addressForm;
   final void Function(String?) onAdressTypeChange;
   final void Function(String?) onCommuneChange;
-  final FocusNode addressfocusNode;
-  final FocusNode quartierFocusNode;
-  final FocusNode? longitudeFocusNode;
-  final FocusNode? latitudeFocusNode;
   final Color? textColor;
+  final bool? isFullBorder;
+ // final GlobalKey<FormState> addAddressKey;
 
   const AddressWidget({
     super.key,
-    required this.addressController,
-    required this.quartierController,
-    required this.commune,
     required this.onCommuneChange,
-    required this.adresseType,
     required this.onAdressTypeChange,
-    required this.addressfocusNode,
-    required this.quartierFocusNode,
-    required this.longitudeController,
-    required this.latitudeController,
-    required this.longitudeFocusNode,
-    required this.latitudeFocusNode, 
     this.textColor = AppColors.textColor,
+    this.isFullBorder = false,
+ //   required this.addAddressKey,
+    required this.addressForm,
   });
 
   @override
   Widget build(BuildContext context) {
     return Column(
+    //  key: addAddressKey,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -51,17 +41,21 @@ class AddressWidget extends StatelessWidget {
                   ? 150
                   : MediaQuery.of(context).size.width * 0.3,
               child: AddressTypePicker(
-                adresseType: adresseType,
+                adresseType: addressForm.selectedType,
                 onAdressTypeChange: onAdressTypeChange,
               ),
             ),
             Expanded(
               child: InputWidget(
-                controller: addressController,
-                focusNode: addressfocusNode,
+                controller: addressForm.address,
+                focusNode: addressForm.addressFocusNode,
                 icon: Icons.home,
                 hinterText: AppLocalizations.of(context)!.input_hint_adress,
                 textColor: textColor,
+                isFullBorder: isFullBorder,
+                validator: (vaule) {
+                  return MyValidators.textNameValidator(vaule);
+                },
               ),
             ),
           ],
@@ -74,22 +68,25 @@ class AddressWidget extends StatelessWidget {
                   ? 150
                   : MediaQuery.of(context).size.width * 0.3,
               child: CommuneWidgetPicker(
-                commune: commune,
+                commune: addressForm.selectedMunicipality,
                 onCommuneChange: onCommuneChange,
               ),
             ),
             Expanded(
               child: InputWidget(
-                controller: quartierController,
-                focusNode: quartierFocusNode,
+                controller: addressForm.district,
+                focusNode: addressForm.districtFocus,
                 icon: Icons.home,
                 hinterText: AppLocalizations.of(context)!.input_hint_quartier,
-                 textColor: textColor,
+                textColor: textColor,
+                isFullBorder: isFullBorder,
+                validator: (vaule) {
+                  return MyValidators.textNameValidator(vaule);
+                },
               ),
             ),
           ],
         ),
-
 
         MoveguiPlatform.getCurrentPlatform() == MoveGuiPlatformEnum.WEB
             ? Row(
@@ -97,30 +94,40 @@ class AddressWidget extends StatelessWidget {
                 children: [
                   Expanded(
                     child: InputWidget(
-                      controller: longitudeController!,
-                      focusNode: longitudeFocusNode!,
+                      controller: addressForm.longitude,
+                      focusNode: addressForm.longitudeFocusNode!,
                       icon: Icons.location_on,
                       hinterText: AppLocalizations.of(
                         context,
                       )!.input_hint_longitude,
-                       textColor: textColor,
+                      textColor: textColor,
+                      isFullBorder: isFullBorder,
+                      textInputType: TextInputType.number,
+                      validator: (vaule) {
+                        return MyValidators.numberValidator(vaule);
+                      },
                     ),
                   ),
                   Expanded(
                     child: InputWidget(
-                      controller: latitudeController!,
-                      focusNode: latitudeFocusNode!,
+                      controller: addressForm.latitude,
+                      focusNode: addressForm.latitudeFocusNode,
                       icon: Icons.location_on,
                       hinterText: AppLocalizations.of(
                         context,
                       )!.input_hint_latitude,
-                       textColor: textColor,
+                      textColor: textColor,
+                      isFullBorder: isFullBorder,
+                      textInputType: TextInputType.number,
+                      validator: (vaule) {
+                        return MyValidators.numberValidator(vaule);
+                      },
                     ),
                   ),
                 ],
               )
             : SizedBox(),
-            
+        SeparatorWidget(height: 18),
       ],
     );
   }

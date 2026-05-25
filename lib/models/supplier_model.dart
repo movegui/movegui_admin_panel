@@ -16,7 +16,7 @@ import 'package:movegui_admin_panel/models/store_model.dart';
     required super.imageUrl,
     required super.address,
     required super.email,
-    required super.telephon,
+    required super.phone,
     required super.contacts,
     required super.weeklyHours,
     required super.storeType,
@@ -35,7 +35,7 @@ import 'package:movegui_admin_panel/models/store_model.dart';
         imageUrl: json['imageUrl'],
         address: AdressModel.fromJson(json['adresse']),
         email: json['email'],
-        telephon: json['telephon'],
+        phone: json['telephon'],
         contacts: (json['contacts'] as List? ?? [])
             .map((e) => PersonModel.fromJson(e))
             .toList(),
@@ -46,11 +46,11 @@ import 'package:movegui_admin_panel/models/store_model.dart';
         weeklyHours: (json['weeklyHours'] as List? ?? [])
             .map(
               (e) => (e != null && e['openTime'] != null && e['closeTime'] != null && e['day'] != null)
-                  ? OpenHours.fromJson(e)
+                  ? OpenHoursModel.fromJson(e)
                   : null,
             )
             .where((e) => e != null)
-            .cast<OpenHours>()
+            .cast<OpenHoursModel>()
             .toList(),
       );
 

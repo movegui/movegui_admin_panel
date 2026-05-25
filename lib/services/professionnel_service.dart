@@ -8,11 +8,12 @@ class ProfessionnelService extends ModelService<ProfessionnelModel>{
 
 
   @override
-  Future<void> addModel(ProfessionnelModel professionnel) async {
+  Future<ProfessionnelModel> addModel(ProfessionnelModel professionnel) async {
      await FirebaseFirestore.instance
           .collection(getCollectionName())
           .doc(professionnel.id)
           .set(professionnel.toJson());
+      return professionnel;
   }
 
   @override

@@ -39,6 +39,97 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pressing_bar_title => 'Configuration dry Cleaner ';
 
   @override
+  String get pressing_service_washing => 'Washing';
+
+  @override
+  String get pressing_service_dry_cleaning => 'Dry Cleaning';
+
+  @override
+  String get pressing_service_ironing => 'Ironing';
+
+  @override
+  String get pressing_service_laundry => 'Laundry ';
+
+  @override
+  String get pressing_service_folding => 'Folding';
+
+  @override
+  String get pressing_service_stain_removal => 'Stain Removal';
+
+  @override
+  String get pressing_service_service_express => 'Service express';
+
+  @override
+  String get pressing_service_home_laundry => 'Home Laundry';
+
+  @override
+  String get pressing_service_work_clothing => 'Care of Work Clothing';
+
+  @override
+  String get pressing_service_delicate_fabrics => 'Care of Delicate Fabrics';
+
+  @override
+  String get pressing_service_washing_descrip => 'Washing clothes with water';
+
+  @override
+  String get pressing_service_dry_cleaning_descrip =>
+      'Special cleaning for delicate fabrics';
+
+  @override
+  String get pressing_service_ironing_descrip =>
+      'Remove wrinkles with an iron or a press';
+
+  @override
+  String get pressing_service_laundry_descrip =>
+      'Full-service laundry and dry cleaning';
+
+  @override
+  String get pressing_service_folding_descrip => 'Clothes folded after washing';
+
+  @override
+  String get pressing_service_stain_removal_descrip => 'Stain removal';
+
+  @override
+  String get pressing_service_service_express_descrip =>
+      'Same-day express cleaning';
+
+  @override
+  String get pressing_service_home_laundry_descrip =>
+      'Sheets, blankets, curtains, etc...';
+
+  @override
+  String get pressing_service_work_clothing_descrip =>
+      'Uniforms, Suits, Work Clothes';
+
+  @override
+  String get pressing_service_delicate_fabrics_descrip =>
+      'Silk, Wool, Leather, Evening gowns, etc...';
+
+  @override
+  String get pressing_service_labelText => 'Product';
+
+  @override
+  String get pressing_service_hinterText => 'Product Name';
+
+  @override
+  String get pressing_service_price_labelText => 'Price';
+
+  @override
+  String get pressing_service_price_hinterText => 'Product Price';
+
+  @override
+  String get pressing_service_price_min_labelText => 'Minimum Price';
+
+  @override
+  String get pressing_service_price_min_hinterText => 'Minimum Product Price';
+
+  @override
+  String get pressing_service_price_max_labelText => 'Maximum Price';
+
+  @override
+  String get pressing_service_price_max_hinterText => 'Maximum Product Price';
+
+  @override
   String get restaurant_add_bar_title => 'Add Restaurant';
 
   @override
@@ -158,7 +249,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get error_login_message => 'Login failed';
 
   @override
-  String get error_register_with_phone_title => 'Registration Error';
+  String get error_register_title => 'Registration Error';
 
   @override
   String get error_register_with_phone_message =>
@@ -178,6 +269,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get error_occur => 'An error Occured';
 
   @override
+  String get error_send_formular => 'Please Complete the formular ';
+
+  @override
   String get label_login_facebook => 'Facebook';
 
   @override
@@ -194,6 +288,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get btn_add_contact => 'Add a Contact';
+
+  @override
+  String get btn_add_pressing_service => 'Add a Service';
 
   @override
   String get verify_otp => 'Send Code';
@@ -472,6 +569,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tooltip_btn_add_contact => 'Add a new Contact';
+
+  @override
+  String get tooltip_btn_add_pressing_service => 'Ajouter new Service';
 
   @override
   String get profile_menu_invite_people => 'Invite a Friend';

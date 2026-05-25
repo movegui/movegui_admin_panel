@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,207 +7,71 @@ import 'package:movegui_admin_panel/consts/app_constants.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
-import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/button_item.dart';
-import 'package:movegui_admin_panel/models/person_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
+import 'package:movegui_admin_panel/util/person_form_controller.dart';
 import 'package:movegui_admin_panel/widgets/add_person_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/separator_widget.dart';
 import 'package:movegui_admin_panel/widgets/util/button_widget.dart';
-import 'package:uuid/uuid.dart';
 
 class AddContactWidget extends StatefulWidget {
-  const AddContactWidget({super.key, required this.onContactsChanged});
-  final Function(List<PersonModel>) onContactsChanged;
+  const AddContactWidget({
+    super.key,
+    required this.formControllers,
+ //   required this.addContactKey,
+  });
+  final List<PersonFormController> formControllers;
+ // final GlobalKey<AddContactWidgetState> addContactKey;
+  // final GlobalKey<WeeklyHoursScreenState> addOpenHoursKey = GlobalKey();
 
   @override
   AddContactWidgetState createState() => AddContactWidgetState();
 }
 
 class AddContactWidgetState extends State<AddContactWidget> {
-  final List<GlobalKey<FormState>> formKeys = [];
-  final List<TextEditingController> firstNames = [];
-  final List<TextEditingController> lastNames = [];
-  final List<TextEditingController> middleNames = [];
-  final List<TextEditingController> addresses = [];
-  final List<TextEditingController> emails = [];
-  final List<TextEditingController> phones = [];
-   final List<TextEditingController> quartiers = [];
-  final List<String> genders = [];
-  final List<DateTime?> birthdates = [];
-  final List<File?> images = [];
-  late Uint8List? webImage;
-  late File? pickedImage;
   late ImageConstatnt imageConstatnt;
-  final List<String?> addressSlectedTypes = [];
-   final List<String?> selectedCommunes = [];
 
   @override
   void initState() {
     super.initState();
-    webImage = null;
-    pickedImage = null;
     imageConstatnt = ImageConstatnt();
-
-    _addPerson();
   }
+
+  final GlobalKey<FormState> personKey = GlobalKey();
+  final GlobalKey<FormState> addressKey = GlobalKey();
 
   @override
   void dispose() {
     super.dispose();
-    for (int i = 0; i < firstNames.length; i++) {
-      firstNames[i].dispose();
-      lastNames[i].dispose();
-      middleNames[i].dispose();
-      addresses[i].dispose();
-      emails[i].dispose();
-      phones[i].dispose();
-      quartiers[i].dispose();
+    for (int i = 0; i < widget.formControllers.length; i++) {
+      widget.formControllers[i].dispose();
     }
   }
 
-  void clear() {
-    for (int i = 0; i < formKeys.length; i++) {
-      remove(i);
-    }
-    firstNames.clear();
-    lastNames.clear();
-    middleNames.clear();
-    addresses.clear();
-    emails.clear();
-    phones.clear();
-    genders.clear();
-    images.clear();
-    birthdates.clear();
-    addressSlectedTypes.clear();
-    quartiers.clear();
-    selectedCommunes.clear();
+  void clear(int index) {
+    widget.formControllers[index].clear();
     setState(() {
-      webImage = null;
-      pickedImage = null;
+      widget.formControllers[index].webImage = null;
+      widget.formControllers[index].pickedImage = null;
     });
-    _addPerson();
-  }
-
-  Future<void> updateParent() async {
-    final contacts = await getContacts();
-    widget.onContactsChanged(contacts);
   }
 
   Future<void> _addPerson() async {
     setState(() {
-      formKeys.add(GlobalKey<FormState>());
-      firstNames.add(TextEditingController());
-      lastNames.add(TextEditingController());
-      middleNames.add(TextEditingController());
-      addresses.add(TextEditingController());
-      emails.add(TextEditingController());
-      phones.add(TextEditingController());
-      quartiers.add(TextEditingController());
-      genders.add("m");
-      birthdates.add(null);
-      images.add(null);
-      addressSlectedTypes.add('h');
-      selectedCommunes.add('di');
+      widget.formControllers.add(PersonFormController());
     });
-    updateParent();
+    //  updateParent();
   }
 
   void _removePerson(int index) {
-    if (formKeys.length == 1) return;
+    if (widget.formControllers.length == 1) return;
     remove(index);
   }
 
   void remove(int index) {
     setState(() {
-      firstNames[index].dispose();
-      lastNames[index].dispose();
-      middleNames[index].dispose();
-      addresses[index].dispose();
-      emails[index].dispose();
-      phones[index].dispose();
-
-      formKeys.removeAt(index);
-      firstNames.removeAt(index);
-      lastNames.removeAt(index);
-      middleNames.removeAt(index);
-      addresses.removeAt(index);
-      emails.removeAt(index);
-      phones.removeAt(index);
-      genders.removeAt(index);
-      birthdates.removeAt(index);
-      images.removeAt(index);
-      addressSlectedTypes.removeAt(index);
-      selectedCommunes.removeAt(index);
-      quartiers.removeAt(index);
+      widget.formControllers.removeAt(index);
     });
-  }
-
-  // ✅ Expose contact data as a list of maps or a model
-  Future<List<PersonModel>> getContacts() async {
-    List<PersonModel> contacts = [];
-
-    for (int i = 0; i < formKeys.length; i++) {
-      contacts.add(
-        PersonModel(
-          id: const Uuid().v4(),
-          firstName: firstNames[i].text,
-          lastName: lastNames[i].text,
-          name: "${firstNames[i].text} ${lastNames[i].text}",
-          createdAt: DateTime.now(),
-          middleName: middleNames[i].text.isEmpty ? null : middleNames[i].text,
-          profileImageUrl: await _uploadImageToFirebase(
-            Uint8List(8),
-            images[i],
-          ),
-          birthDate: birthdates[i],
-          addresses: [ AdressModel(address: addresses[i].text, id: Uuid().v4(), name: addressSlectedTypes[i]!, createdAt: DateTime.now(), quartier: quartiers[i].text, commune: selectedCommunes[i]) ],
-          email: emails[i].text,
-          phone: phones[i].text,
-          gender: genders[i],
-          //  image: images[i],
-        ),
-      );
-    }
-    return contacts;
-  }
-
-  Future<String?> _uploadImageToFirebase(
-    Uint8List webImage,
-    File? pickedImage,
-  ) async {
-    try {
-      final storage = FirebaseStorage.instance;
-
-      // Create a unique file name
-      String fileName = 'persons/${DateTime.now().millisecondsSinceEpoch}.jpg';
-      Reference ref = storage.ref().child(fileName);
-
-      UploadTask uploadTask;
-
-      if (kIsWeb) {
-        // Upload bytes for web
-        UploadTask uploadTask = ref.putData(
-          webImage, // from your _pickImage()
-          SettableMetadata(contentType: 'image/jpeg'),
-        );
-        TaskSnapshot snapshot = await uploadTask;
-        String downloadUrl = await snapshot.ref.getDownloadURL();
-        return downloadUrl;
-      } else {
-        // Upload file for mobile
-        UploadTask uploadTask = ref.putFile(
-          pickedImage!,
-          SettableMetadata(contentType: 'image/jpeg'),
-        );
-        TaskSnapshot snapshot = await uploadTask;
-        String downloadUrl = await snapshot.ref.getDownloadURL();
-        return downloadUrl;
-      }
-    } catch (e) {
-      print('Error uploading image: $e');
-      return null;
-    }
   }
 
   @override
@@ -216,14 +79,15 @@ class AddContactWidgetState extends State<AddContactWidget> {
     var Size = MediaQuery.of(context).size;
     double FontSize = Size.width < 600 ? 18 : 28;
     return ListView.separated(
+    //  key: widget.addContactKey,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: firstNames.length,
+      itemCount: widget.formControllers.length,
       itemBuilder: (context, index) {
         return Center(
           child: Container(
             width: Responsive.isDesktop(context)
-                ? Size.width * 0.4
+                ? Size.width * 0.5
                 : double.infinity,
             //   height: Size.height * 0.3,
             decoration: BoxDecoration(
@@ -233,40 +97,45 @@ class AddContactWidgetState extends State<AddContactWidget> {
             child: Column(
               children: [
                 AddPersonWidget(
-                  formKey: formKeys[index],
-                  firstNameController: firstNames[index],
-                  lastNameController: lastNames[index],
-                  middleNameController: middleNames[index],
-                  adresseController: addresses[index],
-                  emailController: emails[index],
-                  telephonController: phones[index],
-                  selectedGender: genders[index],
                   onGenderChanged: (value) {
-                    setState(() => genders[index] = value!);
+                    setState(
+                      () => widget.formControllers[index].gender = value!,
+                    );
                   },
                   onBirthDateChanged: (value) {
-                    setState(() => birthdates[index] = value!);
+                    setState(
+                      () => widget.formControllers[index].birthdate = value!,
+                    );
                   },
-                  onPickImage: pickAnImage,
+                  onPickImage: () {
+                    pickAnImage(index);
+                  },
                   onRemoveImage: () {
                     setState(() {
-                      pickedImage = null;
-                      webImage = null;
-                      images.removeAt(index);
+                      widget.formControllers[index].pickedImage = null;
+                      widget.formControllers[index].webImage = null;
                     });
                   },
-                  pickedImage: pickedImage,
-                  webImage: webImage, 
-                  adresseType: addressSlectedTypes[index], 
-                  onAdressTypeChange: (String? selectedValue) { 
+                  onAdressTypeChange: (String? selectedValue) {
                     setState(() {
-                      addressSlectedTypes[index] = selectedValue!;
+                      widget.formControllers[index].addressesForms[0].selectedType =
+                          selectedValue!;
                     });
-                   }, quartierController: quartiers[index], commune: selectedCommunes[index], onCommuneChange: (String? value) { 
+                  },
+
+                  onCommuneChange: (String? value) {
                     setState(() {
-                      selectedCommunes[index] = value;
+                      widget
+                              .formControllers[index]
+                              .addressesForms[0]
+                              .selectedMunicipality =
+                          value!;
                     });
-                    }, longitudeController: TextEditingController(), latitudeController: TextEditingController(),
+                  },
+
+                  personForm: widget.formControllers[index],
+                  personKey: personKey,
+                  addAddressKey: addressKey,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -310,7 +179,7 @@ class AddContactWidgetState extends State<AddContactWidget> {
     );
   }
 
-  Future<void> pickAnImage() async {
+  Future<void> pickAnImage(int index) async {
     if (!kIsWeb) {
       final ImagePicker picker = ImagePicker();
       XFile? image = await picker.pickImage(source: ImageSource.gallery);
@@ -318,8 +187,8 @@ class AddContactWidgetState extends State<AddContactWidget> {
         var selected = File(image.path);
         setState(() {
           //  widget.pickedImage = selected;
-          pickedImage = selected;
-          images.add(selected);
+          widget.formControllers[index].pickedImage = selected;
+          //  widget.formControllers[index].image = selected;
         });
       } else {
         showBtmAlert(context, imageConstatnt.getImageSelectionText());
@@ -330,9 +199,8 @@ class AddContactWidgetState extends State<AddContactWidget> {
       if (image != null) {
         var f = await image.readAsBytes();
         setState(() {
-          webImage = f;
-          pickedImage = File('a');
-          images.add(pickedImage);
+          widget.formControllers[index].webImage = f;
+          widget.formControllers[index].pickedImage = File('a');
         });
       } else {
         showBtmAlert(context, imageConstatnt.getImageSelectionText());

@@ -71,4 +71,11 @@ class MyValidators {
     }
     return null;
   }
+
+      static String? numberValidator(String? value){
+    if(value!.isEmpty) {
+      return 'Vewuillez saisir le Nom svp';
+    }
+    return null;
+  }
 }

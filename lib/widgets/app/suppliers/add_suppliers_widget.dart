@@ -14,7 +14,7 @@ import 'package:movegui_admin_panel/util/supplier_submit_handler.dart';
 import 'package:movegui_admin_panel/widgets/app/add_contact_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/opens_hours_widget.dart';
 import 'package:movegui_admin_panel/widgets/custom_button.dart';
-import 'package:movegui_admin_panel/widgets/custom_drop_down.dart';
+import 'package:movegui_admin_panel/widgets/picker/custom_drop_down.dart';
 import 'package:movegui_admin_panel/widgets/store_widget.dart';
 
 

@@ -158,6 +158,174 @@ abstract class AppLocalizations {
   /// **'Configuration dry Cleaner '**
   String get pressing_bar_title;
 
+  /// No description provided for @pressing_service_washing.
+  ///
+  /// In en, this message translates to:
+  /// **'Washing'**
+  String get pressing_service_washing;
+
+  /// No description provided for @pressing_service_dry_cleaning.
+  ///
+  /// In en, this message translates to:
+  /// **'Dry Cleaning'**
+  String get pressing_service_dry_cleaning;
+
+  /// No description provided for @pressing_service_ironing.
+  ///
+  /// In en, this message translates to:
+  /// **'Ironing'**
+  String get pressing_service_ironing;
+
+  /// No description provided for @pressing_service_laundry.
+  ///
+  /// In en, this message translates to:
+  /// **'Laundry '**
+  String get pressing_service_laundry;
+
+  /// No description provided for @pressing_service_folding.
+  ///
+  /// In en, this message translates to:
+  /// **'Folding'**
+  String get pressing_service_folding;
+
+  /// No description provided for @pressing_service_stain_removal.
+  ///
+  /// In en, this message translates to:
+  /// **'Stain Removal'**
+  String get pressing_service_stain_removal;
+
+  /// No description provided for @pressing_service_service_express.
+  ///
+  /// In en, this message translates to:
+  /// **'Service express'**
+  String get pressing_service_service_express;
+
+  /// No description provided for @pressing_service_home_laundry.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Laundry'**
+  String get pressing_service_home_laundry;
+
+  /// No description provided for @pressing_service_work_clothing.
+  ///
+  /// In en, this message translates to:
+  /// **'Care of Work Clothing'**
+  String get pressing_service_work_clothing;
+
+  /// No description provided for @pressing_service_delicate_fabrics.
+  ///
+  /// In en, this message translates to:
+  /// **'Care of Delicate Fabrics'**
+  String get pressing_service_delicate_fabrics;
+
+  /// No description provided for @pressing_service_washing_descrip.
+  ///
+  /// In en, this message translates to:
+  /// **'Washing clothes with water'**
+  String get pressing_service_washing_descrip;
+
+  /// No description provided for @pressing_service_dry_cleaning_descrip.
+  ///
+  /// In en, this message translates to:
+  /// **'Special cleaning for delicate fabrics'**
+  String get pressing_service_dry_cleaning_descrip;
+
+  /// No description provided for @pressing_service_ironing_descrip.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove wrinkles with an iron or a press'**
+  String get pressing_service_ironing_descrip;
+
+  /// No description provided for @pressing_service_laundry_descrip.
+  ///
+  /// In en, this message translates to:
+  /// **'Full-service laundry and dry cleaning'**
+  String get pressing_service_laundry_descrip;
+
+  /// No description provided for @pressing_service_folding_descrip.
+  ///
+  /// In en, this message translates to:
+  /// **'Clothes folded after washing'**
+  String get pressing_service_folding_descrip;
+
+  /// No description provided for @pressing_service_stain_removal_descrip.
+  ///
+  /// In en, this message translates to:
+  /// **'Stain removal'**
+  String get pressing_service_stain_removal_descrip;
+
+  /// No description provided for @pressing_service_service_express_descrip.
+  ///
+  /// In en, this message translates to:
+  /// **'Same-day express cleaning'**
+  String get pressing_service_service_express_descrip;
+
+  /// No description provided for @pressing_service_home_laundry_descrip.
+  ///
+  /// In en, this message translates to:
+  /// **'Sheets, blankets, curtains, etc...'**
+  String get pressing_service_home_laundry_descrip;
+
+  /// No description provided for @pressing_service_work_clothing_descrip.
+  ///
+  /// In en, this message translates to:
+  /// **'Uniforms, Suits, Work Clothes'**
+  String get pressing_service_work_clothing_descrip;
+
+  /// No description provided for @pressing_service_delicate_fabrics_descrip.
+  ///
+  /// In en, this message translates to:
+  /// **'Silk, Wool, Leather, Evening gowns, etc...'**
+  String get pressing_service_delicate_fabrics_descrip;
+
+  /// No description provided for @pressing_service_labelText.
+  ///
+  /// In en, this message translates to:
+  /// **'Product'**
+  String get pressing_service_labelText;
+
+  /// No description provided for @pressing_service_hinterText.
+  ///
+  /// In en, this message translates to:
+  /// **'Product Name'**
+  String get pressing_service_hinterText;
+
+  /// No description provided for @pressing_service_price_labelText.
+  ///
+  /// In en, this message translates to:
+  /// **'Price'**
+  String get pressing_service_price_labelText;
+
+  /// No description provided for @pressing_service_price_hinterText.
+  ///
+  /// In en, this message translates to:
+  /// **'Product Price'**
+  String get pressing_service_price_hinterText;
+
+  /// No description provided for @pressing_service_price_min_labelText.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum Price'**
+  String get pressing_service_price_min_labelText;
+
+  /// No description provided for @pressing_service_price_min_hinterText.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum Product Price'**
+  String get pressing_service_price_min_hinterText;
+
+  /// No description provided for @pressing_service_price_max_labelText.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum Price'**
+  String get pressing_service_price_max_labelText;
+
+  /// No description provided for @pressing_service_price_max_hinterText.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum Product Price'**
+  String get pressing_service_price_max_hinterText;
+
   /// No description provided for @restaurant_add_bar_title.
   ///
   /// In en, this message translates to:
@@ -344,11 +512,11 @@ abstract class AppLocalizations {
   /// **'Login failed'**
   String get error_login_message;
 
-  /// No description provided for @error_register_with_phone_title.
+  /// No description provided for @error_register_title.
   ///
   /// In en, this message translates to:
   /// **'Registration Error'**
-  String get error_register_with_phone_title;
+  String get error_register_title;
 
   /// No description provided for @error_register_with_phone_message.
   ///
@@ -379,6 +547,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'An error Occured'**
   String get error_occur;
+
+  /// No description provided for @error_send_formular.
+  ///
+  /// In en, this message translates to:
+  /// **'Please Complete the formular '**
+  String get error_send_formular;
 
   /// No description provided for @label_login_facebook.
   ///
@@ -415,6 +589,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add a Contact'**
   String get btn_add_contact;
+
+  /// No description provided for @btn_add_pressing_service.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a Service'**
+  String get btn_add_pressing_service;
 
   /// No description provided for @verify_otp.
   ///
@@ -961,6 +1141,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add a new Contact'**
   String get tooltip_btn_add_contact;
+
+  /// No description provided for @tooltip_btn_add_pressing_service.
+  ///
+  /// In en, this message translates to:
+  /// **'Ajouter new Service'**
+  String get tooltip_btn_add_pressing_service;
 
   /// No description provided for @profile_menu_invite_people.
   ///

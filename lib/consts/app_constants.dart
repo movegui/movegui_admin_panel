@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
+import 'package:movegui_admin_panel/models/pressing/pressing_service_type_model.dart';
 
 import '../services/assets_manager.dart';
 
@@ -23,10 +24,107 @@ class AppConstants {
     "Samdei",
     "Dimanche",
   ];
+
+  static List<PressingServiceTypeModel> getPressingServices(
+    BuildContext context,
+  )  {
+    return [
+      PressingServiceTypeModel(
+        id: '001',
+        name: AppLocalizations.of(context)!.pressing_service_delicate_fabrics,
+        description: AppLocalizations.of(
+          context,
+        )!.pressing_service_delicate_fabrics_descrip,
+        pricingType: PricingType.fixed.name,
+        createdAt: DateTime.now(),
+      ),
+      PressingServiceTypeModel(
+        id: '002',
+        name: AppLocalizations.of(context)!.pressing_service_folding,
+        description: AppLocalizations.of(
+          context,
+        )!.pressing_service_folding_descrip,
+        pricingType: PricingType.fixed.name,
+        createdAt: DateTime.now(),
+      ),
+      PressingServiceTypeModel(
+        id: '003',
+        name: AppLocalizations.of(context)!.pressing_service_dry_cleaning,
+        description: AppLocalizations.of(
+          context,
+        )!.pressing_service_dry_cleaning_descrip,
+        pricingType: PricingType.fixed.name,
+        createdAt: DateTime.now(),
+      ),
+      PressingServiceTypeModel(
+        id: '004',
+        name: AppLocalizations.of(context)!.pressing_service_home_laundry,
+        description: AppLocalizations.of(
+          context,
+        )!.pressing_service_home_laundry_descrip,
+        pricingType: PricingType.fixed.name,
+        createdAt: DateTime.now(),
+      ),
+      PressingServiceTypeModel(
+        id: '005',
+        name: AppLocalizations.of(context)!.pressing_service_ironing,
+        description: AppLocalizations.of(
+          context,
+        )!.pressing_service_ironing_descrip,
+        pricingType: PricingType.fixed.name,
+        createdAt: DateTime.now(),
+      ),
+      PressingServiceTypeModel(
+        id: '006',
+        name: AppLocalizations.of(context)!.pressing_service_laundry,
+        description: AppLocalizations.of(
+          context,
+        )!.pressing_service_laundry_descrip,
+        pricingType: PricingType.fixed.name,
+        createdAt: DateTime.now(),
+      ),
+      PressingServiceTypeModel(
+        id: '007',
+        name: AppLocalizations.of(context)!.pressing_service_service_express,
+        description: AppLocalizations.of(
+          context,
+        )!.pressing_service_service_express_descrip,
+        pricingType: PricingType.fixed.name,
+        createdAt: DateTime.now(),
+      ),
+      PressingServiceTypeModel(
+        id: '008',
+        name: AppLocalizations.of(context)!.pressing_service_stain_removal,
+        description: AppLocalizations.of(
+          context,
+        )!.pressing_service_stain_removal_descrip,
+        pricingType: PricingType.fixed.name,
+        createdAt: DateTime.now(),
+      ),
+      PressingServiceTypeModel(
+        id: '009',
+        name: AppLocalizations.of(context)!.pressing_service_washing,
+        description: AppLocalizations.of(
+          context,
+        )!.pressing_service_washing_descrip,
+        pricingType: PricingType.fixed.name,
+        createdAt: DateTime.now(),
+      ),
+      PressingServiceTypeModel(
+        id: '010',
+        name: AppLocalizations.of(context)!.pressing_service_washing,
+        description: AppLocalizations.of(
+
+          context,
+        )!.pressing_service_washing_descrip,
+        pricingType: PricingType.fixed.name,
+        createdAt: DateTime.now(),
+      ),
+    ];
+  }
 }
 
 abstract class StoreConstants extends ImageConstatnt {
-
   String getNameLabelText(BuildContext context);
   String getNameHinterText(BuildContext context);
   String getDescripLabelText(BuildContext context);
@@ -54,11 +152,11 @@ class ImageConstatnt {
 }
 
 class RestaurantConstants extends StoreConstants {
-
   @override
   String getAdressHinterText(BuildContext context) {
-
-    return AppLocalizations.of(context)!.store_adress_hinter_text(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_adress_hinter_text(getStoreCategory(context));
   }
 
   @override
@@ -68,7 +166,9 @@ class RestaurantConstants extends StoreConstants {
 
   @override
   String getDescripHinterText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_description_hinter_text(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_description_hinter_text(getStoreCategory(context));
   }
 
   @override
@@ -78,7 +178,9 @@ class RestaurantConstants extends StoreConstants {
 
   @override
   String getEmailHinterText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_email_hinter_text(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_email_hinter_text(getStoreCategory(context));
   }
 
   @override
@@ -88,7 +190,9 @@ class RestaurantConstants extends StoreConstants {
 
   @override
   String getNameHinterText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_name_hinter_text(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_name_hinter_text(getStoreCategory(context));
   }
 
   @override
@@ -98,7 +202,9 @@ class RestaurantConstants extends StoreConstants {
 
   @override
   String getPhoneHinterText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_phone_hinter_text(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_phone_hinter_text(getStoreCategory(context));
   }
 
   @override
@@ -108,7 +214,9 @@ class RestaurantConstants extends StoreConstants {
 
   @override
   String getSaveSuccessText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_add_success_message(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_add_success_message(getStoreCategory(context));
   }
 
   @override
@@ -118,9 +226,11 @@ class RestaurantConstants extends StoreConstants {
 
   @override
   String getMenuTitleText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_bar_title(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_bar_title(getStoreCategory(context));
   }
-  
+
   @override
   String getStoreCategory(BuildContext context) {
     return AppLocalizations.of(context)!.category_restaurant_name;
@@ -128,12 +238,11 @@ class RestaurantConstants extends StoreConstants {
 }
 
 class ProfessionConstants extends StoreConstants {
-
-
   @override
   String getAdressHinterText(BuildContext context) {
-
-    return AppLocalizations.of(context)!.store_adress_hinter_text(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_adress_hinter_text(getStoreCategory(context));
   }
 
   @override
@@ -143,7 +252,9 @@ class ProfessionConstants extends StoreConstants {
 
   @override
   String getDescripHinterText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_description_hinter_text(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_description_hinter_text(getStoreCategory(context));
   }
 
   @override
@@ -153,7 +264,9 @@ class ProfessionConstants extends StoreConstants {
 
   @override
   String getEmailHinterText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_email_hinter_text(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_email_hinter_text(getStoreCategory(context));
   }
 
   @override
@@ -163,7 +276,9 @@ class ProfessionConstants extends StoreConstants {
 
   @override
   String getNameHinterText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_name_hinter_text(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_name_hinter_text(getStoreCategory(context));
   }
 
   @override
@@ -173,7 +288,9 @@ class ProfessionConstants extends StoreConstants {
 
   @override
   String getPhoneHinterText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_phone_hinter_text(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_phone_hinter_text(getStoreCategory(context));
   }
 
   @override
@@ -183,7 +300,9 @@ class ProfessionConstants extends StoreConstants {
 
   @override
   String getSaveSuccessText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_add_success_message(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_add_success_message(getStoreCategory(context));
   }
 
   @override
@@ -193,9 +312,11 @@ class ProfessionConstants extends StoreConstants {
 
   @override
   String getMenuTitleText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_bar_title(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_bar_title(getStoreCategory(context));
   }
-  
+
   @override
   String getStoreCategory(BuildContext context) {
     return AppLocalizations.of(context)!.category_profession_name;
@@ -203,11 +324,11 @@ class ProfessionConstants extends StoreConstants {
 }
 
 class PatisserieConstants extends StoreConstants {
- 
   @override
   String getAdressHinterText(BuildContext context) {
-
-    return AppLocalizations.of(context)!.store_adress_hinter_text(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_adress_hinter_text(getStoreCategory(context));
   }
 
   @override
@@ -217,7 +338,9 @@ class PatisserieConstants extends StoreConstants {
 
   @override
   String getDescripHinterText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_description_hinter_text(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_description_hinter_text(getStoreCategory(context));
   }
 
   @override
@@ -227,7 +350,9 @@ class PatisserieConstants extends StoreConstants {
 
   @override
   String getEmailHinterText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_email_hinter_text(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_email_hinter_text(getStoreCategory(context));
   }
 
   @override
@@ -237,7 +362,9 @@ class PatisserieConstants extends StoreConstants {
 
   @override
   String getNameHinterText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_name_hinter_text(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_name_hinter_text(getStoreCategory(context));
   }
 
   @override
@@ -247,7 +374,9 @@ class PatisserieConstants extends StoreConstants {
 
   @override
   String getPhoneHinterText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_phone_hinter_text(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_phone_hinter_text(getStoreCategory(context));
   }
 
   @override
@@ -257,7 +386,9 @@ class PatisserieConstants extends StoreConstants {
 
   @override
   String getSaveSuccessText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_add_success_message(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_add_success_message(getStoreCategory(context));
   }
 
   @override
@@ -267,9 +398,11 @@ class PatisserieConstants extends StoreConstants {
 
   @override
   String getMenuTitleText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_bar_title(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_bar_title(getStoreCategory(context));
   }
-  
+
   @override
   String getStoreCategory(BuildContext context) {
     return AppLocalizations.of(context)!.category_pastry_name;
@@ -277,11 +410,11 @@ class PatisserieConstants extends StoreConstants {
 }
 
 class PressingConstants extends StoreConstants {
- 
   @override
   String getAdressHinterText(BuildContext context) {
-
-    return AppLocalizations.of(context)!.store_adress_hinter_text(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_adress_hinter_text(getStoreCategory(context));
   }
 
   @override
@@ -291,7 +424,9 @@ class PressingConstants extends StoreConstants {
 
   @override
   String getDescripHinterText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_description_hinter_text(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_description_hinter_text(getStoreCategory(context));
   }
 
   @override
@@ -301,7 +436,9 @@ class PressingConstants extends StoreConstants {
 
   @override
   String getEmailHinterText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_email_hinter_text(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_email_hinter_text(getStoreCategory(context));
   }
 
   @override
@@ -311,7 +448,9 @@ class PressingConstants extends StoreConstants {
 
   @override
   String getNameHinterText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_name_hinter_text(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_name_hinter_text(getStoreCategory(context));
   }
 
   @override
@@ -321,7 +460,9 @@ class PressingConstants extends StoreConstants {
 
   @override
   String getPhoneHinterText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_phone_hinter_text(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_phone_hinter_text(getStoreCategory(context));
   }
 
   @override
@@ -331,7 +472,9 @@ class PressingConstants extends StoreConstants {
 
   @override
   String getSaveSuccessText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_add_success_message(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_add_success_message(getStoreCategory(context));
   }
 
   @override
@@ -341,9 +484,11 @@ class PressingConstants extends StoreConstants {
 
   @override
   String getMenuTitleText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_bar_title(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_bar_title(getStoreCategory(context));
   }
-  
+
   @override
   String getStoreCategory(BuildContext context) {
     return AppLocalizations.of(context)!.category_pressing_name;
@@ -351,11 +496,11 @@ class PressingConstants extends StoreConstants {
 }
 
 class SuperMarktConstants extends StoreConstants {
- 
   @override
   String getAdressHinterText(BuildContext context) {
-
-    return AppLocalizations.of(context)!.store_adress_hinter_text(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_adress_hinter_text(getStoreCategory(context));
   }
 
   @override
@@ -365,7 +510,9 @@ class SuperMarktConstants extends StoreConstants {
 
   @override
   String getDescripHinterText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_description_hinter_text(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_description_hinter_text(getStoreCategory(context));
   }
 
   @override
@@ -375,7 +522,9 @@ class SuperMarktConstants extends StoreConstants {
 
   @override
   String getEmailHinterText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_email_hinter_text(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_email_hinter_text(getStoreCategory(context));
   }
 
   @override
@@ -385,7 +534,9 @@ class SuperMarktConstants extends StoreConstants {
 
   @override
   String getNameHinterText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_name_hinter_text(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_name_hinter_text(getStoreCategory(context));
   }
 
   @override
@@ -395,7 +546,9 @@ class SuperMarktConstants extends StoreConstants {
 
   @override
   String getPhoneHinterText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_phone_hinter_text(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_phone_hinter_text(getStoreCategory(context));
   }
 
   @override
@@ -405,7 +558,9 @@ class SuperMarktConstants extends StoreConstants {
 
   @override
   String getSaveSuccessText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_add_success_message(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_add_success_message(getStoreCategory(context));
   }
 
   @override
@@ -415,9 +570,11 @@ class SuperMarktConstants extends StoreConstants {
 
   @override
   String getMenuTitleText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_bar_title(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_bar_title(getStoreCategory(context));
   }
-  
+
   @override
   String getStoreCategory(BuildContext context) {
     return AppLocalizations.of(context)!.category_super_market_name;
@@ -425,11 +582,11 @@ class SuperMarktConstants extends StoreConstants {
 }
 
 class SupplierConstants extends StoreConstants {
-  
   @override
   String getAdressHinterText(BuildContext context) {
-
-    return AppLocalizations.of(context)!.store_adress_hinter_text(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_adress_hinter_text(getStoreCategory(context));
   }
 
   @override
@@ -439,7 +596,9 @@ class SupplierConstants extends StoreConstants {
 
   @override
   String getDescripHinterText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_description_hinter_text(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_description_hinter_text(getStoreCategory(context));
   }
 
   @override
@@ -449,7 +608,9 @@ class SupplierConstants extends StoreConstants {
 
   @override
   String getEmailHinterText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_email_hinter_text(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_email_hinter_text(getStoreCategory(context));
   }
 
   @override
@@ -459,7 +620,9 @@ class SupplierConstants extends StoreConstants {
 
   @override
   String getNameHinterText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_name_hinter_text(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_name_hinter_text(getStoreCategory(context));
   }
 
   @override
@@ -469,7 +632,9 @@ class SupplierConstants extends StoreConstants {
 
   @override
   String getPhoneHinterText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_phone_hinter_text(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_phone_hinter_text(getStoreCategory(context));
   }
 
   @override
@@ -479,7 +644,9 @@ class SupplierConstants extends StoreConstants {
 
   @override
   String getSaveSuccessText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_add_success_message(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_add_success_message(getStoreCategory(context));
   }
 
   @override
@@ -489,9 +656,11 @@ class SupplierConstants extends StoreConstants {
 
   @override
   String getMenuTitleText(BuildContext context) {
-    return AppLocalizations.of(context)!.store_bar_title(getStoreCategory(context));
+    return AppLocalizations.of(
+      context,
+    )!.store_bar_title(getStoreCategory(context));
   }
-  
+
   @override
   String getStoreCategory(BuildContext context) {
     return AppLocalizations.of(context)!.category_supplier_name;

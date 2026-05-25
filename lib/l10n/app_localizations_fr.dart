@@ -39,6 +39,101 @@ class AppLocalizationsFr extends AppLocalizations {
   String get pressing_bar_title => 'Configuration Pressing';
 
   @override
+  String get pressing_service_washing => 'Lavage';
+
+  @override
+  String get pressing_service_dry_cleaning => 'Nettoyage à sec';
+
+  @override
+  String get pressing_service_ironing => 'Repassage';
+
+  @override
+  String get pressing_service_laundry => 'Blanchisserie';
+
+  @override
+  String get pressing_service_folding => 'Pliage';
+
+  @override
+  String get pressing_service_stain_removal => 'Détachage';
+
+  @override
+  String get pressing_service_service_express => 'Service express';
+
+  @override
+  String get pressing_service_home_laundry => 'Nettoyage du linge de maison';
+
+  @override
+  String get pressing_service_work_clothing =>
+      'Entretien des vêtements professionnels';
+
+  @override
+  String get pressing_service_delicate_fabrics =>
+      'Traitement des textiles délicats';
+
+  @override
+  String get pressing_service_washing_descrip =>
+      'Nettoyage des vêtements à l’eau';
+
+  @override
+  String get pressing_service_dry_cleaning_descrip =>
+      'Nettoyage spécial pour tissus délicats';
+
+  @override
+  String get pressing_service_ironing_descrip =>
+      ' Enlever les plis avec un fer ou une presse';
+
+  @override
+  String get pressing_service_laundry_descrip =>
+      'Service complet de lavage et séchage';
+
+  @override
+  String get pressing_service_folding_descrip =>
+      ' Vêtements pliés après lavage';
+
+  @override
+  String get pressing_service_stain_removal_descrip => 'Enlèvement des taches';
+
+  @override
+  String get pressing_service_service_express_descrip =>
+      'Nettoyage rapide le jour même';
+
+  @override
+  String get pressing_service_home_laundry_descrip =>
+      'Draps, Couvertures, Rideaux, etc...';
+
+  @override
+  String get pressing_service_work_clothing_descrip =>
+      'Uniformes, Costumes, Vêtements de travail';
+
+  @override
+  String get pressing_service_delicate_fabrics_descrip =>
+      'Soie, Laine, Cuir, Robes de soirée, etc...';
+
+  @override
+  String get pressing_service_labelText => 'Produit';
+
+  @override
+  String get pressing_service_hinterText => 'Nom du Produit';
+
+  @override
+  String get pressing_service_price_labelText => 'Prix';
+
+  @override
+  String get pressing_service_price_hinterText => 'Prix du produit';
+
+  @override
+  String get pressing_service_price_min_labelText => 'Prix Minimum';
+
+  @override
+  String get pressing_service_price_min_hinterText => 'Prix Minimum du produit';
+
+  @override
+  String get pressing_service_price_max_labelText => 'Prix Maximum';
+
+  @override
+  String get pressing_service_price_max_hinterText => 'Prix Maximum du produit';
+
+  @override
   String get restaurant_add_bar_title => 'Ajouter un Restaurant';
 
   @override
@@ -158,7 +253,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get error_login_message => 'Échec de la connexion';
 
   @override
-  String get error_register_with_phone_title => 'Erreur d\'enregistrement';
+  String get error_register_title => 'Erreur d\'enregistrement';
 
   @override
   String get error_register_with_phone_message =>
@@ -178,6 +273,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get error_occur => 'Une erreur s\'est produite';
 
   @override
+  String get error_send_formular => 'Veuillez Remplir le formulaire svp';
+
+  @override
   String get label_login_facebook => 'Facebook';
 
   @override
@@ -194,6 +292,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get btn_add_contact => 'Ajouter un Contact';
+
+  @override
+  String get btn_add_pressing_service => 'Ajouter un Service';
 
   @override
   String get verify_otp => 'Envoyer Code';
@@ -473,6 +574,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get tooltip_btn_add_contact => 'Ajouter un Nouveau Contact de plus';
+
+  @override
+  String get tooltip_btn_add_pressing_service => 'Ajouter un service de plus';
 
   @override
   String get profile_menu_invite_people => 'Inviter un proche';

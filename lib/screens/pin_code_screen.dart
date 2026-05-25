@@ -4,7 +4,7 @@ import 'package:movegui_admin_panel/screens/dashboard_screen.dart';
 import '../methods/show_error_alert.dart';
 import 'package:universal_html/html.dart' as html;
 import '../responsive.dart';
-import '../widgets/custom_text_field.dart';
+import '../widgets/input/custom_text_field.dart';
 import 'main_screen.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {

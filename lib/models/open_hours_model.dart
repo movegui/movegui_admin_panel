@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/consts/app_constants.dart';
 
-class OpenHours {
+class OpenHoursModel {
   final String day; // e.g., "Monday"
   TimeOfDay? openTime;
   TimeOfDay? closeTime;
   bool isClosed;
 
-  OpenHours({
+  OpenHoursModel({
     required this.day,
     this.openTime,
     this.closeTime,
@@ -25,7 +25,7 @@ class OpenHours {
         'minute': time.minute,
       };
 
-  factory OpenHours.fromJson(Map<String, dynamic> json) => OpenHours(
+  factory OpenHoursModel.fromJson(Map<String, dynamic> json) => OpenHoursModel(
         day: json['day'] ?? '',
         openTime: json['openTime'] != null ? _timeOfDayFromJson(json['openTime']) : null,
         closeTime: json['closeTime'] != null ?  _timeOfDayFromJson(json['closeTime']) : null,
@@ -71,10 +71,10 @@ class Schedule {
     required this.defaultClose,
   });
 
-  List<OpenHours> get weeklyHours {
+  List<OpenHoursModel> get weeklyHours {
     return AppConstants.daysOfWeek.map((day) {
       bool isClosed = closedDays.contains(day);
-      return OpenHours(
+      return OpenHoursModel(
         day: day,
         openTime: isClosed ? null : defaultOpen,
         closeTime: isClosed ? null : defaultClose,

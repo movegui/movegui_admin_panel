@@ -27,6 +27,7 @@ import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
 import 'package:movegui_admin_panel/services/my_app_functions.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/user_service.dart';
+import 'package:movegui_admin_panel/util/person_form_controller.dart';
 import 'package:movegui_admin_panel/widgets/add_person_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/auth/validation_button.dart';
 import 'package:movegui_admin_panel/widgets/app/separator_widget.dart';
@@ -44,24 +45,14 @@ class RegisterEmailPage extends ConsumerStatefulWidget {
 
 class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
   bool obscureText = true;
-  late final TextEditingController _emailController,
-      _passwordController,
-      _repeatPasswordController,
-      firstNameController,
-      lastNameController,
-      middleNameController,
-      adresseController,
-      telephonController,
-      quartierController,
-      longitudeController,
-      latitudeController;
+  late PersonFormController formController;
+  final GlobalKey<FormState> addAddressKey = GlobalKey();
+  final GlobalKey<FormState> addPersonKey = GlobalKey();
 
-  String? selectAdresseType;
-  String? selectCommune;
+  late final TextEditingController _passwordController,
+      _repeatPasswordController;
 
-  late final FocusNode _emailFocusNode,
-      _passwordFocusNode,
-      _repeatPasswordFocusNode;
+  late final FocusNode _passwordFocusNode, _repeatPasswordFocusNode;
 
   final _formkey = GlobalKey<FormState>();
   final _personFormkey = GlobalKey<FormState>();
@@ -78,20 +69,11 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
 
   @override
   void initState() {
-    _emailController = TextEditingController();
     _passwordController = TextEditingController();
     _repeatPasswordController = TextEditingController();
-    firstNameController = TextEditingController();
-    lastNameController = TextEditingController();
-    middleNameController = TextEditingController();
-    adresseController = TextEditingController();
-    telephonController = TextEditingController();
-    quartierController = TextEditingController();
-    longitudeController = TextEditingController();
-    latitudeController = TextEditingController();
-    _emailFocusNode = FocusNode();
     _passwordFocusNode = FocusNode();
     _repeatPasswordFocusNode = FocusNode();
+
     userService = getIt<UserService>();
     addressService = getIt<AddressService>();
     webImage = null;
@@ -99,8 +81,7 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
     imageConstatnt = ImageConstatnt();
     selectedGender = 'm';
     birthDate = null;
-    selectAdresseType = 'h';
-    selectCommune = 'di';
+
     try {
       auth = FirebaseAuth.instance;
     } catch (e) {
@@ -118,12 +99,11 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
   @override
   void dispose() {
     if (mounted) {
-      _emailController.dispose();
       _passwordController.dispose();
       _repeatPasswordController.dispose();
-      _emailFocusNode.dispose();
       _passwordFocusNode.dispose();
       _repeatPasswordFocusNode.dispose();
+      formController.dispose();
     }
     super.dispose();
   }
@@ -153,40 +133,48 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
                 await userService.isAdmin(context, ref);
             if (isAuthorize) {
               final addressModel = AdressModel(
-                address: adresseController.text.trim(),
+                address: formController.addressesForms[0].address.text.trim(),
                 id: Uuid().v4(),
-                name: selectAdresseType!,
+                name: formController.addressesForms[0].selectedType,
                 createdAt: DateTime.now(),
-                quartier: quartierController.text,
-                commune: selectCommune,
+                district: formController.addressesForms[0].district.text.trim(),
+                minucipality: formController.addressesForms[0].selectedMunicipality,
               );
-              GeoCordinatesModel? geoCoord = await addressService.getCoordinates(
-                addressModel.getMapAddress(),
-              );
+              GeoCordinatesModel? geoCoord = await addressService
+                  .getCoordinates(addressModel.getMapAddress());
               // ignore: prefer_conditional_assignment
-              if(geoCoord == null) geoCoord = GeoCordinatesModel(longitude: double.parse(longitudeController.text.trim()), latitude: double.parse(latitudeController.text.trim()));
+              if (geoCoord == null) {
+                geoCoord = GeoCordinatesModel(
+                  longitude: double.parse(
+                    formController.addressesForms[0].longitude.text.trim(),
+                  ),
+                  latitude: double.parse(
+                    formController.addressesForms[0].latitude.text.trim(),
+                  ),
+                );
+              }
               final adminUser = await userService.createUser(
-                _emailController.text.trim(),
+                formController.email.text.trim(),
                 _passwordController.text.trim(),
                 widget.role.name,
-                firstNameController.text.trim(),
-                lastNameController.text.trim(),
+                formController.firstName.text.trim(),
+                formController.lastName.text.trim(),
                 [
                   AdressModel(
-                    address: adresseController.text.trim(),
+                    address: formController.addressesForms[0].address.text.trim(),
                     id: Uuid().v4(),
-                    name: selectAdresseType!,
+                    name: formController.addressesForms[0].selectedType,
                     createdAt: DateTime.now(),
-                    quartier: quartierController.text.trim(),
-                    commune: selectCommune,
+                    district: formController.addressesForms[0].district.text.trim(),
+                    minucipality: formController.addressesForms[0].selectedMunicipality,
                     geoCordinates: geoCoord,
                     zoneId:
-                        '$selectCommune _ ${quartierController.text.trim()} _ ${adresseController.text.trim()}',
+                        '${formController.addressesForms[0].selectedMunicipality} _ ${formController.addressesForms[0].district.text.trim()} _ ${formController.addressesForms[0].address.text.trim()}',
                   ),
                 ],
-                telephonController.text.trim(),
-                selectedGender!,
-                birthDate!,
+                formController.phone.text.trim(),
+                formController.gender!,
+                formController.birthdate!,
               );
               if (adminUser != null) {
                 await userService.addModel(adminUser);
@@ -210,7 +198,7 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
                 FirebaseAuth.instance.currentUser?.delete();
                 MessageWidget.errorMessage(
                   context,
-                  AppLocalizations.of(context)!.error_register_with_phone_title,
+                  AppLocalizations.of(context)!.error_register_title,
                   AppLocalizations.of(
                     context,
                   )!.error_register_with_email_message,
@@ -223,7 +211,7 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
             print(e);
             MessageWidget.errorMessage(
               context,
-              AppLocalizations.of(context)!.error_register_with_phone_title,
+              AppLocalizations.of(context)!.error_register_title,
               AppLocalizations.of(context)!.error_register_with_email_message,
               Icon(Icons.error, color: AppColors.error),
               FlushbarPosition.TOP,
@@ -253,8 +241,8 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextFormField(
-              controller: _emailController,
-              focusNode: _emailFocusNode,
+              controller: formController.email,
+              focusNode: formController.emailFocusNode,
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
@@ -270,7 +258,6 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
               validator: (value) {
                 return MyValidators.emailValidator(value);
               },
-          
             ),
 
             const SizedBox(height: 8.0),
@@ -282,13 +269,7 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
             ),
 
             AddPersonWidget(
-              firstNameController: firstNameController,
-              lastNameController: lastNameController,
-              middleNameController: middleNameController,
-              adresseController: adresseController,
-              telephonController: telephonController,
-              emailController: _emailController,
-              formKey: _personFormkey,
+              //  formKey: _personFormkey,
               onBirthDateChanged: (value) {
                 setState(() {
                   birthDate = value;
@@ -299,9 +280,7 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
                   selectedGender = value;
                 });
               },
-              selectedGender: selectedGender,
-              webImage: webImage,
-              pickedImage: pickedImage,
+
               onPickImage: onPickImage,
               onRemoveImage: () {
                 setState(() {
@@ -310,22 +289,22 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
                 });
               },
               showBild: false,
-              adresseType: selectAdresseType,
               onAdressTypeChange: (String? addressType) {
                 setState(() {
-                  selectAdresseType = addressType;
+                  formController.addressesForms[0].selectedType = addressType!;
                 });
               },
-              quartierController: quartierController,
-              commune: selectCommune,
+
               onCommuneChange: (String? value) {
                 setState(() {
-                  selectCommune = value;
+                  formController.addressesForms[0].selectedMunicipality = value!;
                 });
               },
-              longitudeController: longitudeController,
-              latitudeController: latitudeController,
-              textColor: AppColors.backgroundColor
+
+              textColor: AppColors.backgroundColor,
+              personForm: formController,
+              personKey: addPersonKey,
+              addAddressKey: addAddressKey,
             ),
 
             Responsive.isDesktop(context)

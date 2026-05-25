@@ -5,8 +5,8 @@ class AdressModel extends Model {
   final GeoCordinatesModel? geoCordinates;
   final String? zoneId;
   final String address;
-  final String? quartier;
-  final String? commune;
+  final String? district;
+  final String? minucipality;
   final int? zipCode;
   final String? ville;
   final String? pays;
@@ -17,8 +17,8 @@ class AdressModel extends Model {
     required super.id,
     required super.name,
     required super.createdAt,
-    required this.quartier,
-    required this.commune,
+    required this.district,
+    required this.minucipality,
     this.zipCode = 00000,
     this.ville = 'Conakry',
     this.pays = 'Guinee',
@@ -30,8 +30,8 @@ class AdressModel extends Model {
     'geoCordinates': geoCordinates?.toJson(),
     'zoneId': zoneId,
     'address': address,
-    'quartier': quartier,
-    'commune': commune,
+    'district': district,
+    'minucipality': minucipality,
     'zipCode': zipCode,
     'ville': ville,
     'pays': pays,
@@ -45,14 +45,14 @@ class AdressModel extends Model {
         : DateTime.now(),
     geoCordinates: json['geoCordinates'] != null ? GeoCordinatesModel.fromJson(json['geoCordinates']) : null,
     address: json['adress'] ?? '',
-    quartier: json['quartier'] ?? '',
-    commune: json['commune'] ?? '',
+    district: json['district'] ?? '',
+    minucipality: json['minucipality'] ?? '',
     zipCode: json['zipCode'] ?? '',
     ville: json['ville'] ?? '',
     pays: json['pays'] ?? '',
   );
 
   String getMapAddress(){
-    return '$address , $quartier, $commune, $ville, $pays';
+    return '$address , $district, $minucipality, $ville, $pays';
   }
 }

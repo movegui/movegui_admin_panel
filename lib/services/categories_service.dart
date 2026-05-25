@@ -8,11 +8,12 @@ abstract class CategoriesService<M extends CategoriesModel> extends ModelService
 
 
   @override
-  Future<void> addModel(M model) async {
+  Future<M> addModel(M model) async {
     await FirebaseFirestore.instance
           .collection(getCollectionName())
           .doc(model.id)
           .set(model.toJson());
+        return model;
   }
 
   /*

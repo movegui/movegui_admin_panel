@@ -7,11 +7,12 @@ class SuppliersService extends ModelService<SupplierModel>{
 
 
   @override
-  Future<void> addModel(SupplierModel model) async {
+  Future<SupplierModel> addModel(SupplierModel model) async {
         await FirebaseFirestore.instance
           .collection(getCollectionName())
           .doc(model.id)
           .set(model.toJson());
+        return model;
   }
 
   @override
