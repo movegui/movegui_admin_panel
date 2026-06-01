@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/person_model.dart';
 import 'package:movegui_admin_panel/util/address_form_controller.dart';
 import 'package:movegui_admin_panel/util/form_controller.dart';
@@ -50,7 +49,6 @@ class PersonFormController extends FormController<PersonModel> {
 
   @override
   Future<void> setData(PersonModel model) async {
-    print('in ther person');
     firstName.text = model.firstName;
     lastName.text = model.lastName;
     middleName.text = model.middleName ?? '';

@@ -10,8 +10,9 @@ import 'package:movegui_admin_panel/models/pressing/pressing_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_type_model.dart';
 import 'package:movegui_admin_panel/models/restaurant_model.dart';
-import 'package:movegui_admin_panel/models/store_model.dart';
+import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/services/api_service.dart';
+import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
 import 'package:uuid/uuid.dart';
 
 class SeedService {
@@ -20,26 +21,6 @@ class SeedService {
   final Faker faker;
 
   SeedService({required this.api, required this.faker});
-
-  /*
-  Future<void> generateUsers(int count) async {
-    final faker = Faker();
-
-    for (int i = 0; i < count; i++) {
-      final user = {
-        'name': faker.person.name(),
-        'email': faker.internet.email(),
-        'phone': faker.phoneNumber.us(),
-        'address': faker.address.streetAddress(),
-        'createdAt': Timestamp.now(),
-        'isPremium': faker.randomGenerator.boolean(),
-        'age': faker.randomGenerator.integer(60, min: 18),
-      };
-
-      await firestore.collection('users').add(user);
-    }
-  }
-  */
 
   Future<PressingModel> generatePressing() async => PressingModel(
     id: Uuid().v4(),
@@ -58,32 +39,41 @@ class SeedService {
         latitude: faker.geo.latitude(),
       ),
     ),
-    contacts: [
-      PersonModel(
+    staff: [
+      UserModel(
+        updatedAt: DateTime.now(),
         id: Uuid().v4(),
-        name: faker.person.name(),
+        name: '',
         createdAt: DateTime.now(),
-        firstName: faker.person.firstName(),
-        lastName: faker.person.lastName(),
-        profileImageUrl: faker.image.toString(),
-        email: faker.internet.email(),
-        phone: faker.phoneNumber.de(),
-        gender: 'm',
-        birthDate: faker.date.dateTime(),
-        addresses: [
-          AdressModel(
-            address: faker.address.streetName(),
-            id: Uuid().v4(),
-            name: faker.address.streetAddress(),
-            createdAt: DateTime.now(),
-            district: faker.address.city(),
-            minucipality: faker.address.city(),
-            geoCordinates: GeoCordinatesModel(
-              longitude: faker.geo.longitude(),
-              latitude: faker.geo.latitude(),
+        username: null,
+        isVerified: false,
+        role: UserRole.Guest.name,
+        personModel: PersonModel(
+          id: Uuid().v4(),
+          name: faker.person.name(),
+          createdAt: DateTime.now(),
+          firstName: faker.person.firstName(),
+          lastName: faker.person.lastName(),
+          profileImageUrl: faker.image.toString(),
+          email: faker.internet.email(),
+          phone: faker.phoneNumber.de(),
+          gender: 'm',
+          birthDate: faker.date.dateTime(),
+          addresses: [
+            AdressModel(
+              address: faker.address.streetName(),
+              id: Uuid().v4(),
+              name: faker.address.streetAddress(),
+              createdAt: DateTime.now(),
+              district: faker.address.city(),
+              minucipality: faker.address.city(),
+              geoCordinates: GeoCordinatesModel(
+                longitude: faker.geo.longitude(),
+                latitude: faker.geo.latitude(),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     ],
     email: faker.internet.email(),
@@ -126,4 +116,31 @@ class SeedService {
         name: faker.food.restaurant(),
         createdAt: DateTime.now(),
       );
+
+      Future<PersonModel> getGeneratedPerson() async => PersonModel(
+          id: Uuid().v4(),
+          name: faker.person.name(),
+          createdAt: DateTime.now(),
+          firstName: faker.person.firstName(),
+          lastName: faker.person.lastName(),
+          profileImageUrl: faker.image.toString(),
+          email: faker.internet.email(),
+          phone: faker.phoneNumber.de(),
+          gender: 'm',
+          birthDate: faker.date.dateTime(),
+          addresses: [
+            AdressModel(
+              address: faker.address.streetName(),
+              id: Uuid().v4(),
+              name: faker.address.streetAddress(),
+              createdAt: DateTime.now(),
+              district: faker.address.city(),
+              minucipality: faker.address.city(),
+              geoCordinates: GeoCordinatesModel(
+                longitude: faker.geo.longitude(),
+                latitude: faker.geo.latitude(),
+              ),
+            ),
+          ],
+        );
 }

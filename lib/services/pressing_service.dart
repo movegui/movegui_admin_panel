@@ -57,4 +57,14 @@ class PressingService extends ModelService<PressingModel> {
     }
     return pressing;
   }
+  
+  @override
+  Future<PressingModel> getModelById(String id) async {
+    final snapshot =  await FirebaseFirestore.instance
+          .collection(getCollectionName())
+          .doc(id)
+          .get();
+    return PressingModel.fromJson(snapshot.data()!);
+          
+  }
 }

@@ -11,7 +11,6 @@ class PressingFormService extends FormService<PressingModel> {
   Future<List<PressingServiceModel>> getServices(
     List<PressingServiceFormController> formControllers,
   ) async {
-    print('service type: ${formControllers[0].estimatedDuration.toString()}');
     return Future.wait(
       formControllers.map((controller) async {
         return PressingServiceModel(

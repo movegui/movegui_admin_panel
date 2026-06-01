@@ -35,6 +35,7 @@ import 'package:movegui_admin_panel/widgets/app/employe/all_employe_widget.dart'
 import 'package:movegui_admin_panel/widgets/app/main/main_page_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/pressing/add_pressing_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/pressing/all_pressing_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/store/store_detail_widget.dart';
 import 'package:movegui_admin_panel/widgets/side_menu.dart';
 
 class AppRouter {
@@ -105,7 +106,14 @@ class AppRouter {
           builder: (context, state, child) {
             return Consumer(
               builder: (context, ref, _) {
-                final title = getTitle(state.matchedLocation, context, ref);
+                String title;
+                if (state.matchedLocation.startsWith(
+                  RouteConstants.STORE_DETAIL_ROUTE,
+                )) {
+                  title = AppLocalizations.of(context)!.pressig_details_title;
+                } else {
+                  title = getTitle(state.matchedLocation, context, ref);
+                }
                 /*
                 ref
                     .read(AppbarTitleProvider.appbarTitleProvider)
@@ -419,6 +427,14 @@ class AppRouter {
             GoRoute(
               path: RouteConstants.EMPLOYE_ALL_ROUTE,
               builder: (context, state) => AllEmployeWidget(),
+            ),
+            GoRoute(
+              name: 'storeDetails',
+              path: '${RouteConstants.STORE_DETAIL_ROUTE}/:id',
+              builder: (context, state) {
+                final id = state.pathParameters['id']!;
+                return StoreDetailWidget(storeId: id);
+              },
             ),
           ],
         ),

@@ -2,6 +2,7 @@ import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
 import 'package:movegui_admin_panel/models/person_model.dart';
 import 'package:movegui_admin_panel/models/store_model.dart';
+import 'package:movegui_admin_panel/models/user_model.dart';
 
 class RestaurantModel extends StoreModel {
   //  final RestaurantTypeModel restaurantType;
@@ -15,7 +16,7 @@ class RestaurantModel extends StoreModel {
     required super.address,
     required super.email,
     required super.phone,
-    required super.contacts,
+    required super.staff,
     required super.weeklyHours,
     required super.storeType,
   });
@@ -35,8 +36,8 @@ class RestaurantModel extends StoreModel {
         address: AdressModel.fromJson(json['adresse']),
         email: json['email'],
         phone: json['telephon'],
-        contacts: (json['contacts'] as List? ?? [])
-            .map((e) => PersonModel.fromJson(e))
+        staff: (json['staff'] as List? ?? [])
+            .map((e) => UserModel.fromJson(e))
             .toList(),
         createdAt: json['createdAt'] != null
             ? json['createdAt'].toDate()

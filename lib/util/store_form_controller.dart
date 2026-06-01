@@ -7,6 +7,7 @@ import 'package:movegui_admin_panel/models/categories_model.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
 import 'package:movegui_admin_panel/models/person_model.dart';
 import 'package:movegui_admin_panel/models/store_model.dart';
+import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/util/address_form_controller.dart';
 import 'package:movegui_admin_panel/util/form_controller.dart';
 import 'package:movegui_admin_panel/util/person_form_controller.dart';
@@ -23,7 +24,7 @@ abstract class StoreFormController<T extends StoreModel>
   final telephonFocus = FocusNode();
   final addressForm = AddressFormController();
   final personForms = [PersonFormController()];
-  List<PersonModel> contacts = [];
+  List<UserModel> contacts = [];
   List<OpenHoursModel> weeklyHours = [];
   File? pickedImage;
   Uint8List? webImage;
@@ -73,7 +74,7 @@ abstract class StoreFormController<T extends StoreModel>
       personForms.asMap().entries.map((entry) async {
         final index = entry.key;
         final personForm = entry.value;
-        await personForm.setData(model.contacts[index]);
+        await personForm.setData(model.staff[index].personModel!);
       }),
     );
   }

@@ -16,27 +16,38 @@ class SuperMarktsService extends ModelService<SuperMarktModel> {
 
   @override
   Future<List<SuperMarktModel>> allModels() async {
-     final snapshot = await FirebaseFirestore.instance
-      .collection(getCollectionName())
-      .get();
+    final snapshot = await FirebaseFirestore.instance
+        .collection(getCollectionName())
+        .get();
 
-  return snapshot.docs.map((doc) => SuperMarktModel.fromJson(doc.data())).toList();
+    return snapshot.docs
+        .map((doc) => SuperMarktModel.fromJson(doc.data()))
+        .toList();
   }
 
   @override
   Future<List<SuperMarktModel>> getByName(String name) async {
-          final snapshot = await FirebaseFirestore.instance
-      .collection(getCollectionName())
-      .where('name', isEqualTo: name) 
-      .get();
+    final snapshot = await FirebaseFirestore.instance
+        .collection(getCollectionName())
+        .where('name', isEqualTo: name)
+        .get();
 
-  return snapshot.docs
-      .map((doc) => SuperMarktModel.fromJson(doc.data()))
-      .toList();
+    return snapshot.docs
+        .map((doc) => SuperMarktModel.fromJson(doc.data()))
+        .toList();
   }
 
   @override
   String getCollectionName() {
     return "superMarkts_model";
+  }
+
+  @override
+  Future<SuperMarktModel> getModelById(String id) async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection(getCollectionName())
+        .doc(id)
+        .get();
+    return SuperMarktModel.fromJson(snapshot.data()!);
   }
 }

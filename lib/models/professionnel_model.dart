@@ -4,6 +4,7 @@ import 'package:movegui_admin_panel/models/open_hours_model.dart';
 import 'package:movegui_admin_panel/models/person_model.dart';
 import 'package:movegui_admin_panel/models/restaurant_model.dart';
 import 'package:movegui_admin_panel/models/store_model.dart';
+import 'package:movegui_admin_panel/models/user_model.dart';
 
 class ProfessionnelModel extends StoreModel {
   final List<String> professions;
@@ -16,7 +17,7 @@ class ProfessionnelModel extends StoreModel {
     required super.createdAt,
     required super.description,
     required super.address,
-    required super.contacts,
+    required super.staff,
     required super.email,
     required super.imageUrl,
     required super.phone,
@@ -42,8 +43,8 @@ class ProfessionnelModel extends StoreModel {
         address: AdressModel.fromJson(json['adresse']),
         email: json['email'],
         phone: json['telephon'],
-        contacts: (json['contacts'] as List? ?? [])
-            .map((e) => PersonModel.fromJson(e))
+        staff: (json['staff'] as List? ?? [])
+            .map((e) => UserModel.fromJson(e))
             .toList(),
         category: CategoriesModel.fromJson(json['category']),
         createdAt: json['createdAt'] != null ? json['createdAt'].toDate() : DateTime.now(),
@@ -55,7 +56,7 @@ class ProfessionnelModel extends StoreModel {
 
   @override
   String toString() {
-    return 'Profession(name: $name, professions: ${professions[0].toString()}, persons: ${contacts.toList().toString()})';
+    return 'Profession(name: $name, professions: ${professions[0].toString()}, persons: ${staff.toList().toString()})';
   }
 }
 

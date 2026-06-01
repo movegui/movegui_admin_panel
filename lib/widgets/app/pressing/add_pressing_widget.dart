@@ -19,6 +19,7 @@ import 'package:movegui_admin_panel/services/pressing_form_service.dart';
 import 'package:movegui_admin_panel/services/pressing_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/seed_service.dart';
+import 'package:movegui_admin_panel/services/user_service.dart';
 import 'package:movegui_admin_panel/util/pressing_form_controller.dart';
 import 'package:movegui_admin_panel/util/pressing_submit_handler.dart';
 import 'package:movegui_admin_panel/widgets/app/auth/validation_button.dart';
@@ -42,12 +43,14 @@ class PressingAddWidgetPageState extends State<AddPressingWidget> {
   late PressingService pressingService;
   late PressingFormService formService;
   late SeedService seedService;
+  late UserService userService;
 
   @override
   void initState() {
     pressingService = getIt<PressingService>();
     formService = getIt<PressingFormService>();
     seedService = getIt<SeedService>();
+    userService = getIt<UserService>();
 
     super.initState();
   }
@@ -62,13 +65,11 @@ class PressingAddWidgetPageState extends State<AddPressingWidget> {
   }
 
   Future<void> loadDatatest() async {
-    final pressingTestData = await seedService.generatePressing();
     if (seedService.api.env is EnvDev) {
-      if (pressingTestData != null) {
-        setState(() {
-          formController.setData(pressingTestData);
-        });
-      }
+      final pressingTestData = await seedService.generatePressing();
+      setState(() {
+        formController.setData(pressingTestData);
+      });
     }
   }
 
@@ -77,6 +78,8 @@ class PressingAddWidgetPageState extends State<AddPressingWidget> {
     imageService: ImageService(),
     collectionName: widget.collectionName,
     formService: formService,
+    userService: userService,
+    context: context,
   );
 
   @override
@@ -88,8 +91,12 @@ class PressingAddWidgetPageState extends State<AddPressingWidget> {
   Future<void> _onSubmit() async {
     if (!formKey.currentState!.validate() ||
         formController.pickedImage == null ||
-        formController.personForms.any((elem) => elem.pickedImage == null || elem.birthdate == null || elem.gender == null)
-        ) {
+        formController.personForms.any(
+          (elem) =>
+              elem.pickedImage == null ||
+              elem.birthdate == null ||
+              elem.gender == null,
+        )) {
       MessageWidget.errorMessage(
         context,
         AppLocalizations.of(context)!.error_register_title,

@@ -9,4 +9,5 @@ abstract class ModelService<T extends Model> {
   Future<List<T>> allModels();
   Future<List<T>> getByName(String name);
   String getCollectionName();
+  Future<T> getModelById(String id);
 }

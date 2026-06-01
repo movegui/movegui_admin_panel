@@ -12,6 +12,21 @@ class AppLocalizationsFr extends AppLocalizations {
   String get commune_title => 'Commune';
 
   @override
+  String get gender_masculin => 'Homme';
+
+  @override
+  String get gender_female => 'Femme';
+
+  @override
+  String get open_hours_title => 'Heures d\'ouverture';
+
+  @override
+  String get store_services_title => 'Services';
+
+  @override
+  String get is_loding_text => 'Chargement...';
+
+  @override
   String get admin_bar_title => 'Configuration Admin';
 
   @override
@@ -28,6 +43,12 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get employe_all_bar_title => 'Tous les Employés';
+
+  @override
+  String get employe_status_actf => 'Actif';
+
+  @override
+  String get employe_status_non_actf => 'Inactif';
 
   @override
   String get pressing_add_bar_title => 'Ajouter un Pressing';
@@ -132,6 +153,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get pressing_service_price_max_hinterText => 'Prix Maximum du produit';
+
+  @override
+  String get pressig_details_title => 'Details Pressing';
 
   @override
   String get restaurant_add_bar_title => 'Ajouter un Restaurant';
@@ -274,6 +298,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get error_send_formular => 'Veuillez Remplir le formulaire svp';
+
+  @override
+  String get error_show_formular_title => 'Erreur Page';
+
+  @override
+  String get error_show_formular =>
+      'Une Erreur s\'est produite lors du chargement de la page';
 
   @override
   String get label_login_facebook => 'Facebook';
@@ -550,6 +581,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get label_lastname => 'Prénom';
 
   @override
+  String get label_district => 'Quartier';
+
+  @override
+  String get label_municipality => 'Commune';
+
+  @override
   String get exception_login_message =>
       'Les identifiants utilisateur fournis sont incorrects, veuillez verifier votre email et mot de pass';
 
@@ -652,4 +689,17 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get day_dimanche => 'Dimanche';
+
+  @override
+  String get last_orders => 'Dernières Commandes';
+
+  @override
+  String get message_movegui_title => '<p>Bienvenue sur Movegui</p>';
+
+  @override
+  String get message_movegui_link => 'Créer mon mot de passe';
+
+  @override
+  String get message_movegui =>
+      'Merci de nous faire confiance l\'équipe MoveGui';
 }

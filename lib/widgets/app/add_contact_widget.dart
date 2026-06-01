@@ -2,27 +2,25 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:movegui_admin_panel/config/env_dev.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/app_constants.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
 import 'package:movegui_admin_panel/models/button_item.dart';
+import 'package:movegui_admin_panel/models/person_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
+import 'package:movegui_admin_panel/services/register_services.dart';
+import 'package:movegui_admin_panel/services/seed_service.dart';
 import 'package:movegui_admin_panel/util/person_form_controller.dart';
 import 'package:movegui_admin_panel/widgets/add_person_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/separator_widget.dart';
 import 'package:movegui_admin_panel/widgets/util/button_widget.dart';
 
 class AddContactWidget extends StatefulWidget {
-  const AddContactWidget({
-    super.key,
-    required this.formControllers,
- //   required this.addContactKey,
-  });
+  const AddContactWidget({super.key, required this.formControllers});
   final List<PersonFormController> formControllers;
- // final GlobalKey<AddContactWidgetState> addContactKey;
-  // final GlobalKey<WeeklyHoursScreenState> addOpenHoursKey = GlobalKey();
 
   @override
   AddContactWidgetState createState() => AddContactWidgetState();
@@ -30,11 +28,13 @@ class AddContactWidget extends StatefulWidget {
 
 class AddContactWidgetState extends State<AddContactWidget> {
   late ImageConstatnt imageConstatnt;
+  late SeedService seedService;
 
   @override
   void initState() {
     super.initState();
     imageConstatnt = ImageConstatnt();
+    seedService = getIt<SeedService>();
   }
 
   final GlobalKey<FormState> personKey = GlobalKey();
@@ -57,10 +57,19 @@ class AddContactWidgetState extends State<AddContactWidget> {
   }
 
   Future<void> _addPerson() async {
+    PersonModel? personTestData;
+
+    if (seedService.api.env is EnvDev) {
+      personTestData = await seedService.getGeneratedPerson();
+    }
+
     setState(() {
       widget.formControllers.add(PersonFormController());
+
+      if (personTestData != null) {
+        widget.formControllers.last.setData(personTestData);
+      }
     });
-    //  updateParent();
   }
 
   void _removePerson(int index) {
@@ -76,10 +85,8 @@ class AddContactWidgetState extends State<AddContactWidget> {
 
   @override
   Widget build(BuildContext context) {
-    var Size = MediaQuery.of(context).size;
-    double FontSize = Size.width < 600 ? 18 : 28;
+    var size = MediaQuery.of(context).size;
     return ListView.separated(
-    //  key: widget.addContactKey,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: widget.formControllers.length,
@@ -87,12 +94,11 @@ class AddContactWidgetState extends State<AddContactWidget> {
         return Center(
           child: Container(
             width: Responsive.isDesktop(context)
-                ? Size.width * 0.5
+                ? size.width * 0.5
                 : double.infinity,
-            //   height: Size.height * 0.3,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
-              color: AppColors.backgroundColor, //Colors.grey.withOpacity(0.3),
+              color: AppColors.backgroundColor,
             ),
             child: Column(
               children: [
@@ -118,7 +124,10 @@ class AddContactWidgetState extends State<AddContactWidget> {
                   },
                   onAdressTypeChange: (String? selectedValue) {
                     setState(() {
-                      widget.formControllers[index].addressesForms[0].selectedType =
+                      widget
+                              .formControllers[index]
+                              .addressesForms[0]
+                              .selectedType =
                           selectedValue!;
                     });
                   },
@@ -134,8 +143,6 @@ class AddContactWidgetState extends State<AddContactWidget> {
                   },
 
                   personForm: widget.formControllers[index],
-                  personKey: personKey,
-                  addAddressKey: addressKey,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -186,9 +193,7 @@ class AddContactWidgetState extends State<AddContactWidget> {
       if (image != null) {
         var selected = File(image.path);
         setState(() {
-          //  widget.pickedImage = selected;
           widget.formControllers[index].pickedImage = selected;
-          //  widget.formControllers[index].image = selected;
         });
       } else {
         showBtmAlert(context, imageConstatnt.getImageSelectionText());

@@ -33,17 +33,22 @@ setGlobalOptions({ maxInstances: 10 });
 
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
+const axios = require('axios');
 admin.initializeApp();
 const cors = require('cors')({ origin: true });
 
-/*
+const { onCall, HttpsError } = require("firebase-functions/https");
+const { defineSecret } = require("firebase-functions/params");
+
+
+
 const BREVO_API_KEY = defineSecret("BREVO_API_KEY");
 
-export const sendEmail = onCall(
+exports.sendEmail = functions.https.onCall(
   { secrets: [BREVO_API_KEY] },
   async (request) => {
-    if(!request.auth){
-        throw new HttpsError(
+    if (!request.auth) {
+      throw new HttpsError(
         "Non authentifié",
         "Vous devez etre enregistrer pour utiliser ce functionnalité"
       );
@@ -52,6 +57,7 @@ export const sendEmail = onCall(
     const { firstname, lastname, email, phone, subject, message } = request.data;
 
     const apiKey = BREVO_API_KEY.value();
+
 
     try {
       const response = await axios.post(
@@ -67,8 +73,8 @@ export const sendEmail = onCall(
               name: `${lastname} ${firstname}` || "User",
             },
           ],
-          subject: `${subject} ${phone}`,
-          htmlContent: message,
+          subject: `${subject}`,
+          htmlContent: `${message}` ,
         },
         {
           headers: {
@@ -89,7 +95,7 @@ export const sendEmail = onCall(
     }
   }
 );
-*/
+
 
 /*
 exports.setAdminRole = functions.https.onRequest(async (req, res) => {
@@ -144,54 +150,54 @@ exports.setSuperAdminRole = functions.https.onRequest(async (req, res) => {
 
 exports.createUser = functions.https.onRequest(async (req, res) => {
   cors(req, res, async () => {
-  try {
-    // Get token from Authorization header
-    const authHeader = req.headers.authorization;
-  console.log(authHeader);
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return res.status(401).json({
-        error: 'Unauthorized',
+    try {
+      // Get token from Authorization header
+      const authHeader = req.headers.authorization;
+      console.log(authHeader);
+      if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return res.status(401).json({
+          error: 'Unauthorized',
+        });
+      }
+
+      // Extract token
+      const idToken = authHeader.split('Bearer ')[1];
+      // Verify Firebase token
+      const decodedToken = await admin.auth().verifyIdToken(idToken);
+
+      // Example: only admins can create users
+      if (decodedToken.role !== 'Admin' && decodedToken.role !== 'SuperAdmin') {
+        return res.status(403).json({
+          error: 'Forbidden',
+        });
+      }
+
+      const { email, password, role } = req.body;
+
+      // Create user
+      const user = await admin.auth().createUser({
+        email,
+        password,
+      });
+
+      await admin.auth().setCustomUserClaims(user.uid, {
+        role: role,
+      });
+
+      res.status(200).json({
+        uid: user.uid,
+        email: user.email,
+        role: role
+      });
+
+    } catch (e) {
+      console.error(e);
+
+      res.status(401).json({
+        error: e.message,
       });
     }
-
-    // Extract token
-    const idToken = authHeader.split('Bearer ')[1];
-    // Verify Firebase token
-    const decodedToken = await admin.auth().verifyIdToken(idToken);
-    
-    // Example: only admins can create users
-    if (decodedToken.role !== 'Admin' && decodedToken.role !== 'SuperAdmin') {
-      return res.status(403).json({
-        error: 'Forbidden',
-      });
-    }
-
-    const { email, password, role } = req.body;
-
-    // Create user
-    const user = await admin.auth().createUser({
-      email,
-      password,
-    });
-
-    await admin.auth().setCustomUserClaims(user.uid, {
-      role: role,
-    });
-
-    res.status(200).json({
-      uid: user.uid,
-      email: user.email,
-      role: role
-    });
-
-  } catch (e) {
-    console.error(e);
-
-    res.status(401).json({
-      error: e.message,
-    });
-  }
-})
+  })
 });
 
 async function authenticate(req) {
@@ -210,7 +216,7 @@ exports.geocodeAddress = functions.https.onRequest(async (req, res) => {
 
   cors(req, res, async () => {
     try {
-        const address = req.query.address;
+      const address = req.query.address;
 
       if (!address) {
         return res.status(400).json({
@@ -249,4 +255,59 @@ exports.geocodeAddress = functions.https.onRequest(async (req, res) => {
 
 
 
+});
+
+exports.createUserWithoutPassword = functions.https.onRequest(async (req, res) => {
+  cors(req, res, async () => {
+    try {
+      // Get token from Authorization header
+      const authHeader = req.headers.authorization;
+      console.log(authHeader);
+      if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return res.status(401).json({
+          error: 'Unauthorized',
+        });
+      }
+
+      // Extract token
+      const idToken = authHeader.split('Bearer ')[1];
+      // Verify Firebase token
+      const decodedToken = await admin.auth().verifyIdToken(idToken);
+
+      // Example: only admins can create users
+      if (decodedToken.role !== 'Admin' && decodedToken.role !== 'SuperAdmin') {
+        return res.status(403).json({
+          error: 'Forbidden',
+        });
+      }
+
+      const { email, name, role } = req.body;
+
+      // Create user
+      const user = await admin.auth().createUser({
+        email,
+        name
+      });
+
+      await admin.auth().setCustomUserClaims(user.uid, {
+        role: role,
+      });
+
+      const resetLink = await admin.auth().generatePasswordResetLink(email);
+
+      res.status(200).json({
+        uid: user.uid,
+        email: user.email,
+        role: role,
+        link: resetLink
+      });
+
+    } catch (e) {
+      console.error(e);
+
+      res.status(401).json({
+        error: e.message,
+      });
+    }
+  })
 });

@@ -1,0 +1,19 @@
+{
+  "name": "persons/1780101370848.jpg",
+  "bucket": "movegui-253e0.firebasestorage.app",
+  "metageneration": 1,
+  "generation": 1780101371388,
+  "contentType": "image/jpeg",
+  "storageClass": "STANDARD",
+  "contentDisposition": "inline",
+  "downloadTokens": [
+    "1f6897fa-6771-4397-ba2d-adf37c15c8db"
+  ],
+  "etag": "NV6RMzs4fUpIwt6Dux5GHdp56oQ",
+  "customMetadata": {},
+  "timeCreated": "2026-05-30T00:36:11.388Z",
+  "updated": "2026-05-30T00:36:11.388Z",
+  "size": 15854,
+  "md5Hash": "1P8/c5qnwtMHvfRhu2KzXQ==",
+  "crc32c": "968526149"
+}

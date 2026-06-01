@@ -4,7 +4,7 @@ import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 
 // ignore: non_constant_identifier_names
-enum UserRole { Admin, User, Employe, Guest, SuperAdmin }
+enum UserRole { Admin, User, Employe, Guest, SuperAdmin, Manager }
 
 abstract class IUserService {
   Future<UserModel?> getByUsername(String username);
@@ -49,4 +49,27 @@ abstract class IUserService {
   );
   Future<bool> isAdmin(BuildContext context, WidgetRef ref);
   Future<List<UserModel>> getAllModelsByRole(UserRole role);
+    Future<UserModel?> createUserWithoutPassword(
+    String email,
+    String role,
+    String firstName,
+    String lastName,
+    List<AdressModel> adresses,
+    String phone,
+    String gender,
+    DateTime birthDate,
+  );
+
+    Future<UserModel?> initializeCreatedUserWithLink(
+    String uuid,
+    String email,
+    String? resetLink,
+    String role,
+    String firstName,
+    String lastName,
+    List<AdressModel?> addresses,
+    String phone,
+    String gender,
+    DateTime birthDate,
+  );
 }

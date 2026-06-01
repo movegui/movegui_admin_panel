@@ -9,6 +9,8 @@ class UserModel extends Model {
   final PersonModel? personModel;
   late bool isVerified;
   late String role;
+  String? resetLink;
+  bool isActive;
 
   UserModel({
     required this.updatedAt,
@@ -18,7 +20,9 @@ class UserModel extends Model {
     required this.username,
     this.personModel,
     required this.isVerified,
-    required this.role
+    required this.role,
+    this.resetLink = '',
+    this.isActive = true,
   });
 
   @override

@@ -12,6 +12,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get commune_title => 'City';
 
   @override
+  String get gender_masculin => 'Male';
+
+  @override
+  String get gender_female => 'Female';
+
+  @override
+  String get open_hours_title => 'Open Hours';
+
+  @override
+  String get store_services_title => 'Services';
+
+  @override
+  String get is_loding_text => 'Loading...';
+
+  @override
   String get admin_bar_title => 'Admin Configuration';
 
   @override
@@ -28,6 +43,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get employe_all_bar_title => 'All Employes';
+
+  @override
+  String get employe_status_actf => 'Active';
+
+  @override
+  String get employe_status_non_actf => 'Inactive';
 
   @override
   String get pressing_add_bar_title => 'Add dry Cleaner ';
@@ -128,6 +149,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pressing_service_price_max_hinterText => 'Maximum Product Price';
+
+  @override
+  String get pressig_details_title => 'Dry Cleaner Details';
 
   @override
   String get restaurant_add_bar_title => 'Add Restaurant';
@@ -270,6 +294,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get error_send_formular => 'Please Complete the formular ';
+
+  @override
+  String get error_show_formular_title => 'Error Page';
+
+  @override
+  String get error_show_formular => 'An Error happen when loading the page';
 
   @override
   String get label_login_facebook => 'Facebook';
@@ -546,6 +576,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get label_lastname => 'Lastname';
 
   @override
+  String get label_district => 'District';
+
+  @override
+  String get label_municipality => 'Municipality';
+
+  @override
   String get exception_login_message =>
       'The Supplied User credential is incorrect, Please check your email address and password';
 
@@ -647,4 +683,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get day_dimanche => 'Sunday';
+
+  @override
+  String get last_orders => 'Last Orders';
+
+  @override
+  String get message_movegui_title => '<p>Welcome on Movegui</p>';
+
+  @override
+  String get message_movegui_link => 'Create a Password';
+
+  @override
+  String get message_movegui => 'Tahnks for trusting the MoveGui Team';
 }

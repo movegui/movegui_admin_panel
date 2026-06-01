@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movegui_admin_panel/consts/constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_type_model.dart';
 
@@ -27,7 +28,7 @@ class AppConstants {
 
   static List<PressingServiceTypeModel> getPressingServices(
     BuildContext context,
-  )  {
+  ) {
     return [
       PressingServiceTypeModel(
         id: '001',
@@ -114,13 +115,55 @@ class AppConstants {
         id: '010',
         name: AppLocalizations.of(context)!.pressing_service_washing,
         description: AppLocalizations.of(
-
           context,
         )!.pressing_service_washing_descrip,
         pricingType: PricingType.fixed.name,
         createdAt: DateTime.now(),
       ),
     ];
+  }
+
+
+
+  static String getMunicipality(String value) {
+    switch (value) {
+      case 'di':
+        return COMMUNE_DIXINN;
+      case 'gb':
+        return COMMUNE_GBESSIA;
+      case 'ka':
+        return COMMUNE_KALOUM;
+      case 'kg':
+        return COMMUNE_KAGBELEN;
+      case 'ks':
+        return COMMUNE_KASSA;
+      case 'la':
+        return COMMUNE_LAMBANYI;
+      case 'ma':
+        return COMMUNE_MATAM;
+      case 'mn':
+        return COMMUNE_MANEAH;
+      case 'mt':
+        return COMMUNE_MATOTO;
+      case 'ra':
+        return COMMUNE_RATOMA;
+      case 'so':
+        return COMMUNE_SONFONIA;
+      case 'sn':
+        return COMMUNE_SANOYAH;
+      case 'to':
+        return COMMUNE_TOMBOLIA;
+      default:
+        return '';
+    }
+  }
+
+  static String getGender(String value, BuildContext context) {
+      switch(value){
+        case 'm': return AppLocalizations.of(context)!.gender_masculin;
+        case 'f': return AppLocalizations.of(context)!.gender_female;
+        default: return '';
+      }
   }
 }
 

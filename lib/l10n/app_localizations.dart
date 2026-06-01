@@ -104,6 +104,36 @@ abstract class AppLocalizations {
   /// **'City'**
   String get commune_title;
 
+  /// No description provided for @gender_masculin.
+  ///
+  /// In en, this message translates to:
+  /// **'Male'**
+  String get gender_masculin;
+
+  /// No description provided for @gender_female.
+  ///
+  /// In en, this message translates to:
+  /// **'Female'**
+  String get gender_female;
+
+  /// No description provided for @open_hours_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Hours'**
+  String get open_hours_title;
+
+  /// No description provided for @store_services_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Services'**
+  String get store_services_title;
+
+  /// No description provided for @is_loding_text.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading...'**
+  String get is_loding_text;
+
   /// No description provided for @admin_bar_title.
   ///
   /// In en, this message translates to:
@@ -139,6 +169,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'All Employes'**
   String get employe_all_bar_title;
+
+  /// No description provided for @employe_status_actf.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get employe_status_actf;
+
+  /// No description provided for @employe_status_non_actf.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactive'**
+  String get employe_status_non_actf;
 
   /// No description provided for @pressing_add_bar_title.
   ///
@@ -325,6 +367,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Maximum Product Price'**
   String get pressing_service_price_max_hinterText;
+
+  /// No description provided for @pressig_details_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Dry Cleaner Details'**
+  String get pressig_details_title;
 
   /// No description provided for @restaurant_add_bar_title.
   ///
@@ -553,6 +601,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please Complete the formular '**
   String get error_send_formular;
+
+  /// No description provided for @error_show_formular_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Error Page'**
+  String get error_show_formular_title;
+
+  /// No description provided for @error_show_formular.
+  ///
+  /// In en, this message translates to:
+  /// **'An Error happen when loading the page'**
+  String get error_show_formular;
 
   /// No description provided for @label_login_facebook.
   ///
@@ -1094,6 +1154,18 @@ abstract class AppLocalizations {
   /// **'Lastname'**
   String get label_lastname;
 
+  /// No description provided for @label_district.
+  ///
+  /// In en, this message translates to:
+  /// **'District'**
+  String get label_district;
+
+  /// No description provided for @label_municipality.
+  ///
+  /// In en, this message translates to:
+  /// **'Municipality'**
+  String get label_municipality;
+
   /// No description provided for @exception_login_message.
   ///
   /// In en, this message translates to:
@@ -1297,6 +1369,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sunday'**
   String get day_dimanche;
+
+  /// No description provided for @last_orders.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Orders'**
+  String get last_orders;
+
+  /// No description provided for @message_movegui_title.
+  ///
+  /// In en, this message translates to:
+  /// **'<p>Welcome on Movegui</p>'**
+  String get message_movegui_title;
+
+  /// No description provided for @message_movegui_link.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a Password'**
+  String get message_movegui_link;
+
+  /// No description provided for @message_movegui.
+  ///
+  /// In en, this message translates to:
+  /// **'Tahnks for trusting the MoveGui Team'**
+  String get message_movegui;
 }
 
 class _AppLocalizationsDelegate

@@ -44,7 +44,7 @@ class AdressModel extends Model {
         ? json['createdAt'].toDate()
         : DateTime.now(),
     geoCordinates: json['geoCordinates'] != null ? GeoCordinatesModel.fromJson(json['geoCordinates']) : null,
-    address: json['adress'] ?? '',
+    address: json['address'] ?? '',
     district: json['district'] ?? '',
     minucipality: json['minucipality'] ?? '',
     zipCode: json['zipCode'] ?? '',

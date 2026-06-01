@@ -141,7 +141,6 @@ class UserService extends ModelService<UserModel> implements IUserService {
   Future<void> signOut(WidgetRef ref) async {
     ref.read(CurrentUserProvider.currentUserProvider).setCurrentUser(null);
     await FirebaseAuth.instance.signOut();
-
   }
 
   Future<UserModel> initializeUserWithEmailAndUID(
@@ -315,7 +314,7 @@ class UserService extends ModelService<UserModel> implements IUserService {
     return true;
   }
 
-    @override
+  @override
   Future<bool> isAdmin(BuildContext context, WidgetRef ref) async {
     final currentUser = ref
         .read(CurrentUserProvider.currentUserProvider)
@@ -342,11 +341,11 @@ class UserService extends ModelService<UserModel> implements IUserService {
   @override
   Future<UserModel?> createUser(
     String email,
-    String password,
+    String? password,
     String role,
     String firstName,
     String lastName,
-    List<AdressModel> adresses,
+    List<AdressModel?> adresses,
     String phone,
     String gender,
     DateTime birthDate,
@@ -366,41 +365,63 @@ class UserService extends ModelService<UserModel> implements IUserService {
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       if (data != null && data.length > 0) {
-         return await initializeCreatedUser(data['uid'], email, password, role, firstName, lastName, adresses, phone, gender, birthDate);
+        return await initializeCreatedUser(
+          data['uid'],
+          email,
+          password,
+          role,
+          firstName,
+          lastName,
+          adresses,
+          phone,
+          gender,
+          birthDate,
+        );
       }
     }
     return null;
   }
-  
+
   @override
-  Future<UserModel?> initializeCreatedUser(String uuid, String email, String password, String role, String firstName, String lastName, List<AdressModel> addresses, String phone, String gender, DateTime birthDate) async{
-            return UserModel(
-          updatedAt: DateTime.now(),
-          id: uuid,
-          name: email,
-          createdAt: DateTime.now(),
-          username: email,
-          isVerified: false,
-          role: role,
-          personModel: PersonModel(
-            id: Uuid().v4(),
-            name: "$firstName $lastName",
-            createdAt: DateTime.now(),
-            firstName: firstName,
-            lastName: lastName,
-            profileImageUrl: null,
-            email: email,
-            phone: phone,
-            gender: gender,
-            birthDate: birthDate,
-            addresses: addresses,
-          ),
-        );
+  Future<UserModel?> initializeCreatedUser(
+    String uuid,
+    String email,
+    String? password,
+    String role,
+    String firstName,
+    String lastName,
+    List<AdressModel?> addresses,
+    String phone,
+    String gender,
+    DateTime birthDate,
+  ) async {
+    return UserModel(
+      updatedAt: DateTime.now(),
+      id: uuid,
+      name: email,
+      createdAt: DateTime.now(),
+      username: email,
+      isVerified: false,
+      role: role,
+      personModel: PersonModel(
+        id: Uuid().v4(),
+        name: "$firstName $lastName",
+        createdAt: DateTime.now(),
+        firstName: firstName,
+        lastName: lastName,
+        profileImageUrl: null,
+        email: email,
+        phone: phone,
+        gender: gender,
+        birthDate: birthDate,
+        addresses: addresses,
+      ),
+    );
   }
-  
+
   @override
   Future<List<UserModel>> getAllModelsByRole(UserRole role) async {
-        final snapshot = await FirebaseFirestore.instance
+    final snapshot = await FirebaseFirestore.instance
         .collection(getCollectionName())
         .where('role', isEqualTo: role.name)
         .get();
@@ -408,7 +429,104 @@ class UserService extends ModelService<UserModel> implements IUserService {
     return snapshot.docs.map((doc) => UserModel.fromJson(doc.data())).toList();
   }
 
+  @override
+  Future<UserModel> getModelById(String id) async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection(getCollectionName())
+        .doc(id)
+        .get();
+    return UserModel.fromJson(snapshot.data()!);
+  }
 
+  @override
+  Future<UserModel?> createUserWithoutPassword(
+    String email,
+    String role,
+    String firstName,
+    String lastName,
+    List<AdressModel?> adresses,
+    String phone,
+    String gender,
+    DateTime birthDate,
+  ) async {
+    final user = FirebaseAuth.instance.currentUser;
+
+    final idToken = await user?.getIdToken();
+
+    final response = await http.post(
+      Uri.parse(
+        '${api.env.baseUrl}/movegui-253e0/us-central1/createUserWithoutPassword',
+      ),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $idToken',
+      },
+      body: jsonEncode({
+        'email': email,
+        'name': '$firstName $lastName',
+        'role': role,
+      }),
+    );
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      if (data != null && data.length > 0) {
+        final model = await initializeCreatedUserWithLink(
+          data['uid'],
+          email,
+          data['link'],
+          role,
+          firstName,
+          lastName,
+          adresses,
+          phone,
+          gender,
+          birthDate,
+        );
+      await addModel(model!);
+        return model;
+
+      }
+    }
+    return null;
+  }
+
+  @override
+  Future<UserModel?> initializeCreatedUserWithLink(
+    String uuid,
+    String email,
+    String? resetLink,
+    String role,
+    String firstName,
+    String lastName,
+    List<AdressModel?> addresses,
+    String phone,
+    String gender,
+    DateTime birthDate,
+  ) async {
+    return UserModel(
+      updatedAt: DateTime.now(),
+      id: uuid,
+      name: email,
+      createdAt: DateTime.now(),
+      username: email,
+      isVerified: false,
+      role: role,
+      resetLink: resetLink,
+      personModel: PersonModel(
+        id: Uuid().v4(),
+        name: "$firstName $lastName",
+        createdAt: DateTime.now(),
+        firstName: firstName,
+        lastName: lastName,
+        profileImageUrl: null,
+        email: email,
+        phone: phone,
+        gender: gender,
+        birthDate: birthDate,
+        addresses: addresses,
+      ),
+    );
+  }
 
   /*
   @override

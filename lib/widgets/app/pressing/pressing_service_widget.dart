@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:movegui_admin_panel/config/env_dev.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/validator.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/button_item.dart';
+import 'package:movegui_admin_panel/models/pressing/pressing_service_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_type_model.dart';
+import 'package:movegui_admin_panel/models/service_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
+import 'package:movegui_admin_panel/services/register_services.dart';
+import 'package:movegui_admin_panel/services/seed_service.dart';
 import 'package:movegui_admin_panel/util/pressing_service_form_controller.dart';
 import 'package:movegui_admin_panel/widgets/app/separator_widget.dart';
 import 'package:movegui_admin_panel/widgets/input/input_widget.dart';
@@ -22,9 +27,11 @@ class PressingServiceWidget extends StatefulWidget {
 
 class PressingServiceWidgetState extends State<PressingServiceWidget> {
   late PressingServiceTypeModel? _pressinServiceType;
+  late SeedService seedService;
 
   @override
   void initState() {
+    seedService = getIt<SeedService>();
     super.initState();
   }
 
@@ -41,6 +48,21 @@ class PressingServiceWidgetState extends State<PressingServiceWidget> {
       pricingType: PricingType.fixed.name,
       createdAt: DateTime.now(),
     );
+  }
+
+  Future<void> addService() async {
+    PressingServiceModel? serviceDataTest;
+
+    if (seedService.api.env is EnvDev) {
+      serviceDataTest = await seedService.getGeneratedPressingService();
+    }
+
+    setState(() {
+      widget.formControllers.add(PressingServiceFormController());
+      if (serviceDataTest != null) {
+        widget.formControllers.last.setData(serviceDataTest);
+      }
+    });
   }
 
   @override
@@ -62,8 +84,7 @@ class PressingServiceWidgetState extends State<PressingServiceWidget> {
               //   height: Size.height * 0.3,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
-                color:
-                    AppColors.backgroundColor, //Colors.grey.withOpacity(0.3),
+                color: AppColors.backgroundColor,
               ),
               child: Column(
                 children: [
@@ -81,7 +102,6 @@ class PressingServiceWidgetState extends State<PressingServiceWidget> {
                                 .serviceType, //_pressinServiceType,
                             onServiceChange: (PressingServiceTypeModel? value) {
                               setState(() {
-                                // _pressinServiceType = value;
                                 widget.formControllers[index].serviceType =
                                     value!;
                               });
@@ -160,11 +180,7 @@ class PressingServiceWidgetState extends State<PressingServiceWidget> {
                       Expanded(
                         child: ButtonWidget(
                           onPressed: (item) async {
-                            setState(() {
-                              widget.formControllers.add(
-                                PressingServiceFormController(),
-                              );
-                            });
+                            await addService();
                           },
                           buttonItem: ButtonItem(
                             AppLocalizations.of(

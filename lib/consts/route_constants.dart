@@ -45,4 +45,5 @@ class RouteConstants {
   static const EMPLOYE_ROUTE = '/employe';
   static const EMPLOYE_ADD_ROUTE = '/employe/add';
   static const EMPLOYE_ALL_ROUTE = '/employe/all';
+  static const STORE_DETAIL_ROUTE = '/store/details';
 }

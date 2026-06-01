@@ -1,6 +1,18 @@
 {
     "commune_title": "Commune",
     "@commune_title": {},
+    "gender_masculin": "Homme",
+    "@gender_masculin": {},
+
+     "gender_female": "Femme",
+    "@gender_female": {},
+
+    "open_hours_title": "Heures d'ouverture",
+    "@open_hours_title": {},
+    "store_services_title": "Services",
+    "@store_services_title": {},
+    "is_loding_text": "Chargement...",
+    "@is_loding_text": {},
 
     "admin_bar_title": "Configuration Admin",
     "@admin_bar_title": {},
@@ -16,6 +28,10 @@
     "@employe_all_bar_title": {},
     "employe_bar_title": "Configuration Employé",
     "@employe_bar_title": {},
+    "employe_status_actf": "Actif",
+    "@employe_status_actf": {},
+    "employe_status_non_actf": "Inactif",
+    "@employe_status_non_actf": {},
 
 
     "pressing_add_bar_title": "Ajouter un Pressing",
@@ -81,6 +97,8 @@
     "@pressing_service_price_max_labelText": {},
     "pressing_service_price_max_hinterText": "Prix Maximum du produit",
     "@pressing_service_price_max_hinterText": {},
+    "pressig_details_title": "Details Pressing",
+    "@pressig_details_title": {},
     
 
 
@@ -236,7 +254,11 @@
     "@error_occur": {},
     "error_send_formular": "Veuillez Remplir le formulaire svp",
     "@error_send_formular": {},
-
+    "error_show_formular_title": "Erreur Page",
+    "@error_show_formular_title": {},
+    "error_show_formular": "Une Erreur s'est produite lors du chargement de la page",
+    "@error_show_formular": {},
+    
     
     
     "btn_close_label": "Fermer",
@@ -430,6 +452,10 @@
     "@label_firstname": {},
     "label_lastname": "Prénom",
     "@label_lastname": {},
+    "label_district": "Quartier",
+    "@label_district": {},
+    "label_municipality": "Commune",
+    "@label_municipality": {},
 
     "exception_login_message": "Les identifiants utilisateur fournis sont incorrects, veuillez verifier votre email et mot de pass",
     "@exception_login_message": {},
@@ -507,7 +533,18 @@
     "day_samedi": "Samedi",
     "@day_samedi": {},
     "day_dimanche": "Dimanche",
-    "@day_dimanche": {}
+    "@day_dimanche": {},
+
+    "last_orders": "Dernières Commandes",
+    "@last_orders": {},
+    "message_movegui_title": "<p>Bienvenue sur Movegui</p>",
+    "@message_movegui_title": {},
+    "message_movegui_link": "Créer mon mot de passe",
+    "@message_movegui_link": {},
+
+    "message_movegui": "Merci de nous faire confiance l'équipe MoveGui",
+    "@message_movegui": {}
+
 
 
 

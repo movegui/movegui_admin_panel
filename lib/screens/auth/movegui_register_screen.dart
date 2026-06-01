@@ -66,7 +66,6 @@ class _RegisterScreenState extends State<MoveguiRegisterScreen> {
     return Center(
       child: Container(
         width: 700,
-        height: 600,
         decoration: BoxDecoration(
           color: AppColors.textColor,
           border: Border.all(color: AppColors.backgroundColor, width: 10),
@@ -92,7 +91,7 @@ class _RegisterScreenState extends State<MoveguiRegisterScreen> {
                 ),
               ),
               SeparatorWidget(height: 30),
-              RegisterEmailPage(role: UserRole.Guest,),
+              Expanded(child: RegisterEmailPage(role: UserRole.Guest,)),
             ],
           ),
         ),

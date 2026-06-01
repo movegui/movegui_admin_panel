@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/app_constants.dart';
 import 'package:movegui_admin_panel/consts/route_constants.dart';
@@ -55,17 +56,18 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
   late final FocusNode _passwordFocusNode, _repeatPasswordFocusNode;
 
   final _formkey = GlobalKey<FormState>();
-  final _personFormkey = GlobalKey<FormState>();
-  bool isloading = false;
+  bool isLoading = false;
   FirebaseAuth? auth;
   late UserService userService;
   late AddressService addressService;
   UserModel? currentUser;
+  late ImageConstatnt imageConstatnt;
+  /*
   String? selectedGender;
   late Uint8List? webImage;
   late File? pickedImage;
-  late ImageConstatnt imageConstatnt;
   DateTime? birthDate;
+  */
 
   @override
   void initState() {
@@ -76,11 +78,15 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
 
     userService = getIt<UserService>();
     addressService = getIt<AddressService>();
+    imageConstatnt = ImageConstatnt();
+    /*
     webImage = null;
     pickedImage = null;
-    imageConstatnt = ImageConstatnt();
+
     selectedGender = 'm';
     birthDate = null;
+    */
+    formController = PersonFormController();
 
     try {
       auth = FirebaseAuth.instance;
@@ -109,7 +115,8 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
   }
 
   Future<void> _registerFCT(ButtonItem item) async {
-    final isValid = _formkey.currentState!.validate() && birthDate != null;
+    final isValid =
+        _formkey.currentState!.validate() && formController.birthdate != null;
     final authProvider = ref.read(authStateProvider);
 
     FocusScope.of(context).unfocus();
@@ -117,7 +124,7 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
     if (isValid) {
       try {
         setState(() {
-          isloading = true;
+          isLoading = true;
         });
 
         final user = authProvider.value;
@@ -138,7 +145,8 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
                 name: formController.addressesForms[0].selectedType,
                 createdAt: DateTime.now(),
                 district: formController.addressesForms[0].district.text.trim(),
-                minucipality: formController.addressesForms[0].selectedMunicipality,
+                minucipality:
+                    formController.addressesForms[0].selectedMunicipality,
               );
               GeoCordinatesModel? geoCoord = await addressService
                   .getCoordinates(addressModel.getMapAddress());
@@ -161,12 +169,15 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
                 formController.lastName.text.trim(),
                 [
                   AdressModel(
-                    address: formController.addressesForms[0].address.text.trim(),
+                    address: formController.addressesForms[0].address.text
+                        .trim(),
                     id: Uuid().v4(),
                     name: formController.addressesForms[0].selectedType,
                     createdAt: DateTime.now(),
-                    district: formController.addressesForms[0].district.text.trim(),
-                    minucipality: formController.addressesForms[0].selectedMunicipality,
+                    district: formController.addressesForms[0].district.text
+                        .trim(),
+                    minucipality:
+                        formController.addressesForms[0].selectedMunicipality,
                     geoCordinates: geoCoord,
                     zoneId:
                         '${formController.addressesForms[0].selectedMunicipality} _ ${formController.addressesForms[0].district.text.trim()} _ ${formController.addressesForms[0].address.text.trim()}',
@@ -179,7 +190,7 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
               if (adminUser != null) {
                 await userService.addModel(adminUser);
                 setState(() {
-                  isloading = false;
+                  isLoading = false;
                 });
                 if (!mounted) return;
                 context.go(item.routeName!);
@@ -227,7 +238,11 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
           fct: () {},
         );
       } finally {
-        isloading = false;
+        if (mounted) {
+          setState(() {
+            isLoading = false;
+          });
+        }
       }
     }
   }
@@ -236,106 +251,98 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
   Widget build(BuildContext context) {
     return Form(
       key: _formkey,
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextFormField(
-              controller: formController.email,
-              focusNode: formController.emailFocusNode,
-              textInputAction: TextInputAction.next,
-              keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
-                hintText: AppLocalizations.of(context)!.input_hint_adress_email,
-                prefixIcon: const Icon(
-                  Icons.mail,
-                  color: AppColors.backgroundColor,
-                ),
-              ),
-              onFieldSubmitted: (value) {
-                FocusScope.of(context).requestFocus(_passwordFocusNode);
-              },
-              validator: (value) {
-                return MyValidators.emailValidator(value);
-              },
-            ),
-
-            const SizedBox(height: 8.0),
-            RepeatPasswordWidget(
-              passwordController: _passwordController,
-              repeatPasswordController: _repeatPasswordController,
-              passwordFocusNode: _passwordFocusNode,
-              repeatPasswordFocusNode: _repeatPasswordFocusNode,
-            ),
-
-            AddPersonWidget(
-              //  formKey: _personFormkey,
-              onBirthDateChanged: (value) {
-                setState(() {
-                  birthDate = value;
-                });
-              },
-              onGenderChanged: (value) {
-                setState(() {
-                  selectedGender = value;
-                });
-              },
-
-              onPickImage: onPickImage,
-              onRemoveImage: () {
-                setState(() {
-                  pickedImage = null;
-                  webImage = null;
-                });
-              },
-              showBild: false,
-              onAdressTypeChange: (String? addressType) {
-                setState(() {
-                  formController.addressesForms[0].selectedType = addressType!;
-                });
-              },
-
-              onCommuneChange: (String? value) {
-                setState(() {
-                  formController.addressesForms[0].selectedMunicipality = value!;
-                });
-              },
-
-              textColor: AppColors.backgroundColor,
-              personForm: formController,
-              personKey: addPersonKey,
-              addAddressKey: addAddressKey,
-            ),
-
-            Responsive.isDesktop(context)
-                ? SeparatorWidget(height: 20)
-                : SizedBox(),
-            Padding(
-              padding: const EdgeInsets.all(WidgetConstants.sepWidget),
-              child: ValidationButton(
-                fn: _registerFCT,
-                buttonItem: ButtonItem(
-                  AppLocalizations.of(context)!.btn_register_label,
-                  tooltipText: AppLocalizations.of(
-                    context,
-                  )!.tooltip_registration,
-                  enabled: true,
-                  routeName: RouteConstants.HOME_ROUTE,
-                  onPress: () {},
-                ),
-              ),
-            ),
-            if (isloading)
-              Container(
+      child: Column(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextFormField(
+            controller: formController.email,
+            focusNode: formController.emailFocusNode,
+            textInputAction: TextInputAction.next,
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecoration(
+              hintText: AppLocalizations.of(context)!.input_hint_adress_email,
+              prefixIcon: const Icon(
+                Icons.mail,
                 color: AppColors.backgroundColor,
-                child: const Center(
-                  child: CircularProgressIndicator(
-                    color: AppColors.selectionColor,
-                  ),
-                ),
               ),
-          ],
-        ),
+            ),
+            onFieldSubmitted: (value) {
+              FocusScope.of(context).requestFocus(_passwordFocusNode);
+            },
+            validator: (value) {
+              return MyValidators.emailValidator(value);
+            },
+          ),
+
+          const SizedBox(height: 8.0),
+          RepeatPasswordWidget(
+            passwordController: _passwordController,
+            repeatPasswordController: _repeatPasswordController,
+            passwordFocusNode: _passwordFocusNode,
+            repeatPasswordFocusNode: _repeatPasswordFocusNode,
+          ),
+
+          AddPersonWidget(
+            //  formKey: _personFormkey,
+            onBirthDateChanged: (value) {
+              setState(() {
+                formController.birthdate = value;
+              });
+            },
+            onGenderChanged: (value) {
+              setState(() {
+                formController.gender = value;
+              });
+            },
+
+            onPickImage: onPickImage,
+            onRemoveImage: () {
+              setState(() {
+                formController.pickedImage = null;
+                formController.webImage = null;
+              });
+            },
+            showBild: false,
+            onAdressTypeChange: (String? addressType) {
+              setState(() {
+                formController.addressesForms[0].selectedType = addressType!;
+              });
+            },
+
+            onCommuneChange: (String? value) {
+              setState(() {
+                formController.addressesForms[0].selectedMunicipality = value!;
+              });
+            },
+
+            textColor: AppColors.backgroundColor,
+            personForm: formController,
+        //    personKey: addPersonKey,
+       //     addAddressKey: addAddressKey,
+          ),
+
+          Responsive.isDesktop(context)
+              ? SeparatorWidget(height: 20)
+              : SizedBox(),
+          Padding(
+            padding: const EdgeInsets.all(WidgetConstants.sepWidget),
+            child: ValidationButton(
+              fn: _registerFCT,
+              buttonItem: ButtonItem(
+                AppLocalizations.of(context)!.btn_register_label,
+                tooltipText: AppLocalizations.of(context)!.tooltip_registration,
+                enabled: true,
+                routeName: RouteConstants.HOME_ROUTE,
+                onPress: () {},
+              ),
+            ),
+          ),
+          if (isLoading)
+            CircularProgressIndicator(
+              strokeWidth: 3,
+              color: AppColors.backgroundColor,
+            ),
+        ],
       ),
     );
   }
@@ -348,7 +355,7 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
         var selected = File(image.path);
         setState(() {
           //  widget.pickedImage = selected;
-          pickedImage = selected;
+          formController.pickedImage = selected;
         });
       } else {
         showBtmAlert(context, imageConstatnt.getImageSelectionText());
@@ -359,8 +366,8 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
       if (image != null) {
         var f = await image.readAsBytes();
         setState(() {
-          webImage = f;
-          pickedImage = File('a');
+          formController.webImage = f;
+          formController.pickedImage = File('a');
         });
       } else {
         showBtmAlert(context, imageConstatnt.getImageSelectionText());

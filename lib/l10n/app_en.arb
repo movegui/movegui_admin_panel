@@ -3,6 +3,19 @@
      "commune_title": "City",
     "@commune_title": {},
 
+        "gender_masculin": "Male",
+    "@gender_masculin": {},
+
+     "gender_female": "Female",
+    "@gender_female": {},
+
+    "open_hours_title": "Open Hours",
+    "@open_hours_title": {},
+    "store_services_title": "Services",
+    "@store_services_title": {},
+    "is_loding_text": "Loading...",
+    "@is_loding_text": {},
+
     "admin_bar_title": "Admin Configuration",
     "@admin_bar_title": {},
     "admin_add_bar_title": "Add Admin",
@@ -16,6 +29,10 @@
     "@employe_add_bar_title": {},
     "employe_all_bar_title": "All Employes",
     "@employe_all_bar_title": {},
+    "employe_status_actf": "Active",
+    "@employe_status_actf": {},
+    "employe_status_non_actf": "Inactive",
+    "@employe_status_non_actf": {},
 
     "pressing_add_bar_title": "Add dry Cleaner ",
     "@pressing_add_bar_title": {},
@@ -80,6 +97,8 @@
     "@pressing_service_price_max_labelText": {},
     "pressing_service_price_max_hinterText": "Maximum Product Price",
     "@pressing_service_price_max_hinterText": {},
+        "pressig_details_title": "Dry Cleaner Details",
+    "@pressig_details_title": {},
 
 
 
@@ -244,6 +263,10 @@
     "@error_occur": {},
     "error_send_formular": "Please Complete the formular ",
     "@error_send_formular": {},
+    "error_show_formular_title": "Error Page",
+    "@error_show_formular_title": {},
+    "error_show_formular": "An Error happen when loading the page",
+    "@error_show_formular": {},
 
     "label_login_facebook": "Facebook",
     "@label_login_facebook": {},
@@ -444,6 +467,10 @@
     "@label_firstname": {},
     "label_lastname": "Lastname",
     "@label_lastname": {},
+    "label_district": "District",
+    "@label_district": {},
+    "label_municipality": "Municipality",
+    "@label_municipality": {},
 
 
     "exception_login_message": "The Supplied User credential is incorrect, Please check your email address and password",
@@ -517,5 +544,14 @@
     "day_samedi": "Saturday",
     "@day_samedi": {},
     "day_dimanche": "Sunday",
-    "@day_dimanche": {}
+    "@day_dimanche": {},
+
+    "last_orders": "Last Orders",
+    "@last_orders": {},
+    "message_movegui_title": "<p>Welcome on Movegui</p>",
+    "@message_movegui_title": {},
+    "message_movegui_link": "Create a Password",
+    "@message_movegui_link": {},
+      "message_movegui": "Tahnks for trusting the MoveGui Team",
+    "@message_movegui": {}
 }

@@ -95,7 +95,7 @@ class AddressWidget extends StatelessWidget {
                   Expanded(
                     child: InputWidget(
                       controller: addressForm.longitude,
-                      focusNode: addressForm.longitudeFocusNode!,
+                      focusNode: addressForm.longitudeFocusNode,
                       icon: Icons.location_on,
                       hinterText: AppLocalizations.of(
                         context,

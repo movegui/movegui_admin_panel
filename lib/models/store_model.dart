@@ -2,12 +2,13 @@ import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/model.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
 import 'package:movegui_admin_panel/models/person_model.dart';
+import 'package:movegui_admin_panel/models/user_model.dart';
 
 abstract class StoreModel extends Model {
 
   final String  phone, email, imageUrl, description;
   final AdressModel address; 
-  final List<PersonModel> contacts;
+  final List<UserModel> staff;
   final List<OpenHoursModel> weeklyHours;
   final StoreTypeModel? storeType;
 
@@ -19,7 +20,7 @@ abstract class StoreModel extends Model {
     required this.email,
     required this.imageUrl,
     required this.phone,
-    required this.contacts,
+    required this.staff,
     required this.weeklyHours,
     required this.storeType,
     required this.address
@@ -30,8 +31,8 @@ abstract class StoreModel extends Model {
     
     ...super.toJson(),
     'description': description,
-    'contacts': contacts.map((contact) {
-      return contact.toJson();
+    'staff': staff.map((user) {
+      return user.toJson();
     }).toList(),
     'email': email,
     'imageUrl': imageUrl,

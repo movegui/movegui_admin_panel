@@ -47,7 +47,6 @@ class PermissionService {
         if (user.role == currentUser.role && user.role != UserRole.Admin.name) {
           return false;
         }
-        print('je suis la');
         return true;
       },
       loading: () => const CircularProgressIndicator(),

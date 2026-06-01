@@ -1,11 +1,10 @@
-import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/util/person_form_controller.dart';
 import 'package:movegui_admin_panel/widgets/address_widget.dart';
+import 'package:movegui_admin_panel/widgets/input/input_email_widget.dart';
 import 'package:movegui_admin_panel/widgets/picker/birthdate_picker.dart';
 import 'package:movegui_admin_panel/widgets/picker/gender_picker.dart';
 import 'package:movegui_admin_panel/widgets/image_picker_widget.dart';
@@ -20,8 +19,6 @@ class AddPersonWidget extends StatelessWidget {
   final void Function(String?) onAdressTypeChange;
   final ValueChanged<String?> onGenderChanged;
   final ValueChanged<DateTime?>? onBirthDateChanged;
-  final GlobalKey<FormState> personKey;
-  final GlobalKey<FormState> addAddressKey;
   final Color? textColor;
   final bool? showBild;
 
@@ -36,8 +33,6 @@ class AddPersonWidget extends StatelessWidget {
     required this.onCommuneChange,
     this.textColor = AppColors.textColor,
     required this.personForm,
-    required this.personKey,
-    required this.addAddressKey,
   });
 
   @override
@@ -49,7 +44,7 @@ class AddPersonWidget extends StatelessWidget {
 
   Widget buildDesktop(BuildContext context) {
     return Center(
-      key: personKey,
+      //   key: personKey,
       child: Row(
         children: [
           Expanded(
@@ -96,6 +91,12 @@ class AddPersonWidget extends StatelessWidget {
                   textColor: textColor,
                 ),
 
+                InputEmailWidget(
+                  emailController: personForm.email,
+                  emailFocusNode: personForm.emailFocusNode,
+                  textColor: textColor,
+                ),
+
                 InputPhoneWidget(
                   phoneController: personForm.phone,
                   phoneFocusNode: personForm.phoneFocusNode,
@@ -106,7 +107,7 @@ class AddPersonWidget extends StatelessWidget {
                   onAdressTypeChange: onAdressTypeChange,
                   onCommuneChange: onCommuneChange,
                   textColor: textColor,
-           //       addAddressKey: addAddressKey,
+                  //       addAddressKey: addAddressKey,
                   addressForm: personForm.addressesForms[0],
                 ),
               ],
@@ -121,9 +122,6 @@ class AddPersonWidget extends StatelessWidget {
                     pickedImage: personForm.pickedImage,
                     onPickImage: onPickImage,
                     onRemoveImage: onRemoveImage,
-
-                    //     width: 150,
-                    //      height: 150,
                   ),
                 )
               : SizedBox(),
@@ -149,8 +147,6 @@ class AddPersonWidget extends StatelessWidget {
                       pickedImage: personForm.pickedImage,
                       onPickImage: onPickImage,
                       onRemoveImage: onRemoveImage,
-                      //     width: 150,
-                      //      height: 150,
                     ),
                   ),
                 )
@@ -192,6 +188,12 @@ class AddPersonWidget extends StatelessWidget {
             textColor: textColor,
           ),
 
+          InputEmailWidget(
+            emailController: personForm.email,
+            emailFocusNode: personForm.emailFocusNode,
+            textColor: textColor,
+          ),
+
           InputPhoneWidget(
             phoneController: personForm.phone,
             phoneFocusNode: personForm.phoneFocusNode,
@@ -202,7 +204,6 @@ class AddPersonWidget extends StatelessWidget {
             onAdressTypeChange: onAdressTypeChange,
             onCommuneChange: onCommuneChange,
             textColor: textColor,
-        //    addAddressKey: addAddressKey,
             addressForm: personForm.addressesForms[0],
           ),
         ],

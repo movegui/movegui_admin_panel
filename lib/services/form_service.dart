@@ -1,14 +1,15 @@
 import 'dart:io';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/geo_cordinates_model.dart';
 import 'package:movegui_admin_panel/models/person_model.dart';
 import 'package:movegui_admin_panel/models/store_model.dart';
+import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/services/api_service.dart';
 import 'package:movegui_admin_panel/services/interfaces/i_form_service.dart';
+import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
 import 'package:movegui_admin_panel/util/address_form_controller.dart';
 import 'package:movegui_admin_panel/util/person_form_controller.dart';
 import 'package:uuid/uuid.dart';
@@ -19,49 +20,58 @@ abstract class FormService<M extends StoreModel> implements IFormService {
   FormService({required this.api});
 
   @override
-  Future<List<PersonModel>> getContacts(
+  Future<List<UserModel>> getContacts(
     List<PersonFormController> controllers,
   ) async {
     return Future.wait(
       controllers.map((elem) async {
-        return PersonModel(
-          id: const Uuid().v4(),
-          firstName: elem.firstName.text.trim(),
-          lastName: elem.lastName.text.trim(),
-          name: "${elem.firstName.text.trim()} ${elem.lastName.text.trim()}",
+        return UserModel(
+          updatedAt: DateTime.now(),
+          id: Uuid().v4(),
+          name: '',
           createdAt: DateTime.now(),
-          middleName: elem.middleName.text.isEmpty
-              ? null
-              : elem.middleName.text.trim(),
-          profileImageUrl: await _uploadImageToFirebase(
-            elem.webImage!,
-            elem.pickedImage,
-          ),
-          birthDate: elem.birthdate,
-          addresses: [
-            AdressModel(
-              address: elem.addressesForms[0].address.text.trim(),
-              id: Uuid().v4(),
-              name: elem.addressesForms[0].selectedType,
-              createdAt: DateTime.now(),
-              district: elem.addressesForms[0].district.text.trim(),
-              minucipality: elem.addressesForms[0].selectedMunicipality,
-              zoneId:
-                  '${elem.addressesForms[0].selectedMunicipality} _ ${elem.addressesForms[0].district.text.trim()} _ ${elem.addressesForms[0].address.text.trim()}',
-              geoCordinates: GeoCordinatesModel(
-                longitude: double.parse(
-                  elem.addressesForms[0].longitude.text.trim(),
-                ),
-                latitude: double.parse(
-                  elem.addressesForms[0].latitude.text.trim(),
+          username: null,
+          isVerified: false,
+          role: UserRole.Guest.name,
+          personModel: PersonModel(
+            id: const Uuid().v4(),
+            firstName: elem.firstName.text.trim(),
+            lastName: elem.lastName.text.trim(),
+            name: "${elem.firstName.text.trim()} ${elem.lastName.text.trim()}",
+            createdAt: DateTime.now(),
+            middleName: elem.middleName.text.isEmpty
+                ? null
+                : elem.middleName.text.trim(),
+            profileImageUrl: await _uploadImageToFirebase(
+              elem.webImage!,
+              elem.pickedImage,
+            ),
+            birthDate: elem.birthdate,
+            addresses: [
+              AdressModel(
+                address: elem.addressesForms[0].address.text.trim(),
+                id: Uuid().v4(),
+                name: elem.addressesForms[0].selectedType,
+                createdAt: DateTime.now(),
+                district: elem.addressesForms[0].district.text.trim(),
+                minucipality: elem.addressesForms[0].selectedMunicipality,
+                zoneId:
+                    '${elem.addressesForms[0].selectedMunicipality} _ ${elem.addressesForms[0].district.text.trim()} _ ${elem.addressesForms[0].address.text.trim()}',
+                geoCordinates: GeoCordinatesModel(
+                  longitude: double.parse(
+                    elem.addressesForms[0].longitude.text.trim(),
+                  ),
+                  latitude: double.parse(
+                    elem.addressesForms[0].latitude.text.trim(),
+                  ),
                 ),
               ),
-            ),
-          ],
-          email: elem.email.text.trim(),
-          phone: elem.phone.text.trim(),
-          gender: elem.gender!,
-          //  image: images[i],
+            ],
+            email: elem.email.text.trim(),
+            phone: elem.phone.text.trim(),
+            gender: elem.gender!,
+            //  image: images[i],
+          ),
         );
       }).toList(),
     );
@@ -105,6 +115,7 @@ abstract class FormService<M extends StoreModel> implements IFormService {
     }
   }
 
+  @override
   Future<AdressModel> getAdresse(AddressFormController controller) async {
     return AdressModel(
       address: controller.address.text.trim(),
