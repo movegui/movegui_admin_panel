@@ -31,6 +31,7 @@ class PressingServiceModel extends ServiceModel {
 
   @override
   Map<String, dynamic> toJson() => {
+    ...super.toJson(),
     'article': article.toJson(),
     'serviceType': serviceType.toJson(),
     'minPrice': minPrice,

@@ -1,7 +1,6 @@
 import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/model.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
-import 'package:movegui_admin_panel/models/person_model.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 
 abstract class StoreModel extends Model {
@@ -11,6 +10,8 @@ abstract class StoreModel extends Model {
   final List<UserModel> staff;
   final List<OpenHoursModel> weeklyHours;
   final StoreTypeModel? storeType;
+  double rating ;
+  int reviewCount;
 
   StoreModel({
     required super.id,
@@ -23,7 +24,9 @@ abstract class StoreModel extends Model {
     required this.staff,
     required this.weeklyHours,
     required this.storeType,
-    required this.address
+    required this.address,
+    this.rating = 0.0,
+    this.reviewCount = 0,
   });
 
   @override
@@ -43,6 +46,8 @@ abstract class StoreModel extends Model {
     }).toList(),
     'storeType': storeType?.toJson(),
     'address': address.toJson(), 
+    'rating': rating,
+    'reviewCount': reviewCount,
   };
 
 

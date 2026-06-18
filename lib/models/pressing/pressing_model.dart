@@ -1,6 +1,5 @@
 import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
-import 'package:movegui_admin_panel/models/person_model.dart';
 import 'package:movegui_admin_panel/models/restaurant_model.dart';
 import 'package:movegui_admin_panel/models/store_model.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
@@ -18,6 +17,7 @@ class PressingModel extends StoreModel {
     required super.phone,
     required super.weeklyHours,
     required super.storeType,
+    requ
   });
 
     @override
@@ -40,6 +40,9 @@ class PressingModel extends StoreModel {
         createdAt: json['createdAt'] != null ? json['createdAt'].toDate() : DateTime.now(),
         weeklyHours: (json['weeklyHours'] as List? ?? []).map((e) => OpenHoursModel.fromJson(e)).toList(),
          storeType: json['storeType'] != null ? RestaurantTypeModel.fromJson(json['storeType']) : null,
+         
+     //    ra: json['rating'] ?? 0.0,
+     //    reviewCount: json['reviewCount'] ?? 0,
       );
 
 }

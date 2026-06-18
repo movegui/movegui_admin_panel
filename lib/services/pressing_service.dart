@@ -64,7 +64,6 @@ class PressingService extends ModelService<PressingModel> {
           .collection(getCollectionName())
           .doc(id)
           .get();
-    return PressingModel.fromJson(snapshot.data()!);
-          
+    return PressingModel.fromJson(snapshot.data()!);         
   }
 }

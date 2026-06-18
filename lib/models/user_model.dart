@@ -33,6 +33,7 @@ class UserModel extends Model {
     'person': personModel!.toJson(),
     'isVerified': isVerified,
     'role': role,
+    'isActive': isActive
   };
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
@@ -43,6 +44,7 @@ class UserModel extends Model {
     updatedAt: json['updatedAt'].toDate() ?? '',
     personModel: PersonModel.fromJson(json['person']),
     isVerified: json['isVerified'] ?? false,
-    role: json['role'] ?? ''
+    role: json['role'] ?? '',
+    isActive: json['isActive'] ?? false
   );
 }

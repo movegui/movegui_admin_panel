@@ -41,6 +41,12 @@ class PressingServiceTypeModel extends Model {
             ? json['createdAt'].toDate()
             : DateTime.now(),
       );
+@override
+String toString() {
+  return 'MyClass(id: $id, name: $name, description: $description, '
+      'pricingType: $pricingType, createdAt: $createdAt)';
+}
+
 }
 
 enum PricingType { perItem, perKg, fixed }

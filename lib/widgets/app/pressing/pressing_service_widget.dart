@@ -7,7 +7,6 @@ import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/button_item.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_type_model.dart';
-import 'package:movegui_admin_panel/models/service_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/seed_service.dart';
@@ -18,15 +17,19 @@ import 'package:movegui_admin_panel/widgets/picker/pressing_service_picker.dart'
 import 'package:movegui_admin_panel/widgets/util/button_widget.dart';
 
 class PressingServiceWidget extends StatefulWidget {
-  const PressingServiceWidget({super.key, required this.formControllers});
   final List<PressingServiceFormController> formControllers;
+  final Function(int index, PressingServiceTypeModel? value) onServiceChange;
+  const PressingServiceWidget({
+    super.key,
+    required this.formControllers,
+    required this.onServiceChange,
+  });
 
   @override
   State<StatefulWidget> createState() => PressingServiceWidgetState();
 }
 
 class PressingServiceWidgetState extends State<PressingServiceWidget> {
-  late PressingServiceTypeModel? _pressinServiceType;
   late SeedService seedService;
 
   @override
@@ -39,7 +42,7 @@ class PressingServiceWidgetState extends State<PressingServiceWidget> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    _pressinServiceType = PressingServiceTypeModel(
+    widget.formControllers[0].serviceType = PressingServiceTypeModel(
       id: '003',
       name: AppLocalizations.of(context)!.pressing_service_dry_cleaning,
       description: AppLocalizations.of(
@@ -48,6 +51,7 @@ class PressingServiceWidgetState extends State<PressingServiceWidget> {
       pricingType: PricingType.fixed.name,
       createdAt: DateTime.now(),
     );
+    
   }
 
   Future<void> addService() async {
@@ -59,6 +63,15 @@ class PressingServiceWidgetState extends State<PressingServiceWidget> {
 
     setState(() {
       widget.formControllers.add(PressingServiceFormController());
+      widget.formControllers.last.serviceType = PressingServiceTypeModel(
+        id: '003',
+        name: AppLocalizations.of(context)!.pressing_service_dry_cleaning,
+        description: AppLocalizations.of(
+          context,
+        )!.pressing_service_dry_cleaning_descrip,
+        pricingType: PricingType.fixed.name,
+        createdAt: DateTime.now(),
+      );
       if (serviceDataTest != null) {
         widget.formControllers.last.setData(serviceDataTest);
       }
@@ -75,7 +88,7 @@ class PressingServiceWidgetState extends State<PressingServiceWidget> {
         physics: const NeverScrollableScrollPhysics(),
         itemCount: widget.formControllers.length,
         itemBuilder: (context, index) {
-          widget.formControllers[index].serviceType = _pressinServiceType;
+          //   widget.formControllers[index].serviceType = _pressinServiceType;
           return Center(
             child: Container(
               width: Responsive.isDesktop(context)
@@ -102,8 +115,7 @@ class PressingServiceWidgetState extends State<PressingServiceWidget> {
                                 .serviceType, //_pressinServiceType,
                             onServiceChange: (PressingServiceTypeModel? value) {
                               setState(() {
-                                widget.formControllers[index].serviceType =
-                                    value!;
+                                widget.onServiceChange.call(index, value);
                               });
                             },
                           ),

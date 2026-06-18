@@ -14,6 +14,7 @@ import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
 import 'package:movegui_admin_panel/methods/show_alert.dart';
 import 'package:movegui_admin_panel/models/button_item.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
+import 'package:movegui_admin_panel/models/pressing/pressing_service_type_model.dart';
 import 'package:movegui_admin_panel/services/image_service.dart';
 import 'package:movegui_admin_panel/services/pressing_form_service.dart';
 import 'package:movegui_admin_panel/services/pressing_service.dart';
@@ -200,6 +201,13 @@ class PressingAddWidgetPageState extends State<AddPressingWidget> {
 
                 PressingServiceWidget(
                   formControllers: formController.serviceForms,
+                  onServiceChange:
+                      (int index, PressingServiceTypeModel? value) {
+                        setState(() {
+                          formController.serviceForms[index].serviceType =
+                              value;
+                        });
+                      },
                 ),
 
                 Padding(

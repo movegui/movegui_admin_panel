@@ -4,7 +4,7 @@ import 'package:movegui_admin_panel/util/pressing_service_form_controller.dart';
 import 'package:movegui_admin_panel/util/store_form_controller.dart';
 
 class PressingFormController extends StoreFormController<PressingModel> {
-  final serviceForms = [PressingServiceFormController()];
+   List<PressingServiceFormController> serviceForms = [PressingServiceFormController()];
   List<PressingServiceModel> services = [];
 
   @override
