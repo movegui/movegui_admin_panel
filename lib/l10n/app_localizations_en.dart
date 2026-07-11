@@ -519,16 +519,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get register_employe_title => 'Employee Registration';
 
   @override
-  String get address_office_title => 'Bureau';
+  String get address_office_title => 'Office';
 
   @override
-  String get address_neighbor_title => 'Voisin';
+  String get address_neighbor_title => 'Neighbord';
 
   @override
-  String get address_home_title => 'Maison';
+  String get address_home_title => 'Home';
 
   @override
-  String get address_other_title => 'Autre';
+  String get address_other_title => 'Other';
 
   @override
   String get label_login_forget_password => 'Forgotten your password?';

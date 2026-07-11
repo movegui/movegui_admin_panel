@@ -2,11 +2,13 @@ import 'dart:io';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:movegui_admin_panel/config/env_dev.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/app_constants.dart';
+import 'package:movegui_admin_panel/consts/route_constants.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/error/message_widget.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
@@ -123,8 +125,12 @@ class PressingAddWidgetPageState extends State<AddPressingWidget> {
             AppLocalizations.of(context)!.category_pressing_name,
           ),
         );
+        if(mounted) {
+          context.go(RouteConstants.PRESSING_ROUTE);
+        }
       }
     } catch (e) {
+      print(e.toString());
       showBtmAlert(context, e.toString());
     }
 

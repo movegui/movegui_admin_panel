@@ -183,10 +183,14 @@ class UserService extends ModelService<UserModel> implements IUserService {
       if (currentUser != null) return currentUser;
       final user = FirebaseAuth.instance.currentUser;
       if (user != null) {
-        final userModel = await getByEmail(user.email!);
-        if (userModel != null) {
+        print('Current user email is: ${user.uid}');
+        final userModel = await getById(user.uid);
+        print('Current user model is: ${userModel.username ?? 'No user found'}');
+        if ( userModel.id == user.uid) {
           final idTokenResult = await user.getIdTokenResult(true);
+          print('claims is ${idTokenResult.claims}');
           final role = idTokenResult.claims?['role'];
+          print('claims Role is $role');
           if (role != null && role == userModel.role) {
             ref
                 .read(CurrentUserProvider.currentUserProvider)
@@ -194,6 +198,8 @@ class UserService extends ModelService<UserModel> implements IUserService {
             return userModel;
           }
         }
+      } else {
+        print('No user is currently signed in.');
       }
     }
     /*
@@ -217,10 +223,7 @@ class UserService extends ModelService<UserModel> implements IUserService {
   @override
   Future<void> setSuperAdminRole(String uid) async {
     try {
-      final url = Uri.parse(
-        //'https://us-central1-movegui-253e0.cloudfunctions.net/setSuperAdminRole',
-        //'https://setsuperadminrole-b2xn772ova-uc.a.run.app',
-        //'http://127.0.0.1:5001/movegui-253e0/us-central1/setSuperAdminRole',
+      final url = Uri.parse(    
         '${api.env.baseUrl}/movegui-253e0/us-central1/setSuperAdminRole',
       );
 
@@ -232,10 +235,9 @@ class UserService extends ModelService<UserModel> implements IUserService {
       if (response.statusCode == 200) {
         print('Success: ${response.body}');
       } else {
-        print('Error: ${response.body}');
+        throw Exception(response.body);
       }
     } on Exception {
-      await FirebaseAuth.instance.currentUser?.delete();
       throw Exception('Error User Creation !!!');
       /*
       MessageWidget.errorMessage(
@@ -333,6 +335,7 @@ class UserService extends ModelService<UserModel> implements IUserService {
     final notifier = ref.read(CurrentUserProvider.currentUserProvider);
     final newCurrentUser = await getByEmail(email);
     if (newCurrentUser != null) {
+      print('current user in loggin is: ${newCurrentUser.username}');
       notifier.setCurrentUser(newCurrentUser);
     }
     return newCurrentUser;
@@ -482,9 +485,8 @@ class UserService extends ModelService<UserModel> implements IUserService {
           gender,
           birthDate,
         );
-      await addModel(model!);
+        await addModel(model!);
         return model;
-
       }
     }
     return null;

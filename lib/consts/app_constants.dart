@@ -182,6 +182,7 @@ abstract class StoreConstants extends ImageConstatnt {
   String getTypeStoreText(BuildContext context);
   String getMenuTitleText(BuildContext context);
   String getStoreCategory(BuildContext context);
+  String getCollectionName();
 }
 
 class ImageConstatnt {
@@ -278,6 +279,11 @@ class RestaurantConstants extends StoreConstants {
   String getStoreCategory(BuildContext context) {
     return AppLocalizations.of(context)!.category_restaurant_name;
   }
+  
+  @override
+  String getCollectionName() {
+    return "restaurants_model";
+  }
 }
 
 class ProfessionConstants extends StoreConstants {
@@ -363,6 +369,11 @@ class ProfessionConstants extends StoreConstants {
   @override
   String getStoreCategory(BuildContext context) {
     return AppLocalizations.of(context)!.category_profession_name;
+  }
+  
+  @override
+  String getCollectionName() {
+    return "professionnels_model";
   }
 }
 
@@ -450,6 +461,11 @@ class PatisserieConstants extends StoreConstants {
   String getStoreCategory(BuildContext context) {
     return AppLocalizations.of(context)!.category_pastry_name;
   }
+  
+  @override
+  String getCollectionName() {
+    return "patisseries_model";
+  }
 }
 
 class PressingConstants extends StoreConstants {
@@ -535,6 +551,11 @@ class PressingConstants extends StoreConstants {
   @override
   String getStoreCategory(BuildContext context) {
     return AppLocalizations.of(context)!.category_pressing_name;
+  }
+  
+  @override
+  String getCollectionName() {
+   return "pressings_model";
   }
 }
 
@@ -622,6 +643,11 @@ class SuperMarktConstants extends StoreConstants {
   String getStoreCategory(BuildContext context) {
     return AppLocalizations.of(context)!.category_super_market_name;
   }
+  
+  @override
+  String getCollectionName() {
+    return "superMarkts_model";
+  }
 }
 
 class SupplierConstants extends StoreConstants {
@@ -707,6 +733,11 @@ class SupplierConstants extends StoreConstants {
   @override
   String getStoreCategory(BuildContext context) {
     return AppLocalizations.of(context)!.category_supplier_name;
+  }
+  
+  @override
+  String getCollectionName() {
+    return "suppliers_model";
   }
 }
 

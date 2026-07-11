@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_model.dart';
 import 'package:movegui_admin_panel/services/model_service.dart';
@@ -8,6 +9,7 @@ class PressingService extends ModelService<PressingModel> {
 
   @override
   Future<PressingModel> addModel(PressingModel pressing) async {
+    print(FirebaseAuth.instance.currentUser?.uid);
     await FirebaseFirestore.instance
         .collection(getCollectionName())
         .doc(pressing.id)
@@ -17,6 +19,14 @@ class PressingService extends ModelService<PressingModel> {
 
   @override
   Future<List<PressingModel>> allModels() async {
+    
+final user = FirebaseAuth.instance.currentUser;
+
+final tokenResult = await user?.getIdTokenResult(true);
+
+print('UID: ${user?.uid}');
+print('CLAIMS: ${tokenResult?.claims}');
+
     final snapshot = await FirebaseFirestore.instance
         .collection(getCollectionName())
         .get();

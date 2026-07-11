@@ -26,7 +26,7 @@ class ProductGridWidget extends StatelessWidget {
               ),
             );
           } else if (snapshot.connectionState == ConnectionState.active) {
-            if (snapshot.data!.docs.isNotEmpty) {
+            if (snapshot.data?.docs.isNotEmpty ?? false) {
               return GridView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,

@@ -86,7 +86,7 @@ class _CardsGridState extends State<CardsGrid> {
         });
 
     FirebaseFirestore.instance
-        .collection('recipe')
+        .collection('recipes_model')
         .snapshots(includeMetadataChanges: true)
         .first
         .then((recipesSnapshot) {
@@ -96,7 +96,7 @@ class _CardsGridState extends State<CardsGrid> {
         });
 
     FirebaseFirestore.instance
-        .collection('product')
+        .collection('products_model')
         .snapshots(includeMetadataChanges: true)
         .first
         .then((productsSnapshot) {
@@ -106,7 +106,7 @@ class _CardsGridState extends State<CardsGrid> {
         });
 
     FirebaseFirestore.instance
-        .collection('restaurant_menu')
+        .collection('restaurants_menu_model')
         .snapshots(includeMetadataChanges: true)
         .first
         .then((restaurantsMenusSnapshot) {

@@ -74,7 +74,7 @@ exports.sendEmail = functions.https.onCall(
             },
           ],
           subject: `${subject}`,
-          htmlContent: `${message}` ,
+          htmlContent: `${message}`,
         },
         {
           headers: {
@@ -97,47 +97,29 @@ exports.sendEmail = functions.https.onCall(
 );
 
 
-/*
-exports.setAdminRole = functions.https.onRequest(async (req, res) => {
-  cors(req, res, async () => {
-    try {
-
-      if (!req.auth) {
-        throw new HttpsError(
-          "Non authentifié",
-          "Vous devez etre enregistrer pour utiliser ce functionnalité"
-        );
-      }
-      const uid = req.body.uid;
-      const role = req.body.role;
-
-      await admin.auth().setCustomUserClaims(uid, {
-        role: role,
-      });
-
-      res.status(200).send({ success: true });
-    } catch (error) {
-      res.status(500).send({ error: error.message });
-    }
-  });
-
-});
-*/
-
-
 exports.setSuperAdminRole = functions.https.onRequest(async (req, res) => {
-
+  console.log("FIREBASE_AUTH_EMULATOR_HOST:", process.env.FIREBASE_AUTH_EMULATOR_HOST);
+  
   cors(req, res, async () => {
     try {
       const uid = req.body.uid;
       const role = req.body.role;
 
+      console.log("UID received:", uid);
+      console.log("ROLE received:", role);
+
+      const user = await admin.auth().getUser(uid);
+
+      console.log("Found Firebase user:", user.email);
+  
       await admin.auth().setCustomUserClaims(uid, {
         role: role,
       });
+      
 
       res.status(200).send({ success: true });
     } catch (error) {
+      console.error("Error setting custom claims:", error);
       res.status(500).send({ error: error.message });
     }
   });

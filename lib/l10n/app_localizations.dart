@@ -1043,25 +1043,25 @@ abstract class AppLocalizations {
   /// No description provided for @address_office_title.
   ///
   /// In en, this message translates to:
-  /// **'Bureau'**
+  /// **'Office'**
   String get address_office_title;
 
   /// No description provided for @address_neighbor_title.
   ///
   /// In en, this message translates to:
-  /// **'Voisin'**
+  /// **'Neighbord'**
   String get address_neighbor_title;
 
   /// No description provided for @address_home_title.
   ///
   /// In en, this message translates to:
-  /// **'Maison'**
+  /// **'Home'**
   String get address_home_title;
 
   /// No description provided for @address_other_title.
   ///
   /// In en, this message translates to:
-  /// **'Autre'**
+  /// **'Other'**
   String get address_other_title;
 
   /// No description provided for @label_login_forget_password.
