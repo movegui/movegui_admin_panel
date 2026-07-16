@@ -1,4 +1,8 @@
 {
     "super.email": "super@test.com",
-    "super.pw": "Super123!"
+    "super.pw": "Super123!",
+    "support.email": "support@movegui.com",
+    "support.pw": "Support123!",
+    "support.phone": "+224614824444"
+
 }

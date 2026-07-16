@@ -191,7 +191,7 @@ class MoveguiProfileScreenState extends ConsumerState<MoveguiProfileScreen> {
   }
 
   Future<void> _initialize() async {
-     final  loggedUser = await userService.getCurrentUser(ref);
+     final  loggedUser = await userService.getCurrentUser(context, ref);
      if(loggedUser != null){
       setState(() {
         currentUser = loggedUser;

@@ -307,6 +307,12 @@ class AppLocalizationsFr extends AppLocalizations {
       'Une Erreur s\'est produite lors du chargement de la page';
 
   @override
+  String get error_no_user_connected_title => 'Erreur d\'Authentification';
+
+  @override
+  String get error_no_user_connected_message => 'Pas d\'utilisateur connecté';
+
+  @override
   String get label_login_facebook => 'Facebook';
 
   @override

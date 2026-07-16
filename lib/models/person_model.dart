@@ -5,10 +5,10 @@ import 'package:uuid/uuid.dart';
 class PersonModel extends Model {
   final String firstName;
   final String lastName;
-  final String? middleName;
-  final String? profileImageUrl;
-  final String? email;
-  final String? phone;
+  String? middleName;
+  String? profileImageUrl;
+  String? email;
+  String? phone;
   final String gender;
   final DateTime? birthDate;
   final List<AdressModel?> addresses;

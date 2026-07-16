@@ -614,6 +614,18 @@ abstract class AppLocalizations {
   /// **'An Error happen when loading the page'**
   String get error_show_formular;
 
+  /// No description provided for @error_no_user_connected_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Authentication Error'**
+  String get error_no_user_connected_title;
+
+  /// No description provided for @error_no_user_connected_message.
+  ///
+  /// In en, this message translates to:
+  /// **'No user is currently signed in.'**
+  String get error_no_user_connected_message;
+
   /// No description provided for @label_login_facebook.
   ///
   /// In en, this message translates to:

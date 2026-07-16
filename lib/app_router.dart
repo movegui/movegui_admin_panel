@@ -54,6 +54,7 @@ class AppRouter {
 
       // ✅ GLOBAL auth redirect (THIS IS THE KEY)
       redirect: (context, state) {
+
         if (authAsync.isLoading) {
           return RouteConstants.SPLASH_ROUTE; // ✅ DO NOTHING
         }

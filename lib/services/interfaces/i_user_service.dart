@@ -4,7 +4,7 @@ import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 
 // ignore: non_constant_identifier_names
-enum UserRole { Admin, User, Employe, Guest, SuperAdmin, Manager }
+enum UserRole { Admin, User, Employe, Guest, SuperAdmin, Manager, Support }
 
 abstract class IUserService {
   Future<UserModel?> getByUsername(String username);
@@ -16,12 +16,11 @@ abstract class IUserService {
   Future<void> update(UserModel model);
   Future<UserModel?> getByEmail(String email);
   Future<void> signOut(WidgetRef ref);
-  Future<UserModel?> getCurrentUser(WidgetRef? ref);
+  Future<UserModel?> getCurrentUser(BuildContext context, WidgetRef? ref);
   Future<List<UserModel?>> getSuperAdmins();
-  Future<void> setAdminRole(BuildContext context, String uid);
-  Future<void> setSuperAdminRole(String uid);
+  //Future<void> setAdminRole(BuildContext context, String uid);
+  Future<void> setUserRole(BuildContext context , String uid, String role);
   Future<bool> isAuthorize(UserModel? user);
-  //  Future<void> createSuperUser(BuildContext context, UserModel? user);
   Future<bool> isSuperUser(BuildContext context, WidgetRef ref);
   Future<UserModel?> getCurrentUserByMail(String email, WidgetRef ref);
   Future<UserModel?> createUser(

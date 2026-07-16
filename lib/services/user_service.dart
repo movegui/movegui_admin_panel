@@ -174,8 +174,43 @@ class UserService extends ModelService<UserModel> implements IUserService {
     return currentUser;
   }
 
+    Future<UserModel> initializeUserWithEmailAndUIDAndPhone(
+    String email,
+    String uuid,
+    String phone
+  ) async {
+    late UserModel currentUser;
+
+    currentUser = UserModel(
+      updatedAt: DateTime.now(),
+      id: uuid,
+      name: email,
+      createdAt: DateTime.now(),
+      username: email,
+      isVerified: false,
+      personModel: PersonModel(
+        id: Uuid().v4(),
+        name: '',
+        createdAt: DateTime.now(),
+        firstName: '',
+        lastName: '',
+        profileImageUrl: null,
+        email: email,
+        phone: phone,
+        gender: '',
+        birthDate: null,
+        addresses: [],
+      ),
+      role: UserRole.Guest.name,
+    );
+    return currentUser;
+  }
+
   @override
-  Future<UserModel?> getCurrentUser(WidgetRef? ref) async {
+  Future<UserModel?> getCurrentUser(
+    BuildContext context,
+    WidgetRef? ref,
+  ) async {
     if (ref != null) {
       final currentUser = ref
           .watch(CurrentUserProvider.currentUserProvider)
@@ -183,14 +218,10 @@ class UserService extends ModelService<UserModel> implements IUserService {
       if (currentUser != null) return currentUser;
       final user = FirebaseAuth.instance.currentUser;
       if (user != null) {
-        print('Current user email is: ${user.uid}');
         final userModel = await getById(user.uid);
-        print('Current user model is: ${userModel.username ?? 'No user found'}');
-        if ( userModel.id == user.uid) {
+        if (userModel.id == user.uid) {
           final idTokenResult = await user.getIdTokenResult(true);
-          print('claims is ${idTokenResult.claims}');
           final role = idTokenResult.claims?['role'];
-          print('claims Role is $role');
           if (role != null && role == userModel.role) {
             ref
                 .read(CurrentUserProvider.currentUserProvider)
@@ -199,85 +230,57 @@ class UserService extends ModelService<UserModel> implements IUserService {
           }
         }
       } else {
-        print('No user is currently signed in.');
+        MessageWidget.errorMessage(
+          context,
+          AppLocalizations.of(context)!.error_no_user_connected_title,
+          AppLocalizations.of(context)!.error_no_user_connected_message,
+          Icon(Icons.error, color: AppColors.error),
+          FlushbarPosition.TOP,
+        );
       }
     }
-    /*
-    return null;
-    final user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      UserModel? userModel = await getByEmail(user.email!);
-      if (userModel != null) {
-        final idTokenResult = await user.getIdTokenResult(true);
-        final role = idTokenResult.claims?['role'];
-        print('claims is $role');
-        if (role != null && role == userModel.role) {
-          return userModel;
-        }
-      }
-    }
-*/
     return null;
   }
 
   @override
-  Future<void> setSuperAdminRole(String uid) async {
+  Future<void> setUserRole(
+    BuildContext context,
+    String uid,
+    String role,
+  ) async {
     try {
-      final url = Uri.parse(    
+      final url = Uri.parse(
         '${api.env.baseUrl}/movegui-253e0/us-central1/setSuperAdminRole',
       );
 
       final response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'uid': uid, 'role': UserRole.SuperAdmin.name}),
+        body: jsonEncode({'uid': uid, 'role': role}),
       );
-      if (response.statusCode == 200) {
-        print('Success: ${response.body}');
-      } else {
-        throw Exception(response.body);
+      if (response.statusCode != 200) {
+        await FirebaseAuth.instance.currentUser?.delete();
+        throw Exception(
+          MessageWidget.errorMessage(
+            context,
+            AppLocalizations.of(context)?.error_register_title ?? 'Error',
+            AppLocalizations.of(context)?.error_register_with_email_message ?? 'Error registration',
+            Icon(Icons.error, color: AppColors.error),
+            FlushbarPosition.TOP,
+          ),
+        );
       }
     } on Exception {
-      throw Exception('Error User Creation !!!');
-      /*
-      MessageWidget.errorMessage(
-        context,
-        AppLocalizations.of(context)!.error_register_with_phone_title,
-        AppLocalizations.of(context)!.error_register_with_email_message,
-        Icon(Icons.error, color: AppColors.error),
-        FlushbarPosition.TOP,
-      );
-      */
-    }
-  }
-
-  @override
-  Future<void> setAdminRole(BuildContext context, String uid) async {
-    try {} on Exception {
       await FirebaseAuth.instance.currentUser?.delete();
-      MessageWidget.errorMessage(
-        context,
-        AppLocalizations.of(context)!.error_register_title,
-        AppLocalizations.of(context)!.error_register_with_email_message,
-        Icon(Icons.error, color: AppColors.error),
-        FlushbarPosition.TOP,
+      throw Exception(
+        MessageWidget.errorMessage(
+          context,
+          AppLocalizations.of(context)!.error_register_title,
+          AppLocalizations.of(context)!.error_register_with_email_message,
+          Icon(Icons.error, color: AppColors.error),
+          FlushbarPosition.TOP,
+        ),
       );
-    }
-    final url = Uri.parse(
-      //  'https://us-central1-movegui-253e0.cloudfunctions.net/setAdminRole',
-      // 'http://127.0.0.1:5001/movegui-253e0/us-central1/setAdminRole',
-      '${api.env.baseUrl}/movegui-253e0/us-central1/setAdminRole',
-    );
-
-    final response = await http.post(
-      url,
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({'uid': uid, 'role': UserRole.Admin}),
-    );
-    if (response.statusCode == 200) {
-      print('Success: ${response.body}');
-    } else {
-      print('Error: ${response.body}');
     }
   }
 

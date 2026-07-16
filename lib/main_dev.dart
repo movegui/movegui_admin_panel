@@ -29,10 +29,12 @@ void main() async {
   ]);
   initServices(env);
   await FirebaseConfig.init(env);
-  await  createSuperUser();
+  // await  createSuperUser();
   runApp(ProviderScope(child: MoveguiAdminApp(env: env)));
 }
 
+
+/*
 class MoveguiAdminApp extends ConsumerWidget {
   final Env env;
 
@@ -44,6 +46,52 @@ class MoveguiAdminApp extends ConsumerWidget {
     final router = ref.watch(AppRouter.routerProvider);
 
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      locale: Locale('fr'),
+      supportedLocales: const [
+        Locale('en'), // English
+        Locale('fr'), // French
+      ],
+      title: 'Movegui Panel',
+      theme: Styles.themeData(themeProvider.getDarkTheme, context),
+      routerConfig: router,
+    );
+  }
+}
+*/
+
+class MoveguiAdminApp extends ConsumerStatefulWidget {
+  const MoveguiAdminApp({super.key, required this.env});
+
+  final Env env;
+
+  @override
+  ConsumerState<MoveguiAdminApp> createState() => _MoveguiAdminAppState();
+}
+
+class _MoveguiAdminAppState extends ConsumerState<MoveguiAdminApp> {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await  createSuperUser(context);
+      await createSupportUser(context);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final themeProvider = ref.watch(DarkThemeProvider.themeProvider);
+    final router = ref.watch(AppRouter.routerProvider);
+
+     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       localizationsDelegates: const [
         AppLocalizations.delegate,

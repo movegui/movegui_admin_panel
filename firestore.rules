@@ -25,13 +25,13 @@ service cloud.firestore {
 
     match /users/{id} {
 
-      allow create , delete: if isSignedIn()   && ( isAdmin() || isSuperAdmin());
+      allow create , delete: if isSignedIn()  // && ( isAdmin() || isSuperAdmin());
 
       allow read: if isSignedIn()
-        && (isOwner(id) || isAdmin() || isSuperAdmin());
+   //     && (isOwner(id) || isAdmin() || isSuperAdmin());
 
-      allow update: if isSignedIn() && isSuperAdmin()
-        && (isOwner(id) || isAdmin() || isSuperAdmin());
+      allow update: if isSignedIn() // && isSuperAdmin()
+     //   && (isOwner(id) || isAdmin() || isSuperAdmin());
     }
 
     match /pressings_model/{id} {

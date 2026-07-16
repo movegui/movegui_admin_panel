@@ -267,6 +267,10 @@
     "@error_show_formular_title": {},
     "error_show_formular": "An Error happen when loading the page",
     "@error_show_formular": {},
+    "error_no_user_connected_title": "Authentication Error",
+    "@error_no_user_connected_title": {},
+    "error_no_user_connected_message": "No user is currently signed in.",
+    "@error_no_user_connected_message": {},
 
     "label_login_facebook": "Facebook",
     "@label_login_facebook": {},

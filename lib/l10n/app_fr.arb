@@ -258,7 +258,10 @@
     "@error_show_formular_title": {},
     "error_show_formular": "Une Erreur s'est produite lors du chargement de la page",
     "@error_show_formular": {},
-    
+    "error_no_user_connected_title": "Erreur d'Authentification",
+    "@error_no_user_connected_title": {},
+    "error_no_user_connected_message": "Pas d'utilisateur connecté",
+    "@error_no_user_connected_message": {},
     
     
     "btn_close_label": "Fermer",

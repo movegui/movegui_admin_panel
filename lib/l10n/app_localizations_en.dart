@@ -302,6 +302,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get error_show_formular => 'An Error happen when loading the page';
 
   @override
+  String get error_no_user_connected_title => 'Authentication Error';
+
+  @override
+  String get error_no_user_connected_message =>
+      'No user is currently signed in.';
+
+  @override
   String get label_login_facebook => 'Facebook';
 
   @override

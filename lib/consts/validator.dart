@@ -78,4 +78,13 @@ class MyValidators {
     }
     return null;
   }
+
+ static final guineaPhoneRegex = RegExp(
+  r'^(?:\+224[\s-]?)?6\d{3}[\s-]?\d{5}$',
+);
+
+static bool isValidGuineaPhone(String phone) {
+  return guineaPhoneRegex.hasMatch(phone);
+}
+
 }

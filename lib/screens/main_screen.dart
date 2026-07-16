@@ -29,7 +29,7 @@ class MainScreenState extends ConsumerState<MainScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (mounted) {
         if (AppLocalizations.of(context) != null) {
-          final user = await userService.getCurrentUser(ref);
+          final user = await userService.getCurrentUser(context, ref);
           final autorization = await userService.isAuthorize(user);
           setState(() {
             currentUser = user;
