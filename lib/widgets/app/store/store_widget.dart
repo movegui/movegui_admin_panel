@@ -15,7 +15,6 @@ class StoreWidget extends StatelessWidget {
   final StoreFormController formController;
   final void Function(String?) onAdressTypeChange;
   final void Function(String?) onCommuneChange;
-  final Color? textColor;
   final VoidCallback onPickImage;
   final VoidCallback onRemoveImage;
   final StoreConstants storeConstants;
@@ -28,7 +27,6 @@ class StoreWidget extends StatelessWidget {
     required this.storeConstants,
     required this.onAdressTypeChange,
     required this.onCommuneChange,
-    required this.textColor,
     required this.formController,
     required this.onHoursChanged,
 
@@ -50,7 +48,7 @@ class StoreWidget extends StatelessWidget {
             width: size.width * 0.5,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
-              color: AppColors.backgroundColor, //Colors.grey.withOpacity(0.3),
+             
             ),
             child: Row(
               children: [
@@ -168,7 +166,7 @@ class StoreWidget extends StatelessWidget {
             //   height: Size.height * 0.3,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
-              color: AppColors.backgroundColor, //Colors.grey.withOpacity(0.3),
+             
             ),
             child: Column(
               children: [

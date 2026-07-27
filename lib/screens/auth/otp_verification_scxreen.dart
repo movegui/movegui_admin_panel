@@ -2,19 +2,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:movegui/consts/app_colors.dart';
-import 'package:movegui/consts/app_constants.dart';
-import 'package:movegui/consts/route_contants.dart';
-import 'package:movegui/consts/widget_constants.dart';
-import 'package:movegui/l10n/app_localizations.dart';
-import 'package:movegui/models/button_item.dart';
-import 'package:movegui/models/user_model.dart';
-import 'package:movegui/providers/login_mod_provider.dart';
-import 'package:movegui/services/register_services.dart';
-import 'package:movegui/services/user_service.dart';
-import 'package:movegui/widgets/auth/validation_button.dart';
+import 'package:movegui_admin_panel/consts/app_colors.dart';
+import 'package:movegui_admin_panel/consts/widget_constants.dart';
+import 'package:movegui_admin_panel/l10n/app_localizations.dart';
+import 'package:movegui_admin_panel/models/button_item.dart';
+import 'package:movegui_admin_panel/models/user_model.dart';
+import 'package:movegui_admin_panel/services/register_services.dart';
+import 'package:movegui_admin_panel/services/user_service.dart';
+import 'package:movegui_admin_panel/widgets/app/auth/validation_button.dart';
 import 'package:pinput/pinput.dart';
-import 'package:provider/provider.dart';
+
 
 class OtpVerificationScreen extends StatefulWidget {
   final String verificationId;
@@ -122,7 +119,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
             width: double.infinity,
             constraints: const BoxConstraints(maxWidth: 380),
             decoration: BoxDecoration(
-              color: AppColors.textColor,
+              color: AppColors.primary,
               borderRadius: BorderRadius.circular(
                 WidgetConstants.sepWidgetHeight * 2,
               ),
@@ -133,8 +130,8 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 const CircleAvatar(
                   radius: 28,
                   backgroundColor:
-                      AppColors.backgroundColor, //Color(0xFF4A73F3),
-                  child: Icon(Icons.verified, color: AppColors.textColor),
+                      AppColors.lightbackground, //Color(0xFF4A73F3),
+                  child: Icon(Icons.verified, color: AppColors.primary),
                 ),
                 const SizedBox(height: WidgetConstants.sepWidgetHeight * 2),
                 Text(

@@ -44,7 +44,7 @@ class RepeatPasswordWidgetState extends State<RepeatPasswordWidget> {
             hintText: "***********",
             prefixIcon: const Icon(
               Icons.lock,
-              color: AppColors.backgroundColor,
+           
             ),
             suffixIcon: IconButton(
               onPressed: () {
@@ -73,7 +73,7 @@ class RepeatPasswordWidgetState extends State<RepeatPasswordWidget> {
             hintText: "Repeter Mot de pass",
             prefixIcon: const Icon(
               Icons.lock,
-              color: AppColors.backgroundColor,
+            
             ),
             suffixIcon: IconButton(
               onPressed: () {

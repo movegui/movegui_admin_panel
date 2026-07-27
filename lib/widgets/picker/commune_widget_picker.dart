@@ -31,7 +31,7 @@ class CommuneWidgetPickerState extends State<CommuneWidgetPicker> {
   Widget build(BuildContext context) {
 
     return Card(
-      color: AppColors.backgroundColor,
+   //   color: AppColors.backgroundColor,
       margin: const EdgeInsets.all(2),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       elevation: 1,
@@ -45,15 +45,15 @@ class CommuneWidgetPickerState extends State<CommuneWidgetPicker> {
             DropdownButtonFormField<String>(
               decoration:  InputDecoration(
                 filled: true,
-                fillColor: AppColors.backgroundColor,
+             //   fillColor: AppColors.backgroundColor,
                 labelText: AppLocalizations.of(context)!.commune_title,
-                labelStyle: TextStyle(color: AppColors.textColor, fontSize: 12),
+                labelStyle: TextStyle( fontSize: 12),
                 border: InputBorder.none,
               ),
-              style: TextStyle(color: AppColors.textColor, fontSize: 12),
-              dropdownColor: AppColors.backgroundColor,
+              style: TextStyle( fontSize: 12),
+            //  dropdownColor: AppColors.backgroundColor,
               //   focusColor: AppColors.selectionColor,
-              iconEnabledColor: AppColors.textColor,
+           //   iconEnabledColor: AppColors.textColor,
               value: _selectedCommune,
               items: [
                 DropdownMenuItem(value: 'di', child: Text(COMMUNE_DIXINN)),

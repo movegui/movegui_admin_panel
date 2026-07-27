@@ -98,7 +98,7 @@ class AddContactWidgetState extends State<AddContactWidget> {
                 : double.infinity,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
-              color: AppColors.backgroundColor,
+             
             ),
             child: Column(
               children: [
@@ -162,7 +162,7 @@ class AddContactWidgetState extends State<AddContactWidget> {
                           routeName: '',
                         ),
                         icon: Icons.add,
-                        backgroundColor: AppColors.darkPrimary,
+                      
                       ),
                     ),
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/widgets/orders_grid.dart';
-import 'package:movegui_admin_panel/widgets/side_menu.dart';
+import 'package:movegui_admin_panel/widgets/app/dashboard/dash_board_side_menu.dart';
 import '../responsive.dart';
 
 class OrderScreen extends StatelessWidget {

@@ -122,7 +122,7 @@ class PressingAddWidgetPageState extends State<AddPressingWidget> {
         showAlertBar(
           context,
           AppLocalizations.of(context)!.store_add_success_message(
-            AppLocalizations.of(context)!.category_pressing_name,
+            AppLocalizations.of(context)!.module_pressing_name,
           ),
         );
         if(mounted) {
@@ -198,7 +198,7 @@ class PressingAddWidgetPageState extends State<AddPressingWidget> {
                     onCommuneChange: (String? value) {
                       formController.addressForm.selectedMunicipality = value!;
                     },
-                    textColor: AppColors.textColor,
+                //    textColor: AppColors.textColor,
                     onHoursChanged: (List<OpenHoursModel> hours) {
                       formController.weeklyHours = hours;
                     },

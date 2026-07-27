@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movegui_admin_panel/widgets/side_menu.dart';
+import 'package:movegui_admin_panel/widgets/app/dashboard/dash_board_side_menu.dart';
 import '../consts/constants.dart';
 import '../responsive.dart';
 import '../widgets/grid_products.dart';
@@ -15,7 +15,7 @@ class ProductScreen extends StatelessWidget {
     double FontSize = size.width <600 ? 20 :28;
     return SafeArea(
         child: Scaffold(
-          drawer:  SideMenu(),
+          drawer:  DashBoardSideMenu(),
           body: Builder(
           builder: (context) => SafeArea(
             child: Row(
@@ -24,7 +24,7 @@ class ProductScreen extends StatelessWidget {
                 // We want this side menu only for large screen
                 if (Responsive.isDesktop(context))
                    Expanded(
-                    child: SideMenu(),
+                    child: DashBoardSideMenu(),
                   ),
 
                 Expanded(

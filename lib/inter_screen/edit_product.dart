@@ -8,12 +8,12 @@ import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/widgets/custom_button.dart';
-import 'package:movegui_admin_panel/widgets/radio_btns%20copy.dart';
+import 'package:movegui_admin_panel/widgets/radio_btns_copy.dart';
 import 'package:uuid/uuid.dart';
 import '../methods/showBtmAlert.dart';
 import '../methods/show_alert.dart';
 import '../widgets/input/custom_text_field.dart';
-import '../widgets/side_menu.dart';
+import '../widgets/app/dashboard/dash_board_side_menu.dart';
 class ProductEdit extends StatefulWidget {
   const ProductEdit({super.key, required this.name, required this.price, required this.salePrice, required this.unit, required this.productCat, required this.id, required this.imageUrl});
   final String name;
@@ -48,7 +48,7 @@ class _ProductEditState extends State<ProductEdit> {
     var Size = MediaQuery.of(context).size;
     double FontSize = Size.width < 600 ? 14 : 20;
     return Scaffold(
-        drawer:  SideMenu(),
+        drawer:  DashBoardSideMenu(),
         body: Builder(
         builder: (context) => SafeArea(
       child: Row(
@@ -57,7 +57,7 @@ class _ProductEditState extends State<ProductEdit> {
           // We want this side menu only for large screen
           if (Responsive.isDesktop(context))
              Expanded(
-              child: SideMenu(),
+              child: DashBoardSideMenu(),
             ),
           Expanded(
             flex: 5,
@@ -286,7 +286,7 @@ class _ProductEditState extends State<ProductEdit> {
                               CustomButon(
                                 text: 'Delete',
                                 icon: Icons.delete,
-                                color: Colors.red,
+                            
                                 onTap: () async {
                                   await FirebaseFirestore.instance.collection('products').doc(widget.id).delete();
                                   Navigator.pop(context);
@@ -295,7 +295,7 @@ class _ProductEditState extends State<ProductEdit> {
                               CustomButon(
                                 text: 'Demise',
                                 icon: Icons.clear,
-                                color: Colors.orange,
+                             
                                 onTap: () {
                                   final form = formKey.currentState;
                                   if (form != null && form.validate()) {

@@ -33,7 +33,7 @@ class AddressTypePickerState extends State<AddressTypePicker> {
     String neighbor = AppLocalizations.of(context)!.address_neighbor_title;
     String other = AppLocalizations.of(context)!.address_other_title;
     return Card(
-      color: AppColors.backgroundColor,
+  //    color: AppColors.backgroundColor,
       margin: const EdgeInsets.all(2),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       elevation: 1,
@@ -47,15 +47,15 @@ class AddressTypePickerState extends State<AddressTypePicker> {
             DropdownButtonFormField<String>(
               decoration: InputDecoration(
                 filled: true,
-                fillColor: AppColors.backgroundColor,
+             //   fillColor: AppColors.backgroundColor,
                 labelText: AppLocalizations.of(context)!.input_hint_adress,
-                labelStyle: TextStyle(color: AppColors.textColor, fontSize: 12),
+                labelStyle: TextStyle(  fontSize: 12),
                 border: InputBorder.none,
               ),
-              style: TextStyle(color: AppColors.textColor, fontSize: 12),
-              dropdownColor: AppColors.backgroundColor,
+              style: TextStyle(  fontSize: 12),
+           //   dropdownColor: AppColors.backgroundColor,
               //   focusColor: AppColors.selectionColor,
-              iconEnabledColor: AppColors.textColor,
+           //   iconEnabledColor: AppColors.textColor,
               value: _selectedAdressType,
               items: [
                 DropdownMenuItem(value: 'h', child: Text(home)),

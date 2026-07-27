@@ -102,10 +102,9 @@ class GlobalMethods {
 
                 DisplayWidget(
                   text: model.personModel?.name ?? '',
-                  textColor: AppColors.backgroundColor,
+
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
-                  
                 ),
 
                 Row(
@@ -113,7 +112,7 @@ class GlobalMethods {
                   children: [
                     DisplayWidget(
                       text: birthdateFormat,
-                      textColor: AppColors.backgroundColor,
+
                       fontWeight: FontWeight.bold,
                       textAlign: TextAlign.left,
                     ),
@@ -123,7 +122,7 @@ class GlobalMethods {
                         model.personModel!.gender,
                         context,
                       ),
-                      textColor: AppColors.backgroundColor,
+
                       textAlign: TextAlign.right,
                       fontWeight: FontWeight.bold,
                     ),
@@ -133,25 +132,19 @@ class GlobalMethods {
                 const SizedBox(height: 16),
 
                 ListTile(
-                  leading: const Icon(
-                    Icons.mail,
-                    color: AppColors.backgroundColor,
-                  ),
+                  leading: const Icon(Icons.mail),
                   title: DisplayWidget(
                     text: model.personModel?.email ?? '',
-                    textColor: AppColors.backgroundColor,
+
                     textAlign: TextAlign.left,
                   ),
                 ),
 
                 ListTile(
-                  leading: const Icon(
-                    Icons.phone,
-                    color: AppColors.backgroundColor,
-                  ),
+                  leading: const Icon(Icons.phone),
                   title: DisplayWidget(
                     text: model.personModel?.phone ?? '',
-                    textColor: AppColors.backgroundColor,
+
                     textAlign: TextAlign.left,
                   ),
                 ),

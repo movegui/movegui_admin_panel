@@ -19,7 +19,6 @@ class AddPersonWidget extends StatelessWidget {
   final void Function(String?) onAdressTypeChange;
   final ValueChanged<String?> onGenderChanged;
   final ValueChanged<DateTime?>? onBirthDateChanged;
-  final Color? textColor;
   final bool? showBild;
 
   const AddPersonWidget({
@@ -31,7 +30,6 @@ class AddPersonWidget extends StatelessWidget {
     this.showBild = true,
     required this.onAdressTypeChange,
     required this.onCommuneChange,
-    this.textColor = AppColors.textColor,
     required this.personForm,
   });
 
@@ -79,7 +77,6 @@ class AddPersonWidget extends StatelessWidget {
                   hinterText: AppLocalizations.of(
                     context,
                   )!.input_hint_first_name,
-                  textColor: textColor,
                 ),
 
                 InputNameWidget(
@@ -88,25 +85,21 @@ class AddPersonWidget extends StatelessWidget {
                   hinterText: AppLocalizations.of(
                     context,
                   )!.input_hint_last_name,
-                  textColor: textColor,
                 ),
 
                 InputEmailWidget(
                   emailController: personForm.email,
                   emailFocusNode: personForm.emailFocusNode,
-                  textColor: textColor,
                 ),
 
                 InputPhoneWidget(
                   phoneController: personForm.phone,
                   phoneFocusNode: personForm.phoneFocusNode,
-                  textColor: textColor,
                 ),
 
                 AddressWidget(
                   onAdressTypeChange: onAdressTypeChange,
                   onCommuneChange: onCommuneChange,
-                  textColor: textColor,
                   //       addAddressKey: addAddressKey,
                   addressForm: personForm.addressesForms[0],
                 ),
@@ -178,32 +171,27 @@ class AddPersonWidget extends StatelessWidget {
             nameController: personForm.firstName,
             nameFocusNode: personForm.firstNameFocusNode,
             hinterText: AppLocalizations.of(context)!.input_hint_first_name,
-            textColor: textColor,
           ),
 
           InputNameWidget(
             nameController: personForm.lastName,
             nameFocusNode: personForm.lastNameFocusNode,
             hinterText: AppLocalizations.of(context)!.input_hint_last_name,
-            textColor: textColor,
           ),
 
           InputEmailWidget(
             emailController: personForm.email,
             emailFocusNode: personForm.emailFocusNode,
-            textColor: textColor,
           ),
 
           InputPhoneWidget(
             phoneController: personForm.phone,
             phoneFocusNode: personForm.phoneFocusNode,
-            textColor: textColor,
           ),
 
           AddressWidget(
             onAdressTypeChange: onAdressTypeChange,
             onCommuneChange: onCommuneChange,
-            textColor: textColor,
             addressForm: personForm.addressesForms[0],
           ),
         ],

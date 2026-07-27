@@ -47,7 +47,6 @@ class _GenderAndBirthdatePickerState extends State<BirthdatePicker> {
         : 'Selectionner Date de Naissance';
 
     return Card(
-      color: AppColors.backgroundColor,
       margin: const EdgeInsets.all(2),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       elevation: 1,
@@ -63,22 +62,28 @@ class _GenderAndBirthdatePickerState extends State<BirthdatePicker> {
               child: InputDecorator(
                 decoration: const InputDecoration(
                   filled: true,
-                  fillColor: AppColors.backgroundColor,
+
                   labelText: 'Date de Naissance',
-                  labelStyle: TextStyle(
-                    color: AppColors.textColor,
-                    fontSize: 22,
-                  ),
+                  labelStyle: TextStyle(fontSize: 22),
                   border: InputBorder.none,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _selectedDate != null ? 
-                    Text(formattedDate, style: TextStyle(color: AppColors.textColor, fontSize: 14),) : Flexible(child: Text('Selectionner votre date de Naissance', style: TextStyle(color: AppColors.textColor, fontSize: 14),)),
+                    _selectedDate != null
+                        ? Text(formattedDate, style: TextStyle(fontSize: 14))
+                        : Flexible(
+                            child: Text(
+                              'Selectionner votre date de Naissance',
+                              style: TextStyle(
+                                
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
                     const Icon(
                       Icons.calendar_today,
-                      color: AppColors.textColor,
+                       
                     ),
                   ],
                 ),

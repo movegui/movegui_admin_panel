@@ -7,15 +7,11 @@ import 'package:movegui_admin_panel/models/pressing/pressing_service_type_model.
 class PressingServicePicker extends StatefulWidget {
   final PressingServiceTypeModel? service;
   final ValueChanged<PressingServiceTypeModel?> onServiceChange;
-  final Color? backgroundColor;
-  final Color? textColor;
 
   const PressingServicePicker({
     super.key,
     required this.service,
     required this.onServiceChange,
-    this.backgroundColor = AppColors.backgroundColor,
-    this.textColor = AppColors.textColor,
   });
 
   @override
@@ -34,7 +30,6 @@ class PressingServicePickerState extends State<PressingServicePicker> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: AppColors.backgroundColor,
       margin: const EdgeInsets.all(2),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       elevation: 1,
@@ -45,6 +40,7 @@ class PressingServicePickerState extends State<PressingServicePicker> {
           children: [
             DropdownButtonFormField<PressingServiceTypeModel>(
               isExpanded: true,
+              /*
               decoration: InputDecoration(
                 filled: true,
                 fillColor: widget.backgroundColor,
@@ -55,6 +51,7 @@ class PressingServicePickerState extends State<PressingServicePicker> {
               style: TextStyle(color: widget.textColor, fontSize: 12),
               dropdownColor: widget.backgroundColor,
               iconEnabledColor: widget.textColor,
+              */
               value: _selectedService,
               items: AppConstants.getPressingServices(context).map((elem) {
                 return DropdownMenuItem(

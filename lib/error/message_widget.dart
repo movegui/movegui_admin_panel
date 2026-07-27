@@ -10,7 +10,7 @@ class MessageWidget {
       icon:icon,
       duration: Duration(seconds: 3),
       flushbarPosition: flushbarPosition, //.TOP,
-      messageColor: AppColors.textColor,
+      messageColor: AppColors.error,
       backgroundColor: AppColors.error,
     ).show(context);
   }

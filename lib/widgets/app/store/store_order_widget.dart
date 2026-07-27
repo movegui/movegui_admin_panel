@@ -5,11 +5,7 @@ import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 class StoreOrderWidget extends StatelessWidget {
   const StoreOrderWidget({
     super.key,
-    this.backgroundColor = AppColors.backgroundColor,
-    this.textColor = AppColors.textColor,
   });
-  final Color? backgroundColor;
-  final Color? textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -21,18 +17,16 @@ class StoreOrderWidget extends StatelessWidget {
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: backgroundColor,
           ),
         ),
 
         const SizedBox(height: 12),
 
         Card(
-          color: backgroundColor,
           child: ListTile(
-            leading:  Icon(Icons.local_laundry_service, color: textColor,),
-            title:  Text("Commande #CMD-001", style: TextStyle(color: textColor),),
-            subtitle:  Text("3 chemises • 12€", style: TextStyle(color: textColor),),
+            leading:  Icon(Icons.local_laundry_service,),
+            title:  Text("Commande #CMD-001", ),
+            subtitle:  Text("3 chemises • 12€", ),
             trailing: Chip(
               label: const Text("Terminée"),
               backgroundColor: Colors.green.shade100,
@@ -44,11 +38,10 @@ class StoreOrderWidget extends StatelessWidget {
         ),
 
         Card(
-          color: backgroundColor,
           child: ListTile(
-            leading:  Icon(Icons.local_laundry_service, color: textColor,),
-            title:  Text("Commande #CMD-002", style: TextStyle(color: textColor),),
-            subtitle:  Text("2 costumes • 20€", style: TextStyle(color: textColor),),
+            leading:  Icon(Icons.local_laundry_service, ),
+            title:  Text("Commande #CMD-002",),
+            subtitle:  Text("2 costumes • 20€",),
             trailing: Chip(
               label: const Text("En cours"),
               backgroundColor: Colors.orange.shade100,

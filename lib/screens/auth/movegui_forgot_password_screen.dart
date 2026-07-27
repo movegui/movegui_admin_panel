@@ -77,11 +77,13 @@ class _ForgotPasswordScreenState extends State<MoveguiForgotPasswordScreen> {
       child: Container(
         width: 500,
         height: 500,
+        /*
         decoration: BoxDecoration(
           color: AppColors.textColor,
           border: Border.all(color: AppColors.backgroundColor, width: 10),
           borderRadius: BorderRadius.circular(15),
         ),
+        */
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,

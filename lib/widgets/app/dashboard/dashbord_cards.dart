@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../providers/dark_theme_provider.dart';
+import '../../../providers/dark_theme_provider.dart';
 
 class DashBordCards extends ConsumerWidget {
   const DashBordCards({super.key, required this.title, required this.value});

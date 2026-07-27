@@ -97,7 +97,7 @@ class PressingServiceWidgetState extends State<PressingServiceWidget> {
               //   height: Size.height * 0.3,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
-                color: AppColors.backgroundColor,
+              
               ),
               child: Column(
                 children: [
@@ -206,7 +206,7 @@ class PressingServiceWidgetState extends State<PressingServiceWidget> {
                             routeName: '',
                           ),
                           icon: Icons.add,
-                          backgroundColor: AppColors.darkPrimary,
+                        
                         ),
                       ),
 

@@ -262,7 +262,7 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
               hintText: AppLocalizations.of(context)!.input_hint_adress_email,
               prefixIcon: const Icon(
                 Icons.mail,
-                color: AppColors.backgroundColor,
+              
               ),
             ),
             onFieldSubmitted: (value) {
@@ -314,7 +314,7 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
               });
             },
 
-            textColor: AppColors.backgroundColor,
+          
             personForm: formController,
         //    personKey: addPersonKey,
        //     addAddressKey: addAddressKey,
@@ -339,7 +339,7 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
           if (isLoading)
             CircularProgressIndicator(
               strokeWidth: 3,
-              color: AppColors.backgroundColor,
+             
             ),
         ],
       ),

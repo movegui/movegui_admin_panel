@@ -47,11 +47,13 @@ class LoginScreen extends ConsumerWidget {
       child: Container(
         width: 700,
         height: 600,
+        /*
         decoration: BoxDecoration(
           color: AppColors.textColor,
           border: Border.all(color: AppColors.backgroundColor, width: 10),
           borderRadius: BorderRadius.circular(15),
         ),
+        */
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -60,14 +62,14 @@ class LoginScreen extends ConsumerWidget {
             children: [
               Container(
                 width: double.infinity,
-                color: AppColors.backgroundColor,
+              //  color: AppColors.backgroundColor,
                 margin: EdgeInsets.only(left: 100, right: 100),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 90, right: 80),
                   child: SubtitleTextWidget(
                     label: AppLocalizations.of(context)!.login_title,
                     fontSize: WidgetConstants.subTitleFontSize * 3,
-                    color: AppColors.textColor,
+                //    color: AppColors.textColor,
                   ),
                 ),
               ),

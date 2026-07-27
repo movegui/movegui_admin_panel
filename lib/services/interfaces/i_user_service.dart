@@ -4,7 +4,7 @@ import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 
 // ignore: non_constant_identifier_names
-enum UserRole { Admin, User, Employe, Guest, SuperAdmin, Manager, Support }
+enum UserRole { Admin, User, Employe, Guest, SuperAdmin, Manager, Support, Driver }
 
 abstract class IUserService {
   Future<UserModel?> getByUsername(String username);

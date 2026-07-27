@@ -25,6 +25,7 @@ class ButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final buttonStyle =   Theme.of(context).elevatedButtonTheme.style;
     return ElevatedButton.icon(
       style: ButtonStyle(
         padding: WidgetStateProperty.all(const EdgeInsets.all(3.0)),
@@ -38,20 +39,20 @@ class ButtonWidget extends StatelessWidget {
           if (states.contains(WidgetState.pressed)) {
             return AppColors.selectionColor;
           }
-          return backgroundColor != null ? backgroundColor! : AppColors.backgroundColor;
+          return buttonStyle?.backgroundColor?.resolve({}) ?? AppColors.darkbackground;
         }),
         foregroundColor: WidgetStateProperty.resolveWith<Color>((states) {
           if (states.contains(WidgetState.hovered)) {
-            return AppColors.textColor;
+            return AppColors.primary;
           }
-          return AppColors.textColor;
+          return buttonStyle?.foregroundColor?.resolve({}) ?? AppColors.primary;
         }),
       ),
       icon:
           icon != null
-              ? Icon(icon!, color: AppColors.textColor)
+              ? Icon(icon!,)
               : const SizedBox(),
-      label: Text(buttonItem.title!, style: TextStyle(fontSize: fontSize, color: AppColors.textColor)),
+      label: Text(buttonItem.title!, style: TextStyle(fontSize: fontSize,)),
       onPressed: () async {
         await onPressed(buttonItem);
       },

@@ -7,12 +7,10 @@ class DisplayWidgetTitle extends StatelessWidget {
     required this.text,
     this.textAlign = TextAlign.center,
     this.fontSize = 18.0,
-     this.color = AppColors.textColor,
   });
   final String? text;
   final TextAlign? textAlign;
   final double? fontSize;
-  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +19,6 @@ class DisplayWidgetTitle extends StatelessWidget {
         text ?? '',
         style: TextStyle(
           fontWeight: FontWeight.bold,
-          color: color,
           fontSize: fontSize,
         ),
         textAlign: textAlign,

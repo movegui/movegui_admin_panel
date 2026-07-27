@@ -5,21 +5,13 @@ import 'package:movegui_admin_panel/models/open_hours_model.dart';
 
 class StoreOpenHoursWidget extends StatelessWidget {
   final List<OpenHoursModel> weeklyHours;
-  final Color? backgroundColor;
-  final Color? textColor;
 
-  const StoreOpenHoursWidget({
-    super.key,
-    required this.weeklyHours,
-    this.backgroundColor = AppColors.backgroundColor,
-    this.textColor = AppColors.textColor,
-  });
+  const StoreOpenHoursWidget({super.key, required this.weeklyHours});
 
   @override
   Widget build(BuildContext context) {
     final bool useRow = weeklyHours.length < 4;
     return Card(
-      color: backgroundColor,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -27,24 +19,20 @@ class StoreOpenHoursWidget extends StatelessWidget {
           children: [
             Text(
               AppLocalizations.of(context)!.open_hours_title,
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: textColor,
-              ),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
 
             const SizedBox(height: 12),
             // ...weeklyHours.map((e) => OpenHoursCard(openHour: e, textColor: textColor,)),
             Wrap(
-          //    spacing: 12,
-          //    runSpacing: 12,
+              //    spacing: 12,
+              //    runSpacing: 12,
               children: weeklyHours.map((e) {
                 return SizedBox(
                   width: weeklyHours.length < 4
                       ? 220
                       : MediaQuery.of(context).size.width - 32,
-                  child: OpenHoursCard(openHour: e, textColor: textColor),
+                  child: OpenHoursCard(openHour: e),
                 );
               }).toList(),
             ),
@@ -57,9 +45,8 @@ class StoreOpenHoursWidget extends StatelessWidget {
 
 class OpenHoursCard extends StatelessWidget {
   final OpenHoursModel openHour;
-  final Color? textColor;
 
-  const OpenHoursCard({super.key, required this.openHour, this.textColor});
+  const OpenHoursCard({super.key, required this.openHour});
 
   @override
   Widget build(BuildContext context) {
@@ -71,11 +58,7 @@ class OpenHoursCard extends StatelessWidget {
               children: [
                 Text(
                   openHour.day,
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.normal,
-                    color: textColor,
-                  ),
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
                 ),
                 openHour.openTime != null
                     ? Text(
@@ -83,7 +66,6 @@ class OpenHoursCard extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.normal,
-                          color: textColor,
                         ),
                       )
                     : Text(
@@ -91,7 +73,6 @@ class OpenHoursCard extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.normal,
-                          color: textColor,
                         ),
                       ),
                 openHour.closeTime != null
@@ -100,7 +81,6 @@ class OpenHoursCard extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.normal,
-                          color: textColor,
                         ),
                       )
                     : Text(
@@ -108,7 +88,6 @@ class OpenHoursCard extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.normal,
-                          color: textColor,
                         ),
                       ),
               ],

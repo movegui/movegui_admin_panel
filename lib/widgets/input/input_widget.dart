@@ -12,7 +12,6 @@ class InputWidget extends StatelessWidget {
   final String? Function(String?)? validator;
   final double? fontSize;
   final String? fontFamily;
-  final Color? textColor;
   final bool? isFullBorder;
   final String? labelText;
 
@@ -28,7 +27,6 @@ class InputWidget extends StatelessWidget {
     this.validator,
     this.fontSize,
     this.fontFamily,
-    this.textColor = AppColors.textColor, 
     this.isFullBorder = false,
     this.labelText = ''
   });
@@ -45,6 +43,7 @@ class InputWidget extends StatelessWidget {
         focusNode: focusNode,
         textInputAction: TextInputAction.next,
         keyboardType: textInputType,
+/*
         decoration: isFullBorder == true ?  InputDecoration(
           focusedBorder: OutlineInputBorder(
             borderSide:  BorderSide(color: AppColors.selectionColor, width: 2),
@@ -92,10 +91,10 @@ class InputWidget extends StatelessWidget {
       //    fillColor: Colors.white,
      //     filled: true,
         ),
+        */
         style: TextStyle(
           fontSize: fontSize,
           fontFamily: fontFamily,
-          color: textColor,
         ),
         onFieldSubmitted: (value) {
           FocusScope.of(context).requestFocus(nextFocusNode!);

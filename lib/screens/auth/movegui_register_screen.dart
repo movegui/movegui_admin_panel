@@ -66,11 +66,13 @@ class _RegisterScreenState extends State<MoveguiRegisterScreen> {
     return Center(
       child: Container(
         width: 700,
+        /*
         decoration: BoxDecoration(
           color: AppColors.textColor,
           border: Border.all(color: AppColors.backgroundColor, width: 10),
           borderRadius: BorderRadius.circular(15),
         ),
+        */
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -79,14 +81,14 @@ class _RegisterScreenState extends State<MoveguiRegisterScreen> {
             children: [
               Container(
                 width: double.infinity,
-                color: AppColors.backgroundColor,
+            //    color: AppColors.backgroundColor,
                 margin: EdgeInsets.only(left: 100, right: 100),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 35, right: 30),
                   child: SubtitleTextWidget(
                     label: AppLocalizations.of(context)!.register_title,
                     fontSize: WidgetConstants.subTitleFontSize * 3,
-                    color: AppColors.textColor,
+              //      color: AppColors.textColor,
                   ),
                 ),
               ),

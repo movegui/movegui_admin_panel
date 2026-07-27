@@ -40,7 +40,7 @@ class _RadioBtnState extends State<MyRadioBtn> {
                 widget.onChanged(value!);
               },
             ),
-            Text(option['label'].toString(), style: TextStyle(color: AppColors.textColor, fontSize: 18),),
+            Text(option['label'].toString(), style: TextStyle( fontSize: 18),),
           ],
         );
       }).toList(),

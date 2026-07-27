@@ -22,7 +22,7 @@ class AdminPanelAppBar extends ConsumerWidget implements PreferredSizeWidget {
     return AppBar(
       title: Center(child: Text(title)),
       titleTextStyle: TextStyle(
-        color: AppColors.textColor, // Set the title color
+       // color: AppColors.textColor, // Set the title color
         fontSize: Responsive.isDesktop(context) ? 26 : 20,
       ),
 
@@ -31,7 +31,7 @@ class AdminPanelAppBar extends ConsumerWidget implements PreferredSizeWidget {
               builder: (BuildContext context) {
                 return IconButton(
                   icon: const Icon(Icons.menu),
-                  color: AppColors.textColor,
+               //   color: AppColors.textColor,
                   tooltip: AppLocalizations.of(
                     context,
                   )!.navigation_menu_tooltip,
@@ -46,7 +46,7 @@ class AdminPanelAppBar extends ConsumerWidget implements PreferredSizeWidget {
       actions: <Widget>[
         IconButton(
           icon: Icon(Icons.search),
-          color: AppColors.textColor,
+       //   color: AppColors.textColor,
           hoverColor: AppColors.selectionColor,
           onPressed: () {
             context.go(RouteConstants.SEARCH_ROUTE);
@@ -55,7 +55,7 @@ class AdminPanelAppBar extends ConsumerWidget implements PreferredSizeWidget {
 
         IconButton(
           icon: Icon(Icons.notifications),
-          color: AppColors.textColor,
+     //     color: AppColors.textColor,
           hoverColor: AppColors.selectionColor,
           onPressed: () {
             context.go(RouteConstants.NOTIFICATION_ROUTE);
@@ -66,7 +66,7 @@ class AdminPanelAppBar extends ConsumerWidget implements PreferredSizeWidget {
           padding: const EdgeInsets.only(right: 28.0),
           child: IconButton(
             icon: Icon(Icons.supervised_user_circle),
-            color: AppColors.textColor,
+       //     color: AppColors.textColor,
             hoverColor: AppColors.selectionColor,
             onPressed: () async {
               if (FirebaseAuth.instance.currentUser != null) {

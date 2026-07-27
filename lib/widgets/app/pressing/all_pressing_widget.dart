@@ -62,7 +62,6 @@ class AllPressingWidgetPageState extends ConsumerState<AllPressingWidget> {
         if (isloading) LoadingWidget(),
         SizedBox(height: 6),
         Container(
-          color: AppColors.backgroundColor,
           child: ListTile(
             //  leading: Icon(Icons.person),
             title: Row(
@@ -148,9 +147,9 @@ class AllPressingWidgetPageState extends ConsumerState<AllPressingWidget> {
         if (isloading) LoadingWidget(),
         SizedBox(height: 6),
         Container(
-          color: AppColors.backgroundColor,
+       //   color: AppColors.backgroundColor,
           child: ListTile(
-            leading: Icon(Icons.cleaning_services, color: AppColors.textColor),
+            leading: Icon(Icons.cleaning_services, ),
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -181,7 +180,7 @@ class AllPressingWidgetPageState extends ConsumerState<AllPressingWidget> {
               return Column(
                 children: [
                   ListTile(
-                    leading: Icon(Icons.cleaning_services, color: AppColors.backgroundColor,),
+                    leading: Icon(Icons.cleaning_services,),
                     title: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

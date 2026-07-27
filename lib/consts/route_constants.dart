@@ -46,4 +46,10 @@ class RouteConstants {
   static const EMPLOYE_ADD_ROUTE = '/employe/add';
   static const EMPLOYE_ALL_ROUTE = '/employe/all';
   static const STORE_DETAIL_ROUTE = '/store/details';
+    static const MANAGER_ROUTE = '/manager';
+  static const MANAGER_ADD_ROUTE = '/manager/add';
+  static const MANAGER_ALL_ROUTE = '/manager/all';
+      static const DRIVER_ROUTE = '/driver';
+  static const DRIVER_ADD_ROUTE = '/driver/add';
+  static const DRIVER_ALL_ROUTE = '/driver/all';
 }

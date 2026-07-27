@@ -113,7 +113,7 @@ class WeeklyHoursScreenState extends State<OpenHoursWidget> {
             width: Responsive.isDesktop(context) ? Size.width * 0.5 : double.infinity,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
-              color: AppColors.backgroundColor,
+            
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,

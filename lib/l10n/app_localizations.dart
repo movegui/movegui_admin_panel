@@ -182,6 +182,66 @@ abstract class AppLocalizations {
   /// **'Inactive'**
   String get employe_status_non_actf;
 
+  /// No description provided for @manager_bar_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Manager Configuration'**
+  String get manager_bar_title;
+
+  /// No description provided for @manager_add_bar_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Manager'**
+  String get manager_add_bar_title;
+
+  /// No description provided for @manager_all_bar_title.
+  ///
+  /// In en, this message translates to:
+  /// **'All Manager'**
+  String get manager_all_bar_title;
+
+  /// No description provided for @manager_status_actf.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get manager_status_actf;
+
+  /// No description provided for @manager_status_non_actf.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactive'**
+  String get manager_status_non_actf;
+
+  /// No description provided for @driver_bar_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Driver Configuration'**
+  String get driver_bar_title;
+
+  /// No description provided for @driver_add_bar_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Driver'**
+  String get driver_add_bar_title;
+
+  /// No description provided for @driver_all_bar_title.
+  ///
+  /// In en, this message translates to:
+  /// **'All Drivers'**
+  String get driver_all_bar_title;
+
+  /// No description provided for @driver_status_actf.
+  ///
+  /// In en, this message translates to:
+  /// **'Actif'**
+  String get driver_status_actf;
+
+  /// No description provided for @driver_status_non_actf.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactif'**
+  String get driver_status_non_actf;
+
   /// No description provided for @pressing_add_bar_title.
   ///
   /// In en, this message translates to:
@@ -668,6 +728,12 @@ abstract class AppLocalizations {
   /// **'Add a Service'**
   String get btn_add_pressing_service;
 
+  /// No description provided for @btn_create.
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get btn_create;
+
   /// No description provided for @verify_otp.
   ///
   /// In en, this message translates to:
@@ -800,149 +866,155 @@ abstract class AppLocalizations {
   /// **'Enabled'**
   String get activate_button_attach_message;
 
-  /// No description provided for @category_courses_name.
+  /// No description provided for @module_courses_name.
   ///
   /// In en, this message translates to:
   /// **'Races'**
-  String get category_courses_name;
+  String get module_courses_name;
 
-  /// No description provided for @category_restaurant_name.
+  /// No description provided for @module_restaurant_name.
   ///
   /// In en, this message translates to:
   /// **'Restaurant'**
-  String get category_restaurant_name;
+  String get module_restaurant_name;
 
-  /// No description provided for @category_patisserie_name.
+  /// No description provided for @module_patisserie_name.
   ///
   /// In en, this message translates to:
   /// **'Pastry shop'**
-  String get category_patisserie_name;
+  String get module_patisserie_name;
 
-  /// No description provided for @category_supermarche_name.
+  /// No description provided for @module_supermarche_name.
   ///
   /// In en, this message translates to:
   /// **'Super Market'**
-  String get category_supermarche_name;
+  String get module_supermarche_name;
 
-  /// No description provided for @category_supplier_name.
+  /// No description provided for @module_supplier_name.
   ///
   /// In en, this message translates to:
   /// **'Supplier'**
-  String get category_supplier_name;
+  String get module_supplier_name;
 
-  /// No description provided for @category_pressing_name.
+  /// No description provided for @module_pressing_name.
   ///
   /// In en, this message translates to:
   /// **'Dry cleaning'**
-  String get category_pressing_name;
+  String get module_pressing_name;
 
-  /// No description provided for @category_discovery_name.
+  /// No description provided for @module_discovery_name.
   ///
   /// In en, this message translates to:
   /// **'Discovery'**
-  String get category_discovery_name;
+  String get module_discovery_name;
 
-  /// No description provided for @category_boulangerie_name.
+  /// No description provided for @module_boulangerie_name.
   ///
   /// In en, this message translates to:
   /// **'Bakery'**
-  String get category_boulangerie_name;
+  String get module_boulangerie_name;
 
-  /// No description provided for @category_pharmacy_name.
+  /// No description provided for @module_pharmacy_name.
   ///
   /// In en, this message translates to:
   /// **'Pharmacy'**
-  String get category_pharmacy_name;
+  String get module_pharmacy_name;
 
-  /// No description provided for @category_beauty_name.
+  /// No description provided for @module_beauty_name.
   ///
   /// In en, this message translates to:
   /// **'Beauty & Care'**
-  String get category_beauty_name;
+  String get module_beauty_name;
 
-  /// No description provided for @categroy_store_name.
+  /// No description provided for @module_store_name.
   ///
   /// In en, this message translates to:
   /// **'Store'**
-  String get categroy_store_name;
+  String get module_store_name;
 
-  /// No description provided for @category_shop_name.
+  /// No description provided for @module_shop_name.
   ///
   /// In en, this message translates to:
   /// **'Shop'**
-  String get category_shop_name;
+  String get module_shop_name;
 
-  /// No description provided for @category_wholesaler_name.
+  /// No description provided for @module_wholesaler_name.
   ///
   /// In en, this message translates to:
   /// **'Wholesaler'**
-  String get category_wholesaler_name;
+  String get module_wholesaler_name;
 
-  /// No description provided for @category_profession_name.
+  /// No description provided for @module_profession_name.
   ///
   /// In en, this message translates to:
   /// **'Professions'**
-  String get category_profession_name;
+  String get module_profession_name;
 
-  /// No description provided for @category_fast_food_name.
+  /// No description provided for @module_fast_food_name.
   ///
   /// In en, this message translates to:
   /// **'Fast Food'**
-  String get category_fast_food_name;
+  String get module_fast_food_name;
 
-  /// No description provided for @category_category_name.
+  /// No description provided for @module_category_name.
   ///
   /// In en, this message translates to:
   /// **'Category'**
-  String get category_category_name;
+  String get module_category_name;
 
-  /// No description provided for @category_ingredient_name.
+  /// No description provided for @module_ingredient_name.
   ///
   /// In en, this message translates to:
   /// **'Ingredients'**
-  String get category_ingredient_name;
+  String get module_ingredient_name;
 
-  /// No description provided for @category_pastry_name.
+  /// No description provided for @module_pastry_name.
   ///
   /// In en, this message translates to:
   /// **'Pastry'**
-  String get category_pastry_name;
+  String get module_pastry_name;
 
-  /// No description provided for @category_product_name.
+  /// No description provided for @module_product_name.
   ///
   /// In en, this message translates to:
   /// **'Products'**
-  String get category_product_name;
+  String get module_product_name;
 
-  /// No description provided for @category_recipe_name.
+  /// No description provided for @module_recipe_name.
   ///
   /// In en, this message translates to:
   /// **'Recipes'**
-  String get category_recipe_name;
+  String get module_recipe_name;
 
-  /// No description provided for @category_super_market_name.
+  /// No description provided for @module_super_market_name.
   ///
   /// In en, this message translates to:
   /// **'Super Market'**
-  String get category_super_market_name;
+  String get module_super_market_name;
 
-  /// No description provided for @category_admin_manager.
+  /// No description provided for @module_admin_name.
   ///
   /// In en, this message translates to:
   /// **'Admin'**
-  String get category_admin_manager;
+  String get module_admin_name;
 
-  /// No description provided for @category_employe_manager.
+  /// No description provided for @module_employe_name.
   ///
   /// In en, this message translates to:
-  /// **'Employé'**
-  String get category_employe_manager;
+  /// **'Employe'**
+  String get module_employe_name;
 
-  /// No description provided for @category_buisiness_manager.
+  /// No description provided for @module_manager_name.
   ///
   /// In en, this message translates to:
   /// **'Manager'**
-  String get category_buisiness_manager;
+  String get module_manager_name;
+
+  /// No description provided for @module_deliver_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Driver'**
+  String get module_deliver_name;
 
   /// No description provided for @tooltip_add.
   ///
@@ -1051,6 +1123,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Employee Registration'**
   String get register_employe_title;
+
+  /// No description provided for @register_manager_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Manager Registration'**
+  String get register_manager_title;
+
+  /// No description provided for @register_driver_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Deliver Registration'**
+  String get register_driver_title;
 
   /// No description provided for @address_office_title.
   ///

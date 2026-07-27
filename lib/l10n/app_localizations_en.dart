@@ -51,6 +51,36 @@ class AppLocalizationsEn extends AppLocalizations {
   String get employe_status_non_actf => 'Inactive';
 
   @override
+  String get manager_bar_title => 'Manager Configuration';
+
+  @override
+  String get manager_add_bar_title => 'Add Manager';
+
+  @override
+  String get manager_all_bar_title => 'All Manager';
+
+  @override
+  String get manager_status_actf => 'Active';
+
+  @override
+  String get manager_status_non_actf => 'Inactive';
+
+  @override
+  String get driver_bar_title => 'Driver Configuration';
+
+  @override
+  String get driver_add_bar_title => 'Add Driver';
+
+  @override
+  String get driver_all_bar_title => 'All Drivers';
+
+  @override
+  String get driver_status_actf => 'Actif';
+
+  @override
+  String get driver_status_non_actf => 'Inactif';
+
+  @override
   String get pressing_add_bar_title => 'Add dry Cleaner ';
 
   @override
@@ -330,6 +360,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get btn_add_pressing_service => 'Add a Service';
 
   @override
+  String get btn_create => 'Create';
+
+  @override
   String get verify_otp => 'Send Code';
 
   @override
@@ -400,76 +433,79 @@ class AppLocalizationsEn extends AppLocalizations {
   String get activate_button_attach_message => 'Enabled';
 
   @override
-  String get category_courses_name => 'Races';
+  String get module_courses_name => 'Races';
 
   @override
-  String get category_restaurant_name => 'Restaurant';
+  String get module_restaurant_name => 'Restaurant';
 
   @override
-  String get category_patisserie_name => 'Pastry shop';
+  String get module_patisserie_name => 'Pastry shop';
 
   @override
-  String get category_supermarche_name => 'Super Market';
+  String get module_supermarche_name => 'Super Market';
 
   @override
-  String get category_supplier_name => 'Supplier';
+  String get module_supplier_name => 'Supplier';
 
   @override
-  String get category_pressing_name => 'Dry cleaning';
+  String get module_pressing_name => 'Dry cleaning';
 
   @override
-  String get category_discovery_name => 'Discovery';
+  String get module_discovery_name => 'Discovery';
 
   @override
-  String get category_boulangerie_name => 'Bakery';
+  String get module_boulangerie_name => 'Bakery';
 
   @override
-  String get category_pharmacy_name => 'Pharmacy';
+  String get module_pharmacy_name => 'Pharmacy';
 
   @override
-  String get category_beauty_name => 'Beauty & Care';
+  String get module_beauty_name => 'Beauty & Care';
 
   @override
-  String get categroy_store_name => 'Store';
+  String get module_store_name => 'Store';
 
   @override
-  String get category_shop_name => 'Shop';
+  String get module_shop_name => 'Shop';
 
   @override
-  String get category_wholesaler_name => 'Wholesaler';
+  String get module_wholesaler_name => 'Wholesaler';
 
   @override
-  String get category_profession_name => 'Professions';
+  String get module_profession_name => 'Professions';
 
   @override
-  String get category_fast_food_name => 'Fast Food';
+  String get module_fast_food_name => 'Fast Food';
 
   @override
-  String get category_category_name => 'Category';
+  String get module_category_name => 'Category';
 
   @override
-  String get category_ingredient_name => 'Ingredients';
+  String get module_ingredient_name => 'Ingredients';
 
   @override
-  String get category_pastry_name => 'Pastry';
+  String get module_pastry_name => 'Pastry';
 
   @override
-  String get category_product_name => 'Products';
+  String get module_product_name => 'Products';
 
   @override
-  String get category_recipe_name => 'Recipes';
+  String get module_recipe_name => 'Recipes';
 
   @override
-  String get category_super_market_name => 'Super Market';
+  String get module_super_market_name => 'Super Market';
 
   @override
-  String get category_admin_manager => 'Admin';
+  String get module_admin_name => 'Admin';
 
   @override
-  String get category_employe_manager => 'Employé';
+  String get module_employe_name => 'Employe';
 
   @override
-  String get category_buisiness_manager => 'Manager';
+  String get module_manager_name => 'Manager';
+
+  @override
+  String get module_deliver_name => 'Driver';
 
   @override
   String get tooltip_add => 'Clic here to Add ';
@@ -524,6 +560,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get register_employe_title => 'Employee Registration';
+
+  @override
+  String get register_manager_title => 'Manager Registration';
+
+  @override
+  String get register_driver_title => 'Deliver Registration';
 
   @override
   String get address_office_title => 'Office';

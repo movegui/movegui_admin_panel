@@ -38,7 +38,7 @@ class MoveguiProfileDefaultImage extends StatelessWidget {
               onTap: onPickImage,
               child: const CircleAvatar(
                 radius: 16,
-                backgroundColor: AppColors.backgroundColor,
+            
                 child: Icon(Icons.camera_alt, size: 16, color: Colors.white),
               ),
             ),

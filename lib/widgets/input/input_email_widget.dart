@@ -8,14 +8,12 @@ class InputEmailWidget extends StatelessWidget {
   final TextEditingController emailController;
   final FocusNode emailFocusNode;
   final FocusNode? nextFocusNode;
-  final Color? textColor;
 
   const InputEmailWidget({
     super.key,
     this.nextFocusNode,
     required this.emailController,
     required this.emailFocusNode,
-    required this.textColor,
   });
 
   @override
@@ -30,7 +28,6 @@ class InputEmailWidget extends StatelessWidget {
       validator: (value) {
         return MyValidators.emailValidator(value);
       },
-      textColor: textColor,
     );
   }
 }

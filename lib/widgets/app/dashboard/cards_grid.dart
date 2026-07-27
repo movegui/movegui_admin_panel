@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
-import 'package:movegui_admin_panel/widgets/dashbord_cards.dart';
+import 'package:movegui_admin_panel/widgets/app/dashboard/dashbord_cards.dart';
 
-import '../responsive.dart';
+import '../../../responsive.dart';
 
 class CardsGrid extends StatefulWidget {
   const CardsGrid({super.key});
@@ -17,19 +17,19 @@ class _CardsGridState extends State<CardsGrid> {
 
   Future<List<String>> initTitles() async {
     final myTitles = [
-      AppLocalizations.of(context)!.category_category_name,
-      AppLocalizations.of(context)!.category_supplier_name,
-      AppLocalizations.of(context)!.category_ingredient_name,
-      AppLocalizations.of(context)!.category_recipe_name,
-      AppLocalizations.of(context)!.category_product_name,
+      AppLocalizations.of(context)!.module_category_name,
+      AppLocalizations.of(context)!.module_supplier_name,
+      AppLocalizations.of(context)!.module_ingredient_name,
+      AppLocalizations.of(context)!.module_recipe_name,
+      AppLocalizations.of(context)!.module_product_name,
       AppLocalizations.of(context)!.menu_menu,
-      AppLocalizations.of(context)!.category_restaurant_name,
+      AppLocalizations.of(context)!.module_restaurant_name,
       AppLocalizations.of(context)!.menu_store_type,
-      AppLocalizations.of(context)!.category_category_name,
-      AppLocalizations.of(context)!.category_pastry_name,
-      AppLocalizations.of(context)!.category_super_market_name,
-      AppLocalizations.of(context)!.category_pressing_name,
-      AppLocalizations.of(context)!.category_profession_name,
+      AppLocalizations.of(context)!.module_category_name,
+      AppLocalizations.of(context)!.module_pastry_name,
+      AppLocalizations.of(context)!.module_super_market_name,
+      AppLocalizations.of(context)!.module_pressing_name,
+      AppLocalizations.of(context)!.module_profession_name,
     ];
     return myTitles;
   }

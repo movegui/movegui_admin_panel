@@ -25,7 +25,7 @@ class UserDisplayScreen extends StatelessWidget {
       children: [
         SizedBox(height: 6),
         Container(
-          color: AppColors.backgroundColor,
+        
           child: ListTile(
             //  leading: Icon(Icons.person),
             title: Row(
@@ -105,9 +105,9 @@ class UserDisplayScreen extends StatelessWidget {
       children: [
         SizedBox(height: 6),
         Container(
-          color: AppColors.backgroundColor,
+         
           child: ListTile(
-            leading: Icon(Icons.person, color: AppColors.textColor),
+            leading: Icon(Icons.person, ),
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -140,7 +140,7 @@ class UserDisplayScreen extends StatelessWidget {
                   ListTile(
                     leading: Icon(
                       Icons.person,
-                      color: AppColors.backgroundColor,
+                   
                     ),
                     title: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

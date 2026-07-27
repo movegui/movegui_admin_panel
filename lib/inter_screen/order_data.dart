@@ -3,7 +3,7 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:movegui_admin_panel/widgets/header.dart';
 import '../consts/constants.dart';
 import '../responsive.dart';
-import '../widgets/side_menu.dart';
+import '../widgets/app/dashboard/dash_board_side_menu.dart';
 
 class OrderData extends StatelessWidget {
   const OrderData({super.key, required this.title, required this.unit, required this.userName, required this.imageUrl, required this.quantity, required this.totalPrice, required this.date, required this.address, required this.email, required this.paymentMethod});

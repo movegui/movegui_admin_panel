@@ -14,7 +14,6 @@ class AddressWidget extends StatelessWidget {
   final AddressFormController addressForm;
   final void Function(String?) onAdressTypeChange;
   final void Function(String?) onCommuneChange;
-  final Color? textColor;
   final bool? isFullBorder;
  // final GlobalKey<FormState> addAddressKey;
 
@@ -22,7 +21,6 @@ class AddressWidget extends StatelessWidget {
     super.key,
     required this.onCommuneChange,
     required this.onAdressTypeChange,
-    this.textColor = AppColors.textColor,
     this.isFullBorder = false,
  //   required this.addAddressKey,
     required this.addressForm,
@@ -51,7 +49,6 @@ class AddressWidget extends StatelessWidget {
                 focusNode: addressForm.addressFocusNode,
                 icon: Icons.home,
                 hinterText: AppLocalizations.of(context)!.input_hint_adress,
-                textColor: textColor,
                 isFullBorder: isFullBorder,
                 validator: (vaule) {
                   return MyValidators.textNameValidator(vaule);
@@ -78,7 +75,6 @@ class AddressWidget extends StatelessWidget {
                 focusNode: addressForm.districtFocus,
                 icon: Icons.home,
                 hinterText: AppLocalizations.of(context)!.input_hint_quartier,
-                textColor: textColor,
                 isFullBorder: isFullBorder,
                 validator: (vaule) {
                   return MyValidators.textNameValidator(vaule);
@@ -100,7 +96,6 @@ class AddressWidget extends StatelessWidget {
                       hinterText: AppLocalizations.of(
                         context,
                       )!.input_hint_longitude,
-                      textColor: textColor,
                       isFullBorder: isFullBorder,
                       textInputType: TextInputType.number,
                       validator: (vaule) {
@@ -116,7 +111,6 @@ class AddressWidget extends StatelessWidget {
                       hinterText: AppLocalizations.of(
                         context,
                       )!.input_hint_latitude,
-                      textColor: textColor,
                       isFullBorder: isFullBorder,
                       textInputType: TextInputType.number,
                       validator: (vaule) {

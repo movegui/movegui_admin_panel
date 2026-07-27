@@ -241,7 +241,7 @@ class RestaurantConstants extends StoreConstants {
 
   @override
   String getNameLabelText(BuildContext context) {
-    return AppLocalizations.of(context)!.category_restaurant_name;
+    return AppLocalizations.of(context)!.module_restaurant_name;
   }
 
   @override
@@ -277,7 +277,7 @@ class RestaurantConstants extends StoreConstants {
 
   @override
   String getStoreCategory(BuildContext context) {
-    return AppLocalizations.of(context)!.category_restaurant_name;
+    return AppLocalizations.of(context)!.module_restaurant_name;
   }
   
   @override
@@ -332,7 +332,7 @@ class ProfessionConstants extends StoreConstants {
 
   @override
   String getNameLabelText(BuildContext context) {
-    return AppLocalizations.of(context)!.category_profession_name;
+    return AppLocalizations.of(context)!.module_profession_name;
   }
 
   @override
@@ -368,7 +368,7 @@ class ProfessionConstants extends StoreConstants {
 
   @override
   String getStoreCategory(BuildContext context) {
-    return AppLocalizations.of(context)!.category_profession_name;
+    return AppLocalizations.of(context)!.module_profession_name;
   }
   
   @override
@@ -423,7 +423,7 @@ class PatisserieConstants extends StoreConstants {
 
   @override
   String getNameLabelText(BuildContext context) {
-    return AppLocalizations.of(context)!.category_pastry_name;
+    return AppLocalizations.of(context)!.module_pastry_name;
   }
 
   @override
@@ -459,7 +459,7 @@ class PatisserieConstants extends StoreConstants {
 
   @override
   String getStoreCategory(BuildContext context) {
-    return AppLocalizations.of(context)!.category_pastry_name;
+    return AppLocalizations.of(context)!.module_pastry_name;
   }
   
   @override
@@ -514,7 +514,7 @@ class PressingConstants extends StoreConstants {
 
   @override
   String getNameLabelText(BuildContext context) {
-    return AppLocalizations.of(context)!.category_pressing_name;
+    return AppLocalizations.of(context)!.module_pressing_name;
   }
 
   @override
@@ -550,7 +550,7 @@ class PressingConstants extends StoreConstants {
 
   @override
   String getStoreCategory(BuildContext context) {
-    return AppLocalizations.of(context)!.category_pressing_name;
+    return AppLocalizations.of(context)!.module_pressing_name;
   }
   
   @override
@@ -605,7 +605,7 @@ class SuperMarktConstants extends StoreConstants {
 
   @override
   String getNameLabelText(BuildContext context) {
-    return AppLocalizations.of(context)!.category_super_market_name;
+    return AppLocalizations.of(context)!.module_super_market_name;
   }
 
   @override
@@ -641,7 +641,7 @@ class SuperMarktConstants extends StoreConstants {
 
   @override
   String getStoreCategory(BuildContext context) {
-    return AppLocalizations.of(context)!.category_super_market_name;
+    return AppLocalizations.of(context)!.module_super_market_name;
   }
   
   @override
@@ -696,7 +696,7 @@ class SupplierConstants extends StoreConstants {
 
   @override
   String getNameLabelText(BuildContext context) {
-    return AppLocalizations.of(context)!.category_supplier_name;
+    return AppLocalizations.of(context)!.module_supplier_name;
   }
 
   @override
@@ -732,7 +732,7 @@ class SupplierConstants extends StoreConstants {
 
   @override
   String getStoreCategory(BuildContext context) {
-    return AppLocalizations.of(context)!.category_supplier_name;
+    return AppLocalizations.of(context)!.module_supplier_name;
   }
   
   @override

@@ -8,7 +8,6 @@ class InputNameWidget extends StatelessWidget {
   final FocusNode nameFocusNode;
   final FocusNode? nextFocusNode;
   final String? hinterText;
-  final Color? textColor;
 
   const InputNameWidget({
     super.key,
@@ -16,7 +15,6 @@ class InputNameWidget extends StatelessWidget {
     required this.nameFocusNode,
     this.nextFocusNode,
     required this.hinterText, 
-    this.textColor = AppColors.textColor,
   });
 
   @override
@@ -28,7 +26,6 @@ class InputNameWidget extends StatelessWidget {
       nextFocusNode: nextFocusNode,
       textInputType: TextInputType.name,
       hinterText: hinterText!,
-      textColor: textColor,
       validator: (value) {
         return MyValidators.textNameValidator(value);
       },

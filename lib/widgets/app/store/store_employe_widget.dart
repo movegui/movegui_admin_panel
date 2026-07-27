@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
-import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/services/global_method.dart';
 import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
@@ -8,14 +7,11 @@ import 'package:movegui_admin_panel/widgets/util/display_widget.dart';
 
 class StoreEmployeWidget extends StatelessWidget {
   final List<UserModel> employees;
-  final Color? backgroundColor;
-  final Color? textColor;
+
 
   const StoreEmployeWidget({
     super.key,
     required this.employees,
-    this.backgroundColor = AppColors.backgroundColor,
-    this.textColor = AppColors.textColor,
   });
 
   @override
@@ -28,7 +24,6 @@ class StoreEmployeWidget extends StatelessWidget {
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: backgroundColor,
           ),
         ),
 
@@ -36,7 +31,6 @@ class StoreEmployeWidget extends StatelessWidget {
 
         ...employees.map(
           (e) => Card(
-            color: backgroundColor,
             child: ListTile(
               leading: CircleAvatar(
                 radius: 30,
@@ -50,13 +44,12 @@ class StoreEmployeWidget extends StatelessWidget {
                 textAlign: TextAlign.left,
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                textColor: AppColors.textColor,
               ),
               subtitle: Row(
                 children: [
                   SizedBox(
                     width: 60,
-                    child:  DisplayWidget(text: UserRole.Manager.name, textAlign: TextAlign.left, textColor: AppColors.textColor,)),
+                    child:  DisplayWidget(text: UserRole.Manager.name, textAlign: TextAlign.left,)),
                   const SizedBox(width: 8), // spacing between role and status
                   SizedBox(
                     width: 10,

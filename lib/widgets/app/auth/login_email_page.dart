@@ -142,7 +142,7 @@ class LoginEmailPageState extends ConsumerState<LoginEmailPage> {
                   nextFocusNode: _passwordFocusNode,
                   emailController: _emailController,
                   emailFocusNode: _emailFocusNode,
-                  textColor: AppColors.backgroundColor,
+                 
                 ),
                 //  SeparatorWidget(height: WidgetConstants.sepWidgetHeight * 2),
                 PasswordWidget(
@@ -154,7 +154,7 @@ class LoginEmailPageState extends ConsumerState<LoginEmailPage> {
                       obscureText = !obscureText;
                     });
                   },
-                  textColor: AppColors.backgroundColor,
+                
                 ),
                 Responsive.isDesktop(context)
                     ? SeparatorWidget(height: 20)

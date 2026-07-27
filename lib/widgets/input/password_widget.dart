@@ -8,7 +8,7 @@ class PasswordWidget extends StatelessWidget {
   final FocusNode passwordFocusNode;
   final bool obscureText;
   final VoidCallback onPressObscur;
-  final Color? textColor;
+
 
   const PasswordWidget({
     super.key,
@@ -16,7 +16,7 @@ class PasswordWidget extends StatelessWidget {
     required this.passwordFocusNode,
     required this.obscureText,
     required this.onPressObscur,
-    required this.textColor,
+
   });
 
  @override
@@ -32,26 +32,28 @@ class PasswordWidget extends StatelessWidget {
         focusNode: passwordFocusNode,
         textInputAction: TextInputAction.done,
         keyboardType: TextInputType.visiblePassword,
+        /*
         decoration: InputDecoration(
           suffixIcon: IconButton(
             onPressed: onPressObscur,
             icon: Icon(
               obscureText ? Icons.visibility : Icons.visibility_off,
-              color: textColor!,
+  
             ),
           ),
           hintText: "***********",
-          prefixIcon:  Icon(Icons.lock, color: textColor,),
+          prefixIcon:  Icon(Icons.lock, ),
           border: UnderlineInputBorder(
-            borderSide: BorderSide(color: textColor!, width: 1),
+            borderSide: BorderSide( width: 1),
           ),
           enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: textColor!, width: 1),
+            borderSide: BorderSide( width: 1),
           ),
           focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: AppColors.selectionColor, width: 2),
           ),
         ),
+        */
         validator: (value) {
           return MyValidators.passwordValidator(value);
         },

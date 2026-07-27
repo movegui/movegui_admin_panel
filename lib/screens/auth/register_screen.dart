@@ -48,8 +48,8 @@ class RegisterScreen extends ConsumerWidget {
             width: 700,
            // height: size.height * 0.9,
             decoration: BoxDecoration(
-              color: AppColors.textColor,
-              border: Border.all(color: AppColors.backgroundColor, width: 10),
+            
+              border: Border.all( width: 10),
               borderRadius: BorderRadius.circular(15),
             ),
             child: Padding(
@@ -60,14 +60,14 @@ class RegisterScreen extends ConsumerWidget {
                 children: [
                   Container(
                     width: double.infinity,
-                    color: AppColors.backgroundColor,
+                  
                     margin: EdgeInsets.only(left: 50, right: 50),
                     child: Padding(
                       padding: const EdgeInsets.only(left: 35, right: 30),
                       child: SubtitleTextWidget(
                         label: title,
                         fontSize: WidgetConstants.subTitleFontSize * 2,
-                        color: AppColors.textColor,
+                       
                       ),
                     ),
                   ),

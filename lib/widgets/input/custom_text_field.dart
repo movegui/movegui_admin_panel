@@ -22,7 +22,6 @@ class CustomTextField extends StatelessWidget {
     this.icon,
     this.labelText,
     this.maxLines,
-    this.textColor = AppColors.textColor
   });
 
   Function(String)? onChanged;
@@ -41,7 +40,7 @@ class CustomTextField extends StatelessWidget {
   String? labelText;
   IconData? icon;
   int? maxLines;
-  final Color? textColor;
+
 
 
   @override
@@ -50,7 +49,7 @@ class CustomTextField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: TextFormField(
         enabled: isEnabled ?? true,
-        cursorColor: textColor,
+//        cursorColor: textColor,
         controller: controller,
         focusNode: focusNode,
         validator: validator,
@@ -59,7 +58,8 @@ class CustomTextField extends StatelessWidget {
         keyboardType: inputType,
         maxLines: maxLines,
         textInputAction: textInputAction,
-        style: TextStyle(color: textColor),
+     //   style: TextStyle(color: textColor),
+        /*
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
             borderSide:  BorderSide(color: AppColors.selectionColor, width: 2),
@@ -86,6 +86,7 @@ class CustomTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
         ),
+        */
         inputFormatters: isNumber
             ? [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))]
             : null,

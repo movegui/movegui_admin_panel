@@ -12,11 +12,14 @@ import 'package:movegui_admin_panel/screens/admin_screen.dart';
 import 'package:movegui_admin_panel/screens/auth/movegui_forgot_password_screen.dart';
 import 'package:movegui_admin_panel/screens/auth/movegui_register_screen.dart';
 import 'package:movegui_admin_panel/screens/categories_screen.dart';
+import 'package:movegui_admin_panel/widgets/app/dashboard/dahsboard_backup.dart';
 import 'package:movegui_admin_panel/screens/dashboard_screen.dart';
+import 'package:movegui_admin_panel/screens/driver_screen.dart';
 import 'package:movegui_admin_panel/screens/employe_screen.dart';
 import 'package:movegui_admin_panel/screens/ingredients_screen.dart';
 import 'package:movegui_admin_panel/screens/auth/login_screen.dart';
 import 'package:movegui_admin_panel/screens/main_screen.dart';
+import 'package:movegui_admin_panel/screens/manager_screen.dart';
 import 'package:movegui_admin_panel/screens/movegui_profile_screen.dart';
 import 'package:movegui_admin_panel/screens/patisserie_screen.dart';
 import 'package:movegui_admin_panel/screens/pressing_screen.dart';
@@ -30,17 +33,19 @@ import 'package:movegui_admin_panel/screens/supplier_screen.dart';
 import 'package:movegui_admin_panel/widgets/app/admin/add_admin_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/admin/all_admin_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/admin_panel_appbar.dart';
+import 'package:movegui_admin_panel/widgets/app/driver/add_driver_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/driver/all_driver_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/employe/add_employe_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/employe/all_employe_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/main/main_page_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/manager/add_manager_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/manager/all_manager_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/pressing/add_pressing_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/pressing/all_pressing_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/store/store_detail_widget.dart';
-import 'package:movegui_admin_panel/widgets/side_menu.dart';
+import 'package:movegui_admin_panel/widgets/app/dashboard/dash_board_side_menu.dart';
 
 class AppRouter {
-  //final BuildContext context;
-  // AppRouter({required this.context});
   static final routerProvider = Provider<GoRouter>((ref) {
     final authAsync = ref.watch(authStateProvider);
 
@@ -54,7 +59,6 @@ class AppRouter {
 
       // ✅ GLOBAL auth redirect (THIS IS THE KEY)
       redirect: (context, state) {
-
         if (authAsync.isLoading) {
           return RouteConstants.SPLASH_ROUTE; // ✅ DO NOTHING
         }
@@ -98,8 +102,8 @@ class AppRouter {
         ),
         GoRoute(
           path: RouteConstants.HOME_ROUTE,
-          builder: (context, state) =>
-              MainScreen(pageScreen: DashboardScreen()),
+          builder: (context, state) => MoveGuiAdminDashboardPage()
+           //   MainScreen(pageScreen: DashboardScreen()),
         ),
 
         // 🔐 PROTECTED SHELL
@@ -122,7 +126,9 @@ class AppRouter {
                     */
                 return Scaffold(
                   appBar: AdminPanelAppBar(title: title),
-                  drawer: Responsive.isMobile(context) ? SideMenu() : null,
+                  drawer: Responsive.isMobile(context)
+                      ? DashBoardSideMenu()
+                      : null,
                   body: child,
                 );
               },
@@ -430,6 +436,30 @@ class AppRouter {
               builder: (context, state) => AllEmployeWidget(),
             ),
             GoRoute(
+              path: RouteConstants.MANAGER_ROUTE,
+              builder: (context, state) => ManagerScreen(),
+            ),
+            GoRoute(
+              path: RouteConstants.MANAGER_ADD_ROUTE,
+              builder: (context, state) => AddManagerWidget(),
+            ),
+            GoRoute(
+              path: RouteConstants.MANAGER_ALL_ROUTE,
+              builder: (context, state) => AllManagerWidget(),
+            ),
+                        GoRoute(
+              path: RouteConstants.DRIVER_ROUTE,
+              builder: (context, state) => DriverScreen(),
+            ),
+            GoRoute(
+              path: RouteConstants.DRIVER_ADD_ROUTE,
+              builder: (context, state) => AddDriverWidget(),
+            ),
+            GoRoute(
+              path: RouteConstants.DRIVER_ALL_ROUTE,
+              builder: (context, state) => AllDriverWidget(),
+            ),
+            GoRoute(
               name: 'storeDetails',
               path: '${RouteConstants.STORE_DETAIL_ROUTE}/:id',
               builder: (context, state) {
@@ -450,14 +480,14 @@ class AppRouter {
   ) {
     switch (routeName) {
       case RouteConstants.CATEGORY_ROUTE:
-        return AppLocalizations.of(context)!.category_category_name;
+        return AppLocalizations.of(context)!.module_category_name;
 
       case RouteConstants.INGREDIENT_ROUTE:
-        return AppLocalizations.of(context)!.category_ingredient_name;
+        return AppLocalizations.of(context)!.module_ingredient_name;
       case RouteConstants.NOTIFICATION_ROUTE:
         return AppLocalizations.of(context)!.notification_title;
       case RouteConstants.PASTRY_ROUTE:
-        return AppLocalizations.of(context)!.category_pastry_name;
+        return AppLocalizations.of(context)!.module_pastry_name;
       case RouteConstants.PRESSING_ROUTE:
         return AppLocalizations.of(context)!.pressing_bar_title;
       case RouteConstants.PRESSING_ADD_ROUTE:
@@ -465,15 +495,15 @@ class AppRouter {
       case RouteConstants.PRESSING_ALL_ROUTE:
         return AppLocalizations.of(context)!.pressing_all_bar_title;
       case RouteConstants.PRODUCT_ROUTE:
-        return AppLocalizations.of(context)!.category_product_name;
+        return AppLocalizations.of(context)!.module_product_name;
       case RouteConstants.PROFESSIONEL_ROUTE:
-        return AppLocalizations.of(context)!.category_profession_name;
+        return AppLocalizations.of(context)!.module_profession_name;
       case RouteConstants.PROFILE_ROUTE:
         return AppLocalizations.of(context)!.profile_title;
       case RouteConstants.RECIPE_ROUTER:
-        return AppLocalizations.of(context)!.category_recipe_name;
+        return AppLocalizations.of(context)!.module_recipe_name;
       case RouteConstants.RESTAURANT_ROUTE:
-        return AppLocalizations.of(context)!.category_restaurant_name;
+        return AppLocalizations.of(context)!.module_restaurant_name;
       case RouteConstants.RESTAURANT_TYPE_ROUTE:
         return AppLocalizations.of(context)!.menu_restaurant_type;
       case RouteConstants.SEARCH_ROUTE:
@@ -481,7 +511,7 @@ class AppRouter {
       case RouteConstants.STORE_CATEGORY_ROUTE:
         return AppLocalizations.of(context)!.menu_store_categories;
       case RouteConstants.SUPER_MARKET_ROUTE:
-        return AppLocalizations.of(context)!.category_super_market_name;
+        return AppLocalizations.of(context)!.module_super_market_name;
       case RouteConstants.SUPPLIER_ROUTE:
       case RouteConstants.ADMIN_ROUTE:
         return AppLocalizations.of(context)!.admin_bar_title;
@@ -495,6 +525,12 @@ class AppRouter {
         return AppLocalizations.of(context)!.employe_add_bar_title;
       case RouteConstants.EMPLOYE_ALL_ROUTE:
         return AppLocalizations.of(context)!.employe_all_bar_title;
+      case RouteConstants.MANAGER_ROUTE:
+        return AppLocalizations.of(context)!.manager_bar_title;
+      case RouteConstants.MANAGER_ADD_ROUTE:
+        return AppLocalizations.of(context)!.manager_add_bar_title;
+      case RouteConstants.MANAGER_ALL_ROUTE:
+        return AppLocalizations.of(context)!.manager_all_bar_title;
       default:
         return '';
     }

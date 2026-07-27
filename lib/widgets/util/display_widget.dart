@@ -6,7 +6,7 @@ class DisplayWidget extends StatelessWidget {
   final TextAlign? textAlign;
   final double? fontSize;
   final FontWeight? fontWeight;
-  final Color? textColor;
+
 
   const DisplayWidget({
     super.key,
@@ -14,7 +14,6 @@ class DisplayWidget extends StatelessWidget {
     this.textAlign = TextAlign.center,
     this.fontSize = 14,
     this.fontWeight = FontWeight.normal,
-    this.textColor = AppColors.backgroundColor,
   });
   @override
   Widget build(BuildContext context) {
@@ -22,7 +21,6 @@ class DisplayWidget extends StatelessWidget {
       text ?? '',
       textAlign: textAlign,
       style: TextStyle(
-        color: textColor,
         fontWeight: fontWeight,
         fontSize: fontSize,
       ),

@@ -7,7 +7,7 @@ import 'package:movegui_admin_panel/services/user_service.dart';
 import 'package:movegui_admin_panel/widgets/app/admin_panel_appbar.dart';
 import 'package:movegui_admin_panel/widgets/app/main/main_page_widget.dart';
 import 'package:movegui_admin_panel/widgets/custom_button.dart';
-import 'package:movegui_admin_panel/widgets/side_menu.dart';
+import 'package:movegui_admin_panel/widgets/app/dashboard/dash_board_side_menu.dart';
 import '../responsive.dart';
 
 class MainScreen extends ConsumerStatefulWidget {
@@ -50,7 +50,7 @@ class MainScreenState extends ConsumerState<MainScreen> {
             ? AppLocalizations.of(context)!.movegui_panel
             : AppLocalizations.of(context)!.movegui_panel_mobile,
       ),
-      drawer: Responsive.isMobile(context) ? SideMenu() : null,
+      drawer: Responsive.isMobile(context) ? DashBoardSideMenu() : null,
       body: (currentUser != null && isAuthorize)
           ? Builder(
               builder: (context) => SafeArea(
@@ -58,7 +58,7 @@ class MainScreenState extends ConsumerState<MainScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     if (Responsive.isDesktop(context))
-                      Expanded(child: SideMenu()),
+                      Expanded(child: DashBoardSideMenu()),
                     Expanded(flex: 5, child: widget.pageScreen),
                   ],
                 ),

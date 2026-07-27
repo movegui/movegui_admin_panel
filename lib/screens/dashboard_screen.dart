@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/consts/constants.dart';
-import '../widgets/cards_grid.dart';
+import '../widgets/app/dashboard/cards_grid.dart';
 import '../widgets/grid_products.dart';
 
 class DashboardScreen extends StatelessWidget {

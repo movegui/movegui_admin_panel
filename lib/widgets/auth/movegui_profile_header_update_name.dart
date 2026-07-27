@@ -38,7 +38,7 @@ class MoveguiProfileHeaderUpdateName extends StatelessWidget{
                       },
                       child: const CircleAvatar(
                         radius: 16,
-                        backgroundColor: AppColors.backgroundColor,
+                      
                         child: Icon(
                           IconlyLight.send,
                           size: 12,
@@ -55,7 +55,7 @@ class MoveguiProfileHeaderUpdateName extends StatelessWidget{
                       },
                       child: const CircleAvatar(
                         radius: 16,
-                        backgroundColor: AppColors.backgroundColor,
+                       
                         child: Icon(
                           Icons.cancel,
                           size: 16,

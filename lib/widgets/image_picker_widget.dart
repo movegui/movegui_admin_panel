@@ -84,7 +84,7 @@ class ImagePickerWidget extends StatelessWidget {
                   'Choisir une image',
                   style: TextStyle(
                     fontSize: FontSize,
-                    color: AppColors.textColor,
+                 
                   ),
                   textAlign: TextAlign.center,
                 ),

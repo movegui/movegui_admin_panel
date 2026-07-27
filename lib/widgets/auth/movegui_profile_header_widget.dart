@@ -80,7 +80,7 @@ class MoveguiProfileHeaderWidgetState
                   onTap: widget.onPickImage,
                   child: const CircleAvatar(
                     radius: 16,
-                    backgroundColor: AppColors.backgroundColor,
+                  
                     child: Icon(
                       Icons.camera_alt,
                       size: 16,
@@ -117,7 +117,7 @@ class MoveguiProfileHeaderWidgetState
                   },
                   child: const CircleAvatar(
                     radius: 16,
-                    backgroundColor: AppColors.backgroundColor,
+                  
                     child: Icon(
                       IconlyLight.edit,
                       size: 12,

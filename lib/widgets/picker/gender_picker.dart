@@ -25,7 +25,7 @@ class _GenderAndBirthdatePickerState extends State<GenderPicker> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: AppColors.backgroundColor,
+    
       margin: const EdgeInsets.all(2),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12), ),
       elevation: 1,
@@ -39,9 +39,9 @@ class _GenderAndBirthdatePickerState extends State<GenderPicker> {
             DropdownButtonFormField<String>(
               decoration: const InputDecoration(
                 filled: true,
-                fillColor: AppColors.backgroundColor,
+              
                 labelText: 'Genre',
-                labelStyle: TextStyle(color: AppColors.textColor , fontSize: 18),
+                labelStyle: TextStyle( fontSize: 18),
                 border: InputBorder.none,
                 /*
                 border: OutlineInputBorder(
@@ -52,10 +52,10 @@ class _GenderAndBirthdatePickerState extends State<GenderPicker> {
                 ),
                 */
               ),
-             style: TextStyle(color: AppColors.textColor, fontSize: 18),
-              dropdownColor: AppColors.backgroundColor,
+             style: TextStyle(fontSize: 18),
+        //      dropdownColor: AppColors.backgroundColor,
            //   focusColor: AppColors.selectionColor,
-              iconEnabledColor: AppColors.textColor,
+           //   iconEnabledColor: AppColors.textColor,
               value: _selectedGender,
               items: const [
                 DropdownMenuItem(value: 'm', child: Text('Homme')),
