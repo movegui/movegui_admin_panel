@@ -242,7 +242,6 @@ exports.geocodeAddress = functions.https.onRequest(async (req, res) => {
 exports.createUserWithoutPassword = functions.https.onRequest(async (req, res) => {
   cors(req, res, async () => {
     try {
-      // Get token from Authorization header
       const authHeader = req.headers.authorization;
       console.log(authHeader);
       if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -251,21 +250,14 @@ exports.createUserWithoutPassword = functions.https.onRequest(async (req, res) =
         });
       }
 
-      // Extract token
       const idToken = authHeader.split('Bearer ')[1];
-      // Verify Firebase token
       const decodedToken = await admin.auth().verifyIdToken(idToken);
-
-      // Example: only admins can create users
       if (decodedToken.role !== 'Admin' && decodedToken.role !== 'SuperAdmin') {
         return res.status(403).json({
           error: 'Forbidden',
         });
       }
-
       const { email, name, role } = req.body;
-
-      // Create user
       const user = await admin.auth().createUser({
         email,
         name
@@ -274,9 +266,7 @@ exports.createUserWithoutPassword = functions.https.onRequest(async (req, res) =
       await admin.auth().setCustomUserClaims(user.uid, {
         role: role,
       });
-
       const resetLink = await admin.auth().generatePasswordResetLink(email);
-
       res.status(200).json({
         uid: user.uid,
         email: user.email,
@@ -293,3 +283,54 @@ exports.createUserWithoutPassword = functions.https.onRequest(async (req, res) =
     }
   })
 });
+
+exports.addressFromGeoCoord = functions.https.onRequest(
+  async (req, res) => {
+    cors(req, res, async () => {
+      try {
+        const latitude = req.query.latitude;
+        const longitude = req.query.longitude;
+
+        if (!latitude || !longitude) {
+          return res.status(400).json({
+            error: "latitude and longitude are required",
+          });
+        }
+
+        const url =
+          `https://nominatim.openstreetmap.org/reverse` +
+          `?lat=${latitude}` +
+          `&lon=${longitude}` +
+          `&format=jsonv2`;
+
+        const response = await axios.get(url, {
+          headers: {
+            "User-Agent": "MoveGui/1.0",
+          },
+        });
+
+        const data = response.data;
+
+        if (!data || !data.display_name) {
+          return res.status(404).json({
+            error: "Address not found",
+          });
+        }
+
+        return res.status(200).json({
+          address: data.display_name,
+          latitude,
+          longitude,
+        });
+      } catch (error) {
+        console.error(error);
+
+        return res.status(500).json({
+          error: error.message,
+        });
+      }
+    });
+  }
+);
+
+
