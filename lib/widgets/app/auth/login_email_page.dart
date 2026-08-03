@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
-import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/route_constants.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
@@ -72,7 +71,7 @@ class LoginEmailPageState extends ConsumerState<LoginEmailPage> {
     super.dispose();
   }
 
-  Future<void> _loginFct(ButtonItem item) async {
+  Future<void> _loginFct(ButtonInfo item) async {
     final isValid = _formkey.currentState!.validate();
     FocusScope.of(context).unfocus();
 
@@ -171,11 +170,11 @@ class LoginEmailPageState extends ConsumerState<LoginEmailPage> {
                   ),
                   child: ValidationButton(
                     fn: _loginFct,
-                    buttonItem: ButtonItem(
-                      AppLocalizations.of(context)!.label_login,
-                      tooltipText:  AppLocalizations.of(context)!.tooltip_sign_in,
+                    buttonItem: ButtonInfo(
+                      title: AppLocalizations.of(context)!.label_login,                  
                        enabled: true,
-                      routeName: RouteConstants.HOME_ROUTE, onPress: () {  },
+                      routeName: RouteConstants.HOME_ROUTE,
+                     
                     ),
                   ),
                 ),

@@ -744,4 +744,29 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get message_movegui => 'Tahnks for trusting the MoveGui Team';
+
+  @override
+  String get dashbord_movegui_title => 'Dashboard MoveGui';
+
+  @override
+  String get dashbord_movegui_sub_title =>
+      'Overview of orders, revenue and users';
+
+  @override
+  String get dashbord_orders_state_title => 'Order Status';
+
+  @override
+  String get dashbord_orders_pending => 'Pending';
+
+  @override
+  String get dashbord_orders_preparing => 'Preparing';
+
+  @override
+  String get dashbord_orders_delivering => 'Delivering';
+
+  @override
+  String get dashbord_orders_completed => 'Completed';
+
+  @override
+  String get dashbord_orders_cancelled => 'Cancelled';
 }

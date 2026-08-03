@@ -17,8 +17,8 @@ import 'package:movegui_admin_panel/methods/show_alert.dart';
 import 'package:movegui_admin_panel/models/button_item.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_type_model.dart';
+import 'package:movegui_admin_panel/services/form_services/pressing_form_service.dart';
 import 'package:movegui_admin_panel/services/image_service.dart';
-import 'package:movegui_admin_panel/services/pressing_form_service.dart';
 import 'package:movegui_admin_panel/services/pressing_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/seed_service.dart';
@@ -62,7 +62,7 @@ class PressingAddWidgetPageState extends State<AddPressingWidget> {
   void didChangeDependencies() async {
     super.didChangeDependencies();
     final service = await seedService.getGeneratedPressingService();
-    formController.services.add(service);
+    formController.services?.add(service);
     await loadDatatest();
     // code ici
   }
@@ -94,11 +94,11 @@ class PressingAddWidgetPageState extends State<AddPressingWidget> {
   Future<void> _onSubmit() async {
     if (!formKey.currentState!.validate() ||
         formController.pickedImage == null ||
-        formController.personForms.any(
-          (elem) =>
-              elem.pickedImage == null ||
-              elem.birthdate == null ||
-              elem.gender == null,
+        formController.userForms.any(
+          (userForm) =>
+              userForm.personForm.pickedImage == null ||
+              userForm.personForm.birthdate == null ||
+              userForm.personForm.gender == null,
         )) {
       MessageWidget.errorMessage(
         context,
@@ -112,8 +112,8 @@ class PressingAddWidgetPageState extends State<AddPressingWidget> {
 
     setState(() => isLoading = true);
     try {
-      formController.contacts = await formService.getContacts(
-        formController.personForms,
+      formController.contacts = await formService.userFormService.getModels(
+        formController.userForms,
       );
 
       if (formController.weeklyHours.isNotEmpty &&
@@ -222,12 +222,8 @@ class PressingAddWidgetPageState extends State<AddPressingWidget> {
                     fn: (item) async {
                       await _onSubmit();
                     },
-                    buttonItem: ButtonItem(
-                      AppLocalizations.of(context)!.btn_register_label,
-                      onPress: () {},
-                      tooltipText: AppLocalizations.of(
-                        context,
-                      )!.tooltip_registration,
+                    buttonItem: ButtonInfo(
+                      title: AppLocalizations.of(context)!.btn_register_label,
                       enabled: true,
                       routeName: '',
                     ),

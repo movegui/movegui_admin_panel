@@ -27,54 +27,9 @@ class SeedService {
     name: faker.company.name(),
     createdAt: DateTime.now(),
     description: faker.company.random.fromPattern(['description']),
-    address: AdressModel(
-      address: faker.address.streetName(),
-      id: Uuid().v4(),
-      name: faker.address.streetAddress(),
-      createdAt: DateTime.now(),
-      district: faker.address.city(),
-      minucipality: faker.address.city(),
-      geoCordinates: GeoCordinatesModel(
-        longitude: faker.geo.longitude(),
-        latitude: faker.geo.latitude(),
-      ),
-    ),
+    address: await getgeneratedAdress(),
     staff: [
-      UserModel(
-        updatedAt: DateTime.now(),
-        id: Uuid().v4(),
-        name: '',
-        createdAt: DateTime.now(),
-        username: null,
-        isVerified: false,
-        role: UserRole.Guest.name,
-        personModel: PersonModel(
-          id: Uuid().v4(),
-          name: faker.person.name(),
-          createdAt: DateTime.now(),
-          firstName: faker.person.firstName(),
-          lastName: faker.person.lastName(),
-          profileImageUrl: faker.image.toString(),
-          email: faker.internet.email(),
-          phone: faker.phoneNumber.de(),
-          gender: 'm',
-          birthDate: faker.date.dateTime(),
-          addresses: [
-            AdressModel(
-              address: faker.address.streetName(),
-              id: Uuid().v4(),
-              name: faker.address.streetAddress(),
-              createdAt: DateTime.now(),
-              district: faker.address.city(),
-              minucipality: faker.address.city(),
-              geoCordinates: GeoCordinatesModel(
-                longitude: faker.geo.longitude(),
-                latitude: faker.geo.latitude(),
-              ),
-            ),
-          ],
-        ),
-      ),
+      await getGeneratedUserModel()
     ],
     email: faker.internet.email(),
     imageUrl: faker.image.toString(),
@@ -91,24 +46,15 @@ class SeedService {
       name: faker.company.name(),
       createdAt: DateTime.now(),
     ),
+    rating: 0,
+    reviewCount: 0,
   );
 
   Future<PressingServiceModel> getGeneratedPressingService() async =>
       PressingServiceModel(
         id: Uuid().v4(),
-        article: PressingArticleModel(
-          id: Uuid().v4(),
-          name: faker.lorem.word(),
-          iconUrl: 'iconUrl',
-          createdAt: DateTime.now(),
-        ),
-        serviceType: PressingServiceTypeModel(
-          id: Uuid().v4(),
-          name: faker.lorem.word(),
-          description: faker.job.title(),
-          pricingType: PricingType.fixed.name,
-          createdAt: DateTime.now(),
-        ),
+        product: await generatePressingArticle(),
+        serviceType: await generatePressingTypeModel(),
         minPrice: 1000,
         maxPrice: 5000,
         basePrice: 1000,
@@ -117,30 +63,76 @@ class SeedService {
         createdAt: DateTime.now(),
       );
 
-      Future<PersonModel> getGeneratedPerson() async => PersonModel(
+  Future<PersonModel> getGeneratedPerson() async => PersonModel(
+    id: Uuid().v4(),
+    name: faker.person.name(),
+    createdAt: DateTime.now(),
+    firstName: faker.person.firstName(),
+    lastName: faker.person.lastName(),
+    profileImageUrl: faker.image.toString(),
+    email: faker.internet.email(),
+    phone: faker.phoneNumber.de(),
+    gender: 'm',
+    birthDate: faker.date.dateTime(),
+    addresses: [
+      AdressModel(
+        address: faker.address.streetName(),
+        id: Uuid().v4(),
+        name: faker.address.streetAddress(),
+        createdAt: DateTime.now(),
+        district: faker.address.city(),
+        minucipality: faker.address.city(),
+        geoCordinates: GeoCordinatesModel(
+          longitude: faker.geo.longitude(),
+          latitude: faker.geo.latitude(),
+        ),
+        adressType: 'h',
+      ),
+    ],
+  );
+
+  Future<AdressModel> getgeneratedAdress() async => AdressModel(
+    address: faker.address.streetName(),
+    id: Uuid().v4(),
+    name: faker.address.streetAddress(),
+    createdAt: DateTime.now(),
+    district: faker.address.city(),
+    minucipality: 'di',
+    geoCordinates: GeoCordinatesModel(
+      longitude: faker.geo.longitude(),
+      latitude: faker.geo.latitude(),
+    ),
+    adressType: 'h',
+  );
+
+  Future<UserModel> getGeneratedUserModel() async => UserModel(
+    updatedAt: DateTime.now(),
+    id: Uuid().v4(),
+    name: faker.person.name(),
+    createdAt: DateTime.now(),
+    username: null,
+    isVerified: false,
+    role: UserRole.Guest,
+    personModel: await getGeneratedPerson()
+  );
+
+  Future<PressingServiceTypeModel> generatePressingTypeModel() async =>PressingServiceTypeModel(
           id: Uuid().v4(),
-          name: faker.person.name(),
+          name: faker.lorem.word(),
+          description: faker.job.title(),
+          pricingType: PricingType.fixed,
           createdAt: DateTime.now(),
-          firstName: faker.person.firstName(),
-          lastName: faker.person.lastName(),
-          profileImageUrl: faker.image.toString(),
-          email: faker.internet.email(),
-          phone: faker.phoneNumber.de(),
-          gender: 'm',
-          birthDate: faker.date.dateTime(),
-          addresses: [
-            AdressModel(
-              address: faker.address.streetName(),
-              id: Uuid().v4(),
-              name: faker.address.streetAddress(),
-              createdAt: DateTime.now(),
-              district: faker.address.city(),
-              minucipality: faker.address.city(),
-              geoCordinates: GeoCordinatesModel(
-                longitude: faker.geo.longitude(),
-                latitude: faker.geo.latitude(),
-              ),
-            ),
-          ],
+        ); 
+
+        Future<PressingArticleModel> generatePressingArticle() async => PressingArticleModel(
+          id: Uuid().v4(),
+          name: faker.lorem.word(),
+          createdAt: DateTime.now(),
+          price: faker.randomGenerator.decimal(scale: 2),
+          supplierId: Uuid().v4(),
+          imageUrl: faker.image.loremPicsum(),
+          category: faker.company.name(),
+          isAvailable: true,
+          currency: 'GNF',
         );
 }

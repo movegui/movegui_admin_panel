@@ -113,7 +113,7 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
     super.dispose();
   }
 
-  Future<void> _registerFCT(ButtonItem item) async {
+  Future<void> _registerFCT(ButtonInfo item) async {
     final isValid =
         _formkey.currentState!.validate() && formController.birthdate != null;
     final authProvider = ref.read(authStateProvider);
@@ -146,6 +146,7 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
                 district: formController.addressesForms[0].district.text.trim(),
                 minucipality:
                     formController.addressesForms[0].selectedMunicipality,
+                adressType: formController.addressesForms[0].selectedType,
               );
               GeoCordinatesModel? geoCoord = await addressService
                   .getCoordinates(addressModel.getMapAddress());
@@ -180,6 +181,7 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
                     geoCordinates: geoCoord,
                     zoneId:
                         '${formController.addressesForms[0].selectedMunicipality} _ ${formController.addressesForms[0].district.text.trim()} _ ${formController.addressesForms[0].address.text.trim()}',
+                    adressType: formController.addressesForms[0].selectedType,
                   ),
                 ],
                 formController.phone.text.trim(),
@@ -260,10 +262,7 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
               hintText: AppLocalizations.of(context)!.input_hint_adress_email,
-              prefixIcon: const Icon(
-                Icons.mail,
-              
-              ),
+              prefixIcon: const Icon(Icons.mail),
             ),
             onFieldSubmitted: (value) {
               FocusScope.of(context).requestFocus(_passwordFocusNode);
@@ -314,10 +313,9 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
               });
             },
 
-          
             personForm: formController,
-        //    personKey: addPersonKey,
-       //     addAddressKey: addAddressKey,
+            //    personKey: addPersonKey,
+            //     addAddressKey: addAddressKey,
           ),
 
           Responsive.isDesktop(context)
@@ -327,20 +325,14 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
             padding: const EdgeInsets.all(WidgetConstants.sepWidget),
             child: ValidationButton(
               fn: _registerFCT,
-              buttonItem: ButtonItem(
-                AppLocalizations.of(context)!.btn_register_label,
-                tooltipText: AppLocalizations.of(context)!.tooltip_registration,
+              buttonItem: ButtonInfo(
+                title: AppLocalizations.of(context)!.btn_register_label,
                 enabled: true,
                 routeName: RouteConstants.HOME_ROUTE,
-                onPress: () {},
               ),
             ),
           ),
-          if (isLoading)
-            CircularProgressIndicator(
-              strokeWidth: 3,
-             
-            ),
+          if (isLoading) CircularProgressIndicator(strokeWidth: 3),
         ],
       ),
     );

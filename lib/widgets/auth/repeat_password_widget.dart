@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/validator.dart';
 
 class RepeatPasswordWidget extends StatefulWidget {

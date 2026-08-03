@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movegui_admin_panel/consts/app_colors.dart';
-import 'package:movegui_admin_panel/models/store_model.dart';
+import 'package:movegui_admin_panel/models/store/store_model.dart';
 
 class StoreInfoWidget extends StatelessWidget {
   final StoreModel storeModel;

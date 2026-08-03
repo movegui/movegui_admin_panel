@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
+import 'package:movegui_admin_panel/consts/route_constants.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/button_item.dart';
@@ -11,7 +12,6 @@ import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/user_service.dart';
 import 'package:movegui_admin_panel/widgets/app/auth/validation_button.dart';
 import 'package:pinput/pinput.dart';
-
 
 class OtpVerificationScreen extends StatefulWidget {
   final String verificationId;
@@ -40,7 +40,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     super.initState();
   }
 
-  Future<void> verifyOtp(BuildContext context, ButtonItem item) async {
+  Future<void> verifyOtp(BuildContext context, ButtonInfo item) async {
     if (otpCode.length != 6) return;
 
     setState(() => isLoading = true);
@@ -49,7 +49,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
       if (kIsWeb || widget.confirmationResult != null) {
         await widget.confirmationResult?.confirm(otpCode);
       } else {
-        await userService.verifyOtp(widget.verificationId, otpCode);
+        //  await userService.verifyOtp(widget.verificationId, otpCode);
       }
       Fluttertoast.showToast(
         msg: AppLocalizations.of(context)!.success_registration_new_user,
@@ -60,18 +60,20 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
         textColor: Colors.white,
         fontSize: 16.0,
       );
+      /*
       context.read<LoginModProvider>().setLoginMod(
         AppConstants.LOGIN_PHONE_MODE,
       );
+      */
       widget.currentUser.isVerified = true;
       UserModel? savedUser = await userService.getByUsername(
         widget.currentUser.username ?? '',
       );
       if (savedUser != null) {
-        if (savedUser.isVerified == false){
-            savedUser.isVerified = true;
-            await userService.update(savedUser);
-        } 
+        if (savedUser.isVerified == false) {
+          savedUser.isVerified = true;
+          await userService.update(savedUser);
+        }
         Navigator.pushNamed(context, item.routeName!, arguments: savedUser);
       } else {
         Navigator.pushNamed(
@@ -129,8 +131,10 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
               children: [
                 const CircleAvatar(
                   radius: 28,
+                  /*
                   backgroundColor:
                       AppColors.lightbackground, //Color(0xFF4A73F3),
+                      */
                   child: Icon(Icons.verified, color: AppColors.primary),
                 ),
                 const SizedBox(height: WidgetConstants.sepWidgetHeight * 2),
@@ -152,19 +156,23 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   width: double.infinity,
                   height: 48,
                   child: ValidationButton(
-                    fn: isLoading ? (context, item) async {} : verifyOtp,
-                    buttonItem: ButtonItem(
-                      AppLocalizations.of(context)!.btn_send_label,
-                      AppLocalizations.of(context)!.tooltip_btn_send,
-                      true,
+                    fn:
+                        (
+                          item,
+                        ) async {}, // isLoading ? (context, item) async {} : verifyOtp,
+                    buttonItem: ButtonInfo(
+                      //   AppLocalizations.of(context)!.tooltip_btn_send,
+                      //   true,
                       routeName: RouteConstants.PROFILE_ROUTE,
+                      title: AppLocalizations.of(context)!.btn_send_label,
+                      enabled: true,
                     ),
                   ),
                 ),
                 const SizedBox(height: 12),
                 TextButton(
                   onPressed: () {
-                    userService.registerWithPhone(context, widget.currentUser);
+                 //   userService.registerWithPhone(context, widget.currentUser);
                   },
                   child: Text(AppLocalizations.of(context)!.resend_code),
                 ),

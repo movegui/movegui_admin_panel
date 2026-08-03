@@ -1489,6 +1489,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tahnks for trusting the MoveGui Team'**
   String get message_movegui;
+
+  /// No description provided for @dashbord_movegui_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard MoveGui'**
+  String get dashbord_movegui_title;
+
+  /// No description provided for @dashbord_movegui_sub_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Overview of orders, revenue and users'**
+  String get dashbord_movegui_sub_title;
+
+  /// No description provided for @dashbord_orders_state_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Status'**
+  String get dashbord_orders_state_title;
+
+  /// No description provided for @dashbord_orders_pending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get dashbord_orders_pending;
+
+  /// No description provided for @dashbord_orders_preparing.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing'**
+  String get dashbord_orders_preparing;
+
+  /// No description provided for @dashbord_orders_delivering.
+  ///
+  /// In en, this message translates to:
+  /// **'Delivering'**
+  String get dashbord_orders_delivering;
+
+  /// No description provided for @dashbord_orders_completed.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get dashbord_orders_completed;
+
+  /// No description provided for @dashbord_orders_cancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get dashbord_orders_cancelled;
 }
 
 class _AppLocalizationsDelegate

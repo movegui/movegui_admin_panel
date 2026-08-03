@@ -3,9 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_model.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
+import 'package:movegui_admin_panel/services/form_services/pressing_form_service.dart';
 import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
 import 'package:movegui_admin_panel/services/message_service.dart';
-import 'package:movegui_admin_panel/services/pressing_form_service.dart';
 import 'package:movegui_admin_panel/services/pressing_service.dart';
 import 'package:movegui_admin_panel/util/pressing_form_controller.dart';
 import 'package:movegui_admin_panel/util/store_submit_hadler.dart';
@@ -37,8 +37,8 @@ class PressingSubmitHandler
     );
 
     if (imageUrl == null) throw Exception("Image upload failed");
-    form.contacts = await formService.getContacts(form.personForms);
-    form.adressModel = await formService.getAdresse(form.addressForm);
+    form.contacts = await formService.userFormService.getModels(form.userForms);
+    form.adressModel = await formService.userFormService.personFormService.adressFormService.getModel(form.addressForm);
 
     final pressing = PressingModel(
       id: const Uuid().v4(),
@@ -51,14 +51,16 @@ class PressingSubmitHandler
       weeklyHours: form.weeklyHours,
       storeType: form.selectedType,
       createdAt: DateTime.now(),
-      imageUrl: imageUrl,
+      imageUrl: imageUrl, 
+      rating: form.rating, 
+      reviewCount: form.reviewCount,
     );
 
     await service.addModel(pressing).then((p) async {
-      form.services = await formService.getServices(form.serviceForms);
-      await service.addServices(p, form.services).then((pressing) async {
+      form.services = await formService.servicesFormService.getModels(form.serviceForms) ;
+      await service.addServices(p, form.services ?? []).then((pressing) async {
         List<HttpsCallableResult> results = [];
-        for (UserModel userModel in pressing.staff) {final user = FirebaseAuth.instance.currentUser;
+        for (UserModel? userModel in pressing.staff ?? [] ) {final user = FirebaseAuth.instance.currentUser;
 
 final token = await user!.getIdTokenResult(true);
 
@@ -66,14 +68,14 @@ print(user.uid);
 print(token.claims);
 
           final createUser = await userService.createUserWithoutPassword(
-            userModel.personModel!.email!,
-            UserRole.Manager.name,
-            userModel.personModel!.firstName,
-            userModel.personModel!.lastName,
-            userModel.personModel!.addresses,
-            userModel.personModel!.phone!,
-            userModel.personModel!.gender,
-            userModel.personModel!.birthDate!,
+            userModel?.personModel?.email ?? '',
+            UserRole.Manager,
+            userModel?.personModel?.firstName ?? '',
+            userModel?.personModel?.lastName ?? '',
+            userModel?.personModel?.addresses ?? [],
+            userModel?.personModel?.phone ?? '',
+            userModel?.personModel?.gender ?? '',
+            userModel?.personModel?.birthDate  ,
           );
           final subject = AppLocalizations.of(context)!.register_employe_title;
           final messageTitle = AppLocalizations.of(
@@ -86,10 +88,10 @@ print(token.claims);
           final messageToSend =
               '$messageTitle \n <a href="${createUser!.resetLink}"> $messageLink </a> \n $message';
           final result = await sendMessage(
-            userModel.personModel!.firstName,
-            userModel.personModel!.lastName,
-            userModel.personModel!.email!,
-            userModel.personModel!.phone!,
+            userModel?.personModel?.firstName ?? '',
+            userModel?.personModel?.lastName ?? '',
+            userModel?.personModel?.email ?? '',
+            userModel?.personModel?.phone ?? '',
             subject,
             messageToSend,
           );
@@ -98,7 +100,7 @@ print(token.claims);
             results.add(result);
           }
         }
-        if (results.length == pressing.staff.length) {
+        if (results.length == pressing.staff?.length) {
           form.clear();
         }
       });

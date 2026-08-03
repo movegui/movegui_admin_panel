@@ -1,9 +1,10 @@
 import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/model.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
+import 'package:movegui_admin_panel/models/store/store_model.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 
-abstract class StoreModel extends Model {
+abstract class StoreModelOld extends Model {
 
   final String  phone, email, imageUrl, description;
   final AdressModel address; 
@@ -13,7 +14,7 @@ abstract class StoreModel extends Model {
   double rating ;
   int reviewCount;
 
-  StoreModel({
+  StoreModelOld({
     required super.id,
     required super.name,
     required super.createdAt,
@@ -67,8 +68,8 @@ abstract class StoreModel extends Model {
 }
 
 
- abstract class StoreTypeModel extends Model {
-  StoreTypeModel({
+ abstract class StoreTypeModelOld extends Model {
+  StoreTypeModelOld({
     required super.id,
     required super.name,
     required super.createdAt,

@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/categories_model.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
-import 'package:movegui_admin_panel/models/store_model.dart';
+import 'package:movegui_admin_panel/models/store/store_model.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/util/address_form_controller.dart';
 import 'package:movegui_admin_panel/util/form_controller.dart';
-import 'package:movegui_admin_panel/util/person_form_controller.dart';
+import 'package:movegui_admin_panel/util/user_form_controller.dart';
 
 abstract class StoreFormController<T extends StoreModel>
     extends FormController<T> {
@@ -22,14 +22,16 @@ abstract class StoreFormController<T extends StoreModel>
   final emailFocus = FocusNode();
   final telephonFocus = FocusNode();
   final addressForm = AddressFormController();
-  final personForms = [PersonFormController()];
-  List<UserModel> contacts = [];
+  final userForms = [UserFormController()];
+  List<UserModel?> contacts = [];
   List<OpenHoursModel> weeklyHours = [];
   File? pickedImage;
   Uint8List? webImage;
   StoreTypeModel? selectedType;
   CategoriesModel? categoriesModel;
   AdressModel? adressModel;
+   double? rating ;
+  int? reviewCount;
 
   void dispose() {
     name.dispose();
@@ -47,8 +49,8 @@ abstract class StoreFormController<T extends StoreModel>
     addressForm.clear();
     pickedImage = null;
     webImage = null;
-    for (final personForm in personForms) {
-      personForm.clear();
+    for (final userForm in userForms) {
+      userForm.clear();
     }
     /*
     personForms.map((personForm) {
@@ -60,6 +62,9 @@ abstract class StoreFormController<T extends StoreModel>
     selectedType = null;
     categoriesModel = null;
     adressModel = null;
+    rating = null;
+    reviewCount = null;
+
   }
 
   @override
@@ -70,10 +75,10 @@ abstract class StoreFormController<T extends StoreModel>
     description.text = model.description;
     await addressForm.setData(model.address);
     await Future.wait(
-      personForms.asMap().entries.map((entry) async {
+      userForms.asMap().entries.map((entry) async {
         final index = entry.key;
-        final personForm = entry.value;
-        await personForm.setData(model.staff[index].personModel!);
+        final form = entry.value;
+        await form.setData(model.staff![index]!);
       }),
     );
   }

@@ -5,7 +5,7 @@ import 'package:movegui_admin_panel/util/store_form_controller.dart';
 
 class PressingFormController extends StoreFormController<PressingModel> {
    List<PressingServiceFormController> serviceForms = [PressingServiceFormController()];
-  List<PressingServiceModel> services = [];
+  List<PressingServiceModel>? services = [];
 
   @override
   Future<void> setData(PressingModel model) async {
@@ -14,7 +14,7 @@ class PressingFormController extends StoreFormController<PressingModel> {
     serviceForms.asMap().entries.map((entry) async {
        final index = entry.key;
        final serviceForm = entry.value;
-     await  serviceForm.setData(services[index]);
+     await  serviceForm.setData(services![index] );
     }).toList();
   }
 

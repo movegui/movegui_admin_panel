@@ -9,7 +9,6 @@ import 'package:movegui_admin_panel/app_theme.dart';
 import 'package:movegui_admin_panel/config/env.dart';
 import 'package:movegui_admin_panel/config/env_dev.dart';
 import 'package:movegui_admin_panel/config/firebase_config.dart';
-import 'package:movegui_admin_panel/consts/theme_data.dart';
 import 'package:movegui_admin_panel/firebase_options.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';

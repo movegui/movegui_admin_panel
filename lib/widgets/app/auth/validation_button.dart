@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/models/button_item.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/widgets/util/button_widget.dart';
 
 class ValidationButton extends StatelessWidget {
-  final Future<void> Function( ButtonItem item) fn;
-  final ButtonItem buttonItem;
+  final Future<void> Function( ButtonInfo item) fn;
+  final ButtonInfo buttonItem;
   final IconData? icon;
 
   const ValidationButton({
@@ -30,10 +29,6 @@ class ValidationButton extends StatelessWidget {
                 onPressed: fn,
                 buttonItem: buttonItem,
                 icon: icon,
-                fontSize:
-                    Responsive.isMobile(context)
-                        ? WidgetConstants.buttonFonsize * 2
-                        : WidgetConstants.buttonFonsize * 2.5,
               ),
             ),
           ),

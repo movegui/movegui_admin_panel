@@ -4,23 +4,15 @@ import 'package:movegui_admin_panel/models/button_item.dart';
 
 
 class ButtonWidget extends StatelessWidget {
-  final ButtonItem buttonItem;
+  final ButtonInfo buttonItem;
   final IconData? icon;
-  final Color? backgroundColor;
-  final FontStyle? fontStyle;
-  final TextDecoration? textDecoration;
-  final double? fontSize;
-  final Future<void> Function( ButtonItem item) onPressed;
+  final Future<void> Function( ButtonInfo item) onPressed;
 
   const ButtonWidget({
     super.key,
     required this.onPressed,
     required this.buttonItem,
     required this.icon,
-    this.backgroundColor,
-    this.fontStyle,
-    this.textDecoration,
-    this.fontSize = 14.0,
   });
 
   @override
@@ -28,7 +20,7 @@ class ButtonWidget extends StatelessWidget {
     final buttonStyle =   Theme.of(context).elevatedButtonTheme.style;
     return ElevatedButton.icon(
       style: ButtonStyle(
-        padding: WidgetStateProperty.all(const EdgeInsets.all(3.0)),
+        padding: WidgetStateProperty.all(const EdgeInsets.all(8.0)),
         shape: WidgetStateProperty.all(
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
         ),
@@ -39,20 +31,20 @@ class ButtonWidget extends StatelessWidget {
           if (states.contains(WidgetState.pressed)) {
             return AppColors.selectionColor;
           }
-          return buttonStyle?.backgroundColor?.resolve({}) ?? AppColors.darkbackground;
+          return buttonStyle?.backgroundColor?.resolve({}) ?? AppColors.placeHolderText;
         }),
         foregroundColor: WidgetStateProperty.resolveWith<Color>((states) {
           if (states.contains(WidgetState.hovered)) {
             return AppColors.primary;
           }
-          return buttonStyle?.foregroundColor?.resolve({}) ?? AppColors.primary;
+          return buttonStyle?.foregroundColor?.resolve({}) ?? AppColors.placeHolderText;
         }),
       ),
       icon:
           icon != null
               ? Icon(icon!,)
               : const SizedBox(),
-      label: Text(buttonItem.title!, style: TextStyle(fontSize: fontSize,)),
+      label: Text(buttonItem.title,),
       onPressed: () async {
         await onPressed(buttonItem);
       },

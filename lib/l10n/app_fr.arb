@@ -1,4 +1,5 @@
 {
+    "@@locale": "fr",
     "commune_title": "Commune",
     "@commune_title": {},
     "gender_masculin": "Homme",
@@ -526,5 +527,22 @@
     "message_movegui_link": "Créer mon mot de passe",
     "@message_movegui_link": {},
     "message_movegui": "Merci de nous faire confiance l'équipe MoveGui",
-    "@message_movegui": {}
+    "@message_movegui": {},
+    
+    "dashbord_movegui_title": "Tableau de Configuration MoveGui",
+    "@dashbord_movegui_title": {},
+    "dashbord_movegui_sub_title": "Vue globale des commandes, revenus et utilisateurs",
+    "@dashbord_movegui_sub_title": {},
+    "dashbord_orders_state_title": "Etat des Commandes",
+    "@dashbord_orders_state_title": {},
+    "dashbord_orders_pending": "En attente",
+    "@dashbord_orders_pending": {},
+    "dashbord_orders_preparing": "En préparation",
+    "@dashbord_orders_preparing": {},
+    "dashbord_orders_delivering"    : "En livraison",
+    "@dashbord_orders_delivering": {},
+    "dashbord_orders_completed": "Terminées",
+    "@dashbord_orders_completed": {},
+    "dashbord_orders_cancelled": "Annulées",  
+    "@dashbord_orders_cancelled": {}      
 }

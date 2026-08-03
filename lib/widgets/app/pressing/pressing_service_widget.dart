@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/config/env_dev.dart';
-import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/validator.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
@@ -48,7 +47,7 @@ class PressingServiceWidgetState extends State<PressingServiceWidget> {
       description: AppLocalizations.of(
         context,
       )!.pressing_service_dry_cleaning_descrip,
-      pricingType: PricingType.fixed.name,
+      pricingType: PricingType.fixed,
       createdAt: DateTime.now(),
     );
     
@@ -69,7 +68,7 @@ class PressingServiceWidgetState extends State<PressingServiceWidget> {
         description: AppLocalizations.of(
           context,
         )!.pressing_service_dry_cleaning_descrip,
-        pricingType: PricingType.fixed.name,
+        pricingType: PricingType.fixed,
         createdAt: DateTime.now(),
       );
       if (serviceDataTest != null) {
@@ -194,14 +193,10 @@ class PressingServiceWidgetState extends State<PressingServiceWidget> {
                           onPressed: (item) async {
                             await addService();
                           },
-                          buttonItem: ButtonItem(
-                            AppLocalizations.of(
+                          buttonItem: ButtonInfo(
+                            title: AppLocalizations.of(
                               context,
                             )!.btn_add_pressing_service,
-                            onPress: () {},
-                            tooltipText: AppLocalizations.of(
-                              context,
-                            )!.tooltip_btn_add_pressing_service,
                             enabled: true,
                             routeName: '',
                           ),

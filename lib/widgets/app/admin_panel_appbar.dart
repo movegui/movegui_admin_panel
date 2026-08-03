@@ -9,7 +9,7 @@ import 'package:movegui_admin_panel/providers/current_user_provider.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/user_service.dart';
-import 'package:movegui_admin_panel/util/profile_menu_title.dart';
+import 'package:movegui_admin_panel/util/menu_tile.dart';
 
 class AdminPanelAppBar extends ConsumerWidget implements PreferredSizeWidget {
   AdminPanelAppBar({super.key, required this.title});
@@ -79,7 +79,7 @@ class AdminPanelAppBar extends ConsumerWidget implements PreferredSizeWidget {
                     items: [
                       PopupMenuItem(
                         value: '1',
-                        child: ProfileMenuTitle(
+                        child: MenuTile(
                           icon: Icons.logout,
                           title: AppLocalizations.of(
                             context,
@@ -107,7 +107,7 @@ class AdminPanelAppBar extends ConsumerWidget implements PreferredSizeWidget {
                   items: [
                     PopupMenuItem(
                       value: '1',
-                      child: ProfileMenuTitle(
+                      child: MenuTile(
                         icon: Icons.login,
                         title: AppLocalizations.of(context)!.profile_menu_login,
                         onTap: () => context.go(RouteConstants.LOGIN_ROUTE),

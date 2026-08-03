@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:movegui_admin_panel/consts/app_colors.dart';
 
 
 class MoveguiProfileDefaultImage extends StatelessWidget {

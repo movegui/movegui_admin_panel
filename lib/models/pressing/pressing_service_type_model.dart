@@ -2,14 +2,12 @@ import 'package:movegui_admin_panel/models/model.dart';
 
 class PressingServiceTypeModel extends Model {
   final String description;
-  // final Duration? estimatedDuration;
-  final String pricingType;
+  final PricingType pricingType;
 
   PressingServiceTypeModel({
     required super.id,
     required super.name,
     required this.description,
-    //   this.estimatedDuration,
     required this.pricingType,
     required super.createdAt,
   });
@@ -28,7 +26,7 @@ class PressingServiceTypeModel extends Model {
   Map<String, dynamic> toJson() => {
     ...super.toJson(),
     'description': description,
-    'pricingType': pricingType,
+    'pricingType': pricingType.name,
   };
 
   factory PressingServiceTypeModel.fromJson(Map<String, dynamic> json) =>
@@ -36,17 +34,14 @@ class PressingServiceTypeModel extends Model {
         id: json['id'],
         name: json['name'],
         description: json['description'],
-        pricingType: json['pricingType'],
+        pricingType: PricingType.values.firstWhere(
+          (e) => e.name == json['pricingType'],
+          orElse: () => PricingType.fixed,
+        ),
         createdAt: json['createdAt'] != null
             ? json['createdAt'].toDate()
             : DateTime.now(),
       );
-@override
-String toString() {
-  return 'MyClass(id: $id, name: $name, description: $description, '
-      'pricingType: $pricingType, createdAt: $createdAt)';
-}
-
 }
 
 enum PricingType { perItem, perKg, fixed }

@@ -1,9 +1,6 @@
-import 'package:movegui_admin_panel/models/supplier_model.dart';
-import 'package:movegui_admin_panel/services/suppliers_service.dart';
-import 'package:movegui_admin_panel/util/store_form_controller.dart';
-import 'package:movegui_admin_panel/util/store_submit_hadler.dart';
-import 'package:uuid/uuid.dart';
 
+
+/*
 class SupplierSubmitHandler
     extends StoreSubmitHadler<SupplierModel, SuppliersService> {
   SupplierSubmitHandler({
@@ -60,3 +57,4 @@ class SupplierSubmitHandler
       await service.addModel(supplier);
   }
 }
+*/

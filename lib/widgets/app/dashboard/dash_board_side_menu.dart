@@ -13,7 +13,7 @@ import 'package:movegui_admin_panel/providers/dark_theme_provider.dart';
 import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/user_service.dart';
-import 'package:movegui_admin_panel/util/profile_menu_title.dart';
+import 'package:movegui_admin_panel/util/menu_tile.dart';
 
 class DashBoardSideMenu extends ConsumerWidget {
   DashBoardSideMenu({super.key});
@@ -85,14 +85,14 @@ class DashBoardSideMenu extends ConsumerWidget {
               ),
               isAdmin(currentUser, user)
                   ? _sectionCard([
-                      ProfileMenuTitle(
+                      MenuTile(
                         title: AppLocalizations.of(context)!.menu_main,
                         icon: Icons.home_filled,
                         enabled: true,
                         routeName: RouteConstants.HOME_ROUTE,
                       ),
 
-                      ProfileMenuTitle(
+                      MenuTile(
                         title: AppLocalizations.of(
                           context,
                         )!.module_category_name,
@@ -101,7 +101,7 @@ class DashBoardSideMenu extends ConsumerWidget {
                         routeName: RouteConstants.CATEGORY_ROUTE,
                       ),
 
-                      ProfileMenuTitle(
+                      MenuTile(
                         title: AppLocalizations.of(
                           context,
                         )!.module_supplier_name,
@@ -110,7 +110,7 @@ class DashBoardSideMenu extends ConsumerWidget {
                         routeName: RouteConstants.SUPPLIER_ROUTE,
                       ),
 
-                      ProfileMenuTitle(
+                      MenuTile(
                         title: AppLocalizations.of(
                           context,
                         )!.module_restaurant_name,
@@ -119,7 +119,7 @@ class DashBoardSideMenu extends ConsumerWidget {
                         routeName: RouteConstants.RESTAURANT_ROUTE,
                       ),
 
-                      ProfileMenuTitle(
+                      MenuTile(
                         title: AppLocalizations.of(
                           context,
                         )!.module_store_name,
@@ -128,7 +128,7 @@ class DashBoardSideMenu extends ConsumerWidget {
                         routeName: RouteConstants.STORE_CATEGORY_ROUTE,
                       ),
 
-                      ProfileMenuTitle(
+                      MenuTile(
                         title: AppLocalizations.of(
                           context,
                         )!.module_pastry_name,
@@ -137,7 +137,7 @@ class DashBoardSideMenu extends ConsumerWidget {
                         routeName: RouteConstants.PASTRY_ROUTE,
                       ),
 
-                      ProfileMenuTitle(
+                      MenuTile(
                         title: AppLocalizations.of(
                           context,
                         )!.module_super_market_name,
@@ -146,7 +146,7 @@ class DashBoardSideMenu extends ConsumerWidget {
                         routeName: RouteConstants.SUPER_MARKET_ROUTE,
                       ),
 
-                      ProfileMenuTitle(
+                      MenuTile(
                         title: AppLocalizations.of(
                           context,
                         )!.module_pressing_name,
@@ -158,7 +158,7 @@ class DashBoardSideMenu extends ConsumerWidget {
                         },
                       ),
 
-                      ProfileMenuTitle(
+                      MenuTile(
                         title: AppLocalizations.of(
                           context,
                         )!.module_profession_name,
@@ -187,7 +187,7 @@ class DashBoardSideMenu extends ConsumerWidget {
                   : SizedBox(),
               isSuperAdmin(currentUser, user)
                   ? _sectionCard([
-                      ProfileMenuTitle(
+                      MenuTile(
                         title: AppLocalizations.of(
                           context,
                         )!.module_admin_name,
@@ -212,7 +212,7 @@ class DashBoardSideMenu extends ConsumerWidget {
 
               isEmployee(currentUser, user)
                   ? _sectionCard([
-                      ProfileMenuTitle(
+                      MenuTile(
                         title: AppLocalizations.of(
                           context,
                         )!.module_employe_name,
@@ -236,7 +236,7 @@ class DashBoardSideMenu extends ConsumerWidget {
 
                       isManager(currentUser, user)
                   ? _sectionCard([
-                      ProfileMenuTitle(
+                      MenuTile(
                         title: AppLocalizations.of(
                           context,
                         )!.module_manager_name,
@@ -260,7 +260,7 @@ class DashBoardSideMenu extends ConsumerWidget {
 
                       isDriver(currentUser, user)
                   ? _sectionCard([
-                      ProfileMenuTitle(
+                      MenuTile(
                         title: AppLocalizations.of(
                           context,
                         )!.module_deliver_name,

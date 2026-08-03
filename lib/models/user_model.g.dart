@@ -6,6 +6,7 @@ part of 'user_model.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
+/*
 class UserModelAdapter extends TypeAdapter<UserModel> {
   @override
   final int typeId = 0;
@@ -45,3 +46,4 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
+*/

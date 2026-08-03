@@ -22,7 +22,10 @@ class ResponsiveGrid extends StatelessWidget {
             mainAxisSpacing: 18,
             mainAxisExtent: 150,
           ),
-          itemBuilder: (context, index) => children[index],
+          itemBuilder: (context, index) => Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: children[index],
+          ),
         );
       },
     );

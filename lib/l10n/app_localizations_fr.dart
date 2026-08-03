@@ -750,4 +750,29 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get message_movegui =>
       'Merci de nous faire confiance l\'équipe MoveGui';
+
+  @override
+  String get dashbord_movegui_title => 'Tableau de Configuration MoveGui';
+
+  @override
+  String get dashbord_movegui_sub_title =>
+      'Vue globale des commandes, revenus et utilisateurs';
+
+  @override
+  String get dashbord_orders_state_title => 'Etat des Commandes';
+
+  @override
+  String get dashbord_orders_pending => 'En attente';
+
+  @override
+  String get dashbord_orders_preparing => 'En préparation';
+
+  @override
+  String get dashbord_orders_delivering => 'En livraison';
+
+  @override
+  String get dashbord_orders_completed => 'Terminées';
+
+  @override
+  String get dashbord_orders_cancelled => 'Annulées';
 }

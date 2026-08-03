@@ -8,8 +8,6 @@ class RecipeModel extends Model {
   final String description;
   final Categoryrecipe category;
   final List<IngredientModel> ingredients;
-  @override
-  final DateTime createdAt;
   final double price;
 
 
@@ -19,7 +17,7 @@ class RecipeModel extends Model {
     required this.description,
     required this.category,
     required this.ingredients,
-    required this.createdAt,
+    required super.createdAt,
     required this.price
     });
 

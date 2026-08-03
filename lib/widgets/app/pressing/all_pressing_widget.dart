@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/app_constants.dart';
 import 'package:movegui_admin_panel/consts/route_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
@@ -114,7 +113,7 @@ class AllPressingWidgetPageState extends ConsumerState<AllPressingWidget> {
 
                             Expanded(
                               child: DisplayWidget(
-                                text: pressings[index].staff[0].personModel!.phone,
+                                text: pressings[index].staff?[0]?.personModel!.phone ?? '0000000000000',
                                 textAlign: TextAlign.right,
                               ),
                             ),
@@ -204,7 +203,7 @@ class AllPressingWidgetPageState extends ConsumerState<AllPressingWidget> {
                             Expanded(
                               child: DisplayWidget(
                                 text: AppConstants.getMunicipality(
-                                  pressings[index].address.minucipality!,
+                                  pressings[index].address.minucipality,
                                 ),
                               ),
                             ),

@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
+import 'package:movegui_admin_panel/models/button_item.dart';
+import 'package:movegui_admin_panel/widgets/util/button_widget.dart';
 
 class DashboardHeader extends StatelessWidget {
   final String title;
   final String subtitle;
-  final VoidCallback onCreatePressed;
+  final Future<void> Function(ButtonInfo item) onPressed;
 
   const DashboardHeader({
     super.key,
     required this.title,
     required this.subtitle,
-    required this.onCreatePressed,
+    required this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      //   color: AppColors.moveGuiRed,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(12.0),
         child: Row(
           children: [
             Expanded(
@@ -27,36 +28,20 @@ class DashboardHeader extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.w800,
-                    ),
+                    style: Theme.of(context).textTheme.headlineMedium,
                   ),
                   const SizedBox(height: 6),
-                  Text(
-                    subtitle,
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodyMedium, //.copyWith(color: Colors.black54),
-                  ),
+                  Text(subtitle, style: Theme.of(context).textTheme.bodyMedium),
                 ],
               ),
             ),
-            ElevatedButton.icon(
-              onPressed: onCreatePressed,
-              icon: const Icon(Icons.add),
-              label: Text(AppLocalizations.of(context)!.btn_create),
-              style: ElevatedButton.styleFrom(
-                //     backgroundColor: AppColors.moveGuiRed,
-                //    foregroundColor: AppColors.cardBg,
-                elevation: 3,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 18,
-                  vertical: 14,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14),
-                ),
+            ButtonWidget(
+              onPressed: onPressed,
+              buttonItem: ButtonInfo(
+                title: AppLocalizations.of(context)!.btn_create,
+                enabled: true,
               ),
+              icon: Icons.add,
             ),
           ],
         ),

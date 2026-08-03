@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
 import 'package:movegui_admin_panel/methods/show_alert.dart';
 import 'package:movegui_admin_panel/models/categories_model.dart';
@@ -36,7 +35,7 @@ class CategoriesUploaWidgetdstate extends State<CategoryAddWidgetPage> {
   GlobalKey<FormState> formKey = GlobalKey();
   double? price;
   String dropdownValue = 'vegetable';
-  final int _selectedValue = 1;
+ // final int _selectedValue = 1;
   String unit = "KG";
   bool _isLoading = false;
   double? salePrice;
@@ -82,7 +81,7 @@ class CategoriesUploaWidgetdstate extends State<CategoryAddWidgetPage> {
                         height: Size.height * 0.3,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
-                          color: AppColors.backgroundColor//Colors.grey.withOpacity(0.3),
+                      //    color: AppColors.backgroundColor//Colors.grey.withOpacity(0.3),
                         ),
                         child: Form(
                           key: formKey,
@@ -96,8 +95,8 @@ class CategoriesUploaWidgetdstate extends State<CategoryAddWidgetPage> {
                                     fontSize: FontSize,
                                     fontWeight: FontWeight.bold,
                                     decoration: TextDecoration.underline,
-                                    color: AppColors.textColor,
-                                    decorationColor: AppColors.textColor
+                             //       color: AppColors.textColor,
+                              //      decorationColor: AppColors.textColor
                                   ),
                                 ),
                               ),
@@ -139,7 +138,7 @@ class CategoriesUploaWidgetdstate extends State<CategoryAddWidgetPage> {
                                   setState(() {
                                     _isLoading = true;
                                   });
-                                  String? imageUrl;
+                               //   String? imageUrl;
                                   final form = formKey.currentState;
                                   if (form != null && form.validate()) {
                         

@@ -55,15 +55,15 @@ print('CLAIMS: ${tokenResult?.claims}');
 
   Future<PressingModel> addServices(
     PressingModel pressing,
-    List<PressingServiceModel> services,
+    List<PressingServiceModel>? services ,
   ) async {
-    for (final service in services) {
+    for (final service in services!) {
       await FirebaseFirestore.instance
           .collection(getCollectionName())
           .doc(pressing.id)
           .collection(service.getCollectionName())
-          .doc(service.id)
-          .set(service.toJson());
+          .doc(service.id )
+          .set(service.toJson() );
     }
     return pressing;
   }

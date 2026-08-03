@@ -5,11 +5,13 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
 
-    scaffoldBackgroundColor: AppColors.lightbackground,
+    scaffoldBackgroundColor: AppColors.lightBackground,
 
     colorScheme: ColorScheme.light(
       primary: AppColors.primary,
+      onPrimary: AppColors.onPrimary,
       surface: AppColors.card,
+      onSurface: AppColors.primary,
       error: AppColors.error,
     ),
 
@@ -20,16 +22,21 @@ class AppTheme {
     elevatedButtonTheme: _elevatedButtonTheme(),
 
     textTheme: _textTheme(),
+    iconTheme: const IconThemeData(
+      color: AppColors.primary,
+    ),
   );
 
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
 
-    scaffoldBackgroundColor: AppColors.darkbackground,
+    scaffoldBackgroundColor: AppColors.darkBackground,
 
     colorScheme: ColorScheme.light(
       primary: AppColors.primary,
+      onPrimary: AppColors.onPrimary,
       surface: AppColors.card,
+      onSurface: AppColors.primary,
       error: AppColors.error,
     ),
 
@@ -93,8 +100,8 @@ class AppTheme {
   static ElevatedButtonThemeData _elevatedButtonTheme() {
     return ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.darkbackground, // MoveGui
-        foregroundColor: AppColors.primary,
+        backgroundColor: AppColors.primary, // MoveGui
+        foregroundColor: AppColors.onPrimary,
 
         elevation: 3,
 
@@ -113,7 +120,7 @@ class AppTheme {
           fontSize: 14,
           fontWeight: FontWeight.w600,
         ),
-        iconColor: AppColors.primary,
+        iconColor: AppColors.onPrimary,
         iconSize: 14,
         disabledForegroundColor: AppColors.placeHolderText,
         disabledIconColor: AppColors.placeHolderText
@@ -126,50 +133,42 @@ class AppTheme {
       // Titres des pages
       headlineLarge: TextStyle(
         fontSize: 32,
-        fontWeight: FontWeight.bold,
-        color: AppColors.primary,
+        fontWeight: FontWeight.bold
       ),
 
       headlineMedium: TextStyle(
         fontSize: 28,
         fontWeight: FontWeight.bold,
-        color: AppColors.primary,
       ),
 
       // Titres de cards
       titleLarge: TextStyle(
         fontSize: 22,
         fontWeight: FontWeight.w700,
-        color:AppColors.primary,
       ),
 
       titleMedium: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.w600,
-        color: AppColors.primary,
       ),
 
       // Texte normal
       bodyLarge: TextStyle(
         fontSize: 16,
-        color: AppColors.primary,
       ),
 
       bodyMedium: TextStyle(
         fontSize: 14,
-        color:AppColors.primary,
       ),
 
       bodySmall: TextStyle(
         fontSize: 12,
-        color: AppColors.primary,
       ),
 
       // Boutons
       labelLarge: TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w600,
-        color: AppColors.primary,
       ),
     );
   

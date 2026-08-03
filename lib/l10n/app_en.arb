@@ -1,4 +1,5 @@
 {
+    "@@locale": "en",
     "commune_title": "City",
     "@commune_title": {},
     "gender_masculin": "Male",
@@ -526,5 +527,22 @@
     "message_movegui_link": "Create a Password",
     "@message_movegui_link": {},
     "message_movegui": "Tahnks for trusting the MoveGui Team",
-    "@message_movegui": {}
+    "@message_movegui": {},
+
+        "dashbord_movegui_title": "Dashboard MoveGui",
+    "@dashbord_movegui_title": {},
+    "dashbord_movegui_sub_title": "Overview of orders, revenue and users",
+    "@dashbord_movegui_sub_title": {},
+     "dashbord_orders_state_title": "Order Status",
+    "@dashbord_orders_state_title": {},
+    "dashbord_orders_pending": "Pending",
+    "@dashbord_orders_pending": {},
+    "dashbord_orders_preparing": "Preparing",
+    "@dashbord_orders_preparing": {},
+    "dashbord_orders_delivering": "Delivering",
+    "@dashbord_orders_delivering": {},
+    "dashbord_orders_completed": "Completed",
+    "@dashbord_orders_completed": {},
+    "dashbord_orders_cancelled": "Cancelled",  
+    "@dashbord_orders_cancelled": {}  
 }

@@ -124,7 +124,7 @@ Future<void> createUserInDatabase({
   final user = await userService.addModel(createdUser);
   createdUser = user;
   await userService.setUserRole(context, createdUser.id, role);
-  createdUser.role = role;
+  createdUser.role = UserRole.values.firstWhere((e) => e.name == role , orElse: () => UserRole.Guest) ;
   await userService.update(createdUser);
   await FirebaseAuth.instance.signOut();
 }

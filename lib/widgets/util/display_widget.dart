@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:movegui_admin_panel/consts/app_colors.dart';
 
 class DisplayWidget extends StatelessWidget {
   final String? text;

@@ -1,17 +1,13 @@
-import 'package:movegui_admin_panel/models/categories_model.dart';
-import 'package:movegui_admin_panel/models/patisserie_model.dart';
-import 'package:movegui_admin_panel/services/patisseries_service.dart';
-import 'package:movegui_admin_panel/util/store_form_controller.dart';
-import 'package:movegui_admin_panel/util/store_submit_hadler.dart';
-import 'package:uuid/uuid.dart';
 
+
+/*
 class PatisserieSubmitHandler extends StoreSubmitHadler<PatisserieModel, PatisseriesService> {
   final CategoriesModel? categoriesModel;
   PatisserieSubmitHandler({
     required super.service,
     required super.imageService,
     required super.collectionName,
-    required this.categoriesModel
+    required this.categoriesModel, required super.formService, required super.userService, required super.context
   });
 
   @override
@@ -42,3 +38,4 @@ class PatisserieSubmitHandler extends StoreSubmitHadler<PatisserieModel, Patisse
     await service.addModel(restaurant);
   }
 }
+*/

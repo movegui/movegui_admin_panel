@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:movegui_admin_panel/consts/app_colors.dart';
 
 class BirthdatePicker extends StatefulWidget {
   final DateTime? birthDate;

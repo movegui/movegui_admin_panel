@@ -11,7 +11,6 @@ import 'package:movegui_admin_panel/services/image_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/restaurant_type_service.dart';
 import 'package:movegui_admin_panel/services/restaurants_service.dart';
-import 'package:movegui_admin_panel/util/restaurant_submit_handler.dart';
 import 'package:movegui_admin_panel/util/store_form_controller.dart';
 import 'package:movegui_admin_panel/widgets/app/add_contact_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/opens_hours_widget.dart';

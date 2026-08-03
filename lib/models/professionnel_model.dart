@@ -2,7 +2,7 @@ import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/categories_model.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
 import 'package:movegui_admin_panel/models/restaurant_model.dart';
-import 'package:movegui_admin_panel/models/store_model.dart';
+import 'package:movegui_admin_panel/models/store/store_model.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 
 class ProfessionnelModel extends StoreModel {
@@ -55,7 +55,7 @@ class ProfessionnelModel extends StoreModel {
 
   @override
   String toString() {
-    return 'Profession(name: $name, professions: ${professions[0].toString()}, persons: ${staff.toList().toString()})';
+    return 'Profession(name: $name, professions: ${professions[0].toString()}, persons: ${staff?.toList().toString()})';
   }
 }
 

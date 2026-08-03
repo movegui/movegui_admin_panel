@@ -169,7 +169,7 @@ class UserService extends ModelService<UserModel> implements IUserService {
         birthDate: null,
         addresses: [],
       ),
-      role: UserRole.Guest.name,
+      role: UserRole.Guest,
     );
     return currentUser;
   }
@@ -201,7 +201,7 @@ class UserService extends ModelService<UserModel> implements IUserService {
         birthDate: null,
         addresses: [],
       ),
-      role: UserRole.Guest.name,
+      role: UserRole.Guest,
     );
     return currentUser;
   }
@@ -371,11 +371,12 @@ class UserService extends ModelService<UserModel> implements IUserService {
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       if (data != null && data.length > 0) {
+        final userRole = UserRole.values.firstWhere((e) => e.name == role, orElse: () => UserRole.Guest,);
         return await initializeCreatedUser(
           data['uid'],
           email,
           password,
-          role,
+          userRole,
           firstName,
           lastName,
           adresses,
@@ -393,7 +394,7 @@ class UserService extends ModelService<UserModel> implements IUserService {
     String uuid,
     String email,
     String? password,
-    String role,
+    UserRole role,
     String firstName,
     String lastName,
     List<AdressModel?> addresses,
@@ -447,13 +448,13 @@ class UserService extends ModelService<UserModel> implements IUserService {
   @override
   Future<UserModel?> createUserWithoutPassword(
     String email,
-    String role,
+    UserRole role,
     String firstName,
     String lastName,
     List<AdressModel?> adresses,
     String phone,
     String gender,
-    DateTime birthDate,
+    DateTime? birthDate,
   ) async {
     final user = FirebaseAuth.instance.currentUser;
 
@@ -476,11 +477,12 @@ class UserService extends ModelService<UserModel> implements IUserService {
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       if (data != null && data.length > 0) {
+         final userRole = UserRole.values.firstWhere((e) => e.name == role, orElse: () => UserRole.Guest,);
         final model = await initializeCreatedUserWithLink(
           data['uid'],
           email,
           data['link'],
-          role,
+          userRole,
           firstName,
           lastName,
           adresses,
@@ -500,13 +502,13 @@ class UserService extends ModelService<UserModel> implements IUserService {
     String uuid,
     String email,
     String? resetLink,
-    String role,
+    UserRole role,
     String firstName,
     String lastName,
     List<AdressModel?> addresses,
     String phone,
     String gender,
-    DateTime birthDate,
+    DateTime? birthDate,
   ) async {
     return UserModel(
       updatedAt: DateTime.now(),

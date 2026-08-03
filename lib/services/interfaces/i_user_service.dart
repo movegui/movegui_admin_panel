@@ -38,7 +38,7 @@ abstract class IUserService {
     String uuid,
     String email,
     String password,
-    String role,
+    UserRole role,
     String firstName,
     String lastName,
     List<AdressModel> adresses,
@@ -50,7 +50,7 @@ abstract class IUserService {
   Future<List<UserModel>> getAllModelsByRole(UserRole role);
     Future<UserModel?> createUserWithoutPassword(
     String email,
-    String role,
+    UserRole role,
     String firstName,
     String lastName,
     List<AdressModel> adresses,
@@ -63,7 +63,7 @@ abstract class IUserService {
     String uuid,
     String email,
     String? resetLink,
-    String role,
+    UserRole role,
     String firstName,
     String lastName,
     List<AdressModel?> addresses,

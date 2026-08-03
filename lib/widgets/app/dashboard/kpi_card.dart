@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:movegui_admin_panel/consts/app_colors.dart';
 
 class KpiCard extends StatelessWidget {
   final String title;
@@ -22,55 +21,36 @@ class KpiCard extends StatelessWidget {
       shadowColor: Colors.black,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
       child: Container(
-        padding: const EdgeInsets.all(20),
-/*
-        decoration: BoxDecoration(
-          color: AppColors.cardBg,
-          borderRadius: BorderRadius.circular(22),
-        ),
-        */
+        padding: const EdgeInsets.all(8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
-                Container(
-                  width: 46,
-                  height: 46,
-                  /*
-                  decoration: BoxDecoration(
-                    color: color,
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  */
-                  child: Icon(icon,  size: 26),
-                ),
+                SizedBox(width: 46, height: 46, child: Icon(icon, size: 26)),
                 const Spacer(),
                 Text(
                   title,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
                 const Spacer(),
-                Icon(Icons.trending_up_rounded,),
+                Icon(Icons.trending_up_rounded),
               ],
             ),
             const Spacer(),
-
             const SizedBox(height: 6),
             Text(
               value,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.w900,
-              ),
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    fontWeight: FontWeight.w900,
+                  ),
             ),
             const SizedBox(height: 4),
-            Text(subtitle, style: const TextStyle(color: Colors.black54)),
+            Text(subtitle, style: Theme.of(context).textTheme.bodySmall),
           ],
         ),
       ),

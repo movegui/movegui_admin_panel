@@ -31,7 +31,7 @@ class LoginForgetPasswordPageState extends State<LoginForgetPasswordPage> {
   bool isloading = false;
   FirebaseAuth? auth;
 
-  Future<void> _resetFct( ButtonItem item) async {
+  Future<void> _resetFct( ButtonInfo item) async {
     final isValid = _formkey.currentState!.validate();
     FocusScope.of(context).unfocus();
 
@@ -133,11 +133,10 @@ class LoginForgetPasswordPageState extends State<LoginForgetPasswordPage> {
                 ValidationButton(
                   fn: _resetFct,
 
-                  buttonItem: ButtonItem(
-                     AppLocalizations.of(context)!.label_login,
-                    tooltipText:  AppLocalizations.of(context)!.tooltip_sign_in,
+                  buttonItem: ButtonInfo(
+                    title: AppLocalizations.of(context)!.label_login,
                     enabled: true,
-                    routeName: RouteConstants.LOGIN_ROUTE, onPress: () {  },
+                    routeName: RouteConstants.LOGIN_ROUTE,
                   ),
                 ),
               ],

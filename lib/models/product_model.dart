@@ -1,40 +1,43 @@
 
-
 import 'package:movegui_admin_panel/models/model.dart';
-import 'package:movegui_admin_panel/models/recipe_model.dart';
 
-class ProductModel extends Model {
-final String imageUrl;
-final double price;
-final List<RecipeModel> recipes;
+abstract class ProductModel extends Model {
+  final double? price;
+  final String? supplierId;
+  final bool isAvailable;
+  final String? imageUrl;
+  final String? category;
+  final String currency;
+  final List<String?>? materials;
 
   ProductModel({
-    required super.id, 
+    required super.id,
     required super.name,
     required super.createdAt,
-    required this.imageUrl,
     required this.price,
-    required this.recipes
-    });
+    required this.supplierId,
+    required this.imageUrl,
+    required this.category,
+    required this.isAvailable,
+    required this.currency,
+    this.materials,
+  });
 
-    @override
+  @override
   Map<String, dynamic> toJson() => {
-      'id': id,
-      'name': name,
-      'imageUrl': imageUrl,
-      'price': price,
-      'recipes': recipes,
-
-    };
-
-    factory ProductModel.fromJson(Map<String, dynamic> json) =>  ProductModel(
-      id: json['id'],
-      name: json['name'],
-      createdAt: json['createdAt'],
-      imageUrl: json['imageUrl'],
-      price: json['price'],
-      recipes: json['recipes']
-    );
-
-  
+    ...super.toJson(),
+    'supplierId': supplierId,
+    'price': price,
+    'isAvailable': isAvailable,
+    'imageUrl': imageUrl ?? '',
+    'category': category ?? '',
+    'currency': currency,
+    'materials' : materials?.map( (e) => e != null ? e.toJson(): '').toList()
+  };
 }
+
+extension on String {
+  toJson() {}
+}
+
+ 

@@ -80,7 +80,7 @@ class StoreDetailWidget extends ConsumerWidget {
                   */
 
                       /// EMPLOYEES
-                      StoreEmployeWidget(employees: store.staff),
+                      StoreEmployeWidget(employees: store.staff ?? []),
 
                       const SizedBox(height: 20),
 
@@ -155,7 +155,7 @@ class StoreDetailWidget extends ConsumerWidget {
                   */
 
                       /// EMPLOYEES
-                      StoreEmployeWidget(employees: store.staff),
+                      StoreEmployeWidget(employees: store.staff ?? []),
 
                       const SizedBox(height: 20),
 

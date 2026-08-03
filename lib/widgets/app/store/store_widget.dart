@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/app_constants.dart';
 import 'package:movegui_admin_panel/consts/validator.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
@@ -138,7 +137,7 @@ class StoreWidget extends StatelessWidget {
             padding: const EdgeInsets.all(4.0),
             child: AddContactWidget(
         //      addContactKey: addContactKey,
-              formControllers: formController.personForms,
+              formControllers: formController.userForms,
             ),
           ),
 
@@ -245,7 +244,7 @@ class StoreWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(4.0),
             child: AddContactWidget(
-              formControllers: formController.personForms,
+              formControllers: formController.userForms,
           //    addContactKey: addContactKey,
             ),
           ),

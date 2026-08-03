@@ -36,7 +36,7 @@ class AppConstants {
         description: AppLocalizations.of(
           context,
         )!.pressing_service_delicate_fabrics_descrip,
-        pricingType: PricingType.fixed.name,
+        pricingType: PricingType.fixed,
         createdAt: DateTime.now(),
       ),
       PressingServiceTypeModel(
@@ -45,7 +45,7 @@ class AppConstants {
         description: AppLocalizations.of(
           context,
         )!.pressing_service_folding_descrip,
-        pricingType: PricingType.fixed.name,
+        pricingType: PricingType.fixed,
         createdAt: DateTime.now(),
       ),
       PressingServiceTypeModel(
@@ -54,7 +54,7 @@ class AppConstants {
         description: AppLocalizations.of(
           context,
         )!.pressing_service_dry_cleaning_descrip,
-        pricingType: PricingType.fixed.name,
+        pricingType: PricingType.fixed,
         createdAt: DateTime.now(),
       ),
       PressingServiceTypeModel(
@@ -63,7 +63,7 @@ class AppConstants {
         description: AppLocalizations.of(
           context,
         )!.pressing_service_home_laundry_descrip,
-        pricingType: PricingType.fixed.name,
+        pricingType: PricingType.fixed,
         createdAt: DateTime.now(),
       ),
       PressingServiceTypeModel(
@@ -72,7 +72,7 @@ class AppConstants {
         description: AppLocalizations.of(
           context,
         )!.pressing_service_ironing_descrip,
-        pricingType: PricingType.fixed.name,
+        pricingType: PricingType.fixed,
         createdAt: DateTime.now(),
       ),
       PressingServiceTypeModel(
@@ -81,7 +81,7 @@ class AppConstants {
         description: AppLocalizations.of(
           context,
         )!.pressing_service_laundry_descrip,
-        pricingType: PricingType.fixed.name,
+        pricingType: PricingType.fixed,
         createdAt: DateTime.now(),
       ),
       PressingServiceTypeModel(
@@ -90,7 +90,7 @@ class AppConstants {
         description: AppLocalizations.of(
           context,
         )!.pressing_service_service_express_descrip,
-        pricingType: PricingType.fixed.name,
+        pricingType: PricingType.fixed,
         createdAt: DateTime.now(),
       ),
       PressingServiceTypeModel(
@@ -99,7 +99,7 @@ class AppConstants {
         description: AppLocalizations.of(
           context,
         )!.pressing_service_stain_removal_descrip,
-        pricingType: PricingType.fixed.name,
+        pricingType: PricingType.fixed,
         createdAt: DateTime.now(),
       ),
       PressingServiceTypeModel(
@@ -108,7 +108,7 @@ class AppConstants {
         description: AppLocalizations.of(
           context,
         )!.pressing_service_washing_descrip,
-        pricingType: PricingType.fixed.name,
+        pricingType: PricingType.fixed,
         createdAt: DateTime.now(),
       ),
       PressingServiceTypeModel(
@@ -117,7 +117,7 @@ class AppConstants {
         description: AppLocalizations.of(
           context,
         )!.pressing_service_washing_descrip,
-        pricingType: PricingType.fixed.name,
+        pricingType: PricingType.fixed,
         createdAt: DateTime.now(),
       ),
     ];
@@ -775,3 +775,36 @@ class StoreCategoriesConstants extends CategoriesConstants {
     return "Novelle Categorie Ajouter avec succes!";
   }
 }
+
+
+class MoveGuiCollections {
+  static final String COLLECTION_CATEGORIES = 'categories_model';
+  static final String COLLECTION_SUPPLIERS = 'suppliers_model';
+  static final String COLLECTION_INGREDIENTS = 'ingredients_model';
+  static final String COLLECTION_RECIPES = 'recipes_model'; 
+  static final String COLLECTION_PRODUCTS = 'products_model'; 
+  static final String COLLECTION_RESTAURANTS_MENUS = 'restaurants_menus_model'; 
+  static final String COLLECTION_RESTAURANTS = 'restaurants_model'; 
+  static final String COLLECTION_RESTAURANTS_TYPES = 'restaurants_types_model'; 
+  static final String COLLECTION_STORE_CATEGORIES = 'store_categories_model'; 
+  static final String COLLECTION_PASTRIES = 'pastries_model'; 
+  static final String COLLECTION_SUPER_MARKETS = 'superMarkts_model'; 
+  static final String COLLECTION_PRESSINGS = 'pressings_model'; 
+  static final String COLLECTION_PROFESSIONNELS = 'professionnels_model'; 
+  static final String COLLECTION_EMPLOYEES = 'employees'; 
+  static final String COLLECTION_USERS = 'users'; 
+  static final String COLLECTION_MANAGERS = 'managers'; 
+  static final String COLLECTION_DRIVERS = 'drivers';
+  static final String COLLECTION_ORDERS = 'orders';
+  static final String COLLECTION_PRESSING_ORDERS = 'pressing_orders';
+  static final String COLLECTION_ACTIVITIES = 'activities';
+
+
+
+
+
+
+}
+
+
+

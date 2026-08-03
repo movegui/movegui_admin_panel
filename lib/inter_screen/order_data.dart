@@ -3,7 +3,6 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:movegui_admin_panel/widgets/header.dart';
 import '../consts/constants.dart';
 import '../responsive.dart';
-import '../widgets/app/dashboard/dash_board_side_menu.dart';
 
 class OrderData extends StatelessWidget {
   const OrderData({super.key, required this.title, required this.unit, required this.userName, required this.imageUrl, required this.quantity, required this.totalPrice, required this.date, required this.address, required this.email, required this.paymentMethod});
@@ -15,7 +14,7 @@ class OrderData extends StatelessWidget {
     double FontSize = Size.width < 600 ? 11 : 18;
     return SafeArea(
       child: Scaffold(
-        drawer: const SideMenu(),
+    //    drawer: const SideMenu(),
         body: Builder(
           builder: (context) => SafeArea(
             child: Row(
@@ -24,7 +23,7 @@ class OrderData extends StatelessWidget {
                 // We want this side menu only for large screen
                 if (Responsive.isDesktop(context))
                   const Expanded(
-                    child: SideMenu(),
+                    child: SizedBox(),  //  SideMenu(),
                   ),
                 Expanded(
                   flex: 5,

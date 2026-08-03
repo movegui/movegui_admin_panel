@@ -13,12 +13,10 @@ import 'package:movegui_admin_panel/screens/auth/movegui_forgot_password_screen.
 import 'package:movegui_admin_panel/screens/auth/movegui_register_screen.dart';
 import 'package:movegui_admin_panel/screens/categories_screen.dart';
 import 'package:movegui_admin_panel/widgets/app/dashboard/dahsboard_backup.dart';
-import 'package:movegui_admin_panel/screens/dashboard_screen.dart';
 import 'package:movegui_admin_panel/screens/driver_screen.dart';
 import 'package:movegui_admin_panel/screens/employe_screen.dart';
 import 'package:movegui_admin_panel/screens/ingredients_screen.dart';
 import 'package:movegui_admin_panel/screens/auth/login_screen.dart';
-import 'package:movegui_admin_panel/screens/main_screen.dart';
 import 'package:movegui_admin_panel/screens/manager_screen.dart';
 import 'package:movegui_admin_panel/screens/movegui_profile_screen.dart';
 import 'package:movegui_admin_panel/screens/patisserie_screen.dart';
@@ -102,8 +100,8 @@ class AppRouter {
         ),
         GoRoute(
           path: RouteConstants.HOME_ROUTE,
-          builder: (context, state) => MoveGuiAdminDashboardPage()
-           //   MainScreen(pageScreen: DashboardScreen()),
+          builder: (context, state) => MoveGuiAdminDashboardPage(),
+          //   MainScreen(pageScreen: DashboardScreen()),
         ),
 
         // 🔐 PROTECTED SHELL
@@ -148,22 +146,18 @@ class AppRouter {
                 pageScreen: CategoriesPage(
                   addModelWidget: MainPageWidget(
                     //                widget: CategoryAddWidgetPage(),
-                    buttonItem: ButtonItem(
-                      AppLocalizations.of(context)!.add,
-                      tooltipText: AppLocalizations.of(context)!.tooltip_add,
+                    buttonItem: ButtonInfo(
+                      title: AppLocalizations.of(context)!.add,
                       enabled: true,
                       routeName: RouteConstants.CATEGORY_ADD_ROUTE,
-                      onPress: () {},
                     ),
                   ),
                   allModelWidget: MainPageWidget(
                     //               widget: AllCategoriesWidgetPage(),
-                    buttonItem: ButtonItem(
-                      AppLocalizations.of(context)!.add_all,
-                      tooltipText: AppLocalizations.of(context)!.tooltip_all,
+                    buttonItem: ButtonInfo(
+                      title: AppLocalizations.of(context)!.add_all,
                       enabled: true,
                       routeName: RouteConstants.CATEGORY_ALL_ROUTE,
-                      onPress: () {},
                     ),
                   ),
                 ),
@@ -175,22 +169,18 @@ class AppRouter {
                 pageScreen: SupplierPage(
                   addModelWidget: MainPageWidget(
                     //               widget: SupplierAddWidgetPage(),
-                    buttonItem: ButtonItem(
-                      AppLocalizations.of(context)!.add,
-                      tooltipText: AppLocalizations.of(context)!.tooltip_add,
+                    buttonItem: ButtonInfo(
+                      title: AppLocalizations.of(context)!.add,
                       enabled: true,
                       routeName: RouteConstants.SUPPLIER_ADD_ROUTE,
-                      onPress: () {},
                     ),
                   ),
                   allModelWidget: MainPageWidget(
                     //               widget: AllSuppliersWidgetPage(),
-                    buttonItem: ButtonItem(
-                      AppLocalizations.of(context)!.add_all,
-                      tooltipText: AppLocalizations.of(context)!.tooltip_all,
+                    buttonItem: ButtonInfo(
+                      title: AppLocalizations.of(context)!.add_all,
                       enabled: true,
                       routeName: RouteConstants.SUPPLIER_ALL_ROUTE,
-                      onPress: () {},
                     ),
                   ),
                 ),
@@ -202,22 +192,17 @@ class AppRouter {
                 pageScreen: IngredientsPage(
                   addModelWidget: MainPageWidget(
                     //              widget: IngredientsAddWidgetPage(),
-                    buttonItem: ButtonItem(
-                      AppLocalizations.of(context)!.add,
-                      tooltipText: AppLocalizations.of(context)!.tooltip_add,
+                    buttonItem: ButtonInfo(
+                      title: AppLocalizations.of(context)!.add,
                       enabled: true,
                       routeName: RouteConstants.INGREDIENT_ADD_ROUTE,
-                      onPress: () {},
                     ),
                   ),
                   allModelWidget: MainPageWidget(
-                    //              widget: AllIngredientsWidgetPage(),
-                    buttonItem: ButtonItem(
-                      AppLocalizations.of(context)!.add_all,
-                      tooltipText: AppLocalizations.of(context)!.tooltip_all,
+                    buttonItem: ButtonInfo(
+                      title: AppLocalizations.of(context)!.add_all,
                       enabled: true,
                       routeName: RouteConstants.INGREDIENT_ALL_ROUTE,
-                      onPress: () {},
                     ),
                   ),
                 ),
@@ -237,22 +222,18 @@ class AppRouter {
                 pageScreen: RestaurantsPage(
                   addModelWidget: MainPageWidget(
                     //           widget: RestaurantAddWidgetPage(),
-                    buttonItem: ButtonItem(
-                      AppLocalizations.of(context)!.add,
-                      tooltipText: AppLocalizations.of(context)!.tooltip_add,
+                    buttonItem: ButtonInfo(
+                      title: AppLocalizations.of(context)!.add,
                       enabled: true,
                       routeName: RouteConstants.RESTAURANT_ADD_ROUTE,
-                      onPress: () {},
                     ),
                   ),
                   allModelWidget: MainPageWidget(
                     //              widget: AllRestaurantsWidget(),
-                    buttonItem: ButtonItem(
-                      AppLocalizations.of(context)!.add_all,
-                      tooltipText: AppLocalizations.of(context)!.tooltip_all,
+                    buttonItem: ButtonInfo(
+                      title: AppLocalizations.of(context)!.add_all,
                       enabled: true,
                       routeName: RouteConstants.RESTAURANT_ALL_ROUTE,
-                      onPress: () {},
                     ),
                   ),
                 ),
@@ -264,22 +245,18 @@ class AppRouter {
                 pageScreen: RestaurantTypePage(
                   addModelWidget: MainPageWidget(
                     //            widget: RestaurantTypeAddWidgetPage(),
-                    buttonItem: ButtonItem(
-                      AppLocalizations.of(context)!.add,
-                      tooltipText: AppLocalizations.of(context)!.tooltip_add,
+                    buttonItem: ButtonInfo(
+                      title: AppLocalizations.of(context)!.add,
                       enabled: true,
                       routeName: RouteConstants.RESTAURANT_TYPE_ADD_ROUTE,
-                      onPress: () {},
                     ),
                   ),
                   allModelWidget: MainPageWidget(
                     //             widget: AllRestaurantTypeWidgetPage(),
-                    buttonItem: ButtonItem(
-                      AppLocalizations.of(context)!.add_all,
-                      tooltipText: AppLocalizations.of(context)!.tooltip_all,
+                    buttonItem: ButtonInfo(
+                      title: AppLocalizations.of(context)!.add_all,
                       enabled: true,
                       routeName: RouteConstants.RESTAURANT_TYPE_ALL_ROUTE,
-                      onPress: () {},
                     ),
                   ),
                 ),
@@ -291,22 +268,18 @@ class AppRouter {
                 pageScreen: StoreCategoriesPage(
                   addModelWidget: MainPageWidget(
                     //            widget: StoreCategoriesAddWidgetPage(),
-                    buttonItem: ButtonItem(
-                      AppLocalizations.of(context)!.add,
-                      tooltipText: AppLocalizations.of(context)!.tooltip_add,
+                    buttonItem: ButtonInfo(
+                      title: AppLocalizations.of(context)!.add,
                       enabled: true,
                       routeName: RouteConstants.STORE_CATEGORY_ADD_ROUTE,
-                      onPress: () {},
                     ),
                   ),
                   allModelWidget: MainPageWidget(
                     //             widget: AllStoreCatgoriesWidgetPage(),
-                    buttonItem: ButtonItem(
-                      AppLocalizations.of(context)!.add_all,
-                      tooltipText: AppLocalizations.of(context)!.tooltip_all,
+                    buttonItem: ButtonInfo(
+                      title: AppLocalizations.of(context)!.add_all,
                       enabled: true,
                       routeName: RouteConstants.STORE_CATEGORY_ALL_ROUTE,
-                      onPress: () {},
                     ),
                   ),
                 ),
@@ -318,22 +291,17 @@ class AppRouter {
                 pageScreen: PatisseriePage(
                   addModelWidget: MainPageWidget(
                     //           widget: PatisserieAddWidgetPage(),
-                    buttonItem: ButtonItem(
-                      AppLocalizations.of(context)!.add,
-                      tooltipText: AppLocalizations.of(context)!.tooltip_add,
+                    buttonItem: ButtonInfo(
+                      title: AppLocalizations.of(context)!.add,
                       enabled: true,
                       routeName: RouteConstants.PASTRY_ADD_ROUTE,
-                      onPress: () {},
                     ),
                   ),
                   allModelWidget: MainPageWidget(
-                    //         widget: AllPatisserieWidget(),
-                    buttonItem: ButtonItem(
-                      AppLocalizations.of(context)!.add_all,
-                      tooltipText: AppLocalizations.of(context)!.tooltip_all,
+                    buttonItem: ButtonInfo(
+                      title: AppLocalizations.of(context)!.add_all,
                       enabled: true,
                       routeName: RouteConstants.PASTRY_ALL_ROUTE,
-                      onPress: () {},
                     ),
                   ),
                 ),
@@ -345,22 +313,18 @@ class AppRouter {
                 pageScreen: SuperMarktPage(
                   addModelWidget: MainPageWidget(
                     //         widget: SuperMarktAddWidgetPage(),
-                    buttonItem: ButtonItem(
-                      AppLocalizations.of(context)!.add,
-                      tooltipText: AppLocalizations.of(context)!.tooltip_add,
+                    buttonItem: ButtonInfo(
+                      title: AppLocalizations.of(context)!.add,
                       enabled: true,
                       routeName: RouteConstants.CATEGORY_ADD_ROUTE,
-                      onPress: () {},
                     ),
                   ),
                   allModelWidget: MainPageWidget(
                     //       widget: AllSuperMarktWidget(),
-                    buttonItem: ButtonItem(
-                      AppLocalizations.of(context)!.add_all,
-                      tooltipText: AppLocalizations.of(context)!.tooltip_all,
+                    buttonItem: ButtonInfo(
+                      title: AppLocalizations.of(context)!.add_all,
                       enabled: true,
                       routeName: RouteConstants.CATEGORY_ALL_ROUTE,
-                      onPress: () {},
                     ),
                   ),
                 ),
@@ -384,22 +348,18 @@ class AppRouter {
                 pageScreen: ProfessionnelPage(
                   addModelWidget: MainPageWidget(
                     //         widget: ProfessionnelAddWidgetPage(),
-                    buttonItem: ButtonItem(
-                      AppLocalizations.of(context)!.add,
-                      tooltipText: AppLocalizations.of(context)!.tooltip_add,
+                    buttonItem: ButtonInfo(
+                      title: AppLocalizations.of(context)!.add,
                       enabled: true,
                       routeName: RouteConstants.PROFESSIONEL_ADD_ROUTE,
-                      onPress: () {},
                     ),
                   ),
                   allModelWidget: MainPageWidget(
                     //    widget: AllProfessionnelWidget(),
-                    buttonItem: ButtonItem(
-                      AppLocalizations.of(context)!.add,
-                      tooltipText: AppLocalizations.of(context)!.tooltip_add,
+                    buttonItem: ButtonInfo(
+                      title: AppLocalizations.of(context)!.add,
                       enabled: true,
                       routeName: RouteConstants.PROFESSIONEL_ALL_ROUTE,
-                      onPress: () {},
                     ),
                   ),
                 ),
@@ -447,7 +407,7 @@ class AppRouter {
               path: RouteConstants.MANAGER_ALL_ROUTE,
               builder: (context, state) => AllManagerWidget(),
             ),
-                        GoRoute(
+            GoRoute(
               path: RouteConstants.DRIVER_ROUTE,
               builder: (context, state) => DriverScreen(),
             ),

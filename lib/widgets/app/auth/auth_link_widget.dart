@@ -8,7 +8,6 @@ import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/error/message_widget.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/button_item.dart';
-import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/widgets/util/button_widget.dart';
 
 
@@ -21,7 +20,7 @@ class AuthLinkWidget extends StatefulWidget {
 }
 
 class AuthLinkWidgetState extends State<AuthLinkWidget> {
-  void _onPressed(BuildContext context, ButtonItem item) {
+  void _onPressed(BuildContext context, ButtonInfo item) {
     if (!item.enabled) {
       MessageWidget.errorMessage(
         context,
@@ -47,14 +46,12 @@ class AuthLinkWidgetState extends State<AuthLinkWidget> {
               onPressed: (buttomItem) async {
                 _onPressed(context, buttomItem);
               },
-              buttonItem: ButtonItem(
-                AppLocalizations.of(context)!.label_login_forget_password,
-                tooltipText:  AppLocalizations.of(context)!.tooltip_forget_password,
+              buttonItem: ButtonInfo(
+                title: AppLocalizations.of(context)!.label_login_forget_password,
                 enabled: true,
-                routeName: RouteConstants.FORGET_PASSWORD_ROUTE, onPress: () {  },
+                routeName: RouteConstants.FORGET_PASSWORD_ROUTE,
               ),
-              icon: Ionicons.key_outline,
-              fontSize: Responsive.isMobile(context) ? WidgetConstants.buttonFonsize * 1.4 : WidgetConstants.buttonFonsize * 2,
+              icon: Ionicons.key_outline,            
             ),
           ),
         ),
@@ -66,15 +63,12 @@ class AuthLinkWidgetState extends State<AuthLinkWidget> {
                 _onPressed(context, buttomItem);
                null;
               },
-              backgroundColor: AppColors.placeHolderText,
-              buttonItem: ButtonItem(
-                AppLocalizations.of(context)!.label_registration,
-               tooltipText:  AppLocalizations.of(context)!.tooltip_registration,
+              buttonItem: ButtonInfo(
+                title: AppLocalizations.of(context)!.label_registration,
                enabled:  false,
-                routeName: RouteConstants.REGISTER_ROUTE, onPress: () {  },
+                routeName: RouteConstants.REGISTER_ROUTE,
               ),
               icon: Ionicons.person,
-              fontSize: Responsive.isMobile(context) ? WidgetConstants.buttonFonsize * 1.4 : WidgetConstants.buttonFonsize * 2,
             ),
           ),
         ),

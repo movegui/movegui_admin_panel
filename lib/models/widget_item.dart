@@ -1,6 +1,6 @@
 abstract class WidgetItem {
   final String? routeName;
-  final String? title;
+  final String title;
 
-  WidgetItem(this.title, {required this.routeName});
+  WidgetItem({required this.title, this.routeName});
 }

@@ -84,9 +84,9 @@ abstract class MainPage extends StatelessWidget {
           Row(
             children: [
               CustomButon(
-                text: addModelWidget.buttonItem.title!,
+                text: addModelWidget.buttonItem.title,
                 onTap: () {
-                  addModelWidget.buttonItem.onPress();
+                //  addModelWidget.buttonItem.onPress();
                 },
                 icon: Icons.add,
               ),
@@ -94,9 +94,9 @@ abstract class MainPage extends StatelessWidget {
               const Spacer(),
 
               CustomButon(
-                text: allModelWidget.buttonItem.title!,
+                text: allModelWidget.buttonItem.title,
                 onTap: () {
-                  allModelWidget.buttonItem.onPress();
+                //  allModelWidget.buttonItem.onPress();
                 },
                 icon: Icons.list_alt,
               ),

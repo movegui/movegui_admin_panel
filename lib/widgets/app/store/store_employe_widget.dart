@@ -6,7 +6,7 @@ import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
 import 'package:movegui_admin_panel/widgets/util/display_widget.dart';
 
 class StoreEmployeWidget extends StatelessWidget {
-  final List<UserModel> employees;
+  final List<UserModel?>? employees;
 
 
   const StoreEmployeWidget({
@@ -29,18 +29,18 @@ class StoreEmployeWidget extends StatelessWidget {
 
         const SizedBox(height: 12),
 
-        ...employees.map(
+        ...employees!.map(
           (e) => Card(
             child: ListTile(
               leading: CircleAvatar(
                 radius: 30,
                 backgroundImage: NetworkImage(
-                  e.personModel?.profileImageUrl ??
+                  e?.personModel?.profileImageUrl ??
                       'assets/images/profile/default_avatar.jpg',
                 ),
               ),
               title: DisplayWidget(
-                text: e.personModel?.name ?? '',
+                text: e?.personModel?.name ?? '',
                 textAlign: TextAlign.left,
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
@@ -56,13 +56,13 @@ class StoreEmployeWidget extends StatelessWidget {
                     child: Icon(
                       Icons.circle,
                       size: 12, // smaller size for status
-                      color: e.isActive ? Colors.green : Colors.red,
+                      color: e?.isActive != false ? Colors.green : Colors.red,
                     ),
                   ),
                 ],
               ),
               onTap: () {
-                GlobalMethods.showEmployeeBottomSheet(context, e);
+                GlobalMethods.showEmployeeBottomSheet(context, e!);
               },
             ),
           ),

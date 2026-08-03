@@ -81,8 +81,7 @@ class IngredientsUploaWidgetdstate extends State<IngredientsAddWidgetPage> {
                         //  height: Size.height * 0.3,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
-                          color: AppColors
-                              .backgroundColor, //Colors.grey.withOpacity(0.3),
+                       //Colors.grey.withOpacity(0.3),
                         ),
                         child: Form(
                           key: formKey,
@@ -96,8 +95,7 @@ class IngredientsUploaWidgetdstate extends State<IngredientsAddWidgetPage> {
                                     fontSize: FontSize,
                                     fontWeight: FontWeight.bold,
                                     decoration: TextDecoration.underline,
-                                    color: AppColors.textColor,
-                                    decorationColor: AppColors.textColor,
+
                                   ),
                                 ),
                               ),
@@ -158,8 +156,7 @@ class IngredientsUploaWidgetdstate extends State<IngredientsAddWidgetPage> {
                                                       Text(
                                                         'Suppliers options',
                                                         style: TextStyle(
-                                                          color: AppColors
-                                                              .textColor,
+
                                                           fontSize: 20,
                                                         ),
                                                       ),
@@ -192,8 +189,7 @@ class IngredientsUploaWidgetdstate extends State<IngredientsAddWidgetPage> {
                                                   Text(
                                                     'Categories options',
                                                     style: TextStyle(
-                                                      color:
-                                                          AppColors.textColor,
+
                                                       fontSize: 24,
                                                     ),
                                                   ),
@@ -216,8 +212,7 @@ class IngredientsUploaWidgetdstate extends State<IngredientsAddWidgetPage> {
                                                   Text(
                                                     'Categories options',
                                                     style: TextStyle(
-                                                      color:
-                                                          AppColors.textColor,
+                        
                                                       fontSize: 24,
                                                     ),
                                                   ),
@@ -265,7 +260,7 @@ class IngredientsUploaWidgetdstate extends State<IngredientsAddWidgetPage> {
                                         const SizedBox(height: 8),
                                         Text(
                                           'Unité de Mesure',
-                                          style: TextStyle(fontSize: FontSize, color: AppColors.textColor),
+                                          style: TextStyle(fontSize: FontSize, ),
                                         ),
                                         MyRadioBtn(
                                           onChanged: (value) {

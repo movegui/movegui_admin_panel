@@ -9,15 +9,15 @@ class OrderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: const SideMenu(),
+        drawer:  DashBoardSideMenu(),
         body: Builder(
           builder: (context) => SafeArea(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (Responsive.isDesktop(context))
-                  const Expanded(
-                    child: SideMenu(),
+                  Expanded(
+                    child: DashBoardSideMenu(),
                   ),
                  Expanded(
                   flex: 5,

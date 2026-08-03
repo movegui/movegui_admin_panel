@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/responsive.dart';
@@ -44,7 +43,7 @@ class LoginScreen extends ConsumerWidget {
 
   Widget buildDeskop(BuildContext context) {
     return Center(
-      child: Container(
+      child: SizedBox(
         width: 700,
         height: 600,
         /*

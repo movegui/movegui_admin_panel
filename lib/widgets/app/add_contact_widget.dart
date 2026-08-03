@@ -3,24 +3,23 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:movegui_admin_panel/config/env_dev.dart';
-import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/app_constants.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
 import 'package:movegui_admin_panel/models/button_item.dart';
-import 'package:movegui_admin_panel/models/person_model.dart';
+import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/seed_service.dart';
-import 'package:movegui_admin_panel/util/person_form_controller.dart';
+import 'package:movegui_admin_panel/util/user_form_controller.dart';
 import 'package:movegui_admin_panel/widgets/add_person_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/separator_widget.dart';
 import 'package:movegui_admin_panel/widgets/util/button_widget.dart';
 
 class AddContactWidget extends StatefulWidget {
   const AddContactWidget({super.key, required this.formControllers});
-  final List<PersonFormController> formControllers;
+  final List<UserFormController> formControllers;
 
   @override
   AddContactWidgetState createState() => AddContactWidgetState();
@@ -51,20 +50,20 @@ class AddContactWidgetState extends State<AddContactWidget> {
   void clear(int index) {
     widget.formControllers[index].clear();
     setState(() {
-      widget.formControllers[index].webImage = null;
-      widget.formControllers[index].pickedImage = null;
+      widget.formControllers[index].personForm.webImage = null;
+      widget.formControllers[index].personForm.pickedImage = null;
     });
   }
 
   Future<void> _addPerson() async {
-    PersonModel? personTestData;
+    UserModel? personTestData;
 
     if (seedService.api.env is EnvDev) {
-      personTestData = await seedService.getGeneratedPerson();
+      personTestData = await seedService.getGeneratedUserModel();
     }
 
     setState(() {
-      widget.formControllers.add(PersonFormController());
+      widget.formControllers.add(UserFormController());
 
       if (personTestData != null) {
         widget.formControllers.last.setData(personTestData);
@@ -105,12 +104,12 @@ class AddContactWidgetState extends State<AddContactWidget> {
                 AddPersonWidget(
                   onGenderChanged: (value) {
                     setState(
-                      () => widget.formControllers[index].gender = value!,
+                      () => widget.formControllers[index].personForm.gender = value!,
                     );
                   },
                   onBirthDateChanged: (value) {
                     setState(
-                      () => widget.formControllers[index].birthdate = value!,
+                      () => widget.formControllers[index].personForm.birthdate = value!,
                     );
                   },
                   onPickImage: () {
@@ -118,15 +117,15 @@ class AddContactWidgetState extends State<AddContactWidget> {
                   },
                   onRemoveImage: () {
                     setState(() {
-                      widget.formControllers[index].pickedImage = null;
-                      widget.formControllers[index].webImage = null;
+                      widget.formControllers[index].personForm.pickedImage = null;
+                      widget.formControllers[index].personForm.webImage = null;
                     });
                   },
                   onAdressTypeChange: (String? selectedValue) {
                     setState(() {
                       widget
                               .formControllers[index]
-                              .addressesForms[0]
+                              .personForm.addressesForms[0]
                               .selectedType =
                           selectedValue!;
                     });
@@ -136,13 +135,13 @@ class AddContactWidgetState extends State<AddContactWidget> {
                     setState(() {
                       widget
                               .formControllers[index]
-                              .addressesForms[0]
+                              .personForm.addressesForms[0]
                               .selectedMunicipality =
                           value!;
                     });
                   },
 
-                  personForm: widget.formControllers[index],
+                  personForm: widget.formControllers[index].personForm,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -152,12 +151,8 @@ class AddContactWidgetState extends State<AddContactWidget> {
                         onPressed: (item) async {
                           _addPerson();
                         },
-                        buttonItem: ButtonItem(
-                          AppLocalizations.of(context)!.btn_add_contact,
-                          onPress: () {},
-                          tooltipText: AppLocalizations.of(
-                            context,
-                          )!.tooltip_btn_add_contact,
+                        buttonItem: ButtonInfo(
+                          title: AppLocalizations.of(context)!.btn_add_contact,
                           enabled: true,
                           routeName: '',
                         ),
@@ -193,7 +188,7 @@ class AddContactWidgetState extends State<AddContactWidget> {
       if (image != null) {
         var selected = File(image.path);
         setState(() {
-          widget.formControllers[index].pickedImage = selected;
+          widget.formControllers[index].personForm.pickedImage = selected;
         });
       } else {
         showBtmAlert(context, imageConstatnt.getImageSelectionText());
@@ -204,8 +199,8 @@ class AddContactWidgetState extends State<AddContactWidget> {
       if (image != null) {
         var f = await image.readAsBytes();
         setState(() {
-          widget.formControllers[index].webImage = f;
-          widget.formControllers[index].pickedImage = File('a');
+          widget.formControllers[index].personForm.webImage = f;
+          widget.formControllers[index].personForm.pickedImage = File('a');
         });
       } else {
         showBtmAlert(context, imageConstatnt.getImageSelectionText());

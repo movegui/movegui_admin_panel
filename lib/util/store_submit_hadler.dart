@@ -1,17 +1,18 @@
 import 'package:flutter/widgets.dart';
-import 'package:movegui_admin_panel/models/model.dart';
-import 'package:movegui_admin_panel/services/form_service.dart';
+import 'package:movegui_admin_panel/models/store/store_model.dart';
+import 'package:movegui_admin_panel/services/form_services/form_service.dart';
 import 'package:movegui_admin_panel/services/image_service.dart';
 import 'package:movegui_admin_panel/services/model_service.dart';
 import 'package:movegui_admin_panel/services/user_service.dart';
 import 'package:movegui_admin_panel/util/store_form_controller.dart';
 
 abstract class StoreSubmitHadler<
-  M extends Model,
+  M extends StoreModel,
   T extends ModelService<M>,
-  S extends StoreFormController,
-  F extends FormService
+  S extends StoreFormController<M>,
+  F extends FormService<M, S>
 > {
+  // <M extends Model, F extends FormController<M>>
   final T service;
   final ImageService imageService;
   final String collectionName;

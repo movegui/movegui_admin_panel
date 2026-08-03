@@ -1,21 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:movegui_admin_panel/app_router.dart';
 import 'package:movegui_admin_panel/config/env.dart';
 import 'package:movegui_admin_panel/config/env_dev.dart';
 import 'package:movegui_admin_panel/config/firebase_config.dart';
-import 'package:movegui_admin_panel/consts/theme_data.dart';
 import 'package:movegui_admin_panel/firebase_options.dart';
-import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
-import 'package:movegui_admin_panel/providers/appbar_title_provider.dart';
 import 'package:movegui_admin_panel/providers/dark_theme_provider.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
-import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -59,10 +53,14 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+ // final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   @override
   Widget build(BuildContext context) {
+
+    return Text('test');
+
+/*
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => themeChangeProvider),
@@ -90,5 +88,6 @@ class _MyAppState extends State<MyApp> {
         },
       ),
     );
+    */
   }
 }
