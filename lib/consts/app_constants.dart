@@ -6,6 +6,9 @@ import 'package:movegui_admin_panel/models/pressing/pressing_service_type_model.
 import '../services/assets_manager.dart';
 
 class AppConstants {
+  static const name = "MoveGui";
+  static const Adresse = "Ratoma";
+
   static const String imageUrl = 'https://i.ibb.co/JM0KMG0/riz-gras.jpg';
   //  'https://i.ibb.co/8r1Ny2n/20-Nike-Air-Force-1-07.png';
 
@@ -798,6 +801,7 @@ class MoveGuiCollections {
   static final String COLLECTION_ORDERS = 'orders';
   static final String COLLECTION_PRESSING_ORDERS = 'pressing_orders';
   static final String COLLECTION_ACTIVITIES = 'activities';
+    static final String COLLECTION_PHARMACIES = 'pharmacies';
 
 
 

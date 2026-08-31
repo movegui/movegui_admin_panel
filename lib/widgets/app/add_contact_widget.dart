@@ -7,7 +7,7 @@ import 'package:movegui_admin_panel/consts/app_constants.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
-import 'package:movegui_admin_panel/models/button_item.dart';
+import 'package:movegui_admin_panel/models/button_info.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
@@ -156,7 +156,7 @@ class AddContactWidgetState extends State<AddContactWidget> {
                           enabled: true,
                           routeName: '',
                         ),
-                        icon: Icons.add,
+                        icon: Icon(Icons.add),
                       
                       ),
                     ),

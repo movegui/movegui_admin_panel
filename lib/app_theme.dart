@@ -16,15 +16,11 @@ class AppTheme {
     ),
 
     cardTheme: _cardTheme(),
-
     inputDecorationTheme: _textFieldTheme(),
-
     elevatedButtonTheme: _elevatedButtonTheme(),
-
     textTheme: _textTheme(),
-    iconTheme: const IconThemeData(
-      color: AppColors.primary,
-    ),
+    iconButtonTheme: _iconButtonTheme(),
+    iconTheme: const IconThemeData(color: AppColors.primary),
   );
 
   static ThemeData darkTheme = ThemeData(
@@ -41,12 +37,10 @@ class AppTheme {
     ),
 
     cardTheme: _cardTheme(),
-
     inputDecorationTheme: _textFieldTheme(),
-
     elevatedButtonTheme: _elevatedButtonTheme(),
-
     textTheme: _textTheme(),
+    iconButtonTheme: _iconButtonTheme(),
   );
 
   static CardThemeData _cardTheme() {
@@ -96,7 +90,6 @@ class AppTheme {
     );
   }
 
-
   static ElevatedButtonThemeData _elevatedButtonTheme() {
     return ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -107,70 +100,70 @@ class AppTheme {
 
         minimumSize: const Size(0, 50),
 
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 14,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
 
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
 
-        textStyle: const TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w600,
-        ),
+        textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         iconColor: AppColors.onPrimary,
         iconSize: 14,
         disabledForegroundColor: AppColors.placeHolderText,
-        disabledIconColor: AppColors.placeHolderText
+        disabledIconColor: AppColors.placeHolderText,
       ),
     );
   }
 
- static TextTheme _textTheme() {
-    return TextTheme(
-      // Titres des pages
-      headlineLarge: TextStyle(
-        fontSize: 32,
-        fontWeight: FontWeight.bold
-      ),
+  static IconButtonThemeData _iconButtonTheme() {
+    return IconButtonThemeData(
+      style: ButtonStyle(
+        padding: WidgetStateProperty.all(const EdgeInsets.all(8.0)),
+        shape: WidgetStateProperty.all(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+        ),
+        backgroundColor: WidgetStateProperty.resolveWith<Color>((states) {
+          if (states.contains(WidgetState.hovered)) {
+            return AppColors.selectionColor;
+          }
 
-      headlineMedium: TextStyle(
-        fontSize: 28,
-        fontWeight: FontWeight.bold,
-      ),
+          if (states.contains(WidgetState.pressed)) {
+            return AppColors.selectionColor;
+          }
 
-      // Titres de cards
-      titleLarge: TextStyle(
-        fontSize: 22,
-        fontWeight: FontWeight.w700,
-      ),
+          return AppColors.primary;
+        }),
+        foregroundColor: WidgetStateProperty.resolveWith<Color>((states) {
+          if (states.contains(WidgetState.hovered)) {
+            return AppColors.onPrimary;
+          }
 
-      titleMedium: TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.w600,
-      ),
-
-      // Texte normal
-      bodyLarge: TextStyle(
-        fontSize: 16,
-      ),
-
-      bodyMedium: TextStyle(
-        fontSize: 14,
-      ),
-
-      bodySmall: TextStyle(
-        fontSize: 12,
-      ),
-
-      // Boutons
-      labelLarge: TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.w600,
+          return AppColors.onPrimary;
+        }),
+        iconSize: WidgetStateProperty.all(20),
       ),
     );
-  
+  }
+
+  static TextTheme _textTheme() {
+    return TextTheme(
+      // Titres des pages
+      headlineLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+
+      headlineMedium: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+
+      // Titres de cards
+      titleLarge: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+
+      titleMedium: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+
+      // Texte normal
+      bodyLarge: TextStyle(fontSize: 16),
+
+      bodyMedium: TextStyle(fontSize: 14),
+
+      bodySmall: TextStyle(fontSize: 12),
+
+      // Boutons
+      labelLarge: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+    );
   }
 }

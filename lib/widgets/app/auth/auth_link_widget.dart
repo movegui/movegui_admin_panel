@@ -7,7 +7,7 @@ import 'package:movegui_admin_panel/consts/route_constants.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/error/message_widget.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
-import 'package:movegui_admin_panel/models/button_item.dart';
+import 'package:movegui_admin_panel/models/button_info.dart';
 import 'package:movegui_admin_panel/widgets/util/button_widget.dart';
 
 
@@ -51,7 +51,7 @@ class AuthLinkWidgetState extends State<AuthLinkWidget> {
                 enabled: true,
                 routeName: RouteConstants.FORGET_PASSWORD_ROUTE,
               ),
-              icon: Ionicons.key_outline,            
+              icon: Icon(Ionicons.key_outline),            
             ),
           ),
         ),
@@ -68,7 +68,7 @@ class AuthLinkWidgetState extends State<AuthLinkWidget> {
                enabled:  false,
                 routeName: RouteConstants.REGISTER_ROUTE,
               ),
-              icon: Ionicons.person,
+              icon: Icon(Ionicons.person),
             ),
           ),
         ),

@@ -1,15 +1,20 @@
+/*
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
+import 'package:movegui_admin_panel/consts/app_constants.dart';
 import 'package:movegui_admin_panel/consts/route_constants.dart';
+import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
-import 'package:movegui_admin_panel/providers/current_user_provider.dart';
-import 'package:movegui_admin_panel/responsive.dart';
+import 'package:movegui_admin_panel/models/button_info.dart';
+import 'package:movegui_admin_panel/providers/providers.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/user_service.dart';
-import 'package:movegui_admin_panel/util/menu_tile.dart';
+import 'package:movegui_admin_panel/widgets/util/button_widget.dart';
+import 'package:movegui_admin_panel/widgets/web/profile_menu_widget.dart';
+import 'package:riverpod/src/framework.dart';
 
 class AdminPanelAppBar extends ConsumerWidget implements PreferredSizeWidget {
   AdminPanelAppBar({super.key, required this.title});
@@ -18,20 +23,63 @@ class AdminPanelAppBar extends ConsumerWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentUser = ref.watch(CurrentUserProvider.currentUserProvider).currentUser;
+    final user = FirebaseAuth.instance.currentUser;
+    final currentUser = ref.watch(userProviderState).user;
+    return 
+  }
+
+  Widget showConnectionBtn(BuildContext context) {
+    return Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ButtonWidget(
+            onPressed: (item) async {
+              context.push(RouteConstants.LOGIN_ROUTE);
+            },
+            buttonItem: ButtonInfo(
+              title: AppLocalizations.of(context)!.login_title,
+              enabled: true,
+            ),
+            icon: Icon(Icons.login),
+            textStyle: Theme.of(context).textTheme.headlineSmall,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ButtonWidget(
+            onPressed: (item) async {
+              context.push(RouteConstants.REGISTER_ROUTE);
+            },
+            buttonItem: ButtonInfo(
+              title: AppLocalizations.of(context)!.label_registration,
+              enabled: true,
+            ),
+            icon: Icon(Icons.person),
+            textStyle: Theme.of(context).textTheme.headlineSmall,
+          ),
+        ),
+      ],
+    );
+  }
+
+
+*/
+
+
+    /*
     return AppBar(
       title: Center(child: Text(title)),
-      titleTextStyle: TextStyle(
-       // color: AppColors.textColor, // Set the title color
-        fontSize: Responsive.isDesktop(context) ? 26 : 20,
+      titleTextStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
+        fontSize: Responsive.isDesktop(context) ? 32 : 20,
+        color: AppColors.onPrimary,
       ),
-
       leading: Responsive.isMobile(context)
           ? Builder(
               builder: (BuildContext context) {
                 return IconButton(
                   icon: const Icon(Icons.menu),
-               //   color: AppColors.textColor,
+                  //   color: AppColors.textColor,
                   tooltip: AppLocalizations.of(
                     context,
                   )!.navigation_menu_tooltip,
@@ -46,28 +94,25 @@ class AdminPanelAppBar extends ConsumerWidget implements PreferredSizeWidget {
       actions: <Widget>[
         IconButton(
           icon: Icon(Icons.search),
-       //   color: AppColors.textColor,
-          hoverColor: AppColors.selectionColor,
           onPressed: () {
             context.go(RouteConstants.SEARCH_ROUTE);
           },
+          color: AppColors.onPrimary,
         ),
 
         IconButton(
           icon: Icon(Icons.notifications),
-     //     color: AppColors.textColor,
-          hoverColor: AppColors.selectionColor,
           onPressed: () {
             context.go(RouteConstants.NOTIFICATION_ROUTE);
           },
+          color: AppColors.onPrimary,
         ),
 
         Padding(
           padding: const EdgeInsets.only(right: 28.0),
           child: IconButton(
             icon: Icon(Icons.supervised_user_circle),
-       //     color: AppColors.textColor,
-            hoverColor: AppColors.selectionColor,
+            color: AppColors.onPrimary,
             onPressed: () async {
               if (FirebaseAuth.instance.currentUser != null) {
                 if (Responsive.isMobile(context)) {
@@ -87,11 +132,6 @@ class AdminPanelAppBar extends ConsumerWidget implements PreferredSizeWidget {
                           onTap: () async {
                             await userService.signOut(ref);
                             context.go(RouteConstants.LOGIN_ROUTE);
-                            /*
-                setState(() {
-                  currentUser == null;
-                });
-                */
                           },
                           enabled: true,
                           routeName: RouteConstants.LOGIN_ROUTE,
@@ -124,102 +164,125 @@ class AdminPanelAppBar extends ConsumerWidget implements PreferredSizeWidget {
             },
           ),
         ),
-
-        /*
-        IconButton(
-          icon: Icon(Icons.search),
-          color: Color(0xFFFFFFFF),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => SearchScreen()),
-            );
-          },
-        ),
-        IconButton(
-          icon: Icon(Icons.notifications),
-          color: Color(0xFFFFFFFF),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => NotificationScreen()),
-            );
-          },
-        ),
-                IconButton(
-          icon: Icon(Icons.supervised_user_circle),
-          color: Color(0xFFFFFFFF),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => AdminScreen()),
-            );
-          },
-        ),
-        */
       ],
     );
   }
+  *//*
 
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
-}
 
-/*
-class AdminPanelAppBarDesktop extends StatelessWidget implements PreferredSizeWidget {
-  const AdminPanelAppBarDesktop({super.key, required this.title});
 
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      title: Text(title),
-      titleTextStyle: TextStyle(
-        color: Color(0xFFFFFFFF), // Set the title color
-        fontSize: 20,
-      ),
-
-      leading: const SizedBox.shrink(),
-      
-      backgroundColor: Color(0xFF871A1C), // Customize color
-      actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.search),
-          color: Color(0xFFFFFFFF),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => SearchScreen()),
-            );
-          },
-        ),
-        IconButton(
-          icon: Icon(Icons.notifications),
-          color: Color(0xFFFFFFFF),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => NotificationScreen()),
-            );
-          },
-        ),
-                IconButton(
-          icon: Icon(Icons.supervised_user_circle),
-          color: Color(0xFFFFFFFF),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => AdminScreen()),
-            );
-          },
-        ),
-      ],
-    );
-  }
-
-  @override
-  // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
-}
 */
+  /**
+   * import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:shom_gn/consts/app_constants.dart';
+import 'package:shom_gn/consts/route_contants.dart';
+import 'package:shom_gn/consts/widget_constants.dart';
+import 'package:shom_gn/l10n/app_localizations.dart';
+import 'package:shom_gn/models/button_info.dart';
+import 'package:shom_gn/providers/providers.dart';
+import 'package:shom_gn/widgets/app/app_search_widget.dart';
+import 'package:shom_gn/widgets/util/button_widget.dart';
+import 'package:shom_gn/widgets/web/profile_menu_widget.dart';
+
+class WebAppBar extends ConsumerWidget implements PreferredSizeWidget {
+  final String title;
+  WebAppBar({super.key, required this.title});
+  final controller = TextEditingController();
+  final focusNode = FocusNode();
+
+  @override
+  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = FirebaseAuth.instance.currentUser;
+    final currentUser = ref.watch(userProviderState).user;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ButtonWidget(
+              onPressed: (item) async {
+                context.push(RouteConstants.HOME_ROUTE);
+              },
+              buttonItem: ButtonInfo(title: AppConstants.name, enabled: true),
+              icon: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.asset(
+                  'assets/icons/shom-logo.jpg',
+                  width: 24,
+                  height: 24,
+                ),
+              ),
+              textStyle: Theme.of(context).textTheme.headlineMedium,
+            ),
+          ),
+
+          const SizedBox(width: WidgetConstants.sepWidgetWidth),
+          const Icon(Icons.location_on),
+          //   CurrentPositionWidget(),
+          const SizedBox(width: WidgetConstants.sepWidgetWidth),
+
+          Expanded(
+            child: AppSearchWidget(
+              controller: controller,
+              focusNode: focusNode,
+            ),
+          ),
+
+          const SizedBox(width: WidgetConstants.sepWidgetWidth),
+          if (user != null)
+            ProfileMenuWidget(user: currentUser)
+          else
+            showConnectionBtn(context),
+        ],
+      ),
+    );
+  }
+
+  Widget showConnectionBtn(BuildContext context) {
+    return Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ButtonWidget(
+            onPressed: (item) async {
+              context.push(RouteConstants.LOGIN_ROUTE);
+            },
+            buttonItem: ButtonInfo(
+              title: AppLocalizations.of(context)!.label_login_web,
+              enabled: true,
+            ),
+            icon: Icon(Icons.login),
+            textStyle: Theme.of(context).textTheme.headlineSmall,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ButtonWidget(
+            onPressed: (item) async {
+              context.push(RouteConstants.REGISTER_ROUTE);
+            },
+            buttonItem: ButtonInfo(
+              title: AppLocalizations.of(context)!.label_registration,
+              enabled: true,
+            ),
+            icon: Icon(Icons.person),
+            textStyle: Theme.of(context).textTheme.headlineSmall,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+   */
+//}

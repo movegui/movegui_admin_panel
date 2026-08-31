@@ -2,6 +2,7 @@
 
 import 'package:movegui_admin_panel/models/geo_cordinates_model.dart';
 import 'package:movegui_admin_panel/models/model.dart';
+import 'package:uuid/uuid.dart';
 class AdressModel extends Model {
   final GeoCordinatesModel? geoCordinates;
   final String? zoneId;
@@ -67,7 +68,7 @@ class AdressModel extends Model {
     return '$address , $district, $minucipality, $ville, $pays';
   }
 
-/*
+
   static AdressModel getDaulftObject() => AdressModel(
     address: '',
     id: Uuid().v4(),
@@ -79,7 +80,7 @@ class AdressModel extends Model {
     adressType: 'h',
     isDefault: false,
   );
-  */
+  
 
   static getCollectionName() {
     return 'adresses';

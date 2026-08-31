@@ -1082,6 +1082,12 @@ abstract class AppLocalizations {
   /// **'Profile'**
   String get profile_title;
 
+  /// No description provided for @my_profile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'My Profile'**
+  String get my_profile_title;
+
   /// No description provided for @navigation_menu_tooltip.
   ///
   /// In en, this message translates to:
@@ -1171,6 +1177,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Login'**
   String get label_login;
+
+  /// No description provided for @label_login_web.
+  ///
+  /// In en, this message translates to:
+  /// **'SignIn'**
+  String get label_login_web;
 
   /// No description provided for @label_login_connect_using.
   ///
@@ -1537,6 +1549,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cancelled'**
   String get dashbord_orders_cancelled;
+
+  /// No description provided for @dashbord_orders_total.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get dashbord_orders_total;
+
+  /// No description provided for @dashboard_services_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Our Services'**
+  String get dashboard_services_title;
+
+  /// No description provided for @read_all.
+  ///
+  /// In en, this message translates to:
+  /// **'Read All'**
+  String get read_all;
+
+  /// No description provided for @shopping_cart_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Shopping Cart'**
+  String get shopping_cart_title;
+
+  /// No description provided for @language_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language_title;
+
+  /// No description provided for @help_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Help'**
+  String get help_title;
+
+  /// No description provided for @settings_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings_title;
 }
 
 class _AppLocalizationsDelegate

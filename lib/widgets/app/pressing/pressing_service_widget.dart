@@ -3,7 +3,7 @@ import 'package:movegui_admin_panel/config/env_dev.dart';
 import 'package:movegui_admin_panel/consts/validator.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
-import 'package:movegui_admin_panel/models/button_item.dart';
+import 'package:movegui_admin_panel/models/button_info.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_type_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
@@ -200,7 +200,7 @@ class PressingServiceWidgetState extends State<PressingServiceWidget> {
                             enabled: true,
                             routeName: '',
                           ),
-                          icon: Icons.add,
+                          icon: Icon(Icons.add),
                         
                         ),
                       ),

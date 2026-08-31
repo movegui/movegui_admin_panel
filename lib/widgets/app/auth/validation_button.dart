@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:movegui_admin_panel/models/button_item.dart';
+import 'package:movegui_admin_panel/models/button_info.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/widgets/util/button_widget.dart';
 
 class ValidationButton extends StatelessWidget {
   final Future<void> Function( ButtonInfo item) fn;
   final ButtonInfo buttonItem;
-  final IconData? icon;
+  final Widget? icon;
 
   const ValidationButton({
     super.key,
     required this.fn,
     required this.buttonItem,
-    this.icon = IconlyLight.send,
+    this.icon ,
   });
 
   @override

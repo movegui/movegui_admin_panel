@@ -384,6 +384,8 @@
     "@my_deliveries_title": {},
     "profile_title": "Profil",
     "@profile_title": {},
+        "my_profile_title": "Mon Profil",
+    "@my_profile_title":{},
     "login_title": "Connexion",
     "@login_title": {},
     "register_title": "Enregistrement",
@@ -414,6 +416,8 @@
     "@label_login_forget_password": {},
     "label_login": "se connecter",
     "@label_login": {},
+    "label_login_web": "Connectez-vous",
+    "@label_login_web": {},
     "label_login_connect_using": "Ou connectez-vous via",
     "@label_login_connect_using": {},
     "label_login_invite": "Invité ?",
@@ -544,5 +548,21 @@
     "dashbord_orders_completed": "Terminées",
     "@dashbord_orders_completed": {},
     "dashbord_orders_cancelled": "Annulées",  
-    "@dashbord_orders_cancelled": {}      
+    "@dashbord_orders_cancelled": {},
+    "dashbord_orders_total": "Total",
+    "@dashbord_orders_total": {},       
+    "dashboard_services_title": "Nos Services",
+    "@dashboard_services_title": {},
+    "read_all": "Tout lire",
+    "@read_all":{},
+    "shopping_cart_title": "panier",
+    "@shopping_cart_title":{},
+    "language_title":"Langue",
+    "@language_title":{},
+    "help_title": "Aide",
+    "@help_title": {},
+        "settings_title": "Paramètres",
+    "@settings_title": {}
+
+
 }

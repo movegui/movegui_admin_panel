@@ -5,18 +5,20 @@ import 'package:go_router/go_router.dart';
 import 'package:movegui_admin_panel/consts/route_constants.dart';
 import 'package:movegui_admin_panel/inter_screen/all_products.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
-import 'package:movegui_admin_panel/models/button_item.dart';
+import 'package:movegui_admin_panel/models/button_info.dart';
 import 'package:movegui_admin_panel/providers/auth_provider.dart';
+import 'package:movegui_admin_panel/providers/providers.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/screens/admin_screen.dart';
 import 'package:movegui_admin_panel/screens/auth/movegui_forgot_password_screen.dart';
 import 'package:movegui_admin_panel/screens/auth/movegui_register_screen.dart';
 import 'package:movegui_admin_panel/screens/categories_screen.dart';
-import 'package:movegui_admin_panel/widgets/app/dashboard/dahsboard_backup.dart';
+import 'package:movegui_admin_panel/screens/dashboard_screen.dart';
 import 'package:movegui_admin_panel/screens/driver_screen.dart';
 import 'package:movegui_admin_panel/screens/employe_screen.dart';
 import 'package:movegui_admin_panel/screens/ingredients_screen.dart';
 import 'package:movegui_admin_panel/screens/auth/login_screen.dart';
+import 'package:movegui_admin_panel/screens/main_screen.dart';
 import 'package:movegui_admin_panel/screens/manager_screen.dart';
 import 'package:movegui_admin_panel/screens/movegui_profile_screen.dart';
 import 'package:movegui_admin_panel/screens/patisserie_screen.dart';
@@ -30,7 +32,7 @@ import 'package:movegui_admin_panel/screens/super_markt_screen.dart';
 import 'package:movegui_admin_panel/screens/supplier_screen.dart';
 import 'package:movegui_admin_panel/widgets/app/admin/add_admin_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/admin/all_admin_widget.dart';
-import 'package:movegui_admin_panel/widgets/app/admin_panel_appbar.dart';
+import 'package:movegui_admin_panel/widgets/app/app_appbar.dart';
 import 'package:movegui_admin_panel/widgets/app/driver/add_driver_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/driver/all_driver_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/employe/add_employe_widget.dart';
@@ -38,10 +40,11 @@ import 'package:movegui_admin_panel/widgets/app/employe/all_employe_widget.dart'
 import 'package:movegui_admin_panel/widgets/app/main/main_page_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/manager/add_manager_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/manager/all_manager_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/menu/my_menu.dart';
 import 'package:movegui_admin_panel/widgets/app/pressing/add_pressing_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/pressing/all_pressing_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/store/store_detail_widget.dart';
-import 'package:movegui_admin_panel/widgets/app/dashboard/dash_board_side_menu.dart';
+import 'package:movegui_admin_panel/widgets/web/web_appbar.dart';
 
 class AppRouter {
   static final routerProvider = Provider<GoRouter>((ref) {
@@ -100,8 +103,8 @@ class AppRouter {
         ),
         GoRoute(
           path: RouteConstants.HOME_ROUTE,
-          builder: (context, state) => MoveGuiAdminDashboardPage(),
-          //   MainScreen(pageScreen: DashboardScreen()),
+          builder: (context, state) => //  MoveGuiAdminDashboardPage(),
+             MainScreen(pageScreen: DashboardScreen()),
         ),
 
         // 🔐 PROTECTED SHELL
@@ -123,10 +126,19 @@ class AppRouter {
                     .title;
                     */
                 return Scaffold(
+                      appBar: Responsive.isDesktop(context)
+                      ? WebAppBar(title: title)
+                      : AppAppbar(
+                          itemCount: ref.watch(shoppingProviderState).itemCount,
+                          title: title,
+                        ),
+                  drawer: Responsive.isMobile(context) ? MyMenu() : null,
+                  /*
                   appBar: AdminPanelAppBar(title: title),
                   drawer: Responsive.isMobile(context)
                       ? DashBoardSideMenu()
                       : null,
+                      */
                   body: child,
                 );
               },

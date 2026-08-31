@@ -541,6 +541,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profile_title => 'Profile';
 
   @override
+  String get my_profile_title => 'My Profile';
+
+  @override
   String get navigation_menu_tooltip => 'Navigation Menu';
 
   @override
@@ -584,6 +587,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get label_login => 'Login';
+
+  @override
+  String get label_login_web => 'SignIn';
 
   @override
   String get label_login_connect_using => 'Or connect using';
@@ -769,4 +775,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dashbord_orders_cancelled => 'Cancelled';
+
+  @override
+  String get dashbord_orders_total => 'Total';
+
+  @override
+  String get dashboard_services_title => 'Our Services';
+
+  @override
+  String get read_all => 'Read All';
+
+  @override
+  String get shopping_cart_title => 'Shopping Cart';
+
+  @override
+  String get language_title => 'Language';
+
+  @override
+  String get help_title => 'Help';
+
+  @override
+  String get settings_title => 'Settings';
 }

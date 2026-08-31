@@ -1,5 +1,5 @@
 
-import 'package:movegui_admin_panel/models/button_item.dart';
+import 'package:movegui_admin_panel/models/button_info.dart';
 
 class MainPageWidget {
   final ButtonInfo buttonItem;

@@ -3,7 +3,6 @@ import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
-import 'package:movegui_admin_panel/widgets/app/admin_panel_appbar.dart';
 import 'package:movegui_admin_panel/widgets/app/app_image.dart';
 import 'package:movegui_admin_panel/widgets/app/separator_widget.dart';
 import 'package:movegui_admin_panel/widgets/auth/register_email_page.dart';
@@ -38,9 +37,11 @@ class _RegisterScreenState extends State<MoveguiRegisterScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      /*
       appBar: AdminPanelAppBar(
         title: AppLocalizations.of(context)!.register_title,
       ),
+      */
       body: Responsive.isDesktop(context) ? buildDesktop() : buildMobil(),
     );
   }

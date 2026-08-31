@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
-import 'package:movegui_admin_panel/models/button_item.dart';
+import 'package:movegui_admin_panel/models/button_info.dart';
 import 'package:movegui_admin_panel/widgets/util/button_widget.dart';
 
 class DashboardHeader extends StatelessWidget {
@@ -41,7 +41,7 @@ class DashboardHeader extends StatelessWidget {
                 title: AppLocalizations.of(context)!.btn_create,
                 enabled: true,
               ),
-              icon: Icons.add,
+              icon:Icon(Icons.add),
             ),
           ],
         ),

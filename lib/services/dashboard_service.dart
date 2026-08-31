@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:movegui_admin_panel/consts/app_constants.dart';
 import 'package:movegui_admin_panel/models/dashboard_model.dart';
+import 'package:movegui_admin_panel/models/order_model.dart';
 import 'package:movegui_admin_panel/services/api_service.dart';
+import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
 
 
 
@@ -163,42 +165,48 @@ class DashboardService {
    Future<DashboardModel> loadDashboardItems(
     FirebaseFirestore firestore,
   ) async {
+    try {
     final results = await Future.wait<int>([
-      /*
+      
       _count(firestore.collection(MoveGuiCollections.COLLECTION_ORDERS)),
       _count(firestore.collection(MoveGuiCollections.COLLECTION_ORDERS).where('status', isEqualTo: OrderStatus.pending.name)),
       _count(firestore.collection(MoveGuiCollections.COLLECTION_ORDERS).where('status', isEqualTo: OrderStatus.in_progress.name)),
       _count(firestore.collection(MoveGuiCollections.COLLECTION_ORDERS).where('status', isEqualTo: OrderStatus.delivered.name)),
-      _count(firestore.collection(MoveGuiCollections.COLLECTION_ORDERS).where('status', isEqualTo: OrderStatus.completed)),
-      _count(firestore.collection(MoveGuiCollections.COLLECTION_ORDERS).where('status', isEqualTo: OrderStatus.cancelled)),
+      _count(firestore.collection(MoveGuiCollections.COLLECTION_ORDERS).where('status', isEqualTo: OrderStatus.completed.name)),
+      _count(firestore.collection(MoveGuiCollections.COLLECTION_ORDERS).where('status', isEqualTo: OrderStatus.cancelled.name)),
       _count(firestore.collection(MoveGuiCollections.COLLECTION_USERS).where('role', isEqualTo: 'customer')),
       _count(firestore.collection(MoveGuiCollections.COLLECTION_DRIVERS).where('role', isEqualTo: UserRole.Driver.name)),
       _count(firestore.collection(MoveGuiCollections.COLLECTION_DRIVERS).where('online', isEqualTo: true)),
       _count(firestore.collection(MoveGuiCollections.COLLECTION_RESTAURANTS)),
-      _count(firestore.collection(MoveGuiCollections.COLLECTION_PRESSING_ORDERS)),
-      _count(firestore.collection(MoveGuiCollections.COLLECTION_SUPER_MARKETS)),
       _count(firestore.collection(MoveGuiCollections.COLLECTION_PRESSINGS)),
-      */
+      _count(firestore.collection(MoveGuiCollections.COLLECTION_SUPER_MARKETS)),
+      _count(firestore.collection(MoveGuiCollections.COLLECTION_PHARMACIES)),
+      
     ]);
 
-  //  final revenue = await _sumRevenue(firestore);
+    final revenue = await _sumRevenue(firestore);
 
     return DashboardModel(
-      totalOrders: 2, //results[0],
-      pendingOrders: 2, //results[1],
-      preparingOrders: 2, //results[2],
-      deliveringOrders: 2, //results[3],
-      completedOrders: 2, //results[4],
-      cancelledOrders: 2, //results[5],
-      totalCustomers: 2, //results[6],
-      totalDrivers: 2, //results[7],
-      onlineDrivers: 2, //results[8],
-      restaurants: 2, //results[9],
-      pressingOrders: 2, //results[10],
-      supermarkets: 2, //results[11],
-      pharmacies: 2, //results[12],
-      totalRevenue: 1000, //revenue,
+      totalOrders: results[0],
+      pendingOrders: results[1],
+      preparingOrders: results[2],
+      deliveringOrders: results[3],
+      completedOrders: results[4],
+      cancelledOrders: results[5],
+      totalCustomers:   results[6],
+      totalDrivers: results[7],
+      onlineDrivers: results[8],
+      restaurants: results[9],
+      pressings: results[10],
+      supermarkets: results[11],
+      pharmacies: results[12],
+      totalRevenue: revenue,
     );
+    } catch (e) {
+      print('Error loading dashboard items: $e');
+      return DashboardModel.empty();
+    }
+
   }
 
   static Future<int> _count(Query<Map<String, dynamic>> query) async {

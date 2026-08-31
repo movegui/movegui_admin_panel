@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
+import 'package:movegui_admin_panel/providers/providers.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/user_service.dart';
-import 'package:movegui_admin_panel/widgets/app/admin_panel_appbar.dart';
+import 'package:movegui_admin_panel/widgets/app/app_appbar.dart';
 import 'package:movegui_admin_panel/widgets/app/main/main_page_widget.dart';
 import 'package:movegui_admin_panel/widgets/custom_button.dart';
 import 'package:movegui_admin_panel/widgets/app/dashboard/dash_board_side_menu.dart';
+import 'package:movegui_admin_panel/widgets/web/web_appbar.dart';
 import '../responsive.dart';
 
 class MainScreen extends ConsumerStatefulWidget {
@@ -43,28 +45,23 @@ class MainScreenState extends ConsumerState<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-      appBar: AdminPanelAppBar(
-        title: Responsive.isDesktop(context)
-            ? AppLocalizations.of(context)!.movegui_panel
-            : AppLocalizations.of(context)!.movegui_panel_mobile,
-      ),
+      appBar: Responsive.isDesktop(context)
+          ? WebAppBar(title: AppLocalizations.of(context)!.movegui_panel)
+          : AppAppbar(
+              itemCount: ref.watch(shoppingProviderState).itemCount,
+              title: AppLocalizations.of(context)!.movegui_panel_mobile,
+            ),
+
       drawer: Responsive.isMobile(context) ? DashBoardSideMenu() : null,
       body: (currentUser != null && isAuthorize)
-          ? Builder(
-              builder: (context) => SafeArea(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (Responsive.isDesktop(context))
-                      Expanded(child: DashBoardSideMenu()),
-                    Expanded(flex: 5, child: widget.pageScreen),
-                  ],
-                ),
+          ? Builder(builder: (context) => SafeArea(child: widget.pageScreen))
+          : Center(
+              child: Text(
+                'No Authorization !!!',
+                style: Theme.of(context).textTheme.headlineLarge,
               ),
-            )
-          : Text('No Authorization !!!'),
+            ),
     );
   }
 }
@@ -85,9 +82,7 @@ abstract class MainPage extends StatelessWidget {
             children: [
               CustomButon(
                 text: addModelWidget.buttonItem.title,
-                onTap: () {
-                //  addModelWidget.buttonItem.onPress();
-                },
+                onTap: () {},
                 icon: Icons.add,
               ),
 
@@ -95,9 +90,7 @@ abstract class MainPage extends StatelessWidget {
 
               CustomButon(
                 text: allModelWidget.buttonItem.title,
-                onTap: () {
-                //  allModelWidget.buttonItem.onPress();
-                },
+                onTap: () {},
                 icon: Icons.list_alt,
               ),
             ],

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movegui_admin_panel/consts/app_colors.dart';
+import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/dashboard_model.dart';
 import 'package:movegui_admin_panel/widgets/app/dashboard/panel/dashbord_panel.dart';
 
@@ -10,33 +12,44 @@ class DashboardModelsPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DashboardPanel(
-      title: 'Services MoveGui',
+      title:
+          AppLocalizations.of(context)?.dashboard_services_title ??
+          'Our Services',
       icon: Icons.dashboard_customize_rounded,
       child: Column(
         children: [
           ServiceRow(
-            icon: Icons.restaurant,
-            label: 'Restaurants',
-            value: models.restaurants,
-            color: Colors.deepOrange,
-          ),
-          ServiceRow(
             icon: Icons.local_laundry_service,
-            label: 'Pressing',
-            value: models.pressingOrders,
+            label:
+                AppLocalizations.of(context)?.module_pressing_name ??
+                'Pressing',
+            value: models.pressings,
             color: Colors.indigo,
           ),
           ServiceRow(
+            icon: Icons.restaurant,
+            label:
+                AppLocalizations.of(context)?.module_restaurant_name ??
+                'Restaurants',
+            value: models.restaurants,
+            color: AppColors.placeHolderText,
+          ),
+
+          ServiceRow(
             icon: Icons.storefront,
-            label: 'Supermarchés',
+            label:
+                AppLocalizations.of(context)?.module_super_market_name ??
+                'Supermarchés',
             value: models.supermarkets,
-            color: Colors.green,
+            color: AppColors.placeHolderText,
           ),
           ServiceRow(
             icon: Icons.local_pharmacy,
-            label: 'Pharmacies',
+            label:
+                AppLocalizations.of(context)?.module_pharmacy_name ??
+                'Pharmacies',
             value: models.pharmacies,
-            color: Colors.teal,
+            color: AppColors.placeHolderText,
           ),
         ],
       ),
@@ -64,14 +77,14 @@ class ServiceRow extends StatelessWidget {
       contentPadding: EdgeInsets.zero,
       leading: CircleAvatar(
         backgroundColor: color.withOpacity(0.12),
-        child: Icon(icon, color: color),
+        child: Icon(icon,),
       ),
       title: Text(label, style: const TextStyle(fontWeight: FontWeight.w700)),
       trailing: Text(
         value.toString(),
         style: TextStyle(
           fontWeight: FontWeight.w900,
-          color: color,
+      //    color: color,
           fontSize: 18,
         ),
       ),

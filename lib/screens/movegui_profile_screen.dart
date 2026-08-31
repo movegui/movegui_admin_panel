@@ -236,7 +236,7 @@ class MoveguiProfileScreenState extends ConsumerState<MoveguiProfileScreen> {
     return _sectionCard([
       currentUser != null
           ? MenuTile(
-              icon: Icons.logout,
+              icon: Icon(Icons.logout),
               title: AppLocalizations.of(context)!.profile_menu_logout,
               onTap: () async {
                 await userService.signOut(ref);
@@ -248,7 +248,7 @@ class MoveguiProfileScreenState extends ConsumerState<MoveguiProfileScreen> {
               routeName: RouteConstants.LOGOUT_ROUTE,
             )
           : MenuTile(
-              icon: Icons.login,
+              icon: Icon(Icons.login),
               title: AppLocalizations.of(context)!.profile_menu_login,
               onTap: () =>
                  context.go(RouteConstants.LOGIN_ROUTE),
@@ -257,31 +257,31 @@ class MoveguiProfileScreenState extends ConsumerState<MoveguiProfileScreen> {
             ),
 
       MenuTile(
-        icon: Icons.person_add,
+        icon: Icon(Icons.person_add),
         title: AppLocalizations.of(context)!.profile_menu_invite_people,
         onTap: () => notImplemented(),
         enabled: false, routeName: '',
       ),
       MenuTile(
-        icon: Icons.list,
+        icon: Icon(Icons.list),
         title: AppLocalizations.of(context)!.profile_menu_orders,
         onTap: () => notImplemented(),
         enabled: false, routeName: '',
       ),
       MenuTile(
-        icon: Icons.campaign,
+        icon: Icon(Icons.campaign),
         title: AppLocalizations.of(context)!.profile_menu_message,
         onTap: () => notImplemented(),
         enabled: false, routeName: '',
       ),
       MenuTile(
-        icon: Icons.star_border,
+        icon: Icon(Icons.star_border),
         title: AppLocalizations.of(context)!.profile_menu_important,
         onTap: () => notImplemented(),
         enabled: false, routeName: '',
       ),
       MenuTile(
-        icon: Icons.devices,
+        icon: Icon(Icons.devices),
         title: AppLocalizations.of(context)!.profile_menu_devices,
         onTap: () => notImplemented(),
         enabled: false, routeName: '',
@@ -292,25 +292,25 @@ class MoveguiProfileScreenState extends ConsumerState<MoveguiProfileScreen> {
   Widget _buildSecondSection() {
     return _sectionCard([
       MenuTile(
-        icon: Icons.key,
+        icon: Icon(Icons.key),
         title: AppLocalizations.of(context)!.profile_menu_account,
         onTap: () => notImplemented(),
         enabled: false, routeName: '',
       ),
       MenuTile(
-        icon: Icons.lock_outline,
+        icon: Icon(Icons.lock_outline),
         title: AppLocalizations.of(context)!.profile_menu_confidentiality,
         onTap: () => notImplemented(),
         enabled: false, routeName: '',
       ),
       MenuTile(
-        icon: Icons.chat_bubble_outline,
+        icon: Icon(Icons.chat_bubble_outline),
         title: AppLocalizations.of(context)!.profile_menu_discussions,
         onTap: () => notImplemented(),
         enabled: false, routeName: '',
       ),
       MenuTile(
-        icon: Icons.notifications_none,
+        icon: Icon(Icons.notifications_none),
         title: AppLocalizations.of(context)!.notification_title,
         onTap: () => notImplemented(),
         enabled: false, routeName: '',
@@ -321,7 +321,7 @@ class MoveguiProfileScreenState extends ConsumerState<MoveguiProfileScreen> {
   Widget _buildThirdSection() {
     return _sectionCard([
       MenuTile(
-        icon: Icons.delete,
+        icon: Icon(Icons.delete),
         title: AppLocalizations.of(context)!.profile_menu_delete_account,
         onTap: () => notImplemented(),
         enabled: false, routeName: '',

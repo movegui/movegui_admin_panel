@@ -27,4 +27,6 @@ class AppColors {
   static const border = Color(0xFFE0E0E0);
   static const textPrimary = Color(0xFF212121);
   static const textSecondary = Color(0xFF757575);
+    static const Color disabled = Colors.grey;
+
 }

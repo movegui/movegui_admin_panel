@@ -14,7 +14,7 @@ import 'package:movegui_admin_panel/error/message_widget.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
 import 'package:movegui_admin_panel/methods/show_alert.dart';
-import 'package:movegui_admin_panel/models/button_item.dart';
+import 'package:movegui_admin_panel/models/button_info.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_type_model.dart';
 import 'package:movegui_admin_panel/services/form_services/pressing_form_service.dart';
@@ -227,7 +227,7 @@ class PressingAddWidgetPageState extends State<AddPressingWidget> {
                       enabled: true,
                       routeName: '',
                     ),
-                    icon: Icons.save,
+                    icon: Icon(Icons.save),
                   ),
                 ),
               ],

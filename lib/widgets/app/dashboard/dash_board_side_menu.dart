@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
+import 'package:movegui_admin_panel/consts/app_constants.dart';
 import 'package:movegui_admin_panel/consts/route_constants.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/providers/appbar_title_provider.dart';
 import 'package:movegui_admin_panel/providers/auth_provider.dart';
-import 'package:movegui_admin_panel/providers/current_user_provider.dart';
 import 'package:movegui_admin_panel/providers/dark_theme_provider.dart';
+import 'package:movegui_admin_panel/providers/providers.dart';
 import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/user_service.dart';
@@ -32,7 +33,7 @@ class DashBoardSideMenu extends ConsumerWidget {
     ); //Provider.of<DarkThemeProvider>(context);
     final Color drawerColor = themeState.getDarkTheme
         ? const Color(0xFF1a1f3c)
-        : Colors.white;
+        : AppColors.primary;
 
     return authState.when(
       data: (user) {
@@ -43,13 +44,11 @@ class DashBoardSideMenu extends ConsumerWidget {
           );
         }
 
-        final currentUser = ref
-            .watch(CurrentUserProvider.currentUserProvider)
-            .currentUser;
+        final currentUser = ref.watch(userProviderState).user;
 
         if (currentUser == null ||
             user.uid != currentUser.id ||
-            user.role != currentUser.role) {
+            user.role != currentUser.role.name) {
           return Text(
             AppLocalizations.of(context)!.error_authorization,
             style: TextStyle(color: AppColors.error),
@@ -78,20 +77,36 @@ class DashBoardSideMenu extends ConsumerWidget {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/icons/moveguiB.jpg'),
-                    fit: BoxFit.contain,
+                    fit: BoxFit.fill,
                   ),
+                  color: Theme.of(context).colorScheme.onPrimary,
                 ),
-                child: Text(''),
+
+                child: Text(
+                  '',
+                ), // Text(AppConstants.name , style: Theme.of(context).textTheme.displaySmall,),
               ),
               isAdmin(currentUser, user)
                   ? _sectionCard([
                       MenuTile(
                         title: AppLocalizations.of(context)!.menu_main,
-                        icon: Icons.home_filled,
+                        icon: Icon(Icons.home_filled),
                         enabled: true,
                         routeName: RouteConstants.HOME_ROUTE,
                       ),
 
+                      MenuTile(
+                        title: AppLocalizations.of(
+                          context,
+                        )!.module_pressing_name,
+                        icon: Icon(Icons.touch_app),
+                        enabled: true,
+                        routeName: RouteConstants.PRESSING_ROUTE,
+                        onTap: () => {
+                          context.go(RouteConstants.PRESSING_ROUTE),
+                        },
+                      ),
+                      /*
                       MenuTile(
                         title: AppLocalizations.of(
                           context,
@@ -146,17 +161,7 @@ class DashBoardSideMenu extends ConsumerWidget {
                         routeName: RouteConstants.SUPER_MARKET_ROUTE,
                       ),
 
-                      MenuTile(
-                        title: AppLocalizations.of(
-                          context,
-                        )!.module_pressing_name,
-                        icon: Icons.touch_app,
-                        enabled: true,
-                        routeName: RouteConstants.PRESSING_ROUTE,
-                        onTap: () => {
-                          context.go(RouteConstants.PRESSING_ROUTE),
-                        },
-                      ),
+
 
                       MenuTile(
                         title: AppLocalizations.of(
@@ -166,48 +171,51 @@ class DashBoardSideMenu extends ConsumerWidget {
                         enabled: false,
                         routeName: RouteConstants.PROFESSIONEL_ROUTE,
                       ),
-
-                      SwitchListTile(
-                        title: const Text('Theme'),
-                        secondary: Icon(
-                          themeState.getDarkTheme
-                              ? Icons.dark_mode_outlined
-                              : Icons.light_mode_outlined,
-                        ),
-                        value: theme,
-                        onChanged: (value) {
-                          ref
-                                  .read(DarkThemeProvider.themeProvider)
-                                  .setDarkTheme =
-                              value;
-                        },
-                      ),
-                      const Divider(height: 2, indent: 56),
-                    ])
+                      */
+                    ], context)
                   : SizedBox(),
+              Divider(
+                height: 1,
+                indent: 56,
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
+              SwitchListTile(
+                title: const Text('Theme'),
+                secondary: Icon(
+                  themeState.getDarkTheme
+                      ? Icons.dark_mode_outlined
+                      : Icons.light_mode_outlined,
+                ),
+                value: theme,
+                onChanged: (value) {
+                  ref.read(DarkThemeProvider.themeProvider).setDarkTheme =
+                      value;
+                },
+              ),
+              Divider(
+                height: 1,
+                indent: 56,
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
+
               isSuperAdmin(currentUser, user)
                   ? _sectionCard([
                       MenuTile(
-                        title: AppLocalizations.of(
-                          context,
-                        )!.module_admin_name,
-                        icon: Icons.admin_panel_settings,
+                        title: AppLocalizations.of(context)!.module_admin_name,
+                        icon: Icon(Icons.admin_panel_settings),
                         enabled: true,
                         routeName: RouteConstants.ADMIN_ROUTE,
                         onTap: () {
                           ref
                               .read(AppbarTitleProvider.appbarTitleProvider)
                               .setTitle(
-                                AppLocalizations.of(
-                                  context,
-                                )!.module_admin_name,
+                                AppLocalizations.of(context)!.module_admin_name,
                               );
                           onPress(context, ref, RouteConstants.ADMIN_ROUTE);
                         },
                       ),
-                      const Divider(height: 2, indent: 56),
-                    ])
-                    
+                      const Divider(height: 1, indent: 56),
+                    ], context)
                   : SizedBox(),
 
               isEmployee(currentUser, user)
@@ -216,7 +224,7 @@ class DashBoardSideMenu extends ConsumerWidget {
                         title: AppLocalizations.of(
                           context,
                         )!.module_employe_name,
-                        icon: Icons.badge,
+                        icon: Icon(Icons.badge),
                         enabled: true,
                         routeName: RouteConstants.EMPLOYE_ROUTE,
                         onTap: () {
@@ -230,17 +238,17 @@ class DashBoardSideMenu extends ConsumerWidget {
                           onPress(context, ref, RouteConstants.EMPLOYE_ROUTE);
                         },
                       ),
-                      const Divider(height: 2, indent: 56),
-                    ])
+                      const Divider(height: 1, indent: 56),
+                    ], context)
                   : SizedBox(),
 
-                      isManager(currentUser, user)
+              isManager(currentUser, user)
                   ? _sectionCard([
                       MenuTile(
                         title: AppLocalizations.of(
                           context,
                         )!.module_manager_name,
-                        icon: Icons.supervisor_account,
+                        icon: Icon(Icons.supervisor_account),
                         enabled: true,
                         routeName: RouteConstants.MANAGER_ROUTE,
                         onTap: () {
@@ -254,17 +262,17 @@ class DashBoardSideMenu extends ConsumerWidget {
                           onPress(context, ref, RouteConstants.MANAGER_ROUTE);
                         },
                       ),
-                      const Divider(height: 2, indent: 56),
-                    ])
+                      const Divider(height: 1, indent: 56),
+                    ], context)
                   : SizedBox(),
 
-                      isDriver(currentUser, user)
+              isDriver(currentUser, user)
                   ? _sectionCard([
                       MenuTile(
                         title: AppLocalizations.of(
                           context,
                         )!.module_deliver_name,
-                        icon: Icons.delivery_dining,
+                        icon: Icon(Icons.delivery_dining),
                         enabled: true,
                         routeName: RouteConstants.DRIVER_ROUTE,
                         onTap: () {
@@ -278,8 +286,8 @@ class DashBoardSideMenu extends ConsumerWidget {
                           onPress(context, ref, RouteConstants.DRIVER_ROUTE);
                         },
                       ),
-                      const Divider(height: 2, indent: 56),
-                    ])
+                      const Divider(height: 1, indent: 56),
+                    ], context)
                   : SizedBox(),
 
               SizedBox(height: WidgetConstants.sepWidget),
@@ -292,10 +300,10 @@ class DashBoardSideMenu extends ConsumerWidget {
     );
   }
 
-  Widget _sectionCard(List<Widget> children) {
+  Widget _sectionCard(List<Widget> children, BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        //       color: Colors.white,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -305,7 +313,11 @@ class DashBoardSideMenu extends ConsumerWidget {
             children: [
               children[index],
               if (index != children.length - 1)
-                const Divider(height: 2, indent: 56),
+                Divider(
+                  height: 1,
+                  indent: 56,
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
             ],
           ),
         ),
@@ -314,7 +326,7 @@ class DashBoardSideMenu extends ConsumerWidget {
   }
 
   bool isSuperAdmin(UserModel currentUser, AppUser user) {
-    return currentUser.role == UserRole.SuperAdmin.name &&
+    return currentUser.role == UserRole.SuperAdmin &&
         user.role == UserRole.SuperAdmin.name;
   }
 
@@ -323,10 +335,7 @@ class DashBoardSideMenu extends ConsumerWidget {
           UserRole.Admin.name,
           UserRole.SuperAdmin.name,
         }.contains(user.role) &&
-        {
-          UserRole.Admin.name,
-          UserRole.SuperAdmin.name,
-        }.contains(currentUser.role);
+        {UserRole.Admin, UserRole.SuperAdmin}.contains(currentUser.role);
   }
 
   bool isManager(UserModel currentUser, AppUser user) {
@@ -336,9 +345,9 @@ class DashBoardSideMenu extends ConsumerWidget {
           UserRole.Manager.name,
         }.contains(user.role) &&
         {
-          UserRole.Admin.name,
-          UserRole.SuperAdmin.name,
-          UserRole.Manager.name,
+          UserRole.Admin,
+          UserRole.SuperAdmin,
+          UserRole.Manager,
         }.contains(currentUser.role);
   }
 
@@ -349,24 +358,24 @@ class DashBoardSideMenu extends ConsumerWidget {
           UserRole.Employe.name,
         }.contains(user.role) &&
         {
-          UserRole.Admin.name,
-          UserRole.SuperAdmin.name,
-          UserRole.Employe.name,
+          UserRole.Admin,
+          UserRole.SuperAdmin,
+          UserRole.Employe,
         }.contains(currentUser.role);
   }
 
-    bool isDriver(UserModel currentUser, AppUser user) {
+  bool isDriver(UserModel currentUser, AppUser user) {
     return {
           UserRole.Admin.name,
           UserRole.SuperAdmin.name,
           UserRole.Employe.name,
-           UserRole.Driver.name,
+          UserRole.Driver.name,
         }.contains(user.role) &&
         {
-          UserRole.Admin.name,
-          UserRole.SuperAdmin.name,
-          UserRole.Employe.name,
-           UserRole.Driver.name,
+          UserRole.Admin,
+          UserRole.SuperAdmin,
+          UserRole.Employe,
+          UserRole.Driver,
         }.contains(currentUser.role);
   }
 

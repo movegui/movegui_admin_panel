@@ -1,23 +1,27 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
-import 'package:movegui_admin_panel/models/button_item.dart';
-
+import 'package:movegui_admin_panel/error/message_widget.dart';
+import 'package:movegui_admin_panel/l10n/app_localizations.dart';
+import 'package:movegui_admin_panel/models/button_info.dart';
 
 class ButtonWidget extends StatelessWidget {
   final ButtonInfo buttonItem;
-  final IconData? icon;
-  final Future<void> Function( ButtonInfo item) onPressed;
+  final Widget? icon;
+  final Future<void> Function(ButtonInfo item) onPressed;
+  final TextStyle? textStyle;
 
   const ButtonWidget({
     super.key,
     required this.onPressed,
     required this.buttonItem,
-    required this.icon,
+    this.icon,
+    this.textStyle,
   });
 
   @override
   Widget build(BuildContext context) {
-    final buttonStyle =   Theme.of(context).elevatedButtonTheme.style;
+    final buttonStyle = Theme.of(context).elevatedButtonTheme.style;
     return ElevatedButton.icon(
       style: ButtonStyle(
         padding: WidgetStateProperty.all(const EdgeInsets.all(8.0)),
@@ -26,27 +30,44 @@ class ButtonWidget extends StatelessWidget {
         ),
         backgroundColor: WidgetStateProperty.resolveWith<Color>((states) {
           if (states.contains(WidgetState.hovered)) {
-            return AppColors.selectionColor; // hover color
+            return buttonItem.enabled
+                ? AppColors.selectionColor
+                : AppColors.disabled; // hover color
           }
           if (states.contains(WidgetState.pressed)) {
-            return AppColors.selectionColor;
+            return buttonItem.enabled
+                ? AppColors.selectionColor
+                : AppColors.disabled;
           }
-          return buttonStyle?.backgroundColor?.resolve({}) ?? AppColors.placeHolderText;
+          return buttonItem.enabled
+              ? (buttonStyle?.backgroundColor?.resolve({}) ??
+                    AppColors.disabled)
+              : AppColors.disabled;
         }),
         foregroundColor: WidgetStateProperty.resolveWith<Color>((states) {
           if (states.contains(WidgetState.hovered)) {
-            return AppColors.primary;
+            return buttonItem.enabled ? AppColors.primary : AppColors.disabled;
           }
-          return buttonStyle?.foregroundColor?.resolve({}) ?? AppColors.placeHolderText;
+          return buttonItem.enabled
+              ? (buttonStyle?.backgroundColor?.resolve({}) ??
+                    AppColors.disabled)
+              : AppColors.disabled;
         }),
       ),
-      icon:
-          icon != null
-              ? Icon(icon!,)
-              : const SizedBox(),
-      label: Text(buttonItem.title,),
+      icon: icon ?? const SizedBox(),
+      label: Text(buttonItem.title ?? '', style: textStyle),
       onPressed: () async {
-        await onPressed(buttonItem);
+        if (buttonItem.enabled) {
+          await onPressed(buttonItem);
+        } else {
+          MessageWidget.errorMessage(
+            context,
+            AppLocalizations.of(context)!.deactivate_button_title,
+            AppLocalizations.of(context)!.deactivate_button_message,
+            Icon(Icons.error, color: AppColors.error),
+            FlushbarPosition.TOP,
+          );
+        }
       },
     );
   }

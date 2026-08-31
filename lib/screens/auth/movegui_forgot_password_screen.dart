@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
-import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/responsive.dart';
-import 'package:movegui_admin_panel/widgets/app/admin_panel_appbar.dart';
 import 'package:movegui_admin_panel/widgets/app/app_image.dart';
 import 'package:movegui_admin_panel/widgets/app/separator_widget.dart';
 import 'package:movegui_admin_panel/widgets/auth/login_forget_password_page.dart';
@@ -45,7 +43,7 @@ class _ForgotPasswordScreenState extends State<MoveguiForgotPasswordScreen> {
     @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      appBar: AdminPanelAppBar(title: AppLocalizations.of(context)!.forget_password_title),
+   //   appBar: AdminPanelAppBar(title: AppLocalizations.of(context)!.forget_password_title),
         body: Responsive.isDesktop(context) ? buildDeskop() : buildMobil(),
         resizeToAvoidBottomInset: true,
     );

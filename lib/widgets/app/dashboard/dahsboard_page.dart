@@ -1,13 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/route_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/dashboard_model.dart';
 import 'package:movegui_admin_panel/movegui_colors.dart';
 import 'package:movegui_admin_panel/responsive_grid.dart';
 import 'package:movegui_admin_panel/services/dashboard_service.dart';
-import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/util/menu_tile.dart';
 import 'package:movegui_admin_panel/widgets/app/dashboard/dashboard_header.dart';
 import 'package:movegui_admin_panel/widgets/app/dashboard/kpi_card.dart';
@@ -41,14 +39,18 @@ extension ServiceTypeColor on ServiceType {
   }
 }
 
-class MoveGuiAdminDashboardPage extends StatefulWidget {
-  const MoveGuiAdminDashboardPage({super.key});
+class DahsboardPage extends StatelessWidget {
+  const DahsboardPage({super.key, required this.models, required this.service});
+  final DashboardModel models;
+  final DashboardService service;
+
+  /*
 
   @override
-  State<StatefulWidget> createState() => MoveGuiAdminDashboardPageState();
+  State<StatefulWidget> createState() => DahsboardPageState();
 }
 
-class MoveGuiAdminDashboardPageState extends State<MoveGuiAdminDashboardPage> {
+class DahsboardPageState extends State<DahsboardPage> {
   late final DashboardService service;
   late final Future<DashboardModel> model;
 
@@ -59,6 +61,7 @@ class MoveGuiAdminDashboardPageState extends State<MoveGuiAdminDashboardPage> {
     service = getIt<DashboardService>();
     model = service.loadDashboardItems(FirebaseFirestore.instance);
   }
+  */
 
   void _showCreateMenu(BuildContext context) {
     showModalBottomSheet<void>(
@@ -75,35 +78,35 @@ class MoveGuiAdminDashboardPageState extends State<MoveGuiAdminDashboardPage> {
               children: [
                 MenuTile(
                   title: AppLocalizations.of(context)!.pressing_add_bar_title,
-                  icon: Icons.dry_cleaning,
+                  icon: Icon(Icons.dry_cleaning),
                   enabled: true,
                   routeName: RouteConstants.PRESSING_ROUTE,
                 ),
 
                 MenuTile(
                   title: AppLocalizations.of(context)!.admin_add_bar_title,
-                  icon: Icons.admin_panel_settings,
+                  icon: Icon(Icons.admin_panel_settings),
                   enabled: false,
                   routeName: RouteConstants.ADMIN_ROUTE,
                 ),
 
                 MenuTile(
                   title: AppLocalizations.of(context)!.manager_add_bar_title,
-                  icon: Icons.manage_accounts,
+                  icon: Icon(Icons.manage_accounts),
                   enabled: false,
                   routeName: RouteConstants.MANAGER_ROUTE,
                 ),
 
                 MenuTile(
                   title: AppLocalizations.of(context)!.employe_add_bar_title,
-                  icon: Icons.badge,
+                  icon: Icon(Icons.badge),
                   enabled: false,
                   routeName: RouteConstants.EMPLOYE_ROUTE,
                 ),
 
                 MenuTile(
                   title: AppLocalizations.of(context)!.restaurant_add_bar_title,
-                  icon: Icons.restaurant,
+                  icon: Icon(Icons.restaurant),
                   enabled: false,
                   routeName: RouteConstants.RESTAURANT_ROUTE,
                 ),
@@ -117,6 +120,7 @@ class MoveGuiAdminDashboardPageState extends State<MoveGuiAdminDashboardPage> {
 
   @override
   Widget build(BuildContext context) {
+    /*
     return Scaffold(
       body: FutureBuilder<DashboardModel>(
         future: model,
@@ -130,6 +134,7 @@ class MoveGuiAdminDashboardPageState extends State<MoveGuiAdminDashboardPage> {
           }
 
           final models = snapshot.data ?? DashboardModel.empty();
+          */
 
           return RefreshIndicator(
             onRefresh: () async {
@@ -217,9 +222,9 @@ class MoveGuiAdminDashboardPageState extends State<MoveGuiAdminDashboardPage> {
               ),
             ),
           );
-        },
-      ),
-    );
+  //      },
+  //    ),
+ //   );
   }
 }
 

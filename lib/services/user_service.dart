@@ -11,7 +11,7 @@ import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/person_model.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
-import 'package:movegui_admin_panel/providers/current_user_provider.dart';
+import 'package:movegui_admin_panel/providers/providers.dart';
 import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
 import 'package:movegui_admin_panel/services/model_service.dart';
 import 'package:uuid/uuid.dart';
@@ -139,7 +139,7 @@ class UserService extends ModelService<UserModel> implements IUserService {
 
   @override
   Future<void> signOut(WidgetRef ref) async {
-    ref.read(CurrentUserProvider.currentUserProvider).setCurrentUser(null);
+    ref.read(userProviderState).setUser(null);
     await FirebaseAuth.instance.signOut();
   }
 
@@ -213,19 +213,20 @@ class UserService extends ModelService<UserModel> implements IUserService {
   ) async {
     if (ref != null) {
       final currentUser = ref
-          .watch(CurrentUserProvider.currentUserProvider)
-          .currentUser;
+          .watch(userProviderState)
+          .user;
       if (currentUser != null) return currentUser;
       final user = FirebaseAuth.instance.currentUser;
+    
       if (user != null) {
         final userModel = await getById(user.uid);
         if (userModel.id == user.uid) {
           final idTokenResult = await user.getIdTokenResult(true);
           final role = idTokenResult.claims?['role'];
-          if (role != null && role == userModel.role) {
+          if (role != null && role == userModel.role.name) {
             ref
-                .read(CurrentUserProvider.currentUserProvider)
-                .setCurrentUser(userModel);
+                .read(userProviderState)
+                .setUser(userModel);
             return userModel;
           }
         }
@@ -301,9 +302,9 @@ class UserService extends ModelService<UserModel> implements IUserService {
   @override
   Future<bool> isAuthorize(UserModel? user) async {
     if (user == null) return false;
-    if (user.role == UserRole.SuperAdmin.name ||
-        user.role == UserRole.Admin.name ||
-        user.role == UserRole.Employe.name) {
+    if (user.role == UserRole.SuperAdmin ||
+        user.role == UserRole.Admin ||
+        user.role == UserRole.Employe) {
       return true;
     }
     return false;
@@ -312,8 +313,8 @@ class UserService extends ModelService<UserModel> implements IUserService {
   @override
   Future<bool> isSuperUser(BuildContext context, WidgetRef ref) async {
     final currentUser = ref
-        .read(CurrentUserProvider.currentUserProvider)
-        .currentUser;
+        .read(userProviderState)
+        .user;
     if (currentUser == null) return false;
     if (currentUser.role != UserRole.SuperAdmin.name) return false;
     return true;
@@ -322,8 +323,8 @@ class UserService extends ModelService<UserModel> implements IUserService {
   @override
   Future<bool> isAdmin(BuildContext context, WidgetRef ref) async {
     final currentUser = ref
-        .read(CurrentUserProvider.currentUserProvider)
-        .currentUser;
+        .read(userProviderState)
+        .user;
     if (currentUser == null) return false;
     if (currentUser.role != UserRole.Admin.name) return false;
     return true;
@@ -332,14 +333,14 @@ class UserService extends ModelService<UserModel> implements IUserService {
   @override
   Future<UserModel?> getCurrentUserByMail(String email, WidgetRef ref) async {
     final currentUser = ref
-        .read(CurrentUserProvider.currentUserProvider)
-        .currentUser;
+        .read(userProviderState)
+        .user;
     if (currentUser != null) return currentUser;
-    final notifier = ref.read(CurrentUserProvider.currentUserProvider);
+    final notifier = ref.read(userProviderState);
     final newCurrentUser = await getByEmail(email);
     if (newCurrentUser != null) {
       print('current user in loggin is: ${newCurrentUser.username}');
-      notifier.setCurrentUser(newCurrentUser);
+      notifier.setUser(newCurrentUser);
     }
     return newCurrentUser;
   }

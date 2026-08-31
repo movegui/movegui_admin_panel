@@ -2,11 +2,12 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
+import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/error/message_widget.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 
 class MenuTile extends StatelessWidget {
-  final IconData icon;
+  final Widget icon;
   final String title;
   final VoidCallback? onTap;
   final bool enabled;
@@ -23,6 +24,44 @@ class MenuTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return ListTile(
+      leading: enabled
+          ? IconTheme(
+              data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
+              child: icon,
+            )
+          : IconTheme(
+              data: IconThemeData(color: AppColors.disabled),
+              child: icon,
+            ),
+      hoverColor: AppColors.selectionColor,
+      title: Text(
+        title,
+        style: TextStyle(
+          fontSize: WidgetConstants.sepWidgetHeight * 2,
+          fontWeight: FontWeight.w700,
+          color: enabled
+              ? Theme.of(context).colorScheme.onPrimary
+              : AppColors.disabled,
+        ),
+      ),
+      trailing: enabled
+          ? Icon(Icons.chevron_right, color: Theme.of(context).colorScheme.onPrimary ,)
+          : Icon(Icons.chevron_right, color: AppColors.placeHolderText),
+      onTap: () {
+        enabled
+            ? context.go(routeName)
+            : MessageWidget.errorMessage(
+                context,
+                AppLocalizations.of(context)!.deactivate_button_title,
+                AppLocalizations.of(context)!.deactivate_button_message,
+                Icon(Icons.error, color: AppColors.error),
+                FlushbarPosition.TOP,
+              );
+      },
+    );
+
+    /*
     return ListTile(
       leading: enabled
           ? Icon(icon)
@@ -52,5 +91,6 @@ class MenuTile extends StatelessWidget {
         
       },
     );
+    */
   }
 }

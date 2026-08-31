@@ -29,7 +29,7 @@ class RouteConstants {
   static const SUPER_MARKET_ROUTE = '/superMarkt';
   static const PRESSING_ROUTE = '/pressing';
   static const PRESSING_ADD_ROUTE = '/pressing/add';
- static const PRESSING_ALL_ROUTE = '/pressing/all';
+  static const PRESSING_ALL_ROUTE = '/pressing/all';
   static const PROFESSIONEL_ROUTE = '/professionnel';
   static const PROFESSIONEL_ADD_ROUTE = '/professionnel/add';
   static const PROFESSIONEL_ALL_ROUTE = '/professionnel/all';
@@ -46,10 +46,16 @@ class RouteConstants {
   static const EMPLOYE_ADD_ROUTE = '/employe/add';
   static const EMPLOYE_ALL_ROUTE = '/employe/all';
   static const STORE_DETAIL_ROUTE = '/store/details';
-    static const MANAGER_ROUTE = '/manager';
+  static const MANAGER_ROUTE = '/manager';
   static const MANAGER_ADD_ROUTE = '/manager/add';
   static const MANAGER_ALL_ROUTE = '/manager/all';
-      static const DRIVER_ROUTE = '/driver';
+  static const DRIVER_ROUTE = '/driver';
   static const DRIVER_ADD_ROUTE = '/driver/add';
   static const DRIVER_ALL_ROUTE = '/driver/all';
+  static const SHOPPING_ROUTE = '/shopping';
+  static const SETTINGS_ROUTE = "/settings";
+  static const HELP_ROUTE = "/settings";
+  static const NOTIFICATIONS_ROUTE = '/notifications';
+  static const ORDERS_ROUTE = '/orders';
+  static const DELIVERIES_ROUTE = '/deliveries';
 }
