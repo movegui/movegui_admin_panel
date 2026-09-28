@@ -45,7 +45,6 @@ Future<void> createSuperUser(BuildContext context) async {
         'Firebase user Creation Exception: User is null after creation',
       );
     }
-
     await createUserInDatabase(
       email: email,
       uid: firebaseUser.uid,
@@ -53,17 +52,20 @@ Future<void> createSuperUser(BuildContext context) async {
       userService: userService,
       context: context,
       role: UserRole.SuperAdmin.name,
-      phone: null
+      phone: null,
     );
-  } on FirebaseAuthException {
-
-    /*
-    handleExistingFirebaseSuperAdmin(
+  } on FirebaseAuthException catch (e) {
+    if (e.code != 'email-already-in-use') {
+      debugPrint('Superuser Firebase Auth error (${e.code}): ${e.message}');
+      rethrow;
+    }
+    await handleExistingFirebaseSuperAdmin(
       email: email,
       password: password,
       userService: userService,
+      context: context,
+      role: UserRole.SuperAdmin.name,
     );
-    */
   }
 }
 
@@ -71,14 +73,10 @@ Future<void> handleExistingFirebaseSuperAdmin({
   required String email,
   required String password,
   required UserService userService,
+  required BuildContext context,
+  required String role,
 }) async {
   try {
-    final currentUser = FirebaseAuth.instance.currentUser;
-
-    if (currentUser != null) {
-      return;
-    }
-
     final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
       email: email,
       password: password,
@@ -90,8 +88,19 @@ Future<void> handleExistingFirebaseSuperAdmin({
       throw Exception('Firebase user is null after sign in');
     }
 
-    print('✅ Existing Firebase user added as SuperAdmin in database');
+    await createUserInDatabase(
+      email: email,
+      uid: firebaseUser.uid,
+      firebaseUser: firebaseUser,
+      userService: userService,
+      context: context,
+      role: role,
+      phone: null,
+    );
   } on FirebaseAuthException catch (e) {
+    debugPrint(
+      'Existing Firebase user sign-in failed (${e.code}): ${e.message}',
+    );
     throw Exception(
       e.message ??
           'FirebaseAuthException: Unknown error occurred while creating super admin',
@@ -106,25 +115,25 @@ Future<void> createUserInDatabase({
   required UserService userService,
   required BuildContext context,
   required String role,
-  required String? phone
+  required String? phone,
 }) async {
-  UserModel createdUser ;
-  if(phone != null && phone.isNotEmpty){
+  UserModel createdUser;
+  if (phone != null && phone.isNotEmpty) {
     createdUser = await userService.initializeUserWithEmailAndUIDAndPhone(
-    email,
-    uid,
-    phone
-  );
-  }else{
-    createdUser = await userService.initializeUserWithEmailAndUID(
-    email,
-    uid
-  );
+      email,
+      uid,
+      phone,
+    );
+  } else {
+    createdUser = await userService.initializeUserWithEmailAndUID(email, uid);
   }
   final user = await userService.addModel(createdUser);
   createdUser = user;
   await userService.setUserRole(context, createdUser.id, role);
-  createdUser.role = UserRole.values.firstWhere((e) => e.name == role , orElse: () => UserRole.Guest) ;
+  createdUser.role = UserRole.values.firstWhere(
+    (e) => e.name == role,
+    orElse: () => UserRole.Guest,
+  );
   await userService.update(createdUser);
   await FirebaseAuth.instance.signOut();
 }
@@ -142,7 +151,13 @@ Future<void> createSupportUser(BuildContext context) async {
   final password = config['support.pw'] as String?;
   final phone = config['support.phone'] as String?;
 
-  if (email == null || email.isEmpty || password == null || password.isEmpty || phone == null || phone.isEmpty || !MyValidators.isValidGuineaPhone(phone))  {
+  if (email == null ||
+      email.isEmpty ||
+      password == null ||
+      password.isEmpty ||
+      phone == null ||
+      phone.isEmpty ||
+      !MyValidators.isValidGuineaPhone(phone)) {
     return;
   }
 
@@ -169,13 +184,19 @@ Future<void> createSupportUser(BuildContext context) async {
       userService: userService,
       context: context,
       role: UserRole.Support.name,
-      phone: phone
+      phone: phone,
     );
-  } on FirebaseAuthException {
-    handleExistingFirebaseSuperAdmin(
+  } on FirebaseAuthException catch (e) {
+    if (e.code != 'email-already-in-use') {
+      debugPrint('Support user Firebase Auth error (${e.code}): ${e.message}');
+      rethrow;
+    }
+    await handleExistingFirebaseSuperAdmin(
       email: email,
       password: password,
       userService: userService,
+      context: context,
+      role: UserRole.Support.name,
     );
   }
 }

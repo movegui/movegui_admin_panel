@@ -14,11 +14,12 @@ final authRoles = StreamProvider<AppUser?>((ref) {
   final auth = ref.watch(firebaseAuthProvider);
 
   return auth.authStateChanges().asyncMap((user) async {
+ 
     if (user == null) return null;
 
     final token = await user.getIdTokenResult();
     final role = token.claims?['role'] as String?;
-
+   
     return AppUser(uid: user.uid, role: role);
   });
 });

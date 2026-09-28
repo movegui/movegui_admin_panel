@@ -1,26 +1,5 @@
-import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:movegui_admin_panel/consts/app_colors.dart';
-import 'package:movegui_admin_panel/consts/app_constants.dart';
-import 'package:movegui_admin_panel/consts/professions_list.dart';
-import 'package:movegui_admin_panel/consts/validator.dart';
-import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
-import 'package:movegui_admin_panel/methods/show_alert.dart';
-import 'package:movegui_admin_panel/models/adress_model.dart';
-import 'package:movegui_admin_panel/models/person_model.dart';
-import 'package:movegui_admin_panel/models/professionnel_model.dart';
-import 'package:movegui_admin_panel/services/professionnel_service.dart';
-import 'package:movegui_admin_panel/services/register_services.dart';
-import 'package:movegui_admin_panel/widgets/add_person_widget.dart';
-import 'package:movegui_admin_panel/widgets/custom_button.dart';
-import 'package:movegui_admin_panel/widgets/input/custom_text_field.dart';
-import 'package:uuid/uuid.dart';
 
 class ProfessionnelAddWidgetPage extends StatefulWidget {
   const ProfessionnelAddWidgetPage({super.key});
@@ -31,6 +10,13 @@ class ProfessionnelAddWidgetPage extends StatefulWidget {
 
 class ProfessionnelAddWidgetPageState
     extends State<ProfessionnelAddWidgetPage> {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
+
+      /*
   final List<ProfessionCategory> categories = professionsCategories
       .map((item) => ProfessionCategory.fromJson(item))
       .toList();
@@ -794,4 +780,5 @@ class ProfessionnelAddWidgetPageState
       showBtmAlert(context, imageConstatnt.getImageSelectionErrorText());
     }
   }
+  */
 }

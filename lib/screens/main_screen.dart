@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movegui_admin_panel/exception/app_exception.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/providers/providers.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/user_service.dart';
 import 'package:movegui_admin_panel/widgets/app/app_appbar.dart';
-import 'package:movegui_admin_panel/widgets/app/main/main_page_widget.dart';
-import 'package:movegui_admin_panel/widgets/custom_button.dart';
 import 'package:movegui_admin_panel/widgets/app/dashboard/dash_board_side_menu.dart';
 import 'package:movegui_admin_panel/widgets/web/web_appbar.dart';
 import '../responsive.dart';
@@ -27,7 +26,8 @@ class MainScreenState extends ConsumerState<MainScreen> {
 
   @override
   void initState() {
-    userService = getIt<UserService>();
+    try {
+          userService = getIt<UserService>();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (mounted) {
         if (AppLocalizations.of(context) != null) {
@@ -40,6 +40,10 @@ class MainScreenState extends ConsumerState<MainScreen> {
         }
       }
     });
+    } on NotDataFoundException catch(e){
+      throw NotDataFoundException(message: e.message);
+    }
+
     super.initState();
   }
 
@@ -66,6 +70,8 @@ class MainScreenState extends ConsumerState<MainScreen> {
   }
 }
 
+
+/*
 abstract class MainPage extends StatelessWidget {
   const MainPage({
     super.key,
@@ -100,3 +106,4 @@ abstract class MainPage extends StatelessWidget {
     );
   }
 }
+*/

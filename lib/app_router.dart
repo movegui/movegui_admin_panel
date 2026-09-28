@@ -5,31 +5,22 @@ import 'package:go_router/go_router.dart';
 import 'package:movegui_admin_panel/consts/route_constants.dart';
 import 'package:movegui_admin_panel/inter_screen/all_products.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
-import 'package:movegui_admin_panel/models/button_info.dart';
 import 'package:movegui_admin_panel/providers/auth_provider.dart';
 import 'package:movegui_admin_panel/providers/providers.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/screens/admin_screen.dart';
 import 'package:movegui_admin_panel/screens/auth/movegui_forgot_password_screen.dart';
 import 'package:movegui_admin_panel/screens/auth/movegui_register_screen.dart';
-import 'package:movegui_admin_panel/screens/categories_screen.dart';
 import 'package:movegui_admin_panel/screens/dashboard_screen.dart';
 import 'package:movegui_admin_panel/screens/driver_screen.dart';
 import 'package:movegui_admin_panel/screens/employe_screen.dart';
-import 'package:movegui_admin_panel/screens/ingredients_screen.dart';
 import 'package:movegui_admin_panel/screens/auth/login_screen.dart';
 import 'package:movegui_admin_panel/screens/main_screen.dart';
 import 'package:movegui_admin_panel/screens/manager_screen.dart';
 import 'package:movegui_admin_panel/screens/movegui_profile_screen.dart';
-import 'package:movegui_admin_panel/screens/patisserie_screen.dart';
-import 'package:movegui_admin_panel/screens/pressing_screen.dart';
-import 'package:movegui_admin_panel/screens/professionel_screen.dart';
+import 'package:movegui_admin_panel/screens/pressing/add_pressing_screen.dart';
+import 'package:movegui_admin_panel/screens/pressing/pressing_screen.dart';
 import 'package:movegui_admin_panel/screens/recipes_screen.dart';
-import 'package:movegui_admin_panel/screens/restaurant_screen.dart';
-import 'package:movegui_admin_panel/screens/restaurant_type_screen.dart';
-import 'package:movegui_admin_panel/screens/store_categories_screen.dart';
-import 'package:movegui_admin_panel/screens/super_markt_screen.dart';
-import 'package:movegui_admin_panel/screens/supplier_screen.dart';
 import 'package:movegui_admin_panel/widgets/app/admin/add_admin_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/admin/all_admin_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/app_appbar.dart';
@@ -37,11 +28,9 @@ import 'package:movegui_admin_panel/widgets/app/driver/add_driver_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/driver/all_driver_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/employe/add_employe_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/employe/all_employe_widget.dart';
-import 'package:movegui_admin_panel/widgets/app/main/main_page_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/manager/add_manager_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/manager/all_manager_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/menu/my_menu.dart';
-import 'package:movegui_admin_panel/widgets/app/pressing/add_pressing_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/pressing/all_pressing_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/store/store_detail_widget.dart';
 import 'package:movegui_admin_panel/widgets/web/web_appbar.dart';
@@ -133,12 +122,6 @@ class AppRouter {
                           title: title,
                         ),
                   drawer: Responsive.isMobile(context) ? MyMenu() : null,
-                  /*
-                  appBar: AdminPanelAppBar(title: title),
-                  drawer: Responsive.isMobile(context)
-                      ? DashBoardSideMenu()
-                      : null,
-                      */
                   body: child,
                 );
               },
@@ -152,29 +135,16 @@ class AppRouter {
                   const Center(child: CircularProgressIndicator()),
             ),
 
+/*
             GoRoute(
               path: RouteConstants.CATEGORY_ROUTE,
               builder: (context, state) => CategoriesScreen(
-                pageScreen: CategoriesPage(
-                  addModelWidget: MainPageWidget(
-                    //                widget: CategoryAddWidgetPage(),
-                    buttonItem: ButtonInfo(
-                      title: AppLocalizations.of(context)!.add,
-                      enabled: true,
-                      routeName: RouteConstants.CATEGORY_ADD_ROUTE,
-                    ),
-                  ),
-                  allModelWidget: MainPageWidget(
-                    //               widget: AllCategoriesWidgetPage(),
-                    buttonItem: ButtonInfo(
-                      title: AppLocalizations.of(context)!.add_all,
-                      enabled: true,
-                      routeName: RouteConstants.CATEGORY_ALL_ROUTE,
-                    ),
-                  ),
+                pageScreen: CategoriesDashBordScreen()
                 ),
-              ),
+              
             ),
+            */
+            /*
             GoRoute(
               path: RouteConstants.SUPPLIER_ROUTE,
               builder: (context, state) => SupplierScreen(
@@ -198,6 +168,8 @@ class AppRouter {
                 ),
               ),
             ),
+            */
+            /*
             GoRoute(
               path: RouteConstants.INGREDIENT_ROUTE,
               builder: (context, state) => IngredientsScreen(
@@ -220,6 +192,7 @@ class AppRouter {
                 ),
               ),
             ),
+            */
             GoRoute(
               path: RouteConstants.RECIPE_ROUTER,
               builder: (context, state) => CreateRecettePage(),
@@ -228,6 +201,7 @@ class AppRouter {
               path: RouteConstants.PRODUCT_ROUTE,
               builder: (context, state) => ProductScreen(),
             ),
+            /*
             GoRoute(
               path: RouteConstants.RESTAURANT_ROUTE,
               builder: (context, state) => RestaurantsScreen(
@@ -251,6 +225,8 @@ class AppRouter {
                 ),
               ),
             ),
+            */
+            /*
             GoRoute(
               path: RouteConstants.RESTAURANT_TYPE_ROUTE,
               builder: (context, state) => RestaurantTypeScreen(
@@ -274,6 +250,8 @@ class AppRouter {
                 ),
               ),
             ),
+            */
+            /*
             GoRoute(
               path: RouteConstants.STORE_CATEGORY_ROUTE,
               builder: (context, state) => StoreCategoriesScreen(
@@ -297,6 +275,8 @@ class AppRouter {
                 ),
               ),
             ),
+            */
+            /*
             GoRoute(
               path: RouteConstants.PASTRY_ROUTE,
               builder: (context, state) => PatisserieScreen(
@@ -319,6 +299,8 @@ class AppRouter {
                 ),
               ),
             ),
+            */
+/*
             GoRoute(
               path: RouteConstants.SUPER_MARKET_ROUTE,
               builder: (context, state) => SuperMarktScreen(
@@ -342,18 +324,20 @@ class AppRouter {
                 ),
               ),
             ),
+            */
             GoRoute(
               path: RouteConstants.PRESSING_ROUTE,
               builder: (context, state) => PressingScreen(),
             ),
             GoRoute(
               path: RouteConstants.PRESSING_ADD_ROUTE,
-              builder: (context, state) => AddPressingWidget(),
+              builder: (context, state) => AddPressingScreen(),
             ),
             GoRoute(
               path: RouteConstants.PRESSING_ALL_ROUTE,
               builder: (context, state) => AllPressingWidget(),
             ),
+            /*
             GoRoute(
               path: RouteConstants.PROFESSIONEL_ROUTE,
               builder: (context, state) => ProfessionelScreen(
@@ -377,6 +361,7 @@ class AppRouter {
                 ),
               ),
             ),
+            */
             GoRoute(
               path: RouteConstants.PROFILE_ROUTE,
               builder: (context, state) {
@@ -463,9 +448,9 @@ class AppRouter {
       case RouteConstants.PRESSING_ROUTE:
         return AppLocalizations.of(context)!.pressing_bar_title;
       case RouteConstants.PRESSING_ADD_ROUTE:
-        return AppLocalizations.of(context)!.pressing_add_bar_title;
+        return AppLocalizations.of(context)!.btn_add_pressing;
       case RouteConstants.PRESSING_ALL_ROUTE:
-        return AppLocalizations.of(context)!.pressing_all_bar_title;
+        return AppLocalizations.of(context)!.btn_all;
       case RouteConstants.PRODUCT_ROUTE:
         return AppLocalizations.of(context)!.module_product_name;
       case RouteConstants.PROFESSIONEL_ROUTE:

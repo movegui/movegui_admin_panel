@@ -65,7 +65,7 @@ class StoreCategoriesUploaWidgetdstate
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
                           color: AppColors
-                              .backgroundColor, //Colors.grey.withOpacity(0.3),
+                              .primary, //Colors.grey.withOpacity(0.3),
                         ),
                         child: Form(
                           key: formKey,
@@ -79,8 +79,8 @@ class StoreCategoriesUploaWidgetdstate
                                     fontSize: FontSize,
                                     fontWeight: FontWeight.bold,
                                     decoration: TextDecoration.underline,
-                                    color: AppColors.textColor,
-                                    decorationColor: AppColors.textColor,
+                                    color: AppColors.onPrimary,
+                                    decorationColor: AppColors.onPrimary,
                                   ),
                                 ),
                               ),

@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/consts/validator.dart';
 import 'package:movegui_admin_panel/widgets/input/input_widget.dart';
 
-
 class InputPhoneWidget extends StatelessWidget {
   final TextEditingController phoneController;
   final FocusNode phoneFocusNode;
   final FocusNode? nextFocusNode;
   final double? fontSize;
-  final String? fontFamily;
-
+  final String? labelText;
 
   const InputPhoneWidget({
     super.key,
@@ -17,7 +15,7 @@ class InputPhoneWidget extends StatelessWidget {
     required this.phoneFocusNode,
     this.nextFocusNode,
     this.fontSize,
-    this.fontFamily,
+    this.labelText,
   });
 
   @override
@@ -25,16 +23,18 @@ class InputPhoneWidget extends StatelessWidget {
     return InputWidget(
       controller: phoneController,
       focusNode: phoneFocusNode,
-      icon: Icons.phone,
+      prefixIcon:Icon(Icons.phone),
       nextFocusNode: nextFocusNode,
       textInputType: TextInputType.phone,
-      hinterText: '+224 601 00 00 00',
+      hintText: '+224 601 00 00 00',
       validator: (value) {
         return MyValidators.phoneNumberValidator(value);
       },
-      fontSize: fontSize,
-      fontFamily: fontFamily,
-      
+      fontSize: fontSize ?? 14,
+      labelText: labelText ?? '',
+      onChange: (String value) {},
+  //    isNumber: false,
+      isFullBorder: true,
     );
   }
 }

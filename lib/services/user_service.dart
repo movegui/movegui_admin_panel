@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/error/message_widget.dart';
+import 'package:movegui_admin_panel/exception/app_exception.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/person_model.dart';
@@ -124,7 +125,7 @@ class UserService extends ModelService<UserModel> implements IUserService {
         .get();
 
     if (!snapshot.exists || snapshot.data() == null) {
-      throw Exception("User not found");
+      throw NotDataFoundException(message: 'User Not Found');
     }
     return UserModel.fromJson(snapshot.data()!);
   }
@@ -174,10 +175,10 @@ class UserService extends ModelService<UserModel> implements IUserService {
     return currentUser;
   }
 
-    Future<UserModel> initializeUserWithEmailAndUIDAndPhone(
+  Future<UserModel> initializeUserWithEmailAndUIDAndPhone(
     String email,
     String uuid,
-    String phone
+    String phone,
   ) async {
     late UserModel currentUser;
 
@@ -211,35 +212,36 @@ class UserService extends ModelService<UserModel> implements IUserService {
     BuildContext context,
     WidgetRef? ref,
   ) async {
-    if (ref != null) {
-      final currentUser = ref
-          .watch(userProviderState)
-          .user;
-      if (currentUser != null) return currentUser;
-      final user = FirebaseAuth.instance.currentUser;
-    
-      if (user != null) {
-        final userModel = await getById(user.uid);
-        if (userModel.id == user.uid) {
-          final idTokenResult = await user.getIdTokenResult(true);
-          final role = idTokenResult.claims?['role'];
-          if (role != null && role == userModel.role.name) {
-            ref
-                .read(userProviderState)
-                .setUser(userModel);
-            return userModel;
+    try {
+      if (ref != null) {
+        final currentUser = ref.watch(userProviderState).user;
+        if (currentUser != null) return currentUser;
+        final user = FirebaseAuth.instance.currentUser;
+
+        if (user != null) {
+          final userModel = await getById(user.uid);
+          if (userModel.id == user.uid) {
+            final idTokenResult = await user.getIdTokenResult(true);
+            final role = idTokenResult.claims?['role'];
+            if (role != null && role == userModel.role.name) {
+              ref.read(userProviderState).setUser(userModel);
+              return userModel;
+            }
           }
+        } else {
+          MessageWidget.errorMessage(
+            context,
+            AppLocalizations.of(context)!.error_no_user_connected_title,
+            AppLocalizations.of(context)!.error_no_user_connected_message,
+            Icon(Icons.error, color: AppColors.error),
+            FlushbarPosition.TOP,
+          );
         }
-      } else {
-        MessageWidget.errorMessage(
-          context,
-          AppLocalizations.of(context)!.error_no_user_connected_title,
-          AppLocalizations.of(context)!.error_no_user_connected_message,
-          Icon(Icons.error, color: AppColors.error),
-          FlushbarPosition.TOP,
-        );
       }
+    } on NotDataFoundException catch (e) {
+      throw NotDataFoundException(message: e.message);
     }
+
     return null;
   }
 
@@ -254,25 +256,32 @@ class UserService extends ModelService<UserModel> implements IUserService {
         '${api.env.baseUrl}/movegui-253e0/us-central1/setSuperAdminRole',
       );
 
+      final idToken = await FirebaseAuth.instance.currentUser?.getIdToken();
+
       final response = await http.post(
         url,
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $idToken',
+        },
         body: jsonEncode({'uid': uid, 'role': role}),
       );
       if (response.statusCode != 200) {
-        await FirebaseAuth.instance.currentUser?.delete();
-        throw Exception(
-          MessageWidget.errorMessage(
-            context,
-            AppLocalizations.of(context)?.error_register_title ?? 'Error',
-            AppLocalizations.of(context)?.error_register_with_email_message ?? 'Error registration',
-            Icon(Icons.error, color: AppColors.error),
-            FlushbarPosition.TOP,
-          ),
+        throw AuthenticationException(
+          message:
+              'Failed to set user role (${response.statusCode}): ${response.body}',
         );
       }
-    } on Exception {
+    } on Exception catch (e) {
+      print(e);
       await FirebaseAuth.instance.currentUser?.delete();
+    
+      if (e is AuthenticationException) {
+        rethrow;
+      }
+      throw AuthenticationException(message: e.toString());
+
+      /*
       throw Exception(
         MessageWidget.errorMessage(
           context,
@@ -282,6 +291,7 @@ class UserService extends ModelService<UserModel> implements IUserService {
           FlushbarPosition.TOP,
         ),
       );
+      */
     }
   }
 
@@ -312,9 +322,7 @@ class UserService extends ModelService<UserModel> implements IUserService {
 
   @override
   Future<bool> isSuperUser(BuildContext context, WidgetRef ref) async {
-    final currentUser = ref
-        .read(userProviderState)
-        .user;
+    final currentUser = ref.read(userProviderState).user;
     if (currentUser == null) return false;
     if (currentUser.role != UserRole.SuperAdmin.name) return false;
     return true;
@@ -322,9 +330,7 @@ class UserService extends ModelService<UserModel> implements IUserService {
 
   @override
   Future<bool> isAdmin(BuildContext context, WidgetRef ref) async {
-    final currentUser = ref
-        .read(userProviderState)
-        .user;
+    final currentUser = ref.read(userProviderState).user;
     if (currentUser == null) return false;
     if (currentUser.role != UserRole.Admin.name) return false;
     return true;
@@ -332,9 +338,7 @@ class UserService extends ModelService<UserModel> implements IUserService {
 
   @override
   Future<UserModel?> getCurrentUserByMail(String email, WidgetRef ref) async {
-    final currentUser = ref
-        .read(userProviderState)
-        .user;
+    final currentUser = ref.read(userProviderState).user;
     if (currentUser != null) return currentUser;
     final notifier = ref.read(userProviderState);
     final newCurrentUser = await getByEmail(email);
@@ -372,7 +376,10 @@ class UserService extends ModelService<UserModel> implements IUserService {
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       if (data != null && data.length > 0) {
-        final userRole = UserRole.values.firstWhere((e) => e.name == role, orElse: () => UserRole.Guest,);
+        final userRole = UserRole.values.firstWhere(
+          (e) => e.name == role,
+          orElse: () => UserRole.Guest,
+        );
         return await initializeCreatedUser(
           data['uid'],
           email,
@@ -478,7 +485,10 @@ class UserService extends ModelService<UserModel> implements IUserService {
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       if (data != null && data.length > 0) {
-         final userRole = UserRole.values.firstWhere((e) => e.name == role, orElse: () => UserRole.Guest,);
+        final userRole = UserRole.values.firstWhere(
+          (e) => e.name == role,
+          orElse: () => UserRole.Guest,
+        );
         final model = await initializeCreatedUserWithLink(
           data['uid'],
           email,

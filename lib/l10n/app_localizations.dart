@@ -152,6 +152,18 @@ abstract class AppLocalizations {
   /// **'All Admins'**
   String get admin_all_bar_title;
 
+  /// No description provided for @admin_add_dashboard_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Administrator Informations'**
+  String get admin_add_dashboard_title;
+
+  /// No description provided for @admin_add_dashboard_sub_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Administrators Informations details'**
+  String get admin_add_dashboard_sub_title;
+
   /// No description provided for @employe_bar_title.
   ///
   /// In en, this message translates to:
@@ -181,6 +193,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Inactive'**
   String get employe_status_non_actf;
+
+  /// No description provided for @employe_add_dashboard_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Employe Informations'**
+  String get employe_add_dashboard_title;
+
+  /// No description provided for @employe_add_dashboard_sub_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Employes Informations details'**
+  String get employe_add_dashboard_sub_title;
 
   /// No description provided for @manager_bar_title.
   ///
@@ -212,6 +236,18 @@ abstract class AppLocalizations {
   /// **'Inactive'**
   String get manager_status_non_actf;
 
+  /// No description provided for @manager_add_dashboard_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Manager Informations'**
+  String get manager_add_dashboard_title;
+
+  /// No description provided for @manager_add_dashboard_sub_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Manager Informations details'**
+  String get manager_add_dashboard_sub_title;
+
   /// No description provided for @driver_bar_title.
   ///
   /// In en, this message translates to:
@@ -241,18 +277,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Inactif'**
   String get driver_status_non_actf;
-
-  /// No description provided for @pressing_add_bar_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Add dry Cleaner '**
-  String get pressing_add_bar_title;
-
-  /// No description provided for @pressing_all_bar_title.
-  ///
-  /// In en, this message translates to:
-  /// **'All Dry Cleaners '**
-  String get pressing_all_bar_title;
 
   /// No description provided for @pressing_bar_title.
   ///
@@ -433,6 +457,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Dry Cleaner Details'**
   String get pressig_details_title;
+
+  /// No description provided for @pressing_dashboard_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Dry Cleaner Management'**
+  String get pressing_dashboard_title;
+
+  /// No description provided for @pressing_dashboard_sub_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Global administration of MoveGui dry cleaners'**
+  String get pressing_dashboard_sub_title;
+
+  /// No description provided for @pressing_add_dashboard_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Dry Cleaner Information'**
+  String get pressing_add_dashboard_title;
+
+  /// No description provided for @pressing_add_dashboard_sub_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add the business details, contacts and services.'**
+  String get pressing_add_dashboard_sub_title;
 
   /// No description provided for @restaurant_add_bar_title.
   ///
@@ -716,11 +764,29 @@ abstract class AppLocalizations {
   /// **'Register'**
   String get btn_register_label;
 
+  /// No description provided for @btn_cancel_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Annuler'**
+  String get btn_cancel_label;
+
   /// No description provided for @btn_add_contact.
   ///
   /// In en, this message translates to:
   /// **'Add a Contact'**
   String get btn_add_contact;
+
+  /// No description provided for @btn_add_adress.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Adress'**
+  String get btn_add_adress;
+
+  /// No description provided for @btn_update_adress.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Adress'**
+  String get btn_update_adress;
 
   /// No description provided for @btn_add_pressing_service.
   ///
@@ -733,6 +799,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Create'**
   String get btn_create;
+
+  /// No description provided for @btn_add_pressing.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a Dry Cleaner'**
+  String get btn_add_pressing;
+
+  /// No description provided for @btn_add_admin.
+  ///
+  /// In en, this message translates to:
+  /// **'Add an Administrator'**
+  String get btn_add_admin;
+
+  /// No description provided for @btn_add_owner.
+  ///
+  /// In en, this message translates to:
+  /// **'Add an Owner'**
+  String get btn_add_owner;
+
+  /// No description provided for @btn_add_manager.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a Manager'**
+  String get btn_add_manager;
+
+  /// No description provided for @btn_add_employe.
+  ///
+  /// In en, this message translates to:
+  /// **'Add an Employé(e)'**
+  String get btn_add_employe;
+
+  /// No description provided for @btn_all.
+  ///
+  /// In en, this message translates to:
+  /// **'Show All'**
+  String get btn_all;
+
+  /// No description provided for @btn_delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get btn_delete;
+
+  /// No description provided for @btn_update.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get btn_update;
+
+  /// No description provided for @btn_delete_adress.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete the adress'**
+  String get btn_delete_adress;
+
+  /// No description provided for @btn_delete_contact.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete the contact'**
+  String get btn_delete_contact;
 
   /// No description provided for @verify_otp.
   ///
@@ -805,6 +931,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Latitude'**
   String get input_hint_latitude;
+
+  /// No description provided for @input_hint_phone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get input_hint_phone;
+
+  /// No description provided for @input_hint_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get input_hint_password;
+
+  /// No description provided for @input_hint_confirm_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password'**
+  String get input_hint_confirm_password;
+
+  /// No description provided for @input_hint_pressing_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Dry Cleaner Name'**
+  String get input_hint_pressing_name;
+
+  /// No description provided for @input_hint_description_pressing.
+  ///
+  /// In en, this message translates to:
+  /// **'Description of the Dry Cleaner'**
+  String get input_hint_description_pressing;
 
   /// No description provided for @movegui_info_title.
   ///
@@ -1016,6 +1172,24 @@ abstract class AppLocalizations {
   /// **'Driver'**
   String get module_deliver_name;
 
+  /// No description provided for @module_owner_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Owner'**
+  String get module_owner_name;
+
+  /// No description provided for @module_add_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get module_add_name;
+
+  /// No description provided for @module_services_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Services'**
+  String get module_services_name;
+
   /// No description provided for @tooltip_add.
   ///
   /// In en, this message translates to:
@@ -1165,6 +1339,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Other'**
   String get address_other_title;
+
+  /// No description provided for @address_default_title.
+  ///
+  /// In en, this message translates to:
+  /// **'By default'**
+  String get address_default_title;
 
   /// No description provided for @label_login_forget_password.
   ///
@@ -1591,6 +1771,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Settings'**
   String get settings_title;
+
+  /// No description provided for @standard_address.
+  ///
+  /// In en, this message translates to:
+  /// **'Standard Address'**
+  String get standard_address;
+
+  /// No description provided for @add_new_adress_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add new Address'**
+  String get add_new_adress_title;
+
+  /// No description provided for @max_adress_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum Adresses'**
+  String get max_adress_title;
+
+  /// No description provided for @max_adress_message.
+  ///
+  /// In en, this message translates to:
+  /// **'The maximum number of addresses is 5 per user. Please delete any others.'**
+  String get max_adress_message;
+
+  /// No description provided for @current_position.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Position'**
+  String get current_position;
+
+  /// No description provided for @my_position.
+  ///
+  /// In en, this message translates to:
+  /// **'My Position'**
+  String get my_position;
+
+  /// No description provided for @owner_add_dashboard_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Owners Informations'**
+  String get owner_add_dashboard_title;
+
+  /// No description provided for @owner_add_dashboard_sub_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add the Owners informations details'**
+  String get owner_add_dashboard_sub_title;
 }
 
 class _AppLocalizationsDelegate

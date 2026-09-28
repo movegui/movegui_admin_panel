@@ -52,10 +52,12 @@ class CategoriesUploaWidgetdstate extends State<AddModelWidget> {
     double FontSize = Size.width < 600 ? 18 : 28;
 
     return Scaffold(
+      /*
       appBar: Responsive.isDesktop(context)
           ? AdminPanelAppBarDesktop(title: 'Ajouter une categorie')
           : AdminPanelAppBar(title: 'Ajouter une categorie'),
       drawer: SideMenu(),
+      */
       body: Builder(
         builder: (context) => SafeArea(
           child: Row(
@@ -77,7 +79,7 @@ class CategoriesUploaWidgetdstate extends State<AddModelWidget> {
                         height: Size.height * 0.3,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
-                          color: AppColors.backgroundColor//Colors.grey.withOpacity(0.3),
+                          color: AppColors.primary//Colors.grey.withOpacity(0.3),
                         ),
                         child: Form(
                           key: formKey,
@@ -91,7 +93,7 @@ class CategoriesUploaWidgetdstate extends State<AddModelWidget> {
                                     fontSize: FontSize,
                                     fontWeight: FontWeight.bold,
                                     decoration: TextDecoration.underline,
-                                    color: AppColors.textColor
+                                    color: AppColors.onPrimary
                                   ),
                                 ),
                               ),

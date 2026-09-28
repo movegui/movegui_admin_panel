@@ -115,4 +115,26 @@ class MyAppFunctions {
     );
   }
 
+  static void showMoveguiDialog(
+    BuildContext context,
+    Widget child,
+    Color? color,
+    List<Widget>? actionsWidget,
+  ) {
+    showDialog<void>(
+      context: context,
+      builder: (dialogContext) {
+        final size = MediaQuery.sizeOf(dialogContext);
+        return AlertDialog(
+          backgroundColor: color ?? Theme.of(context).cardColor,
+          content: SizedBox(
+            width: size.width * 0.6,
+            height: double.infinity,
+            child: SingleChildScrollView(child: child),
+          ),
+          actions: actionsWidget,
+        );
+      },
+    );
+  }
 }

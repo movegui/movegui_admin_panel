@@ -90,7 +90,7 @@ class AllSuperMarktWidgetState extends State<AllSuperMarktWidget>{
                               ),
                               */
                               Expanded(
-                                child: Text(superMarkts[index].telephon),
+                                child: Text(superMarkts[index].phone),
                               ),
                             ],
                           ),

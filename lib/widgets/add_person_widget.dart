@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/util/person_form_controller.dart';
-import 'package:movegui_admin_panel/widgets/address_widget.dart';
+import 'package:movegui_admin_panel/widgets/address/address_list_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/separator_widget.dart';
 import 'package:movegui_admin_panel/widgets/input/input_email_widget.dart';
 import 'package:movegui_admin_panel/widgets/picker/birthdate_picker.dart';
 import 'package:movegui_admin_panel/widgets/picker/gender_picker.dart';
@@ -34,167 +36,118 @@ class AddPersonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Responsive.isDesktop(context)
-        ? buildDesktop(context)
-        : buildMobile(context);
-  }
-
-  Widget buildDesktop(BuildContext context) {
+    final isDesktop = Responsive.isDesktop(context);
     return Center(
-      //   key: personKey,
-      child: Row(
+      child: Column(
         children: [
-          Expanded(
-            flex: 5,
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: GenderPicker(
-                        onGenderChanged: (value) {
-                          onGenderChanged(value);
-                        },
-                        gender: personForm.gender,
-                      ),
-                    ),
-                    SizedBox(width: 16), // optional spacing
-                    Expanded(
-                      child: BirthdatePicker(
-                        onBirthDateChanged: (value) {
-                          onBirthDateChanged!(value);
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-
-                InputNameWidget(
-                  nameController: personForm.firstName,
-                  nameFocusNode: personForm.firstNameFocusNode,
-                  hinterText: AppLocalizations.of(
-                    context,
-                  )!.input_hint_first_name,
-                ),
-
-                InputNameWidget(
-                  nameController: personForm.lastName,
-                  nameFocusNode: personForm.lastNameFocusNode,
-                  hinterText: AppLocalizations.of(
-                    context,
-                  )!.input_hint_last_name,
-                ),
-
-                InputEmailWidget(
-                  emailController: personForm.email,
-                  emailFocusNode: personForm.emailFocusNode,
-                ),
-
-                InputPhoneWidget(
-                  phoneController: personForm.phone,
-                  phoneFocusNode: personForm.phoneFocusNode,
-                ),
-
-                AddressWidget(
-                  onAdressTypeChange: onAdressTypeChange,
-                  onCommuneChange: onCommuneChange,
-                  //       addAddressKey: addAddressKey,
-                  addressForm: personForm.addressesForms[0],
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 8),
-          showBild == true
-              ? Flexible(
-                  flex: 2,
-                  child: ImagePickerWidget(
-                    webImage: personForm.webImage,
-                    pickedImage: personForm.pickedImage,
-                    onPickImage: onPickImage,
-                    onRemoveImage: onRemoveImage,
-                  ),
-                )
-              : SizedBox(),
+          _buildStoreWidget(context, isDesktop),
+          SizedBox(height: WidgetConstants.sepWidget),
         ],
       ),
     );
   }
 
-  Widget buildMobile(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    return Center(
-      child: Column(
+  Widget _buildStoreWidget(BuildContext context, bool isDesktop) {
+    return Card(
+      elevation: 3,
+      child: Flex(
+        direction: isDesktop ? Axis.horizontal : Axis.vertical,
         children: [
-          const SizedBox(width: 80),
-          showBild == true
-              ? Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    height: 200,
-                    width: size.width * 0.8,
-                    child: ImagePickerWidget(
-                      webImage: personForm.webImage,
-                      pickedImage: personForm.pickedImage,
-                      onPickImage: onPickImage,
-                      onRemoveImage: onRemoveImage,
-                    ),
-                  ),
-                )
-              : SizedBox(),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: GenderPicker(
-                  onGenderChanged: (value) {
-                    onGenderChanged(value);
-                  },
-                  gender: personForm.gender,
-                ),
-              ),
-              SizedBox(width: 16), // optional spacing
-              Expanded(
-                child: BirthdatePicker(
-                  onBirthDateChanged: (value) {
-                    onBirthDateChanged!(value);
-                  },
-                ),
-              ),
-            ],
-          ),
-
-          InputNameWidget(
-            nameController: personForm.firstName,
-            nameFocusNode: personForm.firstNameFocusNode,
-            hinterText: AppLocalizations.of(context)!.input_hint_first_name,
-          ),
-
-          InputNameWidget(
-            nameController: personForm.lastName,
-            nameFocusNode: personForm.lastNameFocusNode,
-            hinterText: AppLocalizations.of(context)!.input_hint_last_name,
-          ),
-
-          InputEmailWidget(
-            emailController: personForm.email,
-            emailFocusNode: personForm.emailFocusNode,
-          ),
-
-          InputPhoneWidget(
-            phoneController: personForm.phone,
-            phoneFocusNode: personForm.phoneFocusNode,
-          ),
-
-          AddressWidget(
-            onAdressTypeChange: onAdressTypeChange,
-            onCommuneChange: onCommuneChange,
-            addressForm: personForm.addressesForms[0],
-          ),
+          !isDesktop
+              ? _buildImagePicker(context, isDesktop)
+              : SizedBox(width: 8, height: 8),
+          if (isDesktop)
+            Expanded(flex: 4, child: _buildFormFields(context))
+          else
+            _buildFormFields(context),
+          const SizedBox(width: 8, height: 8),
+          isDesktop
+              ? _buildImagePicker(context, isDesktop)
+              : SizedBox(width: 8, height: 8),
         ],
       ),
+    );
+  }
+
+  Widget _buildImagePicker(BuildContext context, bool isDesktop) {
+    final imagePicker = ImagePickerWidget(
+      webImage: personForm.webImage,
+      pickedImage: personForm.pickedImage,
+      onPickImage: onPickImage,
+      onRemoveImage: onRemoveImage,
+    );
+
+    if (isDesktop) {
+      return Flexible(
+        flex: 1,
+        child: Padding(
+          padding: const EdgeInsets.only(
+            right: WidgetConstants.sepWidgetHeight * 2,
+          ),
+          child: imagePicker,
+        ),
+      );
+    }
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SizedBox(
+        height: 200,
+        width: 200, //MediaQuery.sizeOf(context).width * 0.8,
+        child: imagePicker,
+      ),
+    );
+  }
+
+  Widget _buildFormFields(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: GenderPicker(
+                onGenderChanged: (value) {
+                  onGenderChanged(value);
+                },
+                gender: personForm.gender,
+              ),
+            ),
+            SizedBox(width: 16), // optional spacing
+            Expanded(
+              child: BirthdatePicker(
+                onBirthDateChanged: (value) {
+                  onBirthDateChanged!(value);
+                },
+              ),
+            ),
+          ],
+        ),
+
+        InputNameWidget(
+          nameController: personForm.firstName,
+          nameFocusNode: personForm.firstNameFocusNode,
+          hinterText: AppLocalizations.of(context)!.input_hint_first_name,
+        ),
+        SizedBox(height: WidgetConstants.sepWidget * 2),
+        InputNameWidget(
+          nameController: personForm.lastName,
+          nameFocusNode: personForm.lastNameFocusNode,
+          hinterText: AppLocalizations.of(context)!.input_hint_last_name,
+        ),
+        SizedBox(height: WidgetConstants.sepWidget * 2),
+        InputEmailWidget(
+          emailController: personForm.email,
+          emailFocusNode: personForm.emailFocusNode,
+        ),
+        SizedBox(height: WidgetConstants.sepWidget * 2),
+        InputPhoneWidget(
+          phoneController: personForm.phone,
+          phoneFocusNode: personForm.phoneFocusNode,
+        ),
+        AddressListWidget(personForm: personForm),
+        SeparatorWidget(height: WidgetConstants.sepWidget * 2),
+      ],
     );
   }
 }

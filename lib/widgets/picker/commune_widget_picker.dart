@@ -23,14 +23,21 @@ class CommuneWidgetPickerState extends State<CommuneWidgetPicker> {
   @override
   void initState() {
     super.initState();
-    _selectedCommune = widget.commune;
+    _selectedCommune = _toCommuneCode(widget.commune);
+  }
+
+  @override
+  void didUpdateWidget(covariant CommuneWidgetPicker oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.commune != widget.commune) {
+      _selectedCommune = _toCommuneCode(widget.commune);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Card(
-   //   color: AppColors.backgroundColor,
+      //   color: AppColors.backgroundColor,
       margin: const EdgeInsets.all(2),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       elevation: 1,
@@ -42,18 +49,18 @@ class CommuneWidgetPickerState extends State<CommuneWidgetPicker> {
             //  const SizedBox(height: 12),
             // Gender dropdown
             DropdownButtonFormField<String>(
-              decoration:  InputDecoration(
+              decoration: InputDecoration(
                 filled: true,
-             //   fillColor: AppColors.backgroundColor,
+                //   fillColor: AppColors.backgroundColor,
                 labelText: AppLocalizations.of(context)!.commune_title,
-                labelStyle: TextStyle( fontSize: 12),
+                labelStyle: TextStyle(fontSize: 12),
                 border: InputBorder.none,
               ),
-              style: TextStyle( fontSize: 12),
-            //  dropdownColor: AppColors.backgroundColor,
+              style: TextStyle(fontSize: 12),
+              //  dropdownColor: AppColors.backgroundColor,
               //   focusColor: AppColors.selectionColor,
-           //   iconEnabledColor: AppColors.textColor,
-              value: _selectedCommune,
+              //   iconEnabledColor: AppColors.textColor,
+              value: _toCommuneCode(_selectedCommune),
               items: [
                 DropdownMenuItem(value: 'di', child: Text(COMMUNE_DIXINN)),
                 DropdownMenuItem(value: 'gb', child: Text(COMMUNE_GBESSIA)),
@@ -72,7 +79,7 @@ class CommuneWidgetPickerState extends State<CommuneWidgetPicker> {
 
               onChanged: (value) {
                 setState(() => _selectedCommune = value);
-                widget.onCommuneChange.call(getCommuneLabel(value!));
+                widget.onCommuneChange.call(value);
               },
               validator: (value) {
                 return MyValidators.textValidator(value);
@@ -86,22 +93,64 @@ class CommuneWidgetPickerState extends State<CommuneWidgetPicker> {
     );
   }
 
-  String getCommuneLabel(String value){
-    switch(value) {
-                case 'di': return COMMUNE_DIXINN;
-                case 'gb': return COMMUNE_GBESSIA;
-                case 'ka': return COMMUNE_KALOUM;
-                case 'kg': return COMMUNE_KAGBELEN;
-                case 'ks': return COMMUNE_KASSA;
-                case 'la': return COMMUNE_LAMBANYI;
-                case 'ma': return COMMUNE_MATAM;
-                case 'mn': return COMMUNE_MANEAH;
-                case 'mt': return COMMUNE_MATOTO;
-                case 'ra': return COMMUNE_RATOMA;
-                case 'so': return COMMUNE_SONFONIA;
-                case 'sn': return COMMUNE_SANOYAH;
-                case 'to': return COMMUNE_TOMBOLIA;
-                default: return '';
+  String? _toCommuneCode(String? value) {
+    if (value == null) return null;
+
+    const labels = {
+      'di': COMMUNE_DIXINN,
+      'gb': COMMUNE_GBESSIA,
+      'ka': COMMUNE_KALOUM,
+      'kg': COMMUNE_KAGBELEN,
+      'ks': COMMUNE_KASSA,
+      'la': COMMUNE_LAMBANYI,
+      'ma': COMMUNE_MATAM,
+      'mn': COMMUNE_MANEAH,
+      'mt': COMMUNE_MATOTO,
+      'ra': COMMUNE_RATOMA,
+      'so': COMMUNE_SONFONIA,
+      'sn': COMMUNE_SANOYAH,
+      'to': COMMUNE_TOMBOLIA,
+    };
+
+    if (labels.containsKey(value)) return value;
+
+    for (final entry in labels.entries) {
+      if (entry.value == value) return entry.key;
+    }
+
+    return null;
+  }
+
+  String getCommuneLabel(String value) {
+    switch (value) {
+      case 'di':
+        return COMMUNE_DIXINN;
+      case 'gb':
+        return COMMUNE_GBESSIA;
+      case 'ka':
+        return COMMUNE_KALOUM;
+      case 'kg':
+        return COMMUNE_KAGBELEN;
+      case 'ks':
+        return COMMUNE_KASSA;
+      case 'la':
+        return COMMUNE_LAMBANYI;
+      case 'ma':
+        return COMMUNE_MATAM;
+      case 'mn':
+        return COMMUNE_MANEAH;
+      case 'mt':
+        return COMMUNE_MATOTO;
+      case 'ra':
+        return COMMUNE_RATOMA;
+      case 'so':
+        return COMMUNE_SONFONIA;
+      case 'sn':
+        return COMMUNE_SANOYAH;
+      case 'to':
+        return COMMUNE_TOMBOLIA;
+      default:
+        return '';
     }
   }
 }

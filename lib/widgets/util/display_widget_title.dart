@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 class DisplayWidgetTitle extends StatelessWidget {
   const DisplayWidgetTitle({
@@ -16,10 +16,7 @@ class DisplayWidgetTitle extends StatelessWidget {
     return Expanded(
       child: Text(
         text ?? '',
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: fontSize,
-        ),
+        style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: fontSize, fontWeight: FontWeight.bold,),
         textAlign: textAlign,
       ),
     );

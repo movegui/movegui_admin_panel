@@ -19,9 +19,9 @@ class UserFormService extends FormService<UserModel, UserFormController> {
     return UserModel(
       updatedAt: DateTime.now(),
       id: Uuid().v4(),
-      name: 'default',
+      name: '',
       createdAt: DateTime.now(),
-      username: 'default',
+      username: '',
       isVerified: false,
       role: UserRole.Guest,
       personModel: personFormService.getDefaultModel(),
@@ -47,4 +47,5 @@ class UserFormService extends FormService<UserModel, UserFormController> {
   Future<UserModel> generateModel() {
     return seedService.getGeneratedUserModel();
   }
+
 }

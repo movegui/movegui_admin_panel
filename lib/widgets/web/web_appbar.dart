@@ -47,6 +47,8 @@ class WebAppBar extends ConsumerWidget implements PreferredSizeWidget {
                     'assets/icons/movegui.jpg',
                     width: 24,
                     height: 24,
+                   // color: Theme.of(context).colorScheme.onPrimary,
+                    
                   ),
                 ),
                 textStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(color: AppColors.onPrimary),
@@ -104,7 +106,7 @@ class WebAppBar extends ConsumerWidget implements PreferredSizeWidget {
             },
             buttonItem: ButtonInfo(
               title: AppLocalizations.of(context)!.label_registration,
-              enabled: true,
+              enabled: false,
             ),
             icon: Icon(Icons.person),
             textStyle: Theme.of(context).textTheme.headlineSmall,

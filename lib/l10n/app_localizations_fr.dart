@@ -36,6 +36,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get admin_all_bar_title => 'Tous les Admins';
 
   @override
+  String get admin_add_dashboard_title => 'Informations Administrateur';
+
+  @override
+  String get admin_add_dashboard_sub_title =>
+      'Ajouter les détails des Administrateurs';
+
+  @override
   String get employe_bar_title => 'Configuration Employé';
 
   @override
@@ -49,6 +56,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get employe_status_non_actf => 'Inactif';
+
+  @override
+  String get employe_add_dashboard_title => 'Informations Employé';
+
+  @override
+  String get employe_add_dashboard_sub_title =>
+      'Ajouter les détails des Employers';
 
   @override
   String get manager_bar_title => 'Configuration Manager';
@@ -66,6 +80,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get manager_status_non_actf => 'Inactif';
 
   @override
+  String get manager_add_dashboard_title => 'Informations Manager';
+
+  @override
+  String get manager_add_dashboard_sub_title =>
+      'Ajouter les détails des Managers';
+
+  @override
   String get driver_bar_title => 'Configuration Livreur';
 
   @override
@@ -79,12 +100,6 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get driver_status_non_actf => 'Inactif';
-
-  @override
-  String get pressing_add_bar_title => 'Ajouter un Pressing';
-
-  @override
-  String get pressing_all_bar_title => 'Tous les Pressings';
 
   @override
   String get pressing_bar_title => 'Configuration Pressing';
@@ -186,6 +201,20 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get pressig_details_title => 'Details Pressing';
+
+  @override
+  String get pressing_dashboard_title => 'Gestion des Pressings';
+
+  @override
+  String get pressing_dashboard_sub_title =>
+      'Administration globale des pressings MoveGui';
+
+  @override
+  String get pressing_add_dashboard_title => 'Informations Pressing';
+
+  @override
+  String get pressing_add_dashboard_sub_title =>
+      'Ajouter les détails de l\'entreprise, les coordonnées et les services.';
 
   @override
   String get restaurant_add_bar_title => 'Ajouter un Restaurant';
@@ -358,13 +387,52 @@ class AppLocalizationsFr extends AppLocalizations {
   String get btn_register_label => 'Enregistrer';
 
   @override
+  String get btn_cancel_label => 'Annuler';
+
+  @override
   String get btn_add_contact => 'Ajouter un Contact';
+
+  @override
+  String get btn_add_adress => 'Ajouter une Adresse';
+
+  @override
+  String get btn_update_adress => 'Modifier l\'Adresse';
 
   @override
   String get btn_add_pressing_service => 'Ajouter un Service';
 
   @override
   String get btn_create => 'Créer';
+
+  @override
+  String get btn_add_pressing => 'Ajouter un Pressing';
+
+  @override
+  String get btn_add_admin => 'Ajouter un(e) Administrateur';
+
+  @override
+  String get btn_add_owner => 'Ajouter un(e) Propriétaire';
+
+  @override
+  String get btn_add_manager => 'Ajouter un(e) Manager';
+
+  @override
+  String get btn_add_employe => 'Ajouter un(e) Employé(e)';
+
+  @override
+  String get btn_all => 'Tout Afficher';
+
+  @override
+  String get btn_delete => 'Supprimer';
+
+  @override
+  String get btn_update => 'Modifier';
+
+  @override
+  String get btn_delete_adress => 'Supprimer l\'adresse';
+
+  @override
+  String get btn_delete_contact => 'Supprimer le contact';
 
   @override
   String get verify_otp => 'Envoyer Code';
@@ -401,6 +469,21 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get input_hint_latitude => 'Latitude';
+
+  @override
+  String get input_hint_phone => 'Téléphone';
+
+  @override
+  String get input_hint_password => 'Mot de passe';
+
+  @override
+  String get input_hint_confirm_password => 'Confirmer le mot de passe';
+
+  @override
+  String get input_hint_pressing_name => 'Nom du Pressing';
+
+  @override
+  String get input_hint_description_pressing => 'Description du Pressing';
 
   @override
   String get movegui_info_title =>
@@ -512,6 +595,15 @@ class AppLocalizationsFr extends AppLocalizations {
   String get module_deliver_name => 'Livreur';
 
   @override
+  String get module_owner_name => 'Propriétaire';
+
+  @override
+  String get module_add_name => 'Ajouter';
+
+  @override
+  String get module_services_name => 'Services';
+
+  @override
   String get tooltip_add => 'Cliquez ici pour Ajouter';
 
   @override
@@ -585,6 +677,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get address_other_title => 'Autre';
+
+  @override
+  String get address_default_title => 'Par défaut';
 
   @override
   String get label_login_forget_password => 'Mot de pass oublier?';
@@ -802,4 +897,30 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get settings_title => 'Paramètres';
+
+  @override
+  String get standard_address => 'Adresse Standard';
+
+  @override
+  String get add_new_adress_title => 'Ajouter une nouvelle Adresse';
+
+  @override
+  String get max_adress_title => 'Maximum Adresse';
+
+  @override
+  String get max_adress_message =>
+      'Le nombre Maximal d\'adresse est de 5 par Utilisateur, Veuillez supprimer d\'autres';
+
+  @override
+  String get current_position => 'Actuelle Position';
+
+  @override
+  String get my_position => 'Ma Position';
+
+  @override
+  String get owner_add_dashboard_title => 'Informations Propriétaire';
+
+  @override
+  String get owner_add_dashboard_sub_title =>
+      'Ajouter les détails des propriétaires.';
 }

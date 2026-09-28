@@ -135,7 +135,7 @@ class PressingServiceWidgetState extends State<PressingServiceWidget> {
                           )!.pressing_service_hinterText,
                           validator: (vaule) {
                             return MyValidators.textNameValidator(vaule);
-                          },
+                          }, onChange: (String value) {  }, isNumber: false,
                         ),
                       ),
                     ],
@@ -160,7 +160,9 @@ class PressingServiceWidgetState extends State<PressingServiceWidget> {
                           validator: (vaule) {
                             return MyValidators.numberValidator(vaule);
                           },
-                        ),
+                          onChange: (String value) {  },
+                          isNumber: false,
+                        ),  
                       ),
                       Expanded(
                         flex: 1,
@@ -179,7 +181,9 @@ class PressingServiceWidgetState extends State<PressingServiceWidget> {
                           validator: (vaule) {
                             return MyValidators.numberValidator(vaule);
                           },
-                        ),
+                          onChange: (String value) {  },
+                          isNumber: false,
+                        ),  
                       ),
                     ],
                   ),

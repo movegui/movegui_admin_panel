@@ -81,7 +81,7 @@ class SeedService {
         name: faker.address.streetAddress(),
         createdAt: DateTime.now(),
         district: faker.address.city(),
-        minucipality: faker.address.city(),
+        minucipality: 'di',
         geoCordinates: GeoCordinatesModel(
           longitude: faker.geo.longitude(),
           latitude: faker.geo.latitude(),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movegui_admin_panel/providers/auth_provider.dart';
-import 'package:movegui_admin_panel/providers/current_user_provider.dart';
+import 'package:movegui_admin_panel/providers/providers.dart';
 import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
 
 class PermissionService {
@@ -15,8 +15,8 @@ class PermissionService {
       data: (user) {
         if (user == null) return false;
         final currentUser = ref
-            .watch(CurrentUserProvider.currentUserProvider)
-            .currentUser;
+            .watch(userProviderState)
+            .user;
         if (currentUser == null) return false;
         if (user.uid != currentUser.id) return false;
         if (user.role != currentUser.role) return false;
@@ -39,8 +39,8 @@ class PermissionService {
       data: (user) {
         print('user is ${user!.role}');
         final currentUser = ref
-            .read(CurrentUserProvider.currentUserProvider)
-            .currentUser;
+            .read(userProviderState)
+            .user;
         print('current is ${currentUser!.role}');
         if (user.uid != currentUser.id) return false;
         if (user.role != currentUser.role) return false;
@@ -61,8 +61,8 @@ class PermissionService {
       data: (user) {
         if (user == null) return false;
         final currentUser = ref
-            .read(CurrentUserProvider.currentUserProvider)
-            .currentUser;
+            .read(userProviderState)
+            .user;
         if (currentUser == null) return false;
         if (user.uid != currentUser.id) return false;
         if (user.role != currentUser.role) return false;
@@ -86,7 +86,7 @@ bool isAuthorize() {
       if (user == null) return false;
 
       final currentUser =
-          ref.read(CurrentUserProvider.currentUserProvider).currentUser;
+          ref.read(userProviderState).user;
 
       if (currentUser == null) return false;
       if (user.uid != currentUser.id) return false;

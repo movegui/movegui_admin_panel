@@ -8,11 +8,9 @@ import 'package:movegui_admin_panel/consts/route_constants.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/button_info.dart';
-import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/services/my_app_functions.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/user_service.dart';
-import 'package:movegui_admin_panel/widgets/app/auth/auth_link_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/auth/validation_button.dart';
 import 'package:movegui_admin_panel/widgets/app/separator_widget.dart';
 import 'package:movegui_admin_panel/widgets/input/input_email_widget.dart';
@@ -95,9 +93,10 @@ class LoginEmailPageState extends ConsumerState<LoginEmailPage> {
             textColor: Colors.white,
             fontSize: 16.0,
           );
-      
+
           await userService.getCurrentUserByMail(
-            _emailController.text.trim(), ref
+            _emailController.text.trim(),
+            ref,
           );
           if (!mounted) return;
           context.go(item.routeName!);
@@ -135,15 +134,16 @@ class LoginEmailPageState extends ConsumerState<LoginEmailPage> {
           Form(
             key: _formkey,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 InputEmailWidget(
                   nextFocusNode: _passwordFocusNode,
                   emailController: _emailController,
                   emailFocusNode: _emailFocusNode,
-                 
+                  contentPadding: const EdgeInsets.fromLTRB(12, 20, 12, 24),
+                  fontweight: FontWeight.bold,
                 ),
-                //  SeparatorWidget(height: WidgetConstants.sepWidgetHeight * 2),
+                SeparatorWidget(height: WidgetConstants.sepWidgetHeight * 2),
                 PasswordWidget(
                   passwordController: _passwordController,
                   passwordFocusNode: _passwordFocusNode,
@@ -153,8 +153,10 @@ class LoginEmailPageState extends ConsumerState<LoginEmailPage> {
                       obscureText = !obscureText;
                     });
                   },
-                
+                  contentPadding: const EdgeInsets.fromLTRB(12, 20, 12, 24),
                 ),
+                SeparatorWidget(height: WidgetConstants.sepWidgetHeight * 2),
+                /*
                 Responsive.isDesktop(context)
                     ? SeparatorWidget(height: 20)
                     : SizedBox(),
@@ -162,7 +164,7 @@ class LoginEmailPageState extends ConsumerState<LoginEmailPage> {
                 Responsive.isDesktop(context)
                     ? SeparatorWidget(height: 20)
                     : SizedBox(),
-
+*/
                 Padding(
                   padding: const EdgeInsets.only(
                     left: WidgetConstants.sepWidgetHeight,
@@ -171,11 +173,10 @@ class LoginEmailPageState extends ConsumerState<LoginEmailPage> {
                   child: ValidationButton(
                     fn: _loginFct,
                     buttonItem: ButtonInfo(
-                      title: AppLocalizations.of(context)!.label_login,                  
-                       enabled: true,
+                      title: AppLocalizations.of(context)!.label_login,
+                      enabled: true,
                       routeName: RouteConstants.HOME_ROUTE,
-                     
-                    ),
+                    ),                
                   ),
                 ),
               ],

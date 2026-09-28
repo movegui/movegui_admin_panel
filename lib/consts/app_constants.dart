@@ -8,6 +8,7 @@ import '../services/assets_manager.dart';
 class AppConstants {
   static const name = "MoveGui";
   static const Adresse = "Ratoma";
+  static const MAX_ADRESSES = 5;
 
   static const String imageUrl = 'https://i.ibb.co/JM0KMG0/riz-gras.jpg';
   //  'https://i.ibb.co/8r1Ny2n/20-Nike-Air-Force-1-07.png';
@@ -493,7 +494,7 @@ class PressingConstants extends StoreConstants {
 
   @override
   String getDescripLabelText(BuildContext context) {
-    return AppLocalizations.of(context)!.description_title;
+    return AppLocalizations.of(context)!.input_hint_description_pressing;
   }
 
   @override
@@ -517,7 +518,7 @@ class PressingConstants extends StoreConstants {
 
   @override
   String getNameLabelText(BuildContext context) {
-    return AppLocalizations.of(context)!.module_pressing_name;
+    return AppLocalizations.of(context)!.input_hint_pressing_name;
   }
 
   @override

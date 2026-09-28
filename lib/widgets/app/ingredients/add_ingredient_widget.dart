@@ -126,7 +126,7 @@ class IngredientsUploaWidgetdstate extends State<IngredientsAddWidgetPage> {
                                                         'Categories options',
                                                         style: TextStyle(
                                                           color: AppColors
-                                                              .textColor,
+                                                              .onPrimary,
                                                           fontSize: 20,
                                                         ),
                                                       ),

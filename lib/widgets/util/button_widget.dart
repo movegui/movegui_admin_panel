@@ -16,14 +16,16 @@ class ButtonWidget extends StatelessWidget {
     required this.onPressed,
     required this.buttonItem,
     this.icon,
-    this.textStyle,
+    this.textStyle 
   });
 
   @override
   Widget build(BuildContext context) {
     final buttonStyle = Theme.of(context).elevatedButtonTheme.style;
     return ElevatedButton.icon(
-      style: ButtonStyle(
+      style:
+      
+       ButtonStyle(
         padding: WidgetStateProperty.all(const EdgeInsets.all(8.0)),
         shape: WidgetStateProperty.all(
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
@@ -55,7 +57,7 @@ class ButtonWidget extends StatelessWidget {
         }),
       ),
       icon: icon ?? const SizedBox(),
-      label: Text(buttonItem.title ?? '', style: textStyle),
+      label: Text(buttonItem.title , style: Theme.of(context).textTheme.titleMedium ?? textStyle),
       onPressed: () async {
         if (buttonItem.enabled) {
           await onPressed(buttonItem);

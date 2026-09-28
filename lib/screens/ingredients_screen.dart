@@ -6,10 +6,6 @@ class IngredientsScreen extends MainScreen{
   const IngredientsScreen({super.key, required super.pageScreen,});
 }
 
-class IngredientsPage extends MainPage {
-  const IngredientsPage({super.key, required super.addModelWidget, required super.allModelWidget,});
-  
-}
 
 
 

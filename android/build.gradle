@@ -1,8 +1,7 @@
 
 buildscript {
     ext {
-        // Version de Gradle Android Plugin
-        kotlin_version = '1.7.10'
+        kotlin_version = '1.8.10'
     }
     repositories {
         google()
@@ -27,9 +26,6 @@ rootProject.layout.buildDirectory.set(newBuildDir)
 subprojects {
     def newSubprojectBuildDir = newBuildDir.dir(project.name)
     project.layout.buildDirectory.set(newSubprojectBuildDir)
-}
-
-subprojects {
     project.evaluationDependsOn(":app")
 }
 

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/user_service.dart';
-import 'package:movegui_admin_panel/widgets/app/users/user_display_screen.dart';
+import 'package:movegui_admin_panel/widgets/app/users/user_display_widget.dart';
 
 class AllEmployeWidget extends StatefulWidget {
   const AllEmployeWidget({super.key});
@@ -33,7 +34,14 @@ class AllEmployeWidgetState extends State<AllEmployeWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: UserDisplayScreen(users: users)
+      body: UserDisplayWidget(
+        users: users,
+        title: AppLocalizations.of(context)!.employe_add_dashboard_title,
+        subTitle: AppLocalizations.of(context)!.employe_add_dashboard_sub_title,
+        onRegister: (List<UserModel>? addUsers) {
+          users.addAll(addUsers ?? []);
+        },
+      ),
     );
   }
 }

@@ -63,7 +63,7 @@ abstract class FormService<M extends Model, F extends FormController<M>>
   }
 
   @override
-  Future<List<F>> getFormControllers(List<M>? models) async {
+  Future<List<F>> getFormControllers(List<M?>? models) async {
     List<F> forms = [];
     int size = models?.length ?? 0;
     if (size > 0) {

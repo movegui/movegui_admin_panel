@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
 
 class AppTheme {
+  static bool isLightTheme = true;
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
 
@@ -18,6 +19,7 @@ class AppTheme {
     cardTheme: _cardTheme(),
     inputDecorationTheme: _textFieldTheme(),
     elevatedButtonTheme: _elevatedButtonTheme(),
+    scrollbarTheme: _scrollbarTheme(),
     textTheme: _textTheme(),
     iconButtonTheme: _iconButtonTheme(),
     iconTheme: const IconThemeData(color: AppColors.primary),
@@ -39,6 +41,7 @@ class AppTheme {
     cardTheme: _cardTheme(),
     inputDecorationTheme: _textFieldTheme(),
     elevatedButtonTheme: _elevatedButtonTheme(),
+    scrollbarTheme: _scrollbarTheme(),
     textTheme: _textTheme(),
     iconButtonTheme: _iconButtonTheme(),
   );
@@ -143,6 +146,13 @@ class AppTheme {
     );
   }
 
+  static ScrollbarThemeData _scrollbarTheme() {
+    return ScrollbarThemeData(
+      thumbColor: WidgetStateProperty.all(AppColors.primary),
+      trackColor: WidgetStateProperty.all(AppColors.primary),
+    );
+  }
+
   static TextTheme _textTheme() {
     return TextTheme(
       // Titres des pages
@@ -151,19 +161,20 @@ class AppTheme {
       headlineMedium: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
 
       // Titres de cards
-      titleLarge: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+      titleLarge: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: AppColors.onPrimary),
 
-      titleMedium: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+      titleMedium: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: AppColors.onPrimary),
+
+      titleSmall: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.onPrimary),
 
       // Texte normal
-      bodyLarge: TextStyle(fontSize: 16),
+      bodyLarge: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
 
-      bodyMedium: TextStyle(fontSize: 14),
+      bodyMedium: TextStyle(fontSize: 14,),
 
-      bodySmall: TextStyle(fontSize: 12),
-
+      bodySmall: TextStyle(fontSize: 12,),
       // Boutons
-      labelLarge: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+    
     );
   }
 }

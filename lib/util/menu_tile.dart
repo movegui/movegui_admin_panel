@@ -12,6 +12,7 @@ class MenuTile extends StatelessWidget {
   final VoidCallback? onTap;
   final bool enabled;
   final String routeName;
+  final Color? color;
 
   const MenuTile({
     super.key,
@@ -20,6 +21,7 @@ class MenuTile extends StatelessWidget {
     this.onTap,
     required this.enabled,
     required this.routeName,
+    this.color
   });
 
   @override
@@ -27,7 +29,7 @@ class MenuTile extends StatelessWidget {
     return ListTile(
       leading: enabled
           ? IconTheme(
-              data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
+              data: IconThemeData(color: color ??Theme.of(context).colorScheme.primary),
               child: icon,
             )
           : IconTheme(
@@ -41,24 +43,22 @@ class MenuTile extends StatelessWidget {
           fontSize: WidgetConstants.sepWidgetHeight * 2,
           fontWeight: FontWeight.w700,
           color: enabled
-              ? Theme.of(context).colorScheme.onPrimary
+              ? color ?? Theme.of(context).colorScheme.primary
               : AppColors.disabled,
         ),
       ),
       trailing: enabled
-          ? Icon(Icons.chevron_right, color: Theme.of(context).colorScheme.onPrimary ,)
+          ? Icon(Icons.chevron_right, color: color ?? Theme.of(context).colorScheme.primary)
           : Icon(Icons.chevron_right, color: AppColors.placeHolderText),
-      onTap: () {
-        enabled
-            ? context.go(routeName)
-            : MessageWidget.errorMessage(
+      onTap: enabled
+          ? (onTap ?? () => context.go(routeName))
+          : () => MessageWidget.errorMessage(
                 context,
                 AppLocalizations.of(context)!.deactivate_button_title,
                 AppLocalizations.of(context)!.deactivate_button_message,
                 Icon(Icons.error, color: AppColors.error),
                 FlushbarPosition.TOP,
-              );
-      },
+              ),
     );
 
     /*

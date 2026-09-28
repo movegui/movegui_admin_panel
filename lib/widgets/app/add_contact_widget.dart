@@ -7,19 +7,27 @@ import 'package:movegui_admin_panel/consts/app_constants.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
-import 'package:movegui_admin_panel/models/button_info.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
-import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/seed_service.dart';
 import 'package:movegui_admin_panel/util/user_form_controller.dart';
 import 'package:movegui_admin_panel/widgets/add_person_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/dashboard/dashboard_header.dart';
 import 'package:movegui_admin_panel/widgets/app/separator_widget.dart';
-import 'package:movegui_admin_panel/widgets/util/button_widget.dart';
 
 class AddContactWidget extends StatefulWidget {
-  const AddContactWidget({super.key, required this.formControllers});
   final List<UserFormController> formControllers;
+  final String title;
+  final String subTitle;
+  final String? buttonTitle;
+
+  const AddContactWidget({
+    super.key,
+    required this.formControllers,
+    required this.title,
+    required this.subTitle,
+    this.buttonTitle,
+  });
 
   @override
   AddContactWidgetState createState() => AddContactWidgetState();
@@ -28,6 +36,7 @@ class AddContactWidget extends StatefulWidget {
 class AddContactWidgetState extends State<AddContactWidget> {
   late ImageConstatnt imageConstatnt;
   late SeedService seedService;
+  final GlobalKey _newPersonKey = GlobalKey();
 
   @override
   void initState() {
@@ -35,9 +44,6 @@ class AddContactWidgetState extends State<AddContactWidget> {
     imageConstatnt = ImageConstatnt();
     seedService = getIt<SeedService>();
   }
-
-  final GlobalKey<FormState> personKey = GlobalKey();
-  final GlobalKey<FormState> addressKey = GlobalKey();
 
   @override
   void dispose() {
@@ -64,120 +70,114 @@ class AddContactWidgetState extends State<AddContactWidget> {
 
     setState(() {
       widget.formControllers.add(UserFormController());
-
       if (personTestData != null) {
         widget.formControllers.last.setData(personTestData);
       }
     });
-  }
 
-  void _removePerson(int index) {
-    if (widget.formControllers.length == 1) return;
-    remove(index);
-  }
-
-  void remove(int index) {
-    setState(() {
-      widget.formControllers.removeAt(index);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final newPersonContext = _newPersonKey.currentContext;
+      if (newPersonContext != null) {
+        Scrollable.ensureVisible(
+          newPersonContext,
+          alignment: 1,
+          duration: const Duration(milliseconds: 350),
+          curve: Curves.easeOut,
+        );
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    return ListView.separated(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: widget.formControllers.length,
-      itemBuilder: (context, index) {
-        return Center(
-          child: Container(
-            width: Responsive.isDesktop(context)
-                ? size.width * 0.5
-                : double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-             
-            ),
-            child: Column(
-              children: [
-                AddPersonWidget(
-                  onGenderChanged: (value) {
-                    setState(
-                      () => widget.formControllers[index].personForm.gender = value!,
-                    );
-                  },
-                  onBirthDateChanged: (value) {
-                    setState(
-                      () => widget.formControllers[index].personForm.birthdate = value!,
-                    );
-                  },
-                  onPickImage: () {
-                    pickAnImage(index);
-                  },
-                  onRemoveImage: () {
-                    setState(() {
-                      widget.formControllers[index].personForm.pickedImage = null;
-                      widget.formControllers[index].personForm.webImage = null;
-                    });
-                  },
-                  onAdressTypeChange: (String? selectedValue) {
-                    setState(() {
-                      widget
-                              .formControllers[index]
-                              .personForm.addressesForms[0]
-                              .selectedType =
-                          selectedValue!;
-                    });
-                  },
-
-                  onCommuneChange: (String? value) {
-                    setState(() {
-                      widget
-                              .formControllers[index]
-                              .personForm.addressesForms[0]
-                              .selectedMunicipality =
-                          value!;
-                    });
-                  },
-
-                  personForm: widget.formControllers[index].personForm,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Card(
+      color: Colors.blue,
+      child: Column(
+        children: [
+          DashboardHeader(
+            title: widget.title,
+            subtitle: widget.subTitle,
+            onPressed: (item) async {
+              await _addPerson();
+            },
+            buttonText:
+                widget.buttonTitle ?? AppLocalizations.of(context)!.btn_create,
+          ),
+          SizedBox(height: WidgetConstants.sepWidget),
+          ListView.separated(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: widget.formControllers.length,
+            itemBuilder: (context, index) {
+              return Center(
+                key: index == widget.formControllers.length - 1
+                    ? _newPersonKey
+                    : null,
+                child: Column(
                   children: [
-                    Expanded(
-                      child: ButtonWidget(
-                        onPressed: (item) async {
-                          _addPerson();
-                        },
-                        buttonItem: ButtonInfo(
-                          title: AppLocalizations.of(context)!.btn_add_contact,
-                          enabled: true,
-                          routeName: '',
-                        ),
-                        icon: Icon(Icons.add),
-                      
-                      ),
+                    AddPersonWidget(
+                      onGenderChanged: (value) {
+                        setState(
+                          () =>
+                              widget.formControllers[index].personForm.gender =
+                                  value!,
+                        );
+                      },
+                      onBirthDateChanged: (value) {
+                        setState(
+                          () =>
+                              widget
+                                      .formControllers[index]
+                                      .personForm
+                                      .birthdate =
+                                  value!,
+                        );
+                      },
+                      onPickImage: () {
+                        pickAnImage(index);
+                      },
+                      onRemoveImage: () {
+                        setState(() {
+                          widget.formControllers[index].personForm.pickedImage =
+                              null;
+                          widget.formControllers[index].personForm.webImage =
+                              null;
+                        });
+                      },
+                      onAdressTypeChange: (String? selectedValue) {
+                        setState(() {
+                          widget
+                                  .formControllers[index]
+                                  .personForm
+                                  .addressesForms[0]
+                                  .selectedType =
+                              selectedValue!;
+                        });
+                      },
+                      onCommuneChange: (String? value) {
+                        setState(() {
+                          widget
+                                  .formControllers[index]
+                                  .personForm
+                                  .addressesForms[0]
+                                  .selectedMunicipality =
+                              value!;
+                        });
+                      },
+                      personForm: widget.formControllers[index].personForm,
                     ),
-
-                    Expanded(
-                      child: IconButton(
-                        onPressed: () => _removePerson(index),
-                        icon: const Icon(Icons.delete, color: Colors.red),
-                      ),
-                    ),
+                    SeparatorWidget(height: WidgetConstants.sepWidget),
                   ],
                 ),
-                SeparatorWidget(height: WidgetConstants.sepWidget),
-              ],
-            ),
+                //     ),
+              );
+            },
+            separatorBuilder: (context, index) {
+              return const SizedBox(height: WidgetConstants.sepWidget);
+            },
           ),
-        );
-      },
-      separatorBuilder: (context, index) {
-        return const SizedBox(height: WidgetConstants.sepWidget);
-      },
+        ],
+      ),
     );
   }
 

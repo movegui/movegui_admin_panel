@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
-import 'package:movegui_admin_panel/consts/app_constants.dart';
 import 'package:movegui_admin_panel/consts/route_constants.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
@@ -24,18 +23,45 @@ class DashBoardSideMenu extends ConsumerWidget {
     context.go(routeName);
   }
 
+  Future<UserModel?> loadCurrentUser(
+  BuildContext context,
+  WidgetRef ref,
+) {
+  final currentUser = ref.watch(userProviderState).user;
+  if (currentUser != null) {
+    return Future.value(currentUser);
+  }
+  return userService.getCurrentUser(context, ref);
+}
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authRoles);
     final theme = ref.read(DarkThemeProvider.themeProvider).getDarkTheme;
     final themeState = ref.read(
       DarkThemeProvider.themeProvider,
-    ); //Provider.of<DarkThemeProvider>(context);
+    ); 
     final Color drawerColor = themeState.getDarkTheme
         ? const Color(0xFF1a1f3c)
         : AppColors.primary;
 
-    return authState.when(
+    return FutureBuilder<UserModel?>(
+      future: loadCurrentUser(context, ref),
+      builder: (context, userSnapshot) {
+        if (userSnapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (userSnapshot.hasError) {
+          return Text(
+            userSnapshot.error.toString(),
+            style: TextStyle(color: AppColors.error),
+          );
+        }
+
+        final currentUser = userSnapshot.data;
+
+        return authState.when(
       data: (user) {
         if (user == null) {
           return Text(
@@ -43,8 +69,6 @@ class DashBoardSideMenu extends ConsumerWidget {
             style: TextStyle(color: AppColors.error),
           );
         }
-
-        final currentUser = ref.watch(userProviderState).user;
 
         if (currentUser == null ||
             user.uid != currentUser.id ||
@@ -93,6 +117,7 @@ class DashBoardSideMenu extends ConsumerWidget {
                         icon: Icon(Icons.home_filled),
                         enabled: true,
                         routeName: RouteConstants.HOME_ROUTE,
+                        color: Theme.of(context).colorScheme.onPrimary,
                       ),
 
                       MenuTile(
@@ -102,6 +127,7 @@ class DashBoardSideMenu extends ConsumerWidget {
                         icon: Icon(Icons.touch_app),
                         enabled: true,
                         routeName: RouteConstants.PRESSING_ROUTE,
+                        color: Theme.of(context).colorScheme.onPrimary,
                         onTap: () => {
                           context.go(RouteConstants.PRESSING_ROUTE),
                         },
@@ -213,6 +239,7 @@ class DashBoardSideMenu extends ConsumerWidget {
                               );
                           onPress(context, ref, RouteConstants.ADMIN_ROUTE);
                         },
+                        color: Theme.of(context).colorScheme.onPrimary,
                       ),
                       const Divider(height: 1, indent: 56),
                     ], context)
@@ -237,6 +264,7 @@ class DashBoardSideMenu extends ConsumerWidget {
                               );
                           onPress(context, ref, RouteConstants.EMPLOYE_ROUTE);
                         },
+                        color: Theme.of(context).colorScheme.onPrimary,
                       ),
                       const Divider(height: 1, indent: 56),
                     ], context)
@@ -261,6 +289,7 @@ class DashBoardSideMenu extends ConsumerWidget {
                               );
                           onPress(context, ref, RouteConstants.MANAGER_ROUTE);
                         },
+                        color: Theme.of(context).colorScheme.onPrimary,
                       ),
                       const Divider(height: 1, indent: 56),
                     ], context)
@@ -285,6 +314,7 @@ class DashBoardSideMenu extends ConsumerWidget {
                               );
                           onPress(context, ref, RouteConstants.DRIVER_ROUTE);
                         },
+                        color: Theme.of(context).colorScheme.onPrimary,
                       ),
                       const Divider(height: 1, indent: 56),
                     ], context)
@@ -297,6 +327,8 @@ class DashBoardSideMenu extends ConsumerWidget {
       },
       loading: () => const CircularProgressIndicator(),
       error: (e, _) => Text(e.toString()),
+        );
+      },
     );
   }
 

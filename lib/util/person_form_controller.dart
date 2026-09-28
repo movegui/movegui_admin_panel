@@ -22,11 +22,22 @@ class PersonFormController extends FormController<PersonModel> {
   File? pickedImage;
   Uint8List? webImage;
 
+  void addAddress() {
+    addressesForms.add(AddressFormController());
+  }
+
+  void removeAddress(int index) {
+    if (addressesForms.length == 1) return;
+
+    final addressForm = addressesForms.removeAt(index);
+    addressForm.dispose();
+  }
+
   void dispose() {
     firstName.dispose();
     lastName.dispose();
     middleName.dispose();
-    for(final addressForm in addressesForms){
+    for (final addressForm in addressesForms) {
       addressForm.dispose();
     }
     email.dispose();
@@ -37,7 +48,7 @@ class PersonFormController extends FormController<PersonModel> {
     firstName.clear();
     lastName.clear();
     middleName.clear();
-       for(final addressForm in addressesForms){
+    for (final addressForm in addressesForms) {
       addressForm.clear();
     }
     email.clear();

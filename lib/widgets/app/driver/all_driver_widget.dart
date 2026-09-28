@@ -3,7 +3,7 @@ import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/user_service.dart';
-import 'package:movegui_admin_panel/widgets/app/users/user_display_screen.dart';
+import 'package:movegui_admin_panel/widgets/app/users/user_display_widget.dart';
 
 class AllDriverWidget extends StatefulWidget {
   const AllDriverWidget({super.key});
@@ -33,7 +33,14 @@ class AllDriverWidgetState extends State<AllDriverWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: UserDisplayScreen(users: users)
+      body: UserDisplayWidget(
+        users: users,
+        title: 'Drivers',
+        subTitle: 'Add Driver und update ist -...',
+        onRegister: (List<UserModel>? addUsers) {
+            users.addAll(addUsers ?? []);
+        },
+      ),
     );
   }
 }

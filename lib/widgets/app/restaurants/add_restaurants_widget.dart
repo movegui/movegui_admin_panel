@@ -1,22 +1,5 @@
-import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:movegui_admin_panel/consts/app_constants.dart';
-import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
-import 'package:movegui_admin_panel/methods/show_alert.dart';
-import 'package:movegui_admin_panel/models/restaurant_model.dart';
-import 'package:movegui_admin_panel/services/image_service.dart';
-import 'package:movegui_admin_panel/services/register_services.dart';
-import 'package:movegui_admin_panel/services/restaurant_type_service.dart';
-import 'package:movegui_admin_panel/services/restaurants_service.dart';
-import 'package:movegui_admin_panel/util/store_form_controller.dart';
-import 'package:movegui_admin_panel/widgets/app/add_contact_widget.dart';
-import 'package:movegui_admin_panel/widgets/app/opens_hours_widget.dart';
-import 'package:movegui_admin_panel/widgets/custom_button.dart';
-import 'package:movegui_admin_panel/widgets/picker/custom_drop_down.dart';
-import 'package:movegui_admin_panel/widgets/store_widget.dart';
+
 
 class RestaurantAddWidgetPage extends StatefulWidget {
   const RestaurantAddWidgetPage({super.key});
@@ -27,6 +10,14 @@ class RestaurantAddWidgetPage extends StatefulWidget {
 }
 
 class _RestaurantAddWidgetPageState extends State<RestaurantAddWidgetPage> {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
+
+  
+  /*
   final formController = StoreFormController();
   final formKey = GlobalKey<FormState>();
   final GlobalKey<AddContactWidgetState> addContactKey = GlobalKey();
@@ -207,4 +198,5 @@ class _RestaurantAddWidgetPageState extends State<RestaurantAddWidgetPage> {
       ),
     );
   }
+  */
 }

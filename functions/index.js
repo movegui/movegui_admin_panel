@@ -33,26 +33,57 @@ setGlobalOptions({ maxInstances: 10 });
 
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
+const { getAuth } = require("firebase-admin/auth");
 const axios = require('axios');
 admin.initializeApp();
 const cors = require('cors')({ origin: true });
 
-const { onCall, HttpsError } = require("firebase-functions/https");
+const { onCall, HttpsError } = require("firebase-functions/v2/https");
 const { defineSecret } = require("firebase-functions/params");
 
 
 
 const BREVO_API_KEY = defineSecret("BREVO_API_KEY");
 
-exports.sendEmail = functions.https.onCall(
+// Must match the UserRole enum in lib/services/interfaces/i_user_service.dart
+const USER_ROLES = ["Admin", "User", "Employe", "Guest", "SuperAdmin", "Manager", "Support", "Driver", "Owner"];
+const ADMIN_ROLES = ["Admin", "SuperAdmin"];
+
+// Only a SuperAdmin may hand out Admin or SuperAdmin; Admins may grant the rest.
+function canAssignRole(callerRole, role) {
+  if (!USER_ROLES.includes(role)) return false;
+  if (ADMIN_ROLES.includes(role)) return callerRole === "SuperAdmin";
+  return ADMIN_ROLES.includes(callerRole);
+}
+
+// Map Firebase Auth errors to a proper HTTP status instead of always 401.
+function authErrorStatus(e) {
+  switch (e.code) {
+    case "auth/email-already-exists": return 409;
+    case "auth/invalid-email":
+    case "auth/invalid-password":
+    case "auth/invalid-display-name": return 400;
+    case "auth/id-token-expired":
+    case "auth/id-token-revoked":
+    case "auth/argument-error": return 401;
+    default: return 500;
+  }
+}
+
+exports.sendEmail = onCall(
   { secrets: [BREVO_API_KEY] },
   async (request) => {
     if (!request.auth) {
       throw new HttpsError(
-        "Non authentifié",
+        "unauthenticated",
         "Vous devez etre enregistrer pour utiliser ce functionnalité"
       );
 
+    }
+    // The Brevo sender is ours: only admins may send, otherwise any signed-in
+    // user could relay arbitrary HTML to any address.
+    if (!ADMIN_ROLES.includes(request.auth.token.role)) {
+      throw new HttpsError("permission-denied", "Forbidden");
     }
     const { firstname, lastname, email, phone, subject, message } = request.data;
 
@@ -70,7 +101,7 @@ exports.sendEmail = functions.https.onCall(
           to: [
             {
               email,
-              name: `${lastname} ${firstname}` || "User",
+              name: `${lastname ?? ""} ${firstname ?? ""}`.trim() || "User",
             },
           ],
           subject: `${subject}`,
@@ -101,18 +132,41 @@ exports.setSuperAdminRole = functions.https.onRequest(async (req, res) => {
   console.log("FIREBASE_AUTH_EMULATOR_HOST:", process.env.FIREBASE_AUTH_EMULATOR_HOST);
   
   cors(req, res, async () => {
+    // Auth is not emulated on purpose: roles are written to the production
+    // Firebase Auth shared with the movegui client app.
+    let caller;
     try {
-      const uid = req.body.uid;
-      const role = req.body.role;
+      caller = await authenticate(req);
+    } catch (e) {
+      return res.status(401).send({ error: "Unauthorized" });
+    }
 
+    const { uid, role } = req.body;
+
+    if (!USER_ROLES.includes(role)) {
+      return res.status(400).send({ error: `Invalid role: ${role}` });
+    }
+
+    // A SuperAdmin can set any role. The only other case allowed is the
+    // dev bootstrap in main_dev.dart, where a freshly created user sets its
+    // own role - and only from a locally running functions emulator, never
+    // from the deployed function.
+    const isSuperAdmin = caller.role === "SuperAdmin";
+    const isEmulatorBootstrap =
+      process.env.FUNCTIONS_EMULATOR === "true" && caller.uid === uid;
+    if (!isSuperAdmin && !isEmulatorBootstrap) {
+      return res.status(403).send({ error: "Forbidden" });
+    }
+
+    try {
       console.log("UID received:", uid);
       console.log("ROLE received:", role);
 
-      const user = await admin.auth().getUser(uid);
+      const user = await getAuth().getUser(uid);
 
       console.log("Found Firebase user:", user.email);
   
-      await admin.auth().setCustomUserClaims(uid, {
+      await getAuth().setCustomUserClaims(uid, {
         role: role,
       });
       
@@ -145,7 +199,7 @@ exports.createUser = functions.https.onRequest(async (req, res) => {
       // Extract token
       const idToken = authHeader.split('Bearer ')[1];
       // Verify Firebase token
-      const decodedToken = await admin.auth().verifyIdToken(idToken);
+      const decodedToken = await getAuth().verifyIdToken(idToken);
 
       // Example: only admins can create users
       if (decodedToken.role !== 'Admin' && decodedToken.role !== 'SuperAdmin') {
@@ -156,13 +210,19 @@ exports.createUser = functions.https.onRequest(async (req, res) => {
 
       const { email, password, role } = req.body;
 
+      if (!canAssignRole(decodedToken.role, role)) {
+        return res.status(403).json({
+          error: `Not allowed to assign role: ${role}`,
+        });
+      }
+
       // Create user
-      const user = await admin.auth().createUser({
+      const user = await getAuth().createUser({
         email,
         password,
       });
 
-      await admin.auth().setCustomUserClaims(user.uid, {
+      await getAuth().setCustomUserClaims(user.uid, {
         role: role,
       });
 
@@ -175,7 +235,7 @@ exports.createUser = functions.https.onRequest(async (req, res) => {
     } catch (e) {
       console.error(e);
 
-      res.status(401).json({
+      res.status(authErrorStatus(e)).json({
         error: e.message,
       });
     }
@@ -191,7 +251,7 @@ async function authenticate(req) {
 
   const token = authHeader.split('Bearer ')[1];
 
-  return await admin.auth().verifyIdToken(token);
+  return await getAuth().verifyIdToken(token);
 }
 
 exports.geocodeAddress = functions.https.onRequest(async (req, res) => {
@@ -251,22 +311,29 @@ exports.createUserWithoutPassword = functions.https.onRequest(async (req, res) =
       }
 
       const idToken = authHeader.split('Bearer ')[1];
-      const decodedToken = await admin.auth().verifyIdToken(idToken);
+      const decodedToken = await getAuth().verifyIdToken(idToken);
       if (decodedToken.role !== 'Admin' && decodedToken.role !== 'SuperAdmin') {
         return res.status(403).json({
           error: 'Forbidden',
         });
       }
       const { email, name, role } = req.body;
-      const user = await admin.auth().createUser({
+
+      if (!canAssignRole(decodedToken.role, role)) {
+        return res.status(403).json({
+          error: `Not allowed to assign role: ${role}`,
+        });
+      }
+
+      const user = await getAuth().createUser({
         email,
-        name
+        displayName: name || undefined,
       });
 
-      await admin.auth().setCustomUserClaims(user.uid, {
+      await getAuth().setCustomUserClaims(user.uid, {
         role: role,
       });
-      const resetLink = await admin.auth().generatePasswordResetLink(email);
+      const resetLink = await getAuth().generatePasswordResetLink(email);
       res.status(200).json({
         uid: user.uid,
         email: user.email,
@@ -277,7 +344,7 @@ exports.createUserWithoutPassword = functions.https.onRequest(async (req, res) =
     } catch (e) {
       console.error(e);
 
-      res.status(401).json({
+      res.status(authErrorStatus(e)).json({
         error: e.message,
       });
     }

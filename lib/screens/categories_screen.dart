@@ -7,9 +7,5 @@ class CategoriesScreen extends MainScreen {
   
 }
 
-class CategoriesPage extends MainPage {
-  const CategoriesPage({super.key, required super.addModelWidget, required super.allModelWidget});
-  
-}
 
 
