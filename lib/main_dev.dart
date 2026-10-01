@@ -15,6 +15,7 @@ import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/providers/providers.dart';
 import 'package:movegui_admin_panel/services/init_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
+import 'package:movegui_admin_panel/services/user_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -75,14 +76,19 @@ class MoveguiAdminApp extends ConsumerStatefulWidget {
 }
 
 class _MoveguiAdminAppState extends ConsumerState<MoveguiAdminApp> {
+late UserService userService;
+
   @override
   void initState() {
     super.initState();
-
+    userService = getIt<UserService>();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-  
-      await createSuperUser(context);
-      await createSupportUser(context);
+      final currentUser = await userService.getCurrentUser(context, ref);
+      if(currentUser == null){
+          await createSuperUser(context);
+          await createSupportUser(context);
+      }
+    
     });
   }
 

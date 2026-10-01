@@ -13,7 +13,6 @@ class GenderPicker extends StatefulWidget {
 
 class _GenderAndBirthdatePickerState extends State<GenderPicker> {
   String? _selectedGender;
-  DateTime? _selectedDate;
 
   @override
   void initState() {
@@ -33,8 +32,6 @@ class _GenderAndBirthdatePickerState extends State<GenderPicker> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-          //  const SizedBox(height: 12),
-            // Gender dropdown
             DropdownButtonFormField<String>(
               decoration: const InputDecoration(
                 filled: true,
@@ -42,24 +39,13 @@ class _GenderAndBirthdatePickerState extends State<GenderPicker> {
                 labelText: 'Genre',
                 labelStyle: TextStyle( fontSize: 18),
                 border: InputBorder.none,
-                /*
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: AppColors.textColor, // Set your desired border color
-                    width: 1.0,
-                  ),
-                ),
-                */
               ),
-             style: TextStyle(fontSize: 18),
-        //      dropdownColor: AppColors.backgroundColor,
-           //   focusColor: AppColors.selectionColor,
-           //   iconEnabledColor: AppColors.textColor,
+                
               value: _selectedGender,
-              items: const [
-                DropdownMenuItem(value: 'm', child: Text('Homme')),
-                DropdownMenuItem(value: 'f', child: Text('Femme')),
-                DropdownMenuItem(value: 'o', child: Text('Autre')),
+              items:  [
+                DropdownMenuItem(value: 'm', child: Text('Homme', style: Theme.of(context).textTheme.bodyMedium)),
+                DropdownMenuItem(value: 'f', child: Text('Femme', style: Theme.of(context).textTheme.bodyMedium)),
+                DropdownMenuItem(value: 'o', child: Text('Autre', style: Theme.of(context).textTheme.bodyMedium,)),
               ],
               onChanged: (value) {
                 setState(() => _selectedGender = value);
@@ -70,8 +56,6 @@ class _GenderAndBirthdatePickerState extends State<GenderPicker> {
                 return null;
               },
             ),
-
-         //   const SizedBox(height: 16),
           ],
         ),
       ),

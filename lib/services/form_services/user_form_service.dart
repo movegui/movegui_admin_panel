@@ -30,6 +30,7 @@ class UserFormService extends FormService<UserModel, UserFormController> {
 
   @override
   Future<UserModel> getModel(UserFormController controller) async {
+  
     return UserModel(
       updatedAt: DateTime.now(),
       id: Uuid().v4(),
@@ -37,7 +38,7 @@ class UserFormService extends FormService<UserModel, UserFormController> {
       createdAt: controller.createdAt ?? DateTime.now(),
       username: controller.username.text,
       isVerified: controller.isVerified ?? false,
-      role: UserRole.Guest,
+      role: controller.role ?? UserRole.Guest,
       isActive: controller.isActive ?? false,
       personModel: await personFormService.getModel(controller.personForm),
     );

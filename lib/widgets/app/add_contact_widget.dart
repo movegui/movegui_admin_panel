@@ -20,6 +20,7 @@ class AddContactWidget extends StatefulWidget {
   final String title;
   final String subTitle;
   final String? buttonTitle;
+  final ValueChanged<UserFormController>? onFormControllerAdded;
 
   const AddContactWidget({
     super.key,
@@ -27,6 +28,7 @@ class AddContactWidget extends StatefulWidget {
     required this.title,
     required this.subTitle,
     this.buttonTitle,
+    this.onFormControllerAdded,
   });
 
   @override
@@ -37,6 +39,7 @@ class AddContactWidgetState extends State<AddContactWidget> {
   late ImageConstatnt imageConstatnt;
   late SeedService seedService;
   final GlobalKey _newPersonKey = GlobalKey();
+  //final addContactKey = GlobalKey<AddContactWidgetState>();
 
   @override
   void initState() {
@@ -48,9 +51,6 @@ class AddContactWidgetState extends State<AddContactWidget> {
   @override
   void dispose() {
     super.dispose();
-    for (int i = 0; i < widget.formControllers.length; i++) {
-      widget.formControllers[i].dispose();
-    }
   }
 
   void clear(int index) {
@@ -68,30 +68,36 @@ class AddContactWidgetState extends State<AddContactWidget> {
       personTestData = await seedService.getGeneratedUserModel();
     }
 
-    setState(() {
-      widget.formControllers.add(UserFormController());
-      if (personTestData != null) {
-        widget.formControllers.last.setData(personTestData);
-      }
-    });
+    final role = widget.formControllers.last.role;
+    final newPerson = UserFormController();
+    if (personTestData != null) {
+      await newPerson.setData(personTestData);
+    }
+    newPerson.role = role;
+    widget.onFormControllerAdded?.call(newPerson);
+
+    setState(() => widget.formControllers.add(newPerson));
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final newPersonContext = _newPersonKey.currentContext;
-      if (newPersonContext != null) {
-        Scrollable.ensureVisible(
-          newPersonContext,
-          alignment: 1,
-          duration: const Duration(milliseconds: 350),
-          curve: Curves.easeOut,
-        );
-      }
+      scrollToNewestPerson();
     });
+  }
+
+  void scrollToNewestPerson() {
+    final newPersonContext = _newPersonKey.currentContext;
+    if (newPersonContext == null) return;
+
+    Scrollable.ensureVisible(
+      newPersonContext,
+      alignment: 1,
+      duration: const Duration(milliseconds: 350),
+      curve: Curves.easeOut,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.blue,
       child: Column(
         children: [
           DashboardHeader(
@@ -109,67 +115,53 @@ class AddContactWidgetState extends State<AddContactWidget> {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: widget.formControllers.length,
             itemBuilder: (context, index) {
-              return Center(
-                key: index == widget.formControllers.length - 1
-                    ? _newPersonKey
-                    : null,
-                child: Column(
-                  children: [
-                    AddPersonWidget(
-                      onGenderChanged: (value) {
-                        setState(
-                          () =>
-                              widget.formControllers[index].personForm.gender =
-                                  value!,
-                        );
-                      },
-                      onBirthDateChanged: (value) {
-                        setState(
-                          () =>
-                              widget
-                                      .formControllers[index]
-                                      .personForm
-                                      .birthdate =
-                                  value!,
-                        );
-                      },
-                      onPickImage: () {
-                        pickAnImage(index);
-                      },
-                      onRemoveImage: () {
-                        setState(() {
-                          widget.formControllers[index].personForm.pickedImage =
-                              null;
-                          widget.formControllers[index].personForm.webImage =
-                              null;
-                        });
-                      },
-                      onAdressTypeChange: (String? selectedValue) {
-                        setState(() {
-                          widget
-                                  .formControllers[index]
-                                  .personForm
-                                  .addressesForms[0]
-                                  .selectedType =
-                              selectedValue!;
-                        });
-                      },
-                      onCommuneChange: (String? value) {
-                        setState(() {
-                          widget
-                                  .formControllers[index]
-                                  .personForm
-                                  .addressesForms[0]
-                                  .selectedMunicipality =
-                              value!;
-                        });
-                      },
-                      personForm: widget.formControllers[index].personForm,
-                    ),
-                    SeparatorWidget(height: WidgetConstants.sepWidget),
-                  ],
+              final user = widget.formControllers[index];
+              return Form(
+                key: user.formKey,
+                child: Center(
+                  key: index == widget.formControllers.length - 1
+                      ? _newPersonKey
+                      : null,
+                  child: Column(
+                    children: [
+                      AddPersonWidget(
+                        onGenderChanged: (value) {
+                          setState(() => user.personForm.gender = value!);
+                        },
+                        onBirthDateChanged: (value) {
+                          setState(() => user.personForm.birthDate = value!);
+                        },
+                        onPickImage: () {
+                          pickAnImage(index);
+                        },
+                        onRemoveImage: () {
+                          setState(() {
+                            user.personForm.pickedImage = null;
+                            widget.formControllers[index].personForm.webImage =
+                                null;
+                          });
+                        },
+                        onAdressTypeChange: (String? selectedValue) {
+                          setState(() {
+                            user.personForm.adressesForms[0].selectedType =
+                                selectedValue!;
+                          });
+                        },
+                        onCommuneChange: (String? value) {
+                          setState(() {
+                            user
+                                    .personForm
+                                    .adressesForms[0]
+                                    .selectedMunicipality =
+                                value!;
+                          });
+                        },
+                        personForm: user.personForm,
+                      ),
+                      SeparatorWidget(height: WidgetConstants.sepWidget),
+                    ],
+                  ),
                 ),
-                //     ),
               );
             },
             separatorBuilder: (context, index) {

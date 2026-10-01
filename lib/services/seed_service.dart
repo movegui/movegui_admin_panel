@@ -110,7 +110,7 @@ class SeedService {
     id: Uuid().v4(),
     name: faker.person.name(),
     createdAt: DateTime.now(),
-    username: null,
+    username: faker.internet.email(),
     isVerified: false,
     role: UserRole.Guest,
     personModel: await getGeneratedPerson()

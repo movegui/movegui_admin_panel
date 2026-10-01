@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/models/product_model.dart';
 import 'package:movegui_admin_panel/util/form_controller.dart';
 
-
 class ProductFormController<M extends ProductModel> extends FormController<M> {
   final name = TextEditingController();
+     final formKey = GlobalKey<FormState>();
   double price = 0.0;
   String? supplierId;
   bool isAvailable = false;
@@ -44,5 +44,23 @@ class ProductFormController<M extends ProductModel> extends FormController<M> {
     category = model.category;
     currency = model.currency;
     materials = model.materials;
+  }
+
+  @override
+  bool isValid() {
+    final currentState = formKey.currentState;
+    if (currentState == null) {
+      return false;
+    }
+
+    if (!currentState.validate()) {
+      return false;
+    }
+
+    return name.text.isNotEmpty &&
+        price > 0 &&
+        imageUrl != null &&
+        id != null &&
+        createdAt != null;
   }
 }

@@ -30,7 +30,7 @@ abstract class StoreFormController<T extends StoreModel>
   StoreTypeModel? selectedType;
   CategoriesModel? categoriesModel;
   AdressModel? adressModel;
-   double? rating ;
+  double? rating;
   int? reviewCount;
 
   void dispose() {
@@ -39,6 +39,9 @@ abstract class StoreFormController<T extends StoreModel>
     email.dispose();
     description.dispose();
     addressForm.dispose();
+    for (final userForm in userForms) {
+      userForm.dispose();
+    }
   }
 
   void clear() {
@@ -64,7 +67,6 @@ abstract class StoreFormController<T extends StoreModel>
     adressModel = null;
     rating = null;
     reviewCount = null;
-
   }
 
   @override

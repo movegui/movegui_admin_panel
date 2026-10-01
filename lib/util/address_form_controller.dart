@@ -5,6 +5,7 @@ import 'package:movegui_admin_panel/util/form_controller.dart';
 import 'package:uuid/uuid.dart';
 
 class AddressFormController extends FormController<AdressModel> {
+  final formKey = GlobalKey<FormState>();
   final district = TextEditingController();
   final longitude = TextEditingController();
   final latitude = TextEditingController();
@@ -55,15 +56,6 @@ class AddressFormController extends FormController<AdressModel> {
         longitude.text.isEmpty;
   }
 
-  bool isValid() {
-    return address.text.isNotEmpty &&
-        latitude.text.isNotEmpty &&
-        district.text.isNotEmpty &&
-        longitude.text.isNotEmpty;
-  }
-
-
-
   String getLabelCommune(String value) {
     switch (value) {
       case COMMUNE_DIXINN:
@@ -95,5 +87,31 @@ class AddressFormController extends FormController<AdressModel> {
       default:
         return '';
     }
+  }
+
+  @override
+  bool isValid() {
+    
+    final currentState = formKey.currentState;
+    if (currentState == null) {
+      return false;
+    }
+
+    if (!currentState.validate()) {
+      return false;
+    }
+    
+
+    return isDataValid();
+  }
+
+  bool isDataValid() {
+    return address.text.isNotEmpty &&
+      //  latitude.text.isNotEmpty &&
+        district.text.isNotEmpty &&
+     //   longitude.text.isNotEmpty &&
+        selectedMunicipality.isNotEmpty &&
+        selectedType.isNotEmpty &&
+        id != null;
   }
 }

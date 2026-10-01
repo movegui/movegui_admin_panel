@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:movegui_admin_panel/config/env_dev.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/button_info.dart';
@@ -39,29 +41,44 @@ class UserDisplayWidget extends StatefulWidget {
 class UserDisplayWidgetState extends State<UserDisplayWidget> {
   late UserFormService userFormService;
   late List<UserFormController> formControllers;
-  late UserModel defaultUser;
   late SeedService seedService;
+  final addContactKey = GlobalKey<AddContactWidgetState>();
 
   @override
   void initState() {
     userFormService = getIt<UserFormService>();
     seedService = getIt<SeedService>();
     formControllers = [];
-    if (widget.users.isNotEmpty) {
-      WidgetsBinding.instance.addPostFrameCallback((_) async {
-        formControllers = await userFormService.getFormControllers(
-          widget.users,
-        );
-      });
-    } else {
-      defaultUser = userFormService.getDefaultModel();
-    }
     /*
    else{
    // defaultUser = user
    }
    */
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    for (final formController in formControllers) {
+      formController.dispose();
+    }
+    super.dispose();
+  }
+
+  void _trackFormController(UserFormController formController) {
+    if (!formControllers.contains(formController)) {
+      formControllers.add(formController);
+    }
+  }
+
+  Future<UserFormController> _addEmptyFormController(UserRole role) async {
+    final model = seedService.api.env is EnvDev
+        ? await seedService.getGeneratedUserModel()
+        : userFormService.getDefaultModel();
+    model.role = role;
+    final formController = await userFormService.getFormController(model);
+    _trackFormController(formController);
+    return formController;
   }
 
   @override
@@ -87,7 +104,6 @@ class UserDisplayWidgetState extends State<UserDisplayWidget> {
         ),
         SizedBox(height: WidgetConstants.sepWidget),
         ListTile(
-          //  leading: Icon(Icons.person),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -114,7 +130,6 @@ class UserDisplayWidgetState extends State<UserDisplayWidget> {
             return Column(
               children: [
                 ListTile(
-                  // leading: Icon(Icons.person),
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -132,7 +147,6 @@ class UserDisplayWidgetState extends State<UserDisplayWidget> {
                               text: widget.users[index].personModel!.email,
                             ),
                           ),
-
                           Expanded(
                             child: DisplayWidget(
                               text: widget.users[index].personModel!.phone,
@@ -277,19 +291,18 @@ class UserDisplayWidgetState extends State<UserDisplayWidget> {
                   enabled: true,
                   routeName: '',
                   onTap: () async {
-                    defaultUser.role = UserRole.Owner;
-                    final formController = await userFormService
-                        .getFormController(defaultUser);
+                    final ownerForms = [
+                      await _addEmptyFormController(UserRole.Owner),
+                    ];
+
                     MyAppFunctions.showMoveguiDialog(
                       context,
                       AddContactWidget(
-                        formControllers: formControllers.isEmpty
-                            ? [formController]
-                            : formControllers
-                                  .where((elem) => elem.role == UserRole.Owner)
-                                  .toList(),
+                        key: addContactKey,
+                        formControllers: ownerForms,
                         title: title,
                         subTitle: subTitle,
+                        onFormControllerAdded: _trackFormController,
                         buttonTitle: AppLocalizations.of(
                           context,
                         )!.btn_add_owner,
@@ -300,17 +313,16 @@ class UserDisplayWidgetState extends State<UserDisplayWidget> {
                           children: [
                             Expanded(child: cancelButton()),
                             SizedBox(width: WidgetConstants.sepWidgetWidth * 2),
-                            Expanded(child: registerButton(UserRole.Owner)),
+                            Expanded(
+                              child: registerButton(
+                                UserRole.Owner,
+                                context,
+                                ownerForms,
+                              ),
+                            ),
                           ],
                         ),
                       ],
-
-                      /*
-                      AppLocalizations.of(context)!.owner_add_dashboard_title,
-                      AppLocalizations.of(
-                        context,
-                      )!.owner_add_dashboard_sub_title,
-                      */
                     );
                   },
                 ),
@@ -321,21 +333,17 @@ class UserDisplayWidgetState extends State<UserDisplayWidget> {
                   enabled: true,
                   routeName: '',
                   onTap: () async {
-                    defaultUser.role = UserRole.Manager;
-                    final formController = await userFormService
-                        .getFormController(defaultUser);
+                    final managerForms = [
+                      await _addEmptyFormController(UserRole.Manager),
+                    ];
                     MyAppFunctions.showMoveguiDialog(
                       context,
                       AddContactWidget(
-                        formControllers: formControllers.isEmpty
-                            ? [formController]
-                            : formControllers
-                                  .where(
-                                    (elem) => elem.role == UserRole.Manager,
-                                  )
-                                  .toList(),
+                        key: addContactKey,
+                        formControllers: managerForms,
                         title: title,
                         subTitle: subTitle,
+                        onFormControllerAdded: _trackFormController,
                         buttonTitle: AppLocalizations.of(
                           context,
                         )!.btn_add_manager,
@@ -346,17 +354,16 @@ class UserDisplayWidgetState extends State<UserDisplayWidget> {
                           children: [
                             Expanded(child: cancelButton()),
                             SizedBox(width: WidgetConstants.sepWidgetWidth * 2),
-                            Expanded(child: registerButton(UserRole.Manager)),
+                            Expanded(
+                              child: registerButton(
+                                UserRole.Manager,
+                                context,
+                                managerForms,
+                              ),
+                            ),
                           ],
                         ),
                       ],
-
-                      /*
-                      AppLocalizations.of(context)!.manager_add_dashboard_title,
-                      AppLocalizations.of(
-                        context,
-                      )!.manager_add_dashboard_sub_title,
-                      */
                     );
                   },
                 ),
@@ -367,21 +374,17 @@ class UserDisplayWidgetState extends State<UserDisplayWidget> {
                   enabled: true,
                   routeName: '',
                   onTap: () async {
-                    defaultUser.role = UserRole.Manager;
-                    final formController = await userFormService
-                        .getFormController(defaultUser);
+                    final employeeForms = [
+                      await _addEmptyFormController(UserRole.Employe),
+                    ];
                     MyAppFunctions.showMoveguiDialog(
                       context,
                       AddContactWidget(
-                        formControllers: formControllers.isEmpty
-                            ? [formController]
-                            : formControllers
-                                  .where(
-                                    (elem) => elem.role == UserRole.Employe,
-                                  )
-                                  .toList(),
+                        key: addContactKey,
+                        formControllers: employeeForms,
                         title: title,
                         subTitle: subTitle,
+                        onFormControllerAdded: _trackFormController,
                         buttonTitle: AppLocalizations.of(
                           context,
                         )!.btn_add_employe,
@@ -392,17 +395,16 @@ class UserDisplayWidgetState extends State<UserDisplayWidget> {
                           children: [
                             Expanded(child: cancelButton()),
                             SizedBox(width: WidgetConstants.sepWidgetWidth * 2),
-                            Expanded(child: registerButton(UserRole.Employe)),
+                            Expanded(
+                              child: registerButton(
+                                UserRole.Employe,
+                                context,
+                                employeeForms,
+                              ),
+                            ),
                           ],
                         ),
                       ],
-
-                      /*
-                      AppLocalizations.of(context)!.employe_add_dashboard_title,
-                      AppLocalizations.of(
-                        context,
-                      )!.employe_add_dashboard_sub_title,
-                      */
                     );
                   },
                 ),
@@ -414,21 +416,43 @@ class UserDisplayWidgetState extends State<UserDisplayWidget> {
     );
   }
 
-  Widget registerButton(UserRole role) {
+  Widget registerButton(
+    UserRole role,
+    BuildContext dialogContext,
+    List<UserFormController> userForms,
+  ) {
     return ButtonWidget(
       onPressed: (item) async {
-        final users = await userFormService.getModels(
-          formControllers.where((user) => user.role == role).toList(),
-        );
-        widget.onRegister.call(users);
+        if (!validateAllPersons(userForms)) return;
+        final newUsers = await userFormService.getModels(userForms);
+        if (!mounted) return;
+        widget.onRegister.call(newUsers);
+        setState(() {
+          for (final user in newUsers) {
+            if (!widget.users.contains(user)) {
+              widget.users.add(user);
+            }
+          }
+        });
+        dialogContext.pop();
       },
       buttonItem: ButtonInfo(
-        title: AppLocalizations.of(context)!.btn_register_label,
+        title: AppLocalizations.of(dialogContext)!.btn_register_label,
         enabled: true,
       ),
       icon: Icon(Icons.save),
-      textStyle: Theme.of(context).textTheme.displayMedium,
+      textStyle: Theme.of(dialogContext).textTheme.displayMedium,
     );
+  }
+
+  bool validateAllPersons(List<UserFormController> users) {
+    var allValid = true;
+    for (final user in users) {
+      if (!user.isValid()) {
+        allValid = false;
+      }
+    }
+    return allValid;
   }
 
   Widget cancelButton() {

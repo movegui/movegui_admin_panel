@@ -347,6 +347,13 @@
     "@input_hint_pressing_name": {},
     "input_hint_description_pressing": "Description du Pressing",
     "@input_hint_description_pressing": {},
+    "input_hint_birthdate_error_msg": "Veuillez sélectionner votre date de naissance.",
+    "@input_hint_birthdate_error_msg": {},
+    "input_hint_birthdate": "Selectionner Date de Naissance",
+    "@input_hint_birthdate": {},
+    "input_hint_select_birthdate": "Selectionner votre date de Naissance",
+    "@input_hint_select_birthdate": {},
+    
     "movegui_info_title": "MoveGui – Livraison & Transport à Moto en Guinée",
     "@movegui_info_title": {},
     "movegui_info_text_1": "MoveGui est une entreprise innovante spécialisée dans la livraison de nourriture et le transport à moto en Guinée.Notre mission est de rendre la livraison plus accessible, plus transparente et plus économique pour tous.",
@@ -513,6 +520,9 @@
     "@label_district": {},
     "label_municipality": "Commune",
     "@label_municipality": {},
+    "label_birthdate": "Date de Naissance",
+    "@label_birthdate": {},
+    
     "exception_login_message": "Les identifiants utilisateur fournis sont incorrects, veuillez verifier votre email et mot de pass",
     "@exception_login_message": {},
     "tooltip_sign_in_with_google": "Se connecter avec Google",

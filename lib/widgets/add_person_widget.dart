@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
@@ -76,6 +77,29 @@ class AddPersonWidget extends StatelessWidget {
       onPickImage: onPickImage,
       onRemoveImage: onRemoveImage,
     );
+    
+    final validatedImagePicker = FormField<bool>(
+      validator: (_) {
+        return personForm.hasImage ? null : 'Veuillez choisir une image.';
+      },
+      builder: (field) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          imagePicker,
+          if (field.errorText != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 4),
+              child: Text(
+                field.errorText!,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(context).colorScheme.error,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+        ],
+      ),
+    );
 
     if (isDesktop) {
       return Flexible(
@@ -84,18 +108,14 @@ class AddPersonWidget extends StatelessWidget {
           padding: const EdgeInsets.only(
             right: WidgetConstants.sepWidgetHeight * 2,
           ),
-          child: imagePicker,
+          child: validatedImagePicker,
         ),
       );
     }
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: SizedBox(
-        height: 200,
-        width: 200, //MediaQuery.sizeOf(context).width * 0.8,
-        child: imagePicker,
-      ),
+      child: validatedImagePicker,
     );
   }
 
@@ -108,7 +128,7 @@ class AddPersonWidget extends StatelessWidget {
             Expanded(
               child: GenderPicker(
                 onGenderChanged: (value) {
-                  onGenderChanged(value);
+                  onGenderChanged.call(value);
                 },
                 gender: personForm.gender,
               ),
@@ -117,8 +137,9 @@ class AddPersonWidget extends StatelessWidget {
             Expanded(
               child: BirthdatePicker(
                 onBirthDateChanged: (value) {
-                  onBirthDateChanged!(value);
+                  onBirthDateChanged!.call(value);
                 },
+                birthDate: personForm.birthDate,
               ),
             ),
           ],

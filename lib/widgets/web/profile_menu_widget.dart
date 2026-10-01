@@ -147,11 +147,15 @@ class ProfileMenuWidget extends ConsumerWidget {
             ),
             const SizedBox(width: 10),
 
-            Text(
-              user?.name ?? 'Compte',
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                color: AppColors.onPrimary,
-                fontSize: 18,
+            Expanded(
+              child: Text(
+                user?.name ?? 'Compte',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: AppColors.onPrimary,
+                  fontSize: 18,
+                ),
               ),
             ),
 

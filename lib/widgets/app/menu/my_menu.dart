@@ -5,7 +5,10 @@ import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/route_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/button_info.dart';
+import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/providers/providers.dart';
+import 'package:movegui_admin_panel/services/register_services.dart';
+import 'package:movegui_admin_panel/services/user_service.dart';
 import 'package:movegui_admin_panel/widgets/app/menu/menu_item_widget.dart';
 
 class MyMenu extends ConsumerWidget {
@@ -14,9 +17,47 @@ class MyMenu extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentUser = ref.watch(userProviderState).user;
-    if (currentUser == null) {
+    if (currentUser != null) {
+      return _buildDrawer(context, ref, currentUser);
+    }
+
+    if (FirebaseAuth.instance.currentUser == null) {
       return const SizedBox.shrink();
     }
+
+    return FutureBuilder<UserModel?>(
+      future: getIt<UserService>().getCurrentUser(context, ref),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Drawer(
+            child: Center(child: CircularProgressIndicator()),
+          );
+        }
+
+        final loadedUser = snapshot.data;
+        if (loadedUser == null) {
+          return const SizedBox.shrink();
+        }
+
+        return _buildDrawer(context, ref, loadedUser);
+      },
+    );
+  }
+
+  Widget _buildDrawer(
+    BuildContext context,
+    WidgetRef ref,
+    UserModel currentUser,
+  ) {
+    final person = currentUser.personModel;
+    final personName = person?.name.trim();
+    final displayName = personName == null || personName.isEmpty
+        ? currentUser.name
+        : personName;
+    final personEmail = person?.email?.trim();
+    final displayEmail = personEmail == null || personEmail.isEmpty
+        ? currentUser.username ?? ''
+        : personEmail;
 
     return Drawer(
       child: SafeArea(
@@ -32,13 +73,11 @@ class MyMenu extends ConsumerWidget {
                   CircleAvatar(radius: 28, child: Icon(Icons.person, size: 30)),
                   SizedBox(height: 12),
                   Text(
-                    currentUser.personModel!.name.isEmpty
-                        ? "No Name"
-                        : "Shom_GN",
+                    displayName,
                     style: Theme.of(context).textTheme.displayLarge,
                   ),
                   Text(
-                    currentUser.personModel?.email ?? "shom_gn@email.com",
+                    displayEmail,
                     style: Theme.of(context).textTheme.labelSmall!.copyWith(
                       color: Colors.white70,
                       fontSize: 14,
@@ -60,7 +99,8 @@ class MyMenu extends ConsumerWidget {
                       routeName: RouteConstants.HOME_ROUTE,
                     ),
                   ),
-/*
+
+                  /*
                   HoverListTile(
                     icon: Icons.shopping_bag,
                     item: ButtonInfo(
@@ -97,7 +137,6 @@ class MyMenu extends ConsumerWidget {
                     ),
                   ),
                   */
-
                   HoverListTile(
                     icon: Icons.shopping_cart_outlined,
                     item: ButtonInfo(
@@ -121,9 +160,7 @@ class MyMenu extends ConsumerWidget {
                   HoverListTile(
                     icon: Icons.notifications_none,
                     item: ButtonInfo(
-                      title: AppLocalizations.of(
-                        context,
-                      )!.notification_title,
+                      title: AppLocalizations.of(context)!.notification_title,
                       enabled: false,
                       routeName: RouteConstants.NOTIFICATIONS_ROUTE,
                     ),
@@ -167,6 +204,7 @@ class MyMenu extends ConsumerWidget {
                     ),
                     onTap: () async {
                       await FirebaseAuth.instance.signOut();
+                      ref.read(userProviderState).clearUser();
                     },
                     color: AppColors.error,
                   ),

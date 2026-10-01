@@ -51,16 +51,12 @@ class AddressTypePickerState extends State<AddressTypePicker> {
                 labelStyle: TextStyle(  fontSize: 12),
                 border: InputBorder.none,
               ),
-              style: TextStyle(  fontSize: 12),
-           //   dropdownColor: AppColors.backgroundColor,
-              //   focusColor: AppColors.selectionColor,
-           //   iconEnabledColor: AppColors.textColor,
               value: _selectedAdressType,
               items: [
-                DropdownMenuItem(value: 'h', child: Text(home)),
-                DropdownMenuItem(value: 'o', child: Text(office)),
-                DropdownMenuItem(value: 'n', child: Text(neighbor)),
-                DropdownMenuItem(value: 'ot', child: Text(other)),
+                DropdownMenuItem(value: 'h', child: Text(home, style: Theme.of(context).textTheme.bodyMedium)),
+                DropdownMenuItem(value: 'o', child: Text(office, style: Theme.of(context).textTheme.bodyMedium)),
+                DropdownMenuItem(value: 'n', child: Text(neighbor, style: Theme.of(context).textTheme.bodyMedium)),
+                DropdownMenuItem(value: 'ot', child: Text(other, style: Theme.of(context).textTheme.bodyMedium)),
               ],
               onChanged: (value) {
                 setState(() => _selectedAdressType = value);
@@ -89,8 +85,7 @@ class AddressTypePickerState extends State<AddressTypePicker> {
                 //    widget.onAdressTypeChange.call(getAddressTypeLabel(value!));
               },
               validator: (value) {
-                MyValidators.textValidator(value);
-                return null;
+                return MyValidators.textValidator(value);
               },
             ),
 

@@ -142,6 +142,7 @@ class AppTheme {
           return AppColors.onPrimary;
         }),
         iconSize: WidgetStateProperty.all(20),
+        
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_model.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
@@ -60,12 +61,13 @@ class PressingSubmitHandler
       form.services = await formService.servicesFormService.getModels(form.serviceForms) ;
       await service.addServices(p, form.services ?? []).then((pressing) async {
         List<HttpsCallableResult> results = [];
-        for (UserModel? userModel in pressing.staff ?? [] ) {final user = FirebaseAuth.instance.currentUser;
+        for (UserModel? userModel in pressing.staff ?? []) {
+          final user = FirebaseAuth.instance.currentUser;
 
-final token = await user!.getIdTokenResult(true);
+          final token = await user!.getIdTokenResult(true);
 
-print(user.uid);
-print(token.claims);
+          debugPrint(user.uid);
+          debugPrint(token.claims.toString());
 
           final createUser = await userService.createUserWithoutPassword(
             userModel?.personModel?.email ?? '',

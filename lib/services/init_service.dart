@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/validator.dart';
 import 'package:movegui_admin_panel/error/message_widget.dart';
+import 'package:movegui_admin_panel/exception/app_exception.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
@@ -77,6 +78,7 @@ Future<void> handleExistingFirebaseSuperAdmin({
   required String role,
 }) async {
   try {
+    final userService = getIt<UserService>();
     final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
       email: email,
       password: password,
@@ -88,6 +90,18 @@ Future<void> handleExistingFirebaseSuperAdmin({
       throw Exception('Firebase user is null after sign in');
     }
 
+    await userService.getById(firebaseUser.uid);
+  } on FirebaseAuthException catch (e) {
+    debugPrint(
+      'Existing Firebase user sign-in failed (${e.code}): ${e.message}',
+    );
+    throw Exception(
+      e.message ??
+          'FirebaseAuthException: Unknown error occurred while creating super admin',
+    );
+  } on NotDataFoundException {
+    // throw NotDataFoundException(message: e.message, code: e.code);
+    final firebaseUser = FirebaseAuth.instance.currentUser!;
     await createUserInDatabase(
       email: email,
       uid: firebaseUser.uid,
@@ -96,14 +110,7 @@ Future<void> handleExistingFirebaseSuperAdmin({
       context: context,
       role: role,
       phone: null,
-    );
-  } on FirebaseAuthException catch (e) {
-    debugPrint(
-      'Existing Firebase user sign-in failed (${e.code}): ${e.message}',
-    );
-    throw Exception(
-      e.message ??
-          'FirebaseAuthException: Unknown error occurred while creating super admin',
+      signOutAfterSetup: false,
     );
   }
 }
@@ -116,6 +123,7 @@ Future<void> createUserInDatabase({
   required BuildContext context,
   required String role,
   required String? phone,
+  bool signOutAfterSetup = true,
 }) async {
   UserModel createdUser;
   if (phone != null && phone.isNotEmpty) {
@@ -135,7 +143,9 @@ Future<void> createUserInDatabase({
     orElse: () => UserRole.Guest,
   );
   await userService.update(createdUser);
-  await FirebaseAuth.instance.signOut();
+  if (signOutAfterSetup) {
+    await FirebaseAuth.instance.signOut();
+  }
 }
 
 Future<Map<String, dynamic>> loadConfig() async {
@@ -191,6 +201,7 @@ Future<void> createSupportUser(BuildContext context) async {
       debugPrint('Support user Firebase Auth error (${e.code}): ${e.message}');
       rethrow;
     }
+    /*
     await handleExistingFirebaseSuperAdmin(
       email: email,
       password: password,
@@ -198,5 +209,6 @@ Future<void> createSupportUser(BuildContext context) async {
       context: context,
       role: UserRole.Support.name,
     );
+    */
   }
 }

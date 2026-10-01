@@ -33,7 +33,7 @@ class _AddressListWidgetState extends State<AddressListWidget> {
     setState(() {
       widget.personForm.addAddress();
       if (addressTestData != null) {
-        widget.personForm.addressesForms.last.setData(addressTestData);
+        widget.personForm.adressesForms.last.setData(addressTestData);
       }
     });
   }
@@ -47,7 +47,7 @@ class _AddressListWidgetState extends State<AddressListWidget> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    final addresses = widget.personForm.addressesForms;
+    final addresses = widget.personForm.adressesForms;
 
     if (addresses.isEmpty) {
       return const Center(child: CircularProgressIndicator());
@@ -102,24 +102,22 @@ class _AddressListWidgetState extends State<AddressListWidget> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            addresses.isNotEmpty
-                ? SizedBox(
-                    width: 300,
-                    child: ButtonWidget(
-                      onPressed: (item) async {
-                        await _addAddress();
-                      },
-                      buttonItem: ButtonInfo(
-                        title: AppLocalizations.of(context)!.btn_add_adress,
-                        enabled: true,
-                        routeName: '',
-                      ),
-                      icon: Icon(Icons.add),
-                      textStyle: Theme.of(context).textTheme.bodyMedium,
-                      //   backgroundColor: AppColors.darkPrimary,
-                    ),
-                  )
-                : SizedBox(),
+            if (addresses.isNotEmpty)
+              SizedBox(
+                width: 300,
+                child: ButtonWidget(
+                  onPressed: (item) async {
+                    await _addAddress();
+                  },
+                  buttonItem: ButtonInfo(
+                    title: AppLocalizations.of(context)!.btn_add_adress,
+                    enabled: true,
+                    routeName: '',
+                  ),
+                  icon: Icon(Icons.add),
+                  textStyle: Theme.of(context).textTheme.bodyMedium,
+                ),
+              ),
           ],
         ),
       ],

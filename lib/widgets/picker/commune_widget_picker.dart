@@ -46,8 +46,6 @@ class CommuneWidgetPickerState extends State<CommuneWidgetPicker> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            //  const SizedBox(height: 12),
-            // Gender dropdown
             DropdownButtonFormField<String>(
               decoration: InputDecoration(
                 filled: true,
@@ -56,25 +54,99 @@ class CommuneWidgetPickerState extends State<CommuneWidgetPicker> {
                 labelStyle: TextStyle(fontSize: 12),
                 border: InputBorder.none,
               ),
-              style: TextStyle(fontSize: 12),
-              //  dropdownColor: AppColors.backgroundColor,
-              //   focusColor: AppColors.selectionColor,
-              //   iconEnabledColor: AppColors.textColor,
               value: _toCommuneCode(_selectedCommune),
               items: [
-                DropdownMenuItem(value: 'di', child: Text(COMMUNE_DIXINN)),
-                DropdownMenuItem(value: 'gb', child: Text(COMMUNE_GBESSIA)),
-                DropdownMenuItem(value: 'ka', child: Text(COMMUNE_KALOUM)),
-                DropdownMenuItem(value: 'kg', child: Text(COMMUNE_KAGBELEN)),
-                DropdownMenuItem(value: 'ks', child: Text(COMMUNE_KASSA)),
-                DropdownMenuItem(value: 'la', child: Text(COMMUNE_LAMBANYI)),
-                DropdownMenuItem(value: 'ma', child: Text(COMMUNE_MATAM)),
-                DropdownMenuItem(value: 'mn', child: Text(COMMUNE_MANEAH)),
-                DropdownMenuItem(value: 'mt', child: Text(COMMUNE_MATOTO)),
-                DropdownMenuItem(value: 'ra', child: Text(COMMUNE_RATOMA)),
-                DropdownMenuItem(value: 'so', child: Text(COMMUNE_SONFONIA)),
-                DropdownMenuItem(value: 'sn', child: Text(COMMUNE_SANOYAH)),
-                DropdownMenuItem(value: 'to', child: Text(COMMUNE_TOMBOLIA)),
+                DropdownMenuItem(
+                  value: 'di',
+                  child: Text(
+                    COMMUNE_DIXINN,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ),
+                DropdownMenuItem(
+                  value: 'gb',
+                  child: Text(
+                    COMMUNE_GBESSIA,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ),
+                DropdownMenuItem(
+                  value: 'ka',
+                  child: Text(
+                    COMMUNE_KALOUM,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ),
+                DropdownMenuItem(
+                  value: 'kg',
+                  child: Text(
+                    COMMUNE_KAGBELEN,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ),
+                DropdownMenuItem(
+                  value: 'ks',
+                  child: Text(
+                    COMMUNE_KASSA,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ),
+                DropdownMenuItem(
+                  value: 'la',
+                  child: Text(
+                    COMMUNE_LAMBANYI,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ),
+                DropdownMenuItem(
+                  value: 'ma',
+                  child: Text(
+                    COMMUNE_MATAM,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ),
+                DropdownMenuItem(
+                  value: 'mn',
+                  child: Text(
+                    COMMUNE_MANEAH,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ),
+                DropdownMenuItem(
+                  value: 'mt',
+                  child: Text(
+                    COMMUNE_MATOTO,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ),
+                DropdownMenuItem(
+                  value: 'ra',
+                  child: Text(
+                    COMMUNE_RATOMA,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ),
+                DropdownMenuItem(
+                  value: 'so',
+                  child: Text(
+                    COMMUNE_SONFONIA,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ),
+                DropdownMenuItem(
+                  value: 'sn',
+                  child: Text(
+                    COMMUNE_SANOYAH,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ),
+                DropdownMenuItem(
+                  value: 'to',
+                  child: Text(
+                    COMMUNE_TOMBOLIA,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ),
               ],
 
               onChanged: (value) {
@@ -85,8 +157,6 @@ class CommuneWidgetPickerState extends State<CommuneWidgetPicker> {
                 return MyValidators.textValidator(value);
               },
             ),
-
-            //   const SizedBox(height: 16),
           ],
         ),
       ),

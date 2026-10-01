@@ -67,14 +67,14 @@ class MyValidators {
 
     static String? textNameValidator(String? value){
     if(value!.isEmpty) {
-      return 'Vewuillez saisir le Nom svp';
+      return 'Vewuillez remplir le champ svp';
     }
     return null;
   }
 
       static String? numberValidator(String? value){
     if(value!.isEmpty) {
-      return 'Vewuillez saisir le Nom svp';
+      return 'Vewuillez remplir le champ svp';
     }
     return null;
   }

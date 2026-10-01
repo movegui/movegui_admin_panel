@@ -486,6 +486,17 @@ class AppLocalizationsFr extends AppLocalizations {
   String get input_hint_description_pressing => 'Description du Pressing';
 
   @override
+  String get input_hint_birthdate_error_msg =>
+      'Veuillez sélectionner votre date de naissance.';
+
+  @override
+  String get input_hint_birthdate => 'Selectionner Date de Naissance';
+
+  @override
+  String get input_hint_select_birthdate =>
+      'Selectionner votre date de Naissance';
+
+  @override
   String get movegui_info_title =>
       'MoveGui – Livraison & Transport à Moto en Guinée';
 
@@ -734,6 +745,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get label_municipality => 'Commune';
+
+  @override
+  String get label_birthdate => 'Date de Naissance';
 
   @override
   String get exception_login_message =>

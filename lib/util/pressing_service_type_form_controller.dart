@@ -4,14 +4,14 @@ import 'package:movegui_admin_panel/util/form_controller.dart';
 
 class PressingServiceTypeFormController
     extends FormController<PressingServiceTypeModel> {
+         final formKey = GlobalKey<FormState>();
   final name = TextEditingController();
   final description = TextEditingController();
   PricingType? pricingType;
   String? id;
   DateTime? createdAt;
 
-
-    void dispose() {
+  void dispose() {
     name.dispose();
     description.dispose();
   }
@@ -31,5 +31,23 @@ class PressingServiceTypeFormController
     pricingType = model.pricingType;
     id = model.id;
     createdAt = model.createdAt;
+  }
+
+  @override
+  bool isValid() {
+    final currentState = formKey.currentState;
+    if (currentState == null) {
+      return false;
+    }
+
+    if (!currentState.validate()) {
+      return false;
+    }
+
+    return name.text.isNotEmpty &&
+        description.text.isNotEmpty &&
+        pricingType != null &&
+        createdAt != null &&
+        id != null;
   }
 }

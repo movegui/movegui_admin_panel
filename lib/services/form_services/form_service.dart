@@ -15,12 +15,19 @@ abstract class FormService<M extends Model, F extends FormController<M>>
   final F Function() controllerFactory;
   final SeedService seedService;
 
-  FormService({required this.seedService, required this.controllerFactory, required this.api});
+  FormService({
+    required this.seedService,
+    required this.controllerFactory,
+    required this.api,
+  });
 
   Future<String?> uploadImageToFirebase(
     Uint8List? webImage,
     File? pickedImage,
   ) async {
+    if (kIsWeb && webImage == null) return null;
+    if (!kIsWeb && pickedImage == null) return null;
+
     try {
       final storage = FirebaseStorage.instance;
 
@@ -28,25 +35,21 @@ abstract class FormService<M extends Model, F extends FormController<M>>
       String fileName = 'persons/${DateTime.now().millisecondsSinceEpoch}.jpg';
       Reference ref = storage.ref().child(fileName);
 
-      UploadTask uploadTask;
-
       if (kIsWeb) {
-        // Upload bytes for web
-        UploadTask uploadTask = ref.putData(
-          webImage!, // from your _pickImage()
+        final uploadTask = ref.putData(
+          webImage!,
           SettableMetadata(contentType: 'image/jpeg'),
         );
-        TaskSnapshot snapshot = await uploadTask;
-        String downloadUrl = await snapshot.ref.getDownloadURL();
+        final snapshot = await uploadTask;
+        final downloadUrl = await snapshot.ref.getDownloadURL();
         return downloadUrl;
       } else {
-        // Upload file for mobile
-        UploadTask uploadTask = ref.putFile(
+        final uploadTask = ref.putFile(
           pickedImage!,
           SettableMetadata(contentType: 'image/jpeg'),
         );
-        TaskSnapshot snapshot = await uploadTask;
-        String downloadUrl = await snapshot.ref.getDownloadURL();
+        final snapshot = await uploadTask;
+        final downloadUrl = await snapshot.ref.getDownloadURL();
         return downloadUrl;
       }
     } catch (e) {
@@ -85,11 +88,11 @@ abstract class FormService<M extends Model, F extends FormController<M>>
     return forms;
   }
 
-    @override
+  @override
   Future<List<M>> getModels(List<F> controllers) async {
-     return Future.wait(
+    return Future.wait(
       controllers.map((controller) async {
-        return  await getModel(controller);
+        return await getModel(controller);
       }).toList(),
     );
   }

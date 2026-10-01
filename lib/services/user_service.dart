@@ -228,7 +228,9 @@ class UserService extends ModelService<UserModel> implements IUserService {
               return userModel;
             }
           }
-        } else {
+        } 
+       /* 
+        else {
           MessageWidget.errorMessage(
             context,
             AppLocalizations.of(context)!.error_no_user_connected_title,
@@ -237,6 +239,7 @@ class UserService extends ModelService<UserModel> implements IUserService {
             FlushbarPosition.TOP,
           );
         }
+        */
       }
     } on NotDataFoundException catch (e) {
       throw NotDataFoundException(message: e.message);

@@ -114,7 +114,7 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
 
   Future<void> _registerFCT(ButtonInfo item) async {
     final isValid =
-        _formkey.currentState!.validate() && formController.birthdate != null;
+        _formkey.currentState!.validate() && formController.birthDate != null;
     final authProvider = ref.read(authStateProvider);
 
     FocusScope.of(context).unfocus();
@@ -138,14 +138,14 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
                 await userService.isAdmin(context, ref);
             if (isAuthorize) {
               final addressModel = AdressModel(
-                address: formController.addressesForms[0].address.text.trim(),
+                address: formController.adressesForms[0].address.text.trim(),
                 id: Uuid().v4(),
-                name: formController.addressesForms[0].selectedType,
+                name: formController.adressesForms[0].selectedType,
                 createdAt: DateTime.now(),
-                district: formController.addressesForms[0].district.text.trim(),
+                district: formController.adressesForms[0].district.text.trim(),
                 minucipality:
-                    formController.addressesForms[0].selectedMunicipality,
-                adressType: formController.addressesForms[0].selectedType,
+                    formController.adressesForms[0].selectedMunicipality,
+                adressType: formController.adressesForms[0].selectedType,
               );
               GeoCordinatesModel? geoCoord = await addressService
                   .getCoordinates(addressModel.getMapAddress());
@@ -153,10 +153,10 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
               if (geoCoord == null) {
                 geoCoord = GeoCordinatesModel(
                   longitude: double.parse(
-                    formController.addressesForms[0].longitude.text.trim(),
+                    formController.adressesForms[0].longitude.text.trim(),
                   ),
                   latitude: double.parse(
-                    formController.addressesForms[0].latitude.text.trim(),
+                    formController.adressesForms[0].latitude.text.trim(),
                   ),
                 );
               }
@@ -168,24 +168,24 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
                 formController.lastName.text.trim(),
                 [
                   AdressModel(
-                    address: formController.addressesForms[0].address.text
+                    address: formController.adressesForms[0].address.text
                         .trim(),
                     id: Uuid().v4(),
-                    name: formController.addressesForms[0].selectedType,
+                    name: formController.adressesForms[0].selectedType,
                     createdAt: DateTime.now(),
-                    district: formController.addressesForms[0].district.text
+                    district: formController.adressesForms[0].district.text
                         .trim(),
                     minucipality:
-                        formController.addressesForms[0].selectedMunicipality,
+                        formController.adressesForms[0].selectedMunicipality,
                     geoCordinates: geoCoord,
                     zoneId:
-                        '${formController.addressesForms[0].selectedMunicipality} _ ${formController.addressesForms[0].district.text.trim()} _ ${formController.addressesForms[0].address.text.trim()}',
-                    adressType: formController.addressesForms[0].selectedType,
+                        '${formController.adressesForms[0].selectedMunicipality} _ ${formController.adressesForms[0].district.text.trim()} _ ${formController.adressesForms[0].address.text.trim()}',
+                    adressType: formController.adressesForms[0].selectedType,
                   ),
                 ],
                 formController.phone.text.trim(),
                 formController.gender!,
-                formController.birthdate!,
+                formController.birthDate!,
               );
               if (adminUser != null) {
                 await userService.addModel(adminUser);
@@ -283,7 +283,7 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
             //  formKey: _personFormkey,
             onBirthDateChanged: (value) {
               setState(() {
-                formController.birthdate = value;
+                formController.birthDate = value;
               });
             },
             onGenderChanged: (value) {
@@ -302,13 +302,13 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
             showBild: false,
             onAdressTypeChange: (String? addressType) {
               setState(() {
-                formController.addressesForms[0].selectedType = addressType!;
+                formController.adressesForms[0].selectedType = addressType!;
               });
             },
 
             onCommuneChange: (String? value) {
               setState(() {
-                formController.addressesForms[0].selectedMunicipality = value!;
+                formController.adressesForms[0].selectedMunicipality = value!;
               });
             },
 

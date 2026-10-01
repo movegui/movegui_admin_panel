@@ -349,7 +349,7 @@ exports.createUserWithoutPassword = functions.https.onRequest(async (req, res) =
       });
     }
   })
-});
+}); 
 
 exports.addressFromGeoCoord = functions.https.onRequest(
   async (req, res) => {

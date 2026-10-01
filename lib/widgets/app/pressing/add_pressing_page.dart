@@ -156,7 +156,7 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
         formController.userForms.any(
           (userForm) =>
               userForm.personForm.pickedImage == null ||
-              userForm.personForm.birthdate == null ||
+              userForm.personForm.birthDate == null ||
               userForm.personForm.gender == null,
         )) {
       MessageWidget.errorMessage(
@@ -378,11 +378,14 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
               subTitle: AppLocalizations.of(
                 context,
               )!.owner_add_dashboard_sub_title,
-              onRegister: (List<UserModel>? owners) {
-                users.addAll(owners ?? []);
+              onRegister: (List<UserModel>? newOwners) {
+                setState(() {
+                  users.addAll(newOwners ?? []);
+                });
+                context.pop();
               },
             ),
-            Colors.blue,
+            Theme.of(context).colorScheme.surface,
             [],
           ),
         ),
@@ -399,11 +402,13 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
               subTitle: AppLocalizations.of(
                 context,
               )!.manager_add_dashboard_sub_title,
-              onRegister: (List<UserModel>? managers) {
-                users.addAll(managers ?? []);
+              onRegister: (List<UserModel>? newManagers) {
+                setState(() {
+                  users.addAll(newManagers ?? []);
+                });
               },
             ),
-            Colors.purple,
+            Theme.of(context).colorScheme.surface,
             [],
           ),
         ),
@@ -420,11 +425,13 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
               subTitle: AppLocalizations.of(
                 context,
               )!.employe_add_dashboard_sub_title,
-              onRegister: (List<UserModel>? employees) {
-                users.addAll(employees ?? []);
+              onRegister: (List<UserModel>? newEmployees) {
+                setState(() {
+                  users.addAll(newEmployees ?? []);
+                });
               },
             ),
-            Colors.green,
+            Theme.of(context).colorScheme.surface,
             [],
           ),
         ),

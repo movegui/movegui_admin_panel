@@ -42,6 +42,8 @@ class AddressWidget extends StatefulWidget {
 }
 
 class AddressWidgetState extends State<AddressWidget> {
+
+
   late bool _readOnly = widget.addressForm.isValid()
       ? widget.toEdit!
             ? false
@@ -50,9 +52,10 @@ class AddressWidgetState extends State<AddressWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      //  key: addAddressKey,
-      children: [
+    return Form(
+      key: widget.addressForm.formKey,
+      child: Column(
+        children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -83,10 +86,6 @@ class AddressWidgetState extends State<AddressWidget> {
                 onChange: (value) {
                   widget.onChange.call(value);
                 },
-                readOnly: _readOnly,
-                maxLines: 2,
-                textInputType: TextInputType.multiline,
-            //    isNumber: false,
                 inputFormatters: [],
               ),
             ),
@@ -120,10 +119,6 @@ class AddressWidgetState extends State<AddressWidget> {
                 onChange: (value) {
                   widget.onChange(value);
                 },
-                readOnly: _readOnly,
-                maxLines: 2,
-                textInputType: TextInputType.multiline,
-              //  isNumber: false,
               ),
             ),
           ],
@@ -141,6 +136,7 @@ class AddressWidgetState extends State<AddressWidget> {
             : SizedBox(),
         SeparatorWidget(height: 6),
       ],
+      ),
     );
   }
 

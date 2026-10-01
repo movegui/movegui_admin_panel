@@ -483,6 +483,15 @@ class AppLocalizationsEn extends AppLocalizations {
       'Description of the Dry Cleaner';
 
   @override
+  String get input_hint_birthdate_error_msg => 'Please select your birthdate.';
+
+  @override
+  String get input_hint_birthdate => 'Select birthdate';
+
+  @override
+  String get input_hint_select_birthdate => 'Please select your birthdate';
+
+  @override
   String get movegui_info_title =>
       'MoveGui – Motorcycle Delivery & Transport in Guinea';
 
@@ -731,6 +740,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get label_municipality => 'Municipality';
+
+  @override
+  String get label_birthdate => 'Birthdate';
 
   @override
   String get exception_login_message =>

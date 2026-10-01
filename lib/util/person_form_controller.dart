@@ -6,10 +6,11 @@ import 'package:movegui_admin_panel/util/address_form_controller.dart';
 import 'package:movegui_admin_panel/util/form_controller.dart';
 
 class PersonFormController extends FormController<PersonModel> {
+ //  final formKey = GlobalKey<FormState>();
   final firstName = TextEditingController();
   final lastName = TextEditingController();
   final middleName = TextEditingController();
-  final addressesForms = [AddressFormController()];
+  final adressesForms = [AddressFormController()];
   final email = TextEditingController();
   final phone = TextEditingController();
   final firstNameFocusNode = FocusNode();
@@ -18,18 +19,24 @@ class PersonFormController extends FormController<PersonModel> {
   final emailFocusNode = FocusNode();
   final phoneFocusNode = FocusNode();
   String? gender = 'm';
-  DateTime? birthdate;
+  String? profileImageUrl;
+  DateTime? birthDate;
   File? pickedImage;
   Uint8List? webImage;
 
+  bool get hasImage =>
+      pickedImage != null ||
+      webImage != null ||
+      (profileImageUrl?.isNotEmpty ?? false);
+
   void addAddress() {
-    addressesForms.add(AddressFormController());
+    adressesForms.add(AddressFormController());
   }
 
   void removeAddress(int index) {
-    if (addressesForms.length == 1) return;
+    if (adressesForms.length == 1) return;
 
-    final addressForm = addressesForms.removeAt(index);
+    final addressForm = adressesForms.removeAt(index);
     addressForm.dispose();
   }
 
@@ -37,8 +44,8 @@ class PersonFormController extends FormController<PersonModel> {
     firstName.dispose();
     lastName.dispose();
     middleName.dispose();
-    for (final addressForm in addressesForms) {
-      addressForm.dispose();
+    for (final adressForm in adressesForms) {
+      adressForm.dispose();
     }
     email.dispose();
     phone.dispose();
@@ -48,12 +55,13 @@ class PersonFormController extends FormController<PersonModel> {
     firstName.clear();
     lastName.clear();
     middleName.clear();
-    for (final addressForm in addressesForms) {
-      addressForm.clear();
+    for (final adressForm in adressesForms) {
+      adressForm.clear();
     }
     email.clear();
     phone.clear();
-    birthdate = null;
+    birthDate = null;
+    profileImageUrl = null;
     pickedImage = null;
     webImage = null;
   }
@@ -63,12 +71,38 @@ class PersonFormController extends FormController<PersonModel> {
     firstName.text = model.firstName;
     lastName.text = model.lastName;
     middleName.text = model.middleName ?? '';
-    addressesForms.asMap().entries.map((entry) async {
+    profileImageUrl = model.profileImageUrl;
+    adressesForms.asMap().entries.map((entry) async {
       final index = entry.key;
       final addressForm = entry.value;
       await addressForm.setData(model.addresses[index]!);
     }).toList();
     email.text = model.email!;
     phone.text = model.phone!;
+    gender = model.gender;
+    print('Setting birthDate: ${model.birthDate}');
+  //  birthDate = model.birthDate;
+  }
+
+  @override
+  bool isValid() {
+    return isDataValid();
+  }
+
+  bool isDataValid() {
+    for (int i = 0; i < adressesForms.length; i++) {
+      if (!adressesForms[i].isValid()) {
+        return false;
+      }
+    }
+
+    return firstName.text.isNotEmpty &&
+        lastName.text.isNotEmpty &&
+        adressesForms.isNotEmpty &&
+        email.text.isNotEmpty &&
+        phone.text.isNotEmpty &&
+        gender?.isNotEmpty == true &&
+        birthDate != null &&
+        hasImage;
   }
 }

@@ -8,6 +8,7 @@ import 'package:movegui_admin_panel/util/product_form_controller.dart';
 
 class PressingServiceFormController
     extends FormController<PressingServiceModel> {
+         final formKey = GlobalKey<FormState>();
   final name = TextEditingController();
   final nameFocusNode = FocusNode();
   final minPrice = TextEditingController();
@@ -17,7 +18,7 @@ class PressingServiceFormController
   PressingServiceTypeModel? serviceType;
   Duration? estimatedDuration;
   final serviceTypeFormController = PressingServiceTypeFormController();
-  final articleFormController =  ProductFormController<PressingArticleModel>();
+  final articleFormController = ProductFormController<PressingArticleModel>();
   String? id;
   double? basePrice;
   DateTime? createdAt;
@@ -50,5 +51,34 @@ class PressingServiceFormController
     articleFormController.setData(model.product);
     estimatedDuration = model.estimatedDuration;
     createdAt = model.createdAt;
+  }
+
+  @override
+  bool isValid() {
+    final currentState = formKey.currentState;
+    if (currentState == null) {
+      return false;
+    }
+
+    if (!currentState.validate()) {
+      return false;
+    }
+
+    if (!serviceTypeFormController.isValid()) {
+      return false;
+    }
+
+    if (!articleFormController.isValid()) {
+      return false;
+    }
+
+    return name.text.isNotEmpty &&
+        minPrice.text.isNotEmpty &&
+        maxPrice.text.isNotEmpty &&
+        serviceType != null &&
+        estimatedDuration != null &&
+        id != null &&
+        basePrice != null &&
+        createdAt != null;
   }
 }

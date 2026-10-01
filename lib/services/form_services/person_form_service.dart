@@ -17,6 +17,11 @@ class PersonFormService extends FormService<PersonModel, PersonFormController> {
 
   @override
   Future<PersonModel> getModel(PersonFormController controller) async {
+    final uploadedImageUrl = await uploadImageToFirebase(
+      controller.webImage,
+      controller.pickedImage,
+    );
+
     return PersonModel(
       id: const Uuid().v4(),
       firstName: controller.firstName.text.trim(),
@@ -27,27 +32,24 @@ class PersonFormService extends FormService<PersonModel, PersonFormController> {
       middleName: controller.middleName.text.isEmpty
           ? null
           : controller.middleName.text.trim(),
-      profileImageUrl: await uploadImageToFirebase(
-        controller.webImage!,
-        controller.pickedImage,
-      ),
-      birthDate: controller.birthdate,
+      profileImageUrl: uploadedImageUrl ?? controller.profileImageUrl,
+      birthDate: controller.birthDate,
       addresses: [
         AdressModel(
-          address: controller.addressesForms[0].address.text.trim(),
+          address: controller.adressesForms[0].address.text.trim(),
           id: Uuid().v4(),
-          name: controller.addressesForms[0].selectedType,
+          name: controller.adressesForms[0].selectedType,
           createdAt: DateTime.now(),
-          district: controller.addressesForms[0].district.text.trim(),
-          minucipality: controller.addressesForms[0].selectedMunicipality,
+          district: controller.adressesForms[0].district.text.trim(),
+          minucipality: controller.adressesForms[0].selectedMunicipality,
           zoneId:
-              '${controller.addressesForms[0].selectedMunicipality}_${controller.addressesForms[0].district.text.trim()}_${controller.addressesForms[0].address.text.trim()}',
+              '${controller.adressesForms[0].selectedMunicipality}_${controller.adressesForms[0].district.text.trim()}_${controller.adressesForms[0].address.text.trim()}',
           geoCordinates: GeoCordinatesModel(
             longitude: double.parse(
-              controller.addressesForms[0].longitude.text.trim(),
+              controller.adressesForms[0].longitude.text.trim(),
             ),
             latitude: double.parse(
-              controller.addressesForms[0].latitude.text.trim(),
+              controller.adressesForms[0].latitude.text.trim(),
             ),
           ),
           adressType: '',
@@ -55,7 +57,7 @@ class PersonFormService extends FormService<PersonModel, PersonFormController> {
       ],
       email: controller.email.text.trim(),
       phone: controller.phone.text.trim(),
-      gender: controller.gender!,
+      gender: controller.gender ?? 'm',
       //  image: images[i],
     );
   }
@@ -72,7 +74,7 @@ class PersonFormService extends FormService<PersonModel, PersonFormController> {
       email: '',
       phone: '',
       gender: 'm',
-      birthDate: DateTime.now(),
+      birthDate: null, // DateTime.now() - 18 * 365 * 24 * 60 * 60 * 1000, // 18 years ago
       addresses: [adressFormService.getDefaultModel()],
     );
   }

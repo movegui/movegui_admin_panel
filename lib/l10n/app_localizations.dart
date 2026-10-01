@@ -962,6 +962,24 @@ abstract class AppLocalizations {
   /// **'Description of the Dry Cleaner'**
   String get input_hint_description_pressing;
 
+  /// No description provided for @input_hint_birthdate_error_msg.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select your birthdate.'**
+  String get input_hint_birthdate_error_msg;
+
+  /// No description provided for @input_hint_birthdate.
+  ///
+  /// In en, this message translates to:
+  /// **'Select birthdate'**
+  String get input_hint_birthdate;
+
+  /// No description provided for @input_hint_select_birthdate.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select your birthdate'**
+  String get input_hint_select_birthdate;
+
   /// No description provided for @movegui_info_title.
   ///
   /// In en, this message translates to:
@@ -1453,6 +1471,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Municipality'**
   String get label_municipality;
+
+  /// No description provided for @label_birthdate.
+  ///
+  /// In en, this message translates to:
+  /// **'Birthdate'**
+  String get label_birthdate;
 
   /// No description provided for @exception_login_message.
   ///
