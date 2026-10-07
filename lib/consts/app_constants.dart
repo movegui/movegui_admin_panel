@@ -30,9 +30,15 @@ class AppConstants {
     "Dimanche",
   ];
 
-  static List<PressingServiceTypeModel> getPressingServices(
+  static Future<List<PressingServiceTypeModel>> getPressingServices(
     BuildContext context,
   ) {
+    return getPressingServicesTypes(context);
+  }
+
+  static Future<List<PressingServiceTypeModel>> getPressingServicesTypes(
+    BuildContext context,
+  ) async {
     return [
       PressingServiceTypeModel(
         id: '001',
@@ -108,15 +114,6 @@ class AppConstants {
       ),
       PressingServiceTypeModel(
         id: '009',
-        name: AppLocalizations.of(context)!.pressing_service_washing,
-        description: AppLocalizations.of(
-          context,
-        )!.pressing_service_washing_descrip,
-        pricingType: PricingType.fixed,
-        createdAt: DateTime.now(),
-      ),
-      PressingServiceTypeModel(
-        id: '010',
         name: AppLocalizations.of(context)!.pressing_service_washing,
         description: AppLocalizations.of(
           context,

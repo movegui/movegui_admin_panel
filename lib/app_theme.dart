@@ -17,12 +17,18 @@ class AppTheme {
     ),
 
     cardTheme: _cardTheme(),
-    inputDecorationTheme: _textFieldTheme(),
+    inputDecorationTheme: _inputDecorationTheme(),
     elevatedButtonTheme: _elevatedButtonTheme(),
     scrollbarTheme: _scrollbarTheme(),
     textTheme: _textTheme(),
     iconButtonTheme: _iconButtonTheme(),
     iconTheme: const IconThemeData(color: AppColors.primary),
+    dropdownMenuTheme: DropdownMenuThemeData(
+      textStyle: _textTheme().bodyMedium,
+      menuStyle: MenuStyle(
+        backgroundColor: WidgetStatePropertyAll(AppColors.primary),
+      ),
+    ),
   );
 
   static ThemeData darkTheme = ThemeData(
@@ -39,11 +45,17 @@ class AppTheme {
     ),
 
     cardTheme: _cardTheme(),
-    inputDecorationTheme: _textFieldTheme(),
+    inputDecorationTheme: _inputDecorationTheme(),
     elevatedButtonTheme: _elevatedButtonTheme(),
     scrollbarTheme: _scrollbarTheme(),
     textTheme: _textTheme(),
     iconButtonTheme: _iconButtonTheme(),
+    dropdownMenuTheme: DropdownMenuThemeData(
+      textStyle: _textTheme().bodyMedium,
+      menuStyle: MenuStyle(
+        backgroundColor: WidgetStatePropertyAll(AppColors.primary),
+      ),
+    ),
   );
 
   static CardThemeData _cardTheme() {
@@ -55,7 +67,7 @@ class AppTheme {
     );
   }
 
-  static InputDecorationTheme _textFieldTheme() {
+  static InputDecorationTheme _inputDecorationTheme() {
     return InputDecorationTheme(
       filled: true,
       fillColor: Colors.white,
@@ -142,7 +154,6 @@ class AppTheme {
           return AppColors.onPrimary;
         }),
         iconSize: WidgetStateProperty.all(20),
-        
       ),
     );
   }
@@ -162,20 +173,33 @@ class AppTheme {
       headlineMedium: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
 
       // Titres de cards
-      titleLarge: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: AppColors.onPrimary),
+      titleLarge: TextStyle(
+        fontSize: 22,
+        fontWeight: FontWeight.w700,
+        color: AppColors.onPrimary,
+      ),
 
-      titleMedium: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: AppColors.onPrimary),
+      titleMedium: TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
+        color: AppColors.onPrimary,
+      ),
 
-      titleSmall: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.onPrimary),
+      titleSmall: TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w600,
+        color: AppColors.onPrimary,
+      ),
+
 
       // Texte normal
-      bodyLarge: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+      bodyLarge: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
 
-      bodyMedium: TextStyle(fontSize: 14,),
+      bodyMedium: TextStyle(fontSize: 16),
 
-      bodySmall: TextStyle(fontSize: 12,),
+      bodySmall: TextStyle(fontSize: 13),
+
       // Boutons
-    
     );
   }
 }

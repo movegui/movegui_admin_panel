@@ -347,10 +347,10 @@ exports.createUserWithoutPassword = functions.https.onRequest(async (req, res) =
       res.status(authErrorStatus(e)).json({
         error: e.message,
       });
-    }
-  })
-}); 
-
+    } 
+  })  
+});     
+    
 exports.addressFromGeoCoord = functions.https.onRequest(
   async (req, res) => {
     cors(req, res, async () => {
@@ -361,9 +361,9 @@ exports.addressFromGeoCoord = functions.https.onRequest(
         if (!latitude || !longitude) {
           return res.status(400).json({
             error: "latitude and longitude are required",
-          });
-        }
-
+          });  
+        } 
+ 
         const url =
           `https://nominatim.openstreetmap.org/reverse` +
           `?lat=${latitude}` +
@@ -400,4 +400,4 @@ exports.addressFromGeoCoord = functions.https.onRequest(
   }
 );
 
-
+  

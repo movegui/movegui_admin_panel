@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
-import 'package:movegui_admin_panel/consts/widget_constants.dart';
-
-
+import 'package:movegui_admin_panel/responsive.dart';
 
 class InputWidget extends StatelessWidget {
   final TextEditingController controller;
@@ -28,8 +26,6 @@ class InputWidget extends StatelessWidget {
   final TextStyle? textStyle;
   final Color? color;
 
-
-
   const InputWidget({
     super.key,
     required this.controller,
@@ -42,7 +38,7 @@ class InputWidget extends StatelessWidget {
     this.validator,
     this.fontSize,
     this.fontFamily,
-    this.isFullBorder = false,
+    this.isFullBorder = true,
     this.labelText = '',
     this.onChange,
     this.inputFormatters,
@@ -52,17 +48,12 @@ class InputWidget extends StatelessWidget {
     this.obscureText = false,
     this.contentPadding,
     this.textStyle,
-    this.color = AppColors.primary
+    this.color = AppColors.primary,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: WidgetConstants.sepWidgetHeight * 1.5,
-        right: WidgetConstants.sepWidgetHeight * 1.5,
-      ),
-      child: TextFormField(
+    return  TextFormField(
         controller: controller,
         focusNode: focusNode,
         readOnly: readOnly ?? false,
@@ -70,12 +61,21 @@ class InputWidget extends StatelessWidget {
         textInputAction: TextInputAction.next,
         keyboardType: textInputType,
         obscureText: obscureText ?? false,
-        style: textStyle ??        Theme.of(context).textTheme.bodyMedium?.copyWith(
-          fontSize: fontSize,
-          fontFamily: fontFamily,
-          fontWeight: fontweight,
-          color: color
-        ),
+        style:
+            textStyle ??
+            (Responsive.isDesktop(context)
+                ? Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontSize: fontSize,
+                    fontFamily: fontFamily,
+                    fontWeight: fontweight,
+                    color: color,
+                  )
+                : Theme.of(context).textTheme.bodySmall?.copyWith(
+                    fontSize: fontSize,
+                    fontFamily: fontFamily,
+                    fontWeight: fontweight,
+                    color: color,
+                  )),
         onFieldSubmitted: (value) {
           FocusScope.of(context).requestFocus(nextFocusNode!);
         },
@@ -92,7 +92,19 @@ class InputWidget extends StatelessWidget {
                 ),
                 prefixIcon: prefixIcon,
                 labelText: labelText!.isEmpty ? hintText : labelText,
-                labelStyle: TextStyle(),
+                labelStyle: Responsive.isDesktop(context)
+                ? Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontSize: fontSize,
+                    fontFamily: fontFamily,
+                    fontWeight: fontweight,
+                    color: color,
+                  )
+                : Theme.of(context).textTheme.bodySmall?.copyWith(
+                    fontSize: fontSize,
+                    fontFamily: fontFamily,
+                    fontWeight: fontweight,
+                    color: color,
+                  ),
                 errorStyle: TextStyle(
                   color: AppColors.error,
                 ), // change validator color
@@ -103,7 +115,19 @@ class InputWidget extends StatelessWidget {
                   borderSide: BorderSide(color: AppColors.error, width: 2),
                 ),
                 hintText: hintText,
-                hintStyle: TextStyle(color: AppColors.disabled),
+                hintStyle: Responsive.isDesktop(context)
+                ? Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontSize: fontSize,
+                    fontFamily: fontFamily,
+                    fontWeight: fontweight,
+                    color: AppColors.disabled,
+                  )
+                : Theme.of(context).textTheme.bodySmall?.copyWith(
+                    fontSize: fontSize,
+                    fontFamily: fontFamily,
+                    fontWeight: fontweight,
+                    color: AppColors.disabled,
+                  ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(),
                   borderRadius: BorderRadius.circular(8),
@@ -113,7 +137,7 @@ class InputWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 suffixIcon: suffixIcon,
-                contentPadding: contentPadding
+                contentPadding: contentPadding,
               )
             : InputDecoration(
                 hintText: hintText,
@@ -130,164 +154,6 @@ class InputWidget extends StatelessWidget {
                   ),
                 ),
               ),
-      ),
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-class InputWidget extends StatelessWidget {
-  final TextEditingController controller;
-  final FocusNode focusNode;
-  final FocusNode? nextFocusNode;
-  final IconData? icon;
-  final TextInputType? textInputType;
-  final String? hinterText;
-  final String? Function(String?)? validator;
-  final double? fontSize;
-  final String? fontFamily;
-  // final Color? textColor;
-  final FontWeight? fontweight;
-  final bool? isFullBorder;
-  final String? labelText;
-  final ValueChanged<String>? onChange;
-  final List<TextInputFormatter>? inputFormatters;
-  final bool? readOnly;
-  final int? maxLines;
-  final bool isNumber;
-
-  const InputWidget({
-    super.key,
-    required this.controller,
-    required this.focusNode,
-    this.nextFocusNode,
-    required this.icon,
-    this.textInputType,
-    this.hinterText,
-    this.validator,
-    this.fontSize = 14,
-    this.fontFamily,
-    //   this.textColor = AppColors.textColor,
-    this.fontweight = FontWeight.normal,
-    this.isFullBorder = false,
-    this.labelText = '',
-    required this.onChange,
-    this.inputFormatters,
-    this.readOnly = false,
-    this.maxLines = 1,
-    required this.isNumber,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: WidgetConstants.sepWidgetHeight * 1.5,
-        right: WidgetConstants.sepWidgetHeight * 1.5,
-      ),
-      child: TextFormField(
-        controller: controller,
-        readOnly: readOnly ?? false,
-        focusNode: focusNode,
-        maxLines: maxLines,
-        textInputAction: TextInputAction.next,
-        keyboardType: textInputType,
-        decoration: isFullBorder == true
-            ? InputDecoration(
-                contentPadding: const EdgeInsets.fromLTRB(
-                  12,
-                  20,
-                  12,
-                  24,
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: AppColors.selectionColor,
-                    width: 2,
-                  ),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                prefixIcon: Icon(icon),
-                labelText: labelText!.isEmpty ? hinterText : labelText,
-                labelStyle: TextStyle(),
-                errorStyle: TextStyle(
-                  color: AppColors.error,
-                ), // change validator color
-                errorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.error),
-                ),
-                focusedErrorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.error, width: 2),
-                ),
-                hintText: hinterText,
-                hintStyle: TextStyle(color: AppColors.placeHolderText),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              )
-            : InputDecoration(
-                contentPadding: const EdgeInsets.fromLTRB(
-                  12,
-                  20,
-                  12,
-                  24,
-                ),
-                hintText: hinterText,
-                prefixIcon: Icon(icon),
-                hintStyle: TextStyle(color: AppColors.placeHolderText),
-
-                // Only show bottom border
-                border: UnderlineInputBorder(borderSide: BorderSide(width: 1)),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(width: 1),
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: AppColors.selectionColor,
-                    width: 2,
-                  ),
-                ),
-              ),
-        onChanged: onChange,
-        inputFormatters: isNumber
-            ? [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))]
-            : null,
-        style: TextStyle(
-          fontSize: fontSize,
-          fontFamily: fontFamily,
-          fontWeight: fontweight ?? FontWeight.normal,
-        ),
-        onFieldSubmitted: (value) {
-          if (nextFocusNode != null) {
-            FocusScope.of(context).requestFocus(nextFocusNode);
-          } else {
-            FocusScope.of(context).unfocus();
-          }
-        },
-        validator: validator,
-        
-      ),
-    );
-  }
-}
-*/

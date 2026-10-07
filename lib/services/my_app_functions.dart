@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/widgets/title_text.dart';
 
 import '../widgets/subtitle_text.dart';
@@ -128,7 +129,7 @@ class MyAppFunctions {
         return AlertDialog(
           backgroundColor: color ?? Theme.of(context).cardColor,
           content: SizedBox(
-            width: size.width * 0.6,
+            width: Responsive.isDesktop(dialogContext) ? size.width * 0.6 : size.width * 0.95,
             height: double.infinity,
             child: SingleChildScrollView(child: child),
           ),

@@ -4,6 +4,7 @@ import 'package:movegui_admin_panel/util/form_controller.dart';
 
 class ProductFormController<M extends ProductModel> extends FormController<M> {
   final name = TextEditingController();
+   final description = TextEditingController();
      final formKey = GlobalKey<FormState>();
   double price = 0.0;
   String? supplierId;
@@ -21,6 +22,7 @@ class ProductFormController<M extends ProductModel> extends FormController<M> {
 
   void clear() {
     name.clear();
+    description.clear();
     price = 0.0;
     supplierId = null;
     isAvailable = false;
@@ -36,6 +38,7 @@ class ProductFormController<M extends ProductModel> extends FormController<M> {
   Future<void> setData(M model) async {
     id = model.id;
     name.text = model.name;
+    description.text = model.description ?? '';
     createdAt = model.createdAt;
     price = model.price ?? 0.0;
     supplierId = model.supplierId;
@@ -58,7 +61,7 @@ class ProductFormController<M extends ProductModel> extends FormController<M> {
     }
 
     return name.text.isNotEmpty &&
-        price > 0 &&
+        price >= 0 &&
         imageUrl != null &&
         id != null &&
         createdAt != null;

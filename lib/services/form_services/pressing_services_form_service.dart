@@ -14,12 +14,11 @@ class PressingServicesFormService
     required super.controllerFactory,
     required super.api,
     required this.servicesTypeFormService,
-    required this.articleFormService
+    required this.articleFormService,
   });
 
   final PressingServicesTypeFormService servicesTypeFormService;
   final PressingArticleFormService articleFormService;
-
 
   @override
   Future<PressingServiceModel> generateModel() {
@@ -31,7 +30,7 @@ class PressingServicesFormService
     return PressingServiceModel(
       id: Uuid().v4(),
       serviceType: PressingServiceTypeModel(
-        id: Uuid().v4(),
+        id: PricingType.fixed.id,
         name: 'default',
         description: 'default',
         pricingType: PricingType.perItem,
@@ -52,7 +51,9 @@ class PressingServicesFormService
         category: null,
         isAvailable: false,
         currency: 'GNF',
+        description: '',
       ),
+      description: '',
     );
   }
 
@@ -62,13 +63,19 @@ class PressingServicesFormService
   ) async {
     return PressingServiceModel(
       id: controller.id ?? Uuid().v4(),
-      serviceType: await servicesTypeFormService.getModel(controller.serviceTypeFormController),
+      serviceType: controller.serviceType ?? await servicesTypeFormService.getModel(
+        controller.serviceTypeFormController,
+      ),
       minPrice: double.parse(controller.minPrice.text),
       maxPrice: double.parse(controller.maxPrice.text),
       basePrice: controller.basePrice ?? 0.0,
       name: controller.name.text,
       createdAt: controller.createdAt ?? DateTime.now(),
-      product: await articleFormService.getModel(controller.articleFormController),
+      product: await articleFormService.getModel(
+        controller.articleFormController,
+      ),
+      description: controller.description.text,
+      estimatedDuration: controller.estimatedDuration ?? Duration(),
     );
   }
 }

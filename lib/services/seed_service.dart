@@ -58,9 +58,10 @@ class SeedService {
         minPrice: 1000,
         maxPrice: 5000,
         basePrice: 1000,
-        estimatedDuration: Duration(),
+        estimatedDuration: Duration(hours: 2),
         name: faker.food.restaurant(),
         createdAt: DateTime.now(),
+         description: faker.person.name(),
       );
 
   Future<PersonModel> getGeneratedPerson() async => PersonModel(
@@ -134,5 +135,6 @@ class SeedService {
           category: faker.company.name(),
           isAvailable: true,
           currency: 'GNF',
+          description: faker.company.name()
         );
 }

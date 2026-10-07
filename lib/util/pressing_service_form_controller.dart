@@ -8,9 +8,14 @@ import 'package:movegui_admin_panel/util/product_form_controller.dart';
 
 class PressingServiceFormController
     extends FormController<PressingServiceModel> {
-         final formKey = GlobalKey<FormState>();
+        final formKey = GlobalKey<FormState>();
+
   final name = TextEditingController();
+  final description = TextEditingController();
+  final processingTime = TextEditingController();
   final nameFocusNode = FocusNode();
+  final descriptionFocusNode = FocusNode();
+  final processingTimeFocusNode = FocusNode();
   final minPrice = TextEditingController();
   final minPriceFocusNode = FocusNode();
   final maxPrice = TextEditingController();
@@ -22,23 +27,28 @@ class PressingServiceFormController
   String? id;
   double? basePrice;
   DateTime? createdAt;
+  bool isActive = true;
 
   void dispose() {
     name.dispose();
+    description.dispose();
     minPrice.dispose();
     maxPrice.dispose();
     serviceTypeFormController.dispose();
     articleFormController.dispose();
+    processingTime.dispose();
   }
 
   void clear() {
     name.clear();
     minPrice.clear();
     maxPrice.clear();
+    processingTime.clear();
     serviceTypeFormController.clear();
     articleFormController.clear();
     serviceType = null;
     estimatedDuration = null;
+    description.clear();
   }
 
   @override
@@ -48,21 +58,29 @@ class PressingServiceFormController
     minPrice.text = model.minPrice.toString();
     maxPrice.text = model.maxPrice.toString();
     serviceTypeFormController.setData(model.serviceType);
+   // serviceType = model.serviceType;
     articleFormController.setData(model.product);
-    estimatedDuration = model.estimatedDuration;
+    processingTime.text = model.estimatedDuration?.inHours.toString() ?? '';
     createdAt = model.createdAt;
+    basePrice = model.basePrice;
+    description.text = model.product.description ?? '';
+    isActive = model.isActive ?? true;
+
   }
 
   @override
   bool isValid() {
     final currentState = formKey.currentState;
     if (currentState == null) {
+      print('is false');
       return false;
     }
 
     if (!currentState.validate()) {
       return false;
     }
+
+    /*
 
     if (!serviceTypeFormController.isValid()) {
       return false;
@@ -72,11 +90,13 @@ class PressingServiceFormController
       return false;
     }
 
+    */
+print('joooooo');
     return name.text.isNotEmpty &&
         minPrice.text.isNotEmpty &&
         maxPrice.text.isNotEmpty &&
         serviceType != null &&
-        estimatedDuration != null &&
+        processingTime.text.isNotEmpty &&
         id != null &&
         basePrice != null &&
         createdAt != null;

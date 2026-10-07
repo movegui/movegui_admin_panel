@@ -1,4 +1,5 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:movegui_admin_panel/responsive.dart';
 
 class DisplayWidget extends StatelessWidget {
   final String? text;
@@ -11,18 +12,21 @@ class DisplayWidget extends StatelessWidget {
     super.key,
     required this.text,
     this.textAlign = TextAlign.center,
-    this.fontSize = 14,
-    this.fontWeight = FontWeight.normal,
+    this.fontSize,
+    this.fontWeight,
   });
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final textStyle = Responsive.isDesktop(context)
+        ? textTheme.bodyMedium
+        : textTheme.bodySmall;
+
     return Text(
       text ?? '',
       textAlign: textAlign,
-      style: TextStyle(
-        fontWeight: fontWeight,
-        fontSize: fontSize,
-      ),
+      style: textStyle?.copyWith(fontSize: fontSize, fontWeight: fontWeight),
+      overflow: TextOverflow.ellipsis,
     );
   }
 }

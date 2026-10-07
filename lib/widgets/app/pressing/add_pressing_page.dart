@@ -36,6 +36,7 @@ import 'package:movegui_admin_panel/util/pressing_submit_handler.dart';
 import 'package:movegui_admin_panel/widgets/app/auth/validate_and_cancel_button.dart';
 import 'package:movegui_admin_panel/widgets/app/dashboard/dashboard_header.dart';
 import 'package:movegui_admin_panel/widgets/app/dashboard/panel/order_status_panel.dart';
+import 'package:movegui_admin_panel/widgets/app/pressing/pressing_service_display_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/service_card.dart';
 import 'package:movegui_admin_panel/widgets/app/store/store_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/dashboard/kpi_card.dart';
@@ -62,7 +63,7 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
   DashboardModel dashboardModel = DashboardModel.empty();
   bool _isLoadingDashboard = false;
   late List<UserModel> users;
-  late List<PressingServiceModel> servicesModel;
+  late List<PressingServiceModel> services;
 
   @override
   void initState() {
@@ -73,7 +74,7 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
     userService = getIt<UserService>();
     dashboardService = getIt<DashboardService>();
     users = [];
-    servicesModel = [];
+    services = [];
     /*
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final generatedUser = await seedService.getGeneratedUserModel();
@@ -309,27 +310,7 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
                 ),
 
                 const SizedBox(height: WidgetConstants.sepWidget),
-
-                _buildServiceCard(context, users, servicesModel),
-
-                /*
-                  Card(
-                    margin: EdgeInsets.zero,
-                    child: Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: PressingServiceWidget(
-                        formControllers: formController.serviceForms,
-                        onServiceChange:
-                            (int index, PressingServiceTypeModel? value) {
-                              setState(() {
-                                formController.serviceForms[index].serviceType =
-                                    value;
-                              });
-                            },
-                      ),
-                    ),
-                  ),
-                  */
+                _buildServiceCard(context, users, services),
                 const SizedBox(height: WidgetConstants.sepWidget),
                 ValidateAndCancelButton(
                   onValidate: (ButtonInfo item) async {
@@ -442,8 +423,38 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
           color: Colors.orange,
           onPress: () => MyAppFunctions.showMoveguiDialog(
             context,
-            Text('To Implement !!!!!'),
-            null,
+            PressingServiceDisplayWidget(
+              services: servicesModels,
+              title: AppLocalizations.of(
+                context,
+              )!.pressing_services_dashboard_title,
+              subTitle: AppLocalizations.of(
+                context,
+              )!.pressing_services_dashboard_sub_title,
+              onRegister: (List<PressingServiceModel>? newServices) {
+                setState(() {
+                   services.addAll(newServices ?? []);
+                });
+               
+              },
+              
+            ),
+            /*
+             Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: PressingServiceWidget(
+                        formControllers: formController.serviceForms,
+                        onServiceChange:
+                            (int index, PressingServiceTypeModel? value) {
+                              setState(() {
+                                formController.serviceForms[index].serviceType =
+                                    value;
+                              });
+                            },
+                      ),
+                    ),
+                    */
+            Theme.of(context).colorScheme.surface,
             [],
           ),
         ),

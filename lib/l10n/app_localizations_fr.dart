@@ -200,6 +200,60 @@ class AppLocalizationsFr extends AppLocalizations {
   String get pressing_service_price_max_hinterText => 'Prix Maximum du produit';
 
   @override
+  String get pressing_service_type_labelText => 'Type de Service';
+
+  @override
+  String get pressing_services_types_title => 'Types de Services';
+
+  @override
+  String get pressing_services_types_all_title => 'Tous les Types de services';
+
+  @override
+  String get pressing_services_types_all_descrip =>
+      'Tous les Types de services ';
+
+  @override
+  String get pressing_service_empty_title => 'Aucun service trouvé';
+
+  @override
+  String get pressing_service_empty_subtitle =>
+      'Créez un service ou modifiez vos critères de recherche.';
+
+  @override
+  String get pressing_service_header_tab_produit_title => 'Produit';
+
+  @override
+  String get pressing_service_header_tab_price_title => 'Prix';
+
+  @override
+  String get pressing_service_header_tab_invoicing_title => 'Facturation';
+
+  @override
+  String get pressing_service_header_tab_duration_title => 'Délai';
+
+  @override
+  String get pressing_service_header_tab_status_title => 'Status';
+
+  @override
+  String get pressing_service_search_hinterText => 'Rechercher un service';
+
+  @override
+  String get pressing_service_estimated_duration_labelText =>
+      'Durée de traitement';
+
+  @override
+  String get pressing_service_estimated_duration_hinterText => 'Ex. 24h';
+
+  @override
+  String get pressing_service_tarification_title => 'Tarification';
+
+  @override
+  String get pressing_service_info_title => 'Service Information';
+
+  @override
+  String get pressing_services_pricing_type_title => 'Type de prix';
+
+  @override
   String get pressig_details_title => 'Details Pressing';
 
   @override
@@ -215,6 +269,20 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get pressing_add_dashboard_sub_title =>
       'Ajouter les détails de l\'entreprise, les coordonnées et les services.';
+
+  @override
+  String get pressing_services_dashboard_title => 'Services Pressing';
+
+  @override
+  String get pressing_services_dashboard_sub_title =>
+      'Ajouter les services, prestations, categories et tarifs proposés par le pressing';
+
+  @override
+  String get pressing_service_add_dashboard_title => 'Ajouter un Service';
+
+  @override
+  String get pressing_service_add_dashboard_sub_title =>
+      'Ajouter les services, prestations, categories et tarifs proposés par le pressing';
 
   @override
   String get restaurant_add_bar_title => 'Ajouter un Restaurant';
@@ -372,6 +440,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get error_no_user_connected_message => 'Pas d\'utilisateur connecté';
 
   @override
+  String get error_duree_invalide => 'Durée invalide';
+
+  @override
+  String get tooltip_duree_invalide => 'Veuillez saisir une durée';
+
+  @override
   String get label_login_facebook => 'Facebook';
 
   @override
@@ -433,6 +507,12 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get btn_delete_contact => 'Supprimer le contact';
+
+  @override
+  String get btn_back => 'Retour';
+
+  @override
+  String get btn_types_services => 'Types de Services';
 
   @override
   String get verify_otp => 'Envoyer Code';
@@ -547,6 +627,15 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get module_pressing_name => 'Pressing';
+
+  @override
+  String get pricingPerItem => 'Par pièce';
+
+  @override
+  String get pricingPerKg => 'Par kilo';
+
+  @override
+  String get pricingFixed => 'Fixe';
 
   @override
   String get module_discovery_name => 'Discovery';
@@ -777,6 +866,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get tooltip_btn_add_pressing_service => 'Ajouter un service de plus';
+
+  @override
+  String get tooltip_search_pressing_service => 'Rechercher un service';
+
+  @override
+  String get tooltip_all_pressing_services_types =>
+      'Afficher tous les types de services';
 
   @override
   String get profile_menu_invite_people => 'Inviter un proche';

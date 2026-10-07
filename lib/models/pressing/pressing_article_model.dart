@@ -11,6 +11,7 @@ class PressingArticleModel extends ProductModel {
     required super.category,
     required super.isAvailable,
     required super.currency,
+    required super.description
   });
   
 
@@ -32,6 +33,7 @@ class PressingArticleModel extends ProductModel {
         category: json['category'] ?? '',
         isAvailable: json['isAvailable'] ?? false,
         price: json['price'] ?? 0,
-        currency: json['currency'] ?? 'GNF',
+        currency: json['currency'] ?? 'GNF', 
+        description: json['description'] ?? '',
       );
 }

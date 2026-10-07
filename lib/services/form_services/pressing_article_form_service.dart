@@ -5,7 +5,6 @@ import 'package:uuid/uuid.dart';
 
 class PressingArticleFormService
     extends ProductFormService<PressingArticleModel> {
-
   PressingArticleFormService({
     required super.seedService,
     required super.controllerFactory,
@@ -19,33 +18,35 @@ class PressingArticleFormService
 
   @override
   PressingArticleModel getDefaultModel() {
-   return PressingArticleModel(
-          id: Uuid().v4(),
-          name: 'default',
-          createdAt: DateTime.now(),
-          price: null,
-          supplierId: Uuid().v4(),
-          imageUrl: 'assets',
-          category:   'assets/images/categories/default_image.png',
-          isAvailable: true,
-          currency: 'GNF',
-        );
+    return PressingArticleModel(
+      id: Uuid().v4(),
+      name: 'default',
+      createdAt: DateTime.now(),
+      price: null,
+      supplierId: Uuid().v4(),
+      imageUrl: 'assets',
+      category: 'assets/images/categories/default_image.png',
+      isAvailable: true,
+      currency: 'GNF',
+      description: '',
+    );
   }
 
   @override
   Future<PressingArticleModel> getModel(
     ProductFormController<PressingArticleModel> controller,
   ) async {
-      return PressingArticleModel(
-          id: Uuid().v4(),
-          name: controller.name.text,
-          createdAt: DateTime.now(),
-          price: null,
-          supplierId: Uuid().v4(),
-          imageUrl: 'assets/images/categories/default_image.png',
-          category:   '',
-          isAvailable: true,
-          currency: 'GNF',
-        );
+    return PressingArticleModel(
+      id: Uuid().v4(),
+      name: controller.name.text,
+      createdAt: DateTime.now(),
+      price: null,
+      supplierId: Uuid().v4(),
+      imageUrl: 'assets/images/categories/default_image.png',
+      category: '',
+      isAvailable: true,
+      currency: 'GNF',
+      description: '',
+    );
   }
 }

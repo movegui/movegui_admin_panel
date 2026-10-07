@@ -16,6 +16,7 @@ class PressingServiceModel extends ServiceModel<PressingArticleModel> {
     required super.name,
     required super.createdAt,
     required super.product,
+    required super.description,
   });
 
   @override
@@ -48,5 +49,6 @@ class PressingServiceModel extends ServiceModel<PressingArticleModel> {
         estimatedDuration: json['estimatedDuration'] == 0
             ? Duration()
             : Duration(),
+        description: json['description'] ?? '',
       );
 }

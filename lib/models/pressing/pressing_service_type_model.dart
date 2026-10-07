@@ -2,7 +2,7 @@ import 'package:movegui_admin_panel/models/model.dart';
 
 class PressingServiceTypeModel extends Model {
   final String description;
-  final PricingType pricingType;
+   PricingType? pricingType;
 
   PressingServiceTypeModel({
     required super.id,
@@ -26,7 +26,7 @@ class PressingServiceTypeModel extends Model {
   Map<String, dynamic> toJson() => {
     ...super.toJson(),
     'description': description,
-    'pricingType': pricingType.name,
+    'pricingType': pricingType?.name ?? '',
   };
 
   factory PressingServiceTypeModel.fromJson(Map<String, dynamic> json) =>
@@ -44,4 +44,12 @@ class PressingServiceTypeModel extends Model {
       );
 }
 
-enum PricingType { perItem, perKg, fixed }
+enum PricingType {
+  perItem('001'),
+  perKg('002'),
+  fixed('003');
+
+  final String id;
+
+  const PricingType(this.id);
+}

@@ -14,8 +14,9 @@ class MyValidators {
     if (value!.isEmpty) {
       return 'Please enter an email';
     }
-    if (!RegExp(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b')
-        .hasMatch(value)) {
+    if (!RegExp(
+      r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b',
+    ).hasMatch(value)) {
       return 'Please enter a valid email';
     }
     return null;
@@ -32,16 +33,14 @@ class MyValidators {
   }
 
   static String? phoneNumberValidator(String? value) {
-    if(value!.isEmpty){
-       return 'Please Enter Phone Number';
+    if (value!.isEmpty) {
+      return 'Please Enter Phone Number';
     }
 
-     if (value.length < 8) {
+    if (value.length < 8) {
       return 'Phone Number muss be at least 8 characters long';
     }
     return null;
-
-     
   }
 
   static String? repeatPasswordValidator({String? value, String? password}) {
@@ -58,33 +57,59 @@ class MyValidators {
     return null;
   }
 
-  static String? textValidator(String? value){
-    if(value!.isEmpty) {
+  static String? textValidator(String? value) {
+    if (value!.isEmpty) {
       return 'Vewuillez saisir la Categorie svp';
     }
     return null;
   }
 
-    static String? textNameValidator(String? value){
-    if(value!.isEmpty) {
+  static String? textNameValidator(String? value) {
+    if (value!.isEmpty) {
       return 'Vewuillez remplir le champ svp';
     }
     return null;
   }
 
-      static String? numberValidator(String? value){
-    if(value!.isEmpty) {
+  static String? numberValidator(String? value) {
+    if (value!.isEmpty) {
       return 'Vewuillez remplir le champ svp';
     }
     return null;
   }
 
- static final guineaPhoneRegex = RegExp(
-  r'^(?:\+224[\s-]?)?6\d{3}[\s-]?\d{5}$',
-);
+  static String? priceValidator(String? value) {
+    (value) {
+      if (value == null || value.trim().isEmpty) {
+        return 'Prix obligatoire';
+      }
 
-static bool isValidGuineaPhone(String phone) {
-  return guineaPhoneRegex.hasMatch(phone);
-}
+      return null;
+    };
+    return null;
+  }
 
+  static String? durationValidator(String? value) {
+    (value) {
+      if (value == null || value.trim().isEmpty) {
+        return 'Veuillez saisir une durée';
+      }
+
+      final duration = int.tryParse(value);
+
+      if (duration == null || duration <= 0) {
+        return 'Durée invalide';
+      }
+    };
+
+    return null;
+  }
+
+  static final guineaPhoneRegex = RegExp(
+    r'^(?:\+224[\s-]?)?6\d{3}[\s-]?\d{5}$',
+  );
+
+  static bool isValidGuineaPhone(String phone) {
+    return guineaPhoneRegex.hasMatch(phone);
+  }
 }

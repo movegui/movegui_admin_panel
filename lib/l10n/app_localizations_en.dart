@@ -196,6 +196,59 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pressing_service_price_max_hinterText => 'Maximum Product Price';
 
   @override
+  String get pressing_service_type_labelText => 'Type of Service';
+
+  @override
+  String get pressing_services_types_title => 'Types of Services';
+
+  @override
+  String get pressing_services_types_all_title => 'All services types';
+
+  @override
+  String get pressing_services_types_all_descrip => 'All services types ';
+
+  @override
+  String get pressing_service_empty_title => 'No Service found';
+
+  @override
+  String get pressing_service_empty_subtitle =>
+      'Please Create a new Service or update existing services.';
+
+  @override
+  String get pressing_service_header_tab_produit_title => 'Prodruct';
+
+  @override
+  String get pressing_service_header_tab_price_title => 'Price';
+
+  @override
+  String get pressing_service_header_tab_invoicing_title => 'Invoicing';
+
+  @override
+  String get pressing_service_header_tab_duration_title => 'Time limit';
+
+  @override
+  String get pressing_service_header_tab_status_title => 'Status';
+
+  @override
+  String get pressing_service_search_hinterText => 'Search for a service';
+
+  @override
+  String get pressing_service_estimated_duration_labelText =>
+      'Estimated Duration';
+
+  @override
+  String get pressing_service_estimated_duration_hinterText => 'Ex. 24h';
+
+  @override
+  String get pressing_service_tarification_title => 'Tarification';
+
+  @override
+  String get pressing_service_info_title => 'Service Information';
+
+  @override
+  String get pressing_services_pricing_type_title => 'Pricing Type';
+
+  @override
   String get pressig_details_title => 'Dry Cleaner Details';
 
   @override
@@ -211,6 +264,20 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get pressing_add_dashboard_sub_title =>
       'Add the business details, contacts and services.';
+
+  @override
+  String get pressing_services_dashboard_title => 'Laundry  Services';
+
+  @override
+  String get pressing_services_dashboard_sub_title =>
+      'Add the services, offerings, categories and tariffs proposed by the dry cleaner';
+
+  @override
+  String get pressing_service_add_dashboard_title => 'Add a Service';
+
+  @override
+  String get pressing_service_add_dashboard_sub_title =>
+      'Add the services, offerings, categories and tariffs proposed by the dry cleaner';
 
   @override
   String get restaurant_add_bar_title => 'Add Restaurant';
@@ -368,6 +435,12 @@ class AppLocalizationsEn extends AppLocalizations {
       'No user is currently signed in.';
 
   @override
+  String get error_duree_invalide => 'Invalid duration';
+
+  @override
+  String get tooltip_duree_invalide => 'Please enter a duration';
+
+  @override
   String get label_login_facebook => 'Facebook';
 
   @override
@@ -429,6 +502,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get btn_delete_contact => 'Delete the contact';
+
+  @override
+  String get btn_back => 'back';
+
+  @override
+  String get btn_types_services => 'Types of Services';
 
   @override
   String get verify_otp => 'Send Code';
@@ -542,6 +621,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get module_pressing_name => 'Dry cleaning';
+
+  @override
+  String get pricingPerItem => 'Per item';
+
+  @override
+  String get pricingPerKg => 'Per kilogram';
+
+  @override
+  String get pricingFixed => 'Fixed';
 
   @override
   String get module_discovery_name => 'Discovery';
@@ -771,6 +859,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tooltip_btn_add_pressing_service => 'Ajouter new Service';
+
+  @override
+  String get tooltip_search_pressing_service => 'Search for a service';
+
+  @override
+  String get tooltip_all_pressing_services_types => 'View all service types';
 
   @override
   String get profile_menu_invite_people => 'Invite a Friend';

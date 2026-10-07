@@ -5,6 +5,7 @@ import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/widgets/util/display_widget.dart';
+import 'package:movegui_admin_panel/widgets/util/status_widget.dart';
 import '../widgets/text_widget.dart';
 
 class GlobalMethods {
@@ -148,24 +149,7 @@ class GlobalMethods {
                   ),
                 ),
 
-                ListTile(
-                  leading: Icon(
-                    Icons.work,
-                    color: model.isActive
-                        ? Color.fromARGB(255, 13, 197, 19)
-                        : Colors.red,
-                  ),
-                  title: Text(
-                    model.isActive
-                        ? AppLocalizations.of(context)!.employe_status_actf
-                        : AppLocalizations.of(context)!.employe_status_non_actf,
-                    style: TextStyle(
-                      color: model.isActive
-                          ? Color.fromARGB(255, 13, 197, 19)
-                          : Colors.red,
-                    ),
-                  ),
-                ),
+                StatusWidget(isActive: model.isActive)
               ],
             ),
           ),

@@ -452,6 +452,108 @@ abstract class AppLocalizations {
   /// **'Maximum Product Price'**
   String get pressing_service_price_max_hinterText;
 
+  /// No description provided for @pressing_service_type_labelText.
+  ///
+  /// In en, this message translates to:
+  /// **'Type of Service'**
+  String get pressing_service_type_labelText;
+
+  /// No description provided for @pressing_services_types_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Types of Services'**
+  String get pressing_services_types_title;
+
+  /// No description provided for @pressing_services_types_all_title.
+  ///
+  /// In en, this message translates to:
+  /// **'All services types'**
+  String get pressing_services_types_all_title;
+
+  /// No description provided for @pressing_services_types_all_descrip.
+  ///
+  /// In en, this message translates to:
+  /// **'All services types '**
+  String get pressing_services_types_all_descrip;
+
+  /// No description provided for @pressing_service_empty_title.
+  ///
+  /// In en, this message translates to:
+  /// **'No Service found'**
+  String get pressing_service_empty_title;
+
+  /// No description provided for @pressing_service_empty_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Please Create a new Service or update existing services.'**
+  String get pressing_service_empty_subtitle;
+
+  /// No description provided for @pressing_service_header_tab_produit_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Prodruct'**
+  String get pressing_service_header_tab_produit_title;
+
+  /// No description provided for @pressing_service_header_tab_price_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Price'**
+  String get pressing_service_header_tab_price_title;
+
+  /// No description provided for @pressing_service_header_tab_invoicing_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Invoicing'**
+  String get pressing_service_header_tab_invoicing_title;
+
+  /// No description provided for @pressing_service_header_tab_duration_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Time limit'**
+  String get pressing_service_header_tab_duration_title;
+
+  /// No description provided for @pressing_service_header_tab_status_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get pressing_service_header_tab_status_title;
+
+  /// No description provided for @pressing_service_search_hinterText.
+  ///
+  /// In en, this message translates to:
+  /// **'Search for a service'**
+  String get pressing_service_search_hinterText;
+
+  /// No description provided for @pressing_service_estimated_duration_labelText.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated Duration'**
+  String get pressing_service_estimated_duration_labelText;
+
+  /// No description provided for @pressing_service_estimated_duration_hinterText.
+  ///
+  /// In en, this message translates to:
+  /// **'Ex. 24h'**
+  String get pressing_service_estimated_duration_hinterText;
+
+  /// No description provided for @pressing_service_tarification_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Tarification'**
+  String get pressing_service_tarification_title;
+
+  /// No description provided for @pressing_service_info_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Information'**
+  String get pressing_service_info_title;
+
+  /// No description provided for @pressing_services_pricing_type_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Pricing Type'**
+  String get pressing_services_pricing_type_title;
+
   /// No description provided for @pressig_details_title.
   ///
   /// In en, this message translates to:
@@ -481,6 +583,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add the business details, contacts and services.'**
   String get pressing_add_dashboard_sub_title;
+
+  /// No description provided for @pressing_services_dashboard_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Laundry  Services'**
+  String get pressing_services_dashboard_title;
+
+  /// No description provided for @pressing_services_dashboard_sub_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add the services, offerings, categories and tariffs proposed by the dry cleaner'**
+  String get pressing_services_dashboard_sub_title;
+
+  /// No description provided for @pressing_service_add_dashboard_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a Service'**
+  String get pressing_service_add_dashboard_title;
+
+  /// No description provided for @pressing_service_add_dashboard_sub_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add the services, offerings, categories and tariffs proposed by the dry cleaner'**
+  String get pressing_service_add_dashboard_sub_title;
 
   /// No description provided for @restaurant_add_bar_title.
   ///
@@ -734,6 +860,18 @@ abstract class AppLocalizations {
   /// **'No user is currently signed in.'**
   String get error_no_user_connected_message;
 
+  /// No description provided for @error_duree_invalide.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid duration'**
+  String get error_duree_invalide;
+
+  /// No description provided for @tooltip_duree_invalide.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a duration'**
+  String get tooltip_duree_invalide;
+
   /// No description provided for @label_login_facebook.
   ///
   /// In en, this message translates to:
@@ -859,6 +997,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete the contact'**
   String get btn_delete_contact;
+
+  /// No description provided for @btn_back.
+  ///
+  /// In en, this message translates to:
+  /// **'back'**
+  String get btn_back;
+
+  /// No description provided for @btn_types_services.
+  ///
+  /// In en, this message translates to:
+  /// **'Types of Services'**
+  String get btn_types_services;
 
   /// No description provided for @verify_otp.
   ///
@@ -1075,6 +1225,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Dry cleaning'**
   String get module_pressing_name;
+
+  /// No description provided for @pricingPerItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Per item'**
+  String get pricingPerItem;
+
+  /// No description provided for @pricingPerKg.
+  ///
+  /// In en, this message translates to:
+  /// **'Per kilogram'**
+  String get pricingPerKg;
+
+  /// No description provided for @pricingFixed.
+  ///
+  /// In en, this message translates to:
+  /// **'Fixed'**
+  String get pricingFixed;
 
   /// No description provided for @module_discovery_name.
   ///
@@ -1531,6 +1699,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Ajouter new Service'**
   String get tooltip_btn_add_pressing_service;
+
+  /// No description provided for @tooltip_search_pressing_service.
+  ///
+  /// In en, this message translates to:
+  /// **'Search for a service'**
+  String get tooltip_search_pressing_service;
+
+  /// No description provided for @tooltip_all_pressing_services_types.
+  ///
+  /// In en, this message translates to:
+  /// **'View all service types'**
+  String get tooltip_all_pressing_services_types;
 
   /// No description provided for @profile_menu_invite_people.
   ///

@@ -10,6 +10,7 @@ abstract class ProductModel extends Model {
   final String currency;
   final List<String?>? materials;
 
+
   ProductModel({
     required super.id,
     required super.name,
@@ -20,6 +21,7 @@ abstract class ProductModel extends Model {
     required this.category,
     required this.isAvailable,
     required this.currency,
+    super.description,
     this.materials,
   });
 
@@ -32,6 +34,7 @@ abstract class ProductModel extends Model {
     'imageUrl': imageUrl ?? '',
     'category': category ?? '',
     'currency': currency,
+    'description': description ?? '',
     'materials' : materials?.map( (e) => e != null ? e.toJson(): '').toList()
   };
 }

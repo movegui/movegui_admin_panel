@@ -8,6 +8,7 @@ abstract class ServiceModel<M extends ProductModel> extends Model {
   final bool? active;
   final Duration? estimatedDuration;
   final M product;
+  final bool? isActive;
 
   ServiceModel({
     required super.id,
@@ -18,20 +19,24 @@ abstract class ServiceModel<M extends ProductModel> extends Model {
     required this.basePrice,
     required this.active,
     required this.estimatedDuration,
-    required this.product
+    required this.product,
+    required super.description,
+    this.isActive = true,
   });
 
   String getCollectionName();
 
-    @override
+  @override
   Map<String, dynamic> toJson() => {
     'product': product.toJson(),
     'minPrice': minPrice,
     'maxPrice': maxPrice,
     'basePrice': basePrice,
     'active': active,
-    'estimatedDuration':
-        estimatedDuration != null ? estimatedDuration!.inMicroseconds : 0,
+    'isActive': isActive,
+    'estimatedDuration': estimatedDuration != null
+        ? estimatedDuration!.inMicroseconds
+        : 0,
+    'description': description,
   };
-
 }
