@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/validator.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/widgets/input/input_widget.dart';
@@ -23,11 +22,10 @@ class InputAdressWidget extends StatelessWidget {
     return InputWidget(
       controller: adressController,
       focusNode: adressFocusNode,
-      icon: Icons.home,
+      prefixIcon: Icon(Icons.home),
       nextFocusNode: nextFocusNode,
       textInputType: TextInputType.streetAddress,
-      hinterText: AppLocalizations.of(context)!.input_hint_adress,
-      textColor: AppColors.textColor,
+      hintText: AppLocalizations.of(context)!.input_hint_adress,
       validator: (value) {
         return MyValidators.textNameValidator(value);
       },

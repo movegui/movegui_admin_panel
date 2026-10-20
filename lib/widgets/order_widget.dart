@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:movegui_admin_panel/inter_screen/order_data.dart';
 
-import '../services/utils.dart';
 
 class OrdersWidget extends StatelessWidget {
   const OrdersWidget({
@@ -25,7 +24,7 @@ class OrdersWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final DateFormat formatter = DateFormat('MM/dd/yyyy hh:mm - a');
     final String formatted = formatter.format(date.toDate());
-    final color = Utils(context).color;
+   // final color = Utils(context).color;
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -124,7 +123,7 @@ class OrdersWidget extends StatelessWidget {
                           Text(
                             formatted,
                             style: TextStyle(
-                              color: color.withOpacity(0.8),
+                           //   color: color.withOpacity(0.8),
                               fontWeight: FontWeight.w600,
                               decoration: TextDecoration.underline,
                               fontSize: fontSize,

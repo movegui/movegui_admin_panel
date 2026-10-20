@@ -1,1 +1,6 @@
-{}
+{
+  "fr": [
+    "pressing_hours_open_sub_text",
+    "pressing_hours_close_sub_text"
+  ]
+}

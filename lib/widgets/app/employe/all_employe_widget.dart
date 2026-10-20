@@ -41,6 +41,16 @@ class AllEmployeWidgetState extends State<AllEmployeWidget> {
         onRegister: (List<UserModel>? addUsers) {
           users.addAll(addUsers ?? []);
         },
+        onDelete: (int index) {
+          setState(() {
+            users.removeAt(index);
+          });
+        },
+        onChangeStatus: (int index) {
+          setState(() {
+            users[index].isActive = !(users[index].isActive ?? true);
+          });
+        },
       ),
     );
   }

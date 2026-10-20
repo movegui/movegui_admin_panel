@@ -6,6 +6,7 @@ import 'package:movegui_admin_panel/models/user_model.dart';
 
 abstract class StoreModelOld extends Model {
 
+  @override
   final String  phone, email, imageUrl, description;
   final AdressModel address; 
   final List<UserModel> staff;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/widgets/title_text.dart';
 
@@ -129,7 +130,9 @@ class MyAppFunctions {
         return AlertDialog(
           backgroundColor: color ?? Theme.of(context).cardColor,
           content: SizedBox(
-            width: Responsive.isDesktop(dialogContext) ? size.width * 0.6 : size.width * 0.95,
+            width: Responsive.isDesktop(dialogContext)
+                ? size.width * 0.6
+                : size.width * 0.95,
             height: double.infinity,
             child: SingleChildScrollView(child: child),
           ),
@@ -137,5 +140,61 @@ class MyAppFunctions {
         );
       },
     );
+  }
+
+  static Future<bool> showConfirmationDialog({
+    required BuildContext context,
+    required String title,
+    required String question,
+    Color? color,
+    List<Widget>? actionsWidget,
+    String? confirButtonTitle,
+    String? cancelButtonTitle,
+    VoidCallback? onConfirmed,
+    VoidCallback? onCancelled,
+  }) async {
+    final result = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) {
+        final size = MediaQuery.sizeOf(dialogContext);
+        return AlertDialog(
+          title: Text(title, style: Theme.of(context).textTheme.headlineSmall),
+          content: SizedBox(
+            width: Responsive.isDesktop(dialogContext)
+                ? size.width * 0.3
+                : size.width * 0.5,
+            height: 150,
+            child: Center(child: Text(question)),
+          ),
+
+          actions:
+              actionsWidget ??
+              [
+                TextButton(
+                  onPressed:
+                      onCancelled ??
+                      () {
+                        Navigator.of(context).pop(false);
+                      },
+                  child: Text(
+                    cancelButtonTitle ?? AppLocalizations.of(context)!.btn_no,
+                  ),
+                ),
+                FilledButton(
+                  onPressed:
+                      onConfirmed ??
+                      () {
+                        Navigator.of(context).pop(true);
+                      },
+                  child: Text(
+                    confirButtonTitle ?? AppLocalizations.of(context)!.btn_yes,
+                  ),
+                ),
+              ],
+        );
+      },
+    );
+
+    return result ?? false;
   }
 }

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:movegui_admin_panel/consts/widget_constants.dart';
+import 'package:movegui_admin_panel/l10n/app_localizations.dart';
+import 'package:movegui_admin_panel/models/button_info.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_type_model.dart';
 import 'package:movegui_admin_panel/widgets/app/pressing/pressing_service_tab_header_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/pressing/pressing_service_tab_row_widget.dart';
+import 'package:movegui_admin_panel/widgets/util/button_widget.dart';
 
 class PressingServiceTypeDisplayWidget extends StatelessWidget {
   final PressingServiceTypeModel serviceType;
@@ -11,6 +15,7 @@ class PressingServiceTypeDisplayWidget extends StatelessWidget {
   final VoidCallback onAdd;
   final ValueChanged<PressingServiceModel> onEdit;
   final ValueChanged<PressingServiceModel> onDelete;
+  final ValueChanged<PressingServiceModel> onChangeStatus;
 
   const PressingServiceTypeDisplayWidget({
     super.key,
@@ -20,6 +25,7 @@ class PressingServiceTypeDisplayWidget extends StatelessWidget {
     required this.onAdd,
     required this.onEdit,
     required this.onDelete,
+    required this.onChangeStatus,
   });
 
   @override
@@ -32,7 +38,7 @@ class PressingServiceTypeDisplayWidget extends StatelessWidget {
       ),
       child: Column(
         children: [
-          _buildHeader(),
+          _buildHeader(context),
 
           const Divider(height: 1),
 
@@ -41,7 +47,12 @@ class PressingServiceTypeDisplayWidget extends StatelessWidget {
           const Divider(height: 1),
 
           ...services.map(
-            (service) => PressingServiceTabRowWidget(service: service),
+            (service) => PressingServiceTabRowWidget(
+              service: service,
+              onEdit: onEdit,
+              onDelete: onDelete,
+              onChangeStatus: onChangeStatus,
+            ),
           ),
 
           const Divider(height: 1),
@@ -52,7 +63,7 @@ class PressingServiceTypeDisplayWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
       child: Row(
@@ -73,21 +84,42 @@ class PressingServiceTypeDisplayWidget extends StatelessWidget {
           const SizedBox(width: 14),
 
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
               children: [
-                Text(
-                  serviceType.name,
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                    color: primaryColor,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        serviceType.name,
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                          color: primaryColor,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        serviceType.description,
+                        style: TextStyle(
+                          color: Colors.grey.shade600,
+                          fontSize: 13,
+                        ),
+                      ),
+                      const SizedBox(height: WidgetConstants.sepWidget),
+                    ],
                   ),
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  serviceType.description,
-                  style: TextStyle(color: Colors.grey.shade600, fontSize: 13),
+                ButtonWidget(
+                  onPressed: (item) async {
+                    onAdd.call();
+                  },
+                  buttonItem: ButtonInfo(
+                    title: AppLocalizations.of(context)!.btn_create,
+                    enabled: true,
+                  ),
+                  icon: Icon(Icons.add),
+                  textStyle: Theme.of(context).textTheme.bodyMedium,
                 ),
               ],
             ),

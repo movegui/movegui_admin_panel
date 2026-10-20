@@ -6,7 +6,6 @@ import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/widgets/app/loading_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/store/store_employe_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/store/store_info_widget.dart';
-import 'package:movegui_admin_panel/widgets/app/store/store_open_hours_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/store/store_order_widget.dart';
 
 class StoreDetailWidget extends ConsumerWidget {
@@ -47,7 +46,7 @@ class StoreDetailWidget extends ConsumerWidget {
                     children: [
                       /// DESCRIPTION
                       Text(
-                        store.description,
+                        store.description ?? '',
                         style: const TextStyle(fontSize: 16),
                       ),
 
@@ -61,12 +60,14 @@ class StoreDetailWidget extends ConsumerWidget {
 
                           const SizedBox(height: 20),
 
+/*
                           /// OPENING HOURS
                           Expanded(
                             child: StoreOpenHoursWidget(
                               weeklyHours: store.weeklyHours,
                             ),
                           ),
+                          */
                         ],
                       ),
 
@@ -131,7 +132,7 @@ class StoreDetailWidget extends ConsumerWidget {
                     children: [
                       /// DESCRIPTION
                       Text(
-                        store.description,
+                        store.description ?? '',
                         style: const TextStyle(fontSize: 16),
                       ),
 
@@ -143,7 +144,7 @@ class StoreDetailWidget extends ConsumerWidget {
                       const SizedBox(height: 20),
 
                       /// OPENING HOURS
-                      StoreOpenHoursWidget(weeklyHours: store.weeklyHours),
+                  //    StoreOpenHoursWidget(weeklyHours: store.weeklyHours),
 
                       const SizedBox(height: 20),
 

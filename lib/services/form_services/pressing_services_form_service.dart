@@ -69,13 +69,15 @@ class PressingServicesFormService
       minPrice: double.parse(controller.minPrice.text),
       maxPrice: double.parse(controller.maxPrice.text),
       basePrice: controller.basePrice ?? 0.0,
-      name: controller.name.text,
+      name:  '${controller.serviceType?.name}_${controller.articleFormController.name.text}', // controller.name.text,
       createdAt: controller.createdAt ?? DateTime.now(),
       product: await articleFormService.getModel(
         controller.articleFormController,
       ),
       description: controller.description.text,
-      estimatedDuration: controller.estimatedDuration ?? Duration(),
+      estimatedDuration: Duration(hours: int.parse(controller.processingTime.text)),
+      isActive: controller.active,
+      currency:  controller.currency
     );
   }
 }

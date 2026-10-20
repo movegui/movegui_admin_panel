@@ -32,7 +32,7 @@ setGlobalOptions({ maxInstances: 10 });
 // });
 
 const functions = require("firebase-functions");
-const admin = require("firebase-admin");
+const admin = require("firebase-admin"); 
 const { getAuth } = require("firebase-admin/auth");
 const axios = require('axios');
 admin.initializeApp();
@@ -362,8 +362,8 @@ exports.addressFromGeoCoord = functions.https.onRequest(
           return res.status(400).json({
             error: "latitude and longitude are required",
           });  
-        } 
- 
+        }   
+  
         const url =
           `https://nominatim.openstreetmap.org/reverse` +
           `?lat=${latitude}` +
@@ -382,7 +382,7 @@ exports.addressFromGeoCoord = functions.https.onRequest(
           return res.status(404).json({
             error: "Address not found",
           });
-        }
+        } 
 
         return res.status(200).json({
           address: data.display_name,

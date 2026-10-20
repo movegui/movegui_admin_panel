@@ -1,6 +1,7 @@
 import 'package:movegui_admin_panel/models/model.dart';
 
 class PressingServiceTypeModel extends Model {
+  @override
   final String description;
    PricingType? pricingType;
 

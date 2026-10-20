@@ -9,6 +9,27 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get service_active_title => 'Service enabled';
+
+  @override
+  String get service_deactive_title => 'Service disabled';
+
+  @override
+  String get service_active_descrip =>
+      'The service will be visible and available for ordering.';
+
+  @override
+  String get service_deactive_descrip =>
+      'The service will not be visible and will not be available for ordering.';
+
+  @override
+  String get delete_pressing_service_title => 'Delete Service';
+
+  @override
+  String get delete_pressing_service_question =>
+      'Would you like to delete this Service ?';
+
+  @override
   String get commune_title => 'City';
 
   @override
@@ -19,6 +40,20 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get open_hours_title => 'Open Hours';
+
+  @override
+  String get open_hours_sub_title =>
+      'Specify the days and times when the dry cleaner accepts orders.';
+
+  @override
+  String open_hours_open_title(Object category) {
+    return 'Le $category is open today';
+  }
+
+  @override
+  String open_hours_close_title(Object category) {
+    return 'Le $category is close today';
+  }
 
   @override
   String get store_services_title => 'Services';
@@ -215,19 +250,22 @@ class AppLocalizationsEn extends AppLocalizations {
       'Please Create a new Service or update existing services.';
 
   @override
-  String get pressing_service_header_tab_produit_title => 'Prodruct';
+  String get tab_header_produit_title => 'Prodruct';
 
   @override
-  String get pressing_service_header_tab_price_title => 'Price';
+  String get tab_header_price_title => 'Price';
 
   @override
-  String get pressing_service_header_tab_invoicing_title => 'Invoicing';
+  String get tab_header_invoicing_title => 'Invoicing';
 
   @override
-  String get pressing_service_header_tab_duration_title => 'Time limit';
+  String get tab_header_duration_title => 'Time limit';
 
   @override
-  String get pressing_service_header_tab_status_title => 'Status';
+  String get tab_header_status_title => 'Status';
+
+  @override
+  String get tab_header_actions => 'Actions';
 
   @override
   String get pressing_service_search_hinterText => 'Search for a service';
@@ -278,6 +316,12 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get pressing_service_add_dashboard_sub_title =>
       'Add the services, offerings, categories and tariffs proposed by the dry cleaner';
+
+  @override
+  String get pressing_hours_open_sub_text => 'Le pressing est ouvert ce jour';
+
+  @override
+  String get pressing_hours_close_sub_text => 'Le pressing est fermé ce jour';
 
   @override
   String get restaurant_add_bar_title => 'Add Restaurant';
@@ -342,6 +386,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String store_type(Object storeCategory) {
     return 'Type $storeCategory';
   }
+
+  @override
+  String get store_open => 'Open';
+
+  @override
+  String get store_close => 'Close';
+
+  @override
+  String get store_opening => 'Ouverture';
+
+  @override
+  String get store_closure => 'Closure';
 
   @override
   String get description_title => 'Description';
@@ -508,6 +564,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get btn_types_services => 'Types of Services';
+
+  @override
+  String get btn_yes => 'Yes';
+
+  @override
+  String get btn_no => 'No';
 
   @override
   String get verify_otp => 'Send Code';
@@ -867,6 +929,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tooltip_all_pressing_services_types => 'View all service types';
 
   @override
+  String get tooltip_btn_update => 'Update';
+
+  @override
+  String get tooltip_more_actions => 'More Actions';
+
+  @override
+  String get tooltip_delete => 'Delete';
+
+  @override
   String get profile_menu_invite_people => 'Invite a Friend';
 
   @override
@@ -906,6 +977,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get add_all => 'View All';
 
   @override
+  String get deactif => 'Deactivate';
+
+  @override
+  String get actif => 'Activate';
+
+  @override
   String get menu_main => 'Home';
 
   @override
@@ -940,6 +1017,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get day_dimanche => 'Sunday';
+
+  @override
+  String get days => 'Days';
 
   @override
   String get last_orders => 'Last Orders';
@@ -1024,4 +1104,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get owner_add_dashboard_sub_title =>
       'Add the Owners informations details';
+
+  @override
+  String get add_slot_title => 'Add a time slot';
 }

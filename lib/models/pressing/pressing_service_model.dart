@@ -11,12 +11,13 @@ class PressingServiceModel extends ServiceModel<PressingArticleModel> {
     required super.minPrice,
     required super.maxPrice,
     required super.basePrice,
-    super.active = true,
+    super.isActive = false,
     super.estimatedDuration,
     required super.name,
     required super.createdAt,
     required super.product,
     required super.description,
+    super.currency = 'GNF'
   });
 
   @override
@@ -50,5 +51,7 @@ class PressingServiceModel extends ServiceModel<PressingArticleModel> {
             ? Duration()
             : Duration(),
         description: json['description'] ?? '',
+        currency: json['currency'] ?? 'GNF',
+        isActive: json['isActive'] ?? false
       );
 }

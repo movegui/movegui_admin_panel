@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movegui_admin_panel/config/env_dev.dart';
+import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/button_info.dart';
@@ -16,14 +17,16 @@ import 'package:movegui_admin_panel/util/menu_tile.dart';
 import 'package:movegui_admin_panel/util/user_form_controller.dart';
 import 'package:movegui_admin_panel/widgets/app/add_contact_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/dashboard/dashboard_header.dart';
+import 'package:movegui_admin_panel/widgets/app/users/user_tab_header_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/users/user_tab_row_widget.dart';
 import 'package:movegui_admin_panel/widgets/util/button_widget.dart';
-import 'package:movegui_admin_panel/widgets/util/display_widget.dart';
-import 'package:movegui_admin_panel/widgets/util/display_widget_title.dart';
 
 class UserDisplayWidget extends StatefulWidget {
   final List<UserModel> users;
   final String title;
   final String subTitle;
+  final void Function(int index) onDelete;
+  final void Function(int index) onChangeStatus;
   final void Function(List<UserModel>? users) onRegister;
 
   const UserDisplayWidget({
@@ -32,6 +35,8 @@ class UserDisplayWidget extends StatefulWidget {
     required this.title,
     required this.subTitle,
     required this.onRegister,
+    required this.onDelete,
+    required this.onChangeStatus,
   });
 
   @override
@@ -49,11 +54,6 @@ class UserDisplayWidgetState extends State<UserDisplayWidget> {
     userFormService = getIt<UserFormService>();
     seedService = getIt<SeedService>();
     formControllers = [];
-    /*
-   else{
-   // defaultUser = user
-   }
-   */
     super.initState();
   }
 
@@ -73,7 +73,7 @@ class UserDisplayWidgetState extends State<UserDisplayWidget> {
 
   Future<UserFormController> _addEmptyFormController(UserRole role) async {
     final model = seedService.api.env is EnvDev
-        ? await seedService.getGeneratedUserModel()
+        ? await seedService.getGeneratedUserModel(role)
         : userFormService.getDefaultModel();
     model.role = role;
     final formController = await userFormService.getFormController(model);
@@ -83,15 +83,8 @@ class UserDisplayWidgetState extends State<UserDisplayWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Responsive.isDesktop(context)
-        ? buildDesktop(context)
-        : buildMobile(context);
-  }
-
-  Widget buildMobile(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: 6),
         DashboardHeader(
@@ -102,174 +95,130 @@ class UserDisplayWidgetState extends State<UserDisplayWidget> {
           },
           buttonText: AppLocalizations.of(context)!.btn_create,
         ),
-        SizedBox(height: WidgetConstants.sepWidget),
-        ListTile(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              DisplayWidgetTitle(
-                text: AppLocalizations.of(context)!.label_name,
-                textAlign: TextAlign.left,
-              ),
-              DisplayWidgetTitle(
-                text: AppLocalizations.of(context)!.label_email,
-              ),
-              DisplayWidgetTitle(
-                text: AppLocalizations.of(context)!.label_phone,
-                textAlign: TextAlign.right,
-              ),
-            ],
+        const SizedBox(height: WidgetConstants.sepWidget),
+        UserTabHeaderWidget(),
+        const SizedBox(height: WidgetConstants.sepWidget),
+        ...widget.users.map(
+          (user) => UserTabRowWidget(
+            user: user,
+            onEdit: (value) async {
+              await _editService(
+                updatedUser: value,
+                context: context,
+                title: '',
+                subTitle: '',
+              );
+            },
+            onDelete: (value) async {
+              await _deleteService(context, value);
+            },
+            onChangeStatus: (value) async {
+              _changeUserStatus(value);
+            },
           ),
-        ),
-        SizedBox(height: 8),
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: widget.users.length,
-          itemBuilder: (context, index) {
-            return Column(
-              children: [
-                ListTile(
-                  title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: DisplayWidget(
-                              text: widget.users[index].personModel!.name,
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                          Expanded(
-                            child: DisplayWidget(
-                              text: widget.users[index].personModel!.email,
-                            ),
-                          ),
-                          Expanded(
-                            child: DisplayWidget(
-                              text: widget.users[index].personModel!.phone,
-                              textAlign: TextAlign.right,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  onTap: () {
-                    GlobalMethods.showEmployeeBottomSheet(
-                      context,
-                      widget.users[index],
-                    );
-                  },
-                ),
-              ],
-            );
-          },
         ),
       ],
     );
   }
 
-  Widget buildDesktop(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        SizedBox(height: 6),
-        DashboardHeader(
-          title: widget.title,
-          subtitle: widget.subTitle,
-          onPressed: (item) async {
-            _showCreateMenu(context, widget.title, widget.subTitle);
-          },
-          buttonText: AppLocalizations.of(context)!.btn_create,
-        ),
-        SizedBox(height: WidgetConstants.sepWidget),
-        ListTile(
-          leading: Icon(Icons.person),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              DisplayWidgetTitle(
-                text: AppLocalizations.of(context)!.label_firstname,
-              ),
-              DisplayWidgetTitle(
-                text: AppLocalizations.of(context)!.label_lastname,
-              ),
-              DisplayWidgetTitle(
-                text: AppLocalizations.of(context)!.label_email,
-              ),
-              DisplayWidgetTitle(
-                text: AppLocalizations.of(context)!.label_phone,
-              ),
-              DisplayWidgetTitle(
-                text: AppLocalizations.of(context)!.label_role,
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 8),
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: widget.users.length,
-          itemBuilder: (context, index) {
-            return Column(
-              children: [
-                ListTile(
-                  leading: Icon(Icons.person),
-                  title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: DisplayWidget(
-                              text: widget.users[index].personModel!.firstName,
-                            ),
-                          ),
-                          Expanded(
-                            child: DisplayWidget(
-                              text: widget.users[index].personModel!.lastName,
-                            ),
-                          ),
-                          Expanded(
-                            child: DisplayWidget(
-                              text: widget.users[index].personModel!.email,
-                            ),
-                          ),
-
-                          Expanded(
-                            child: DisplayWidget(
-                              text: widget.users[index].personModel!.phone,
-                            ),
-                          ),
-
-                          Expanded(
-                            child: DisplayWidget(
-                              text: widget.users[index].role.name,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  onTap: () {
-                    GlobalMethods.showEmployeeBottomSheet(
-                      context,
-                      widget.users[index],
-                    );
-                  },
-                ),
-              ],
-            );
-          },
+  Future<void> showUserDisplayWidget({
+    required List<UserFormController> controllers,
+    required String title,
+    required String subTitle,
+    String? buttonTitle,
+    Color? color,
+    required UserRole role,
+    required BuildContext dialogContext,
+  }) async {
+    MyAppFunctions.showMoveguiDialog(
+      context,
+      AddContactWidget(
+        key: addContactKey,
+        formControllers: controllers,
+        title: title,
+        subTitle: subTitle,
+        onFormControllerAdded: _trackFormController,
+        buttonTitle:
+            buttonTitle ?? AppLocalizations.of(dialogContext)!.btn_create,
+      ),
+      color ?? AppColors.card,
+      [
+        Row(
+          children: [
+            Expanded(child: cancelButton()),
+            SizedBox(width: WidgetConstants.sepWidgetWidth * 2),
+            Expanded(child: registerButton(role, dialogContext, controllers)),
+          ],
         ),
       ],
     );
+  }
+
+  Future<void> _createUser({
+    required UserRole role,
+    required BuildContext context,
+    required String title,
+    required String subTitle,
+    Color? color,
+  }) async {
+    showUserDisplayWidget(
+      controllers: [await _addEmptyFormController(role)],
+      title: title,
+      subTitle: subTitle,
+      role: role,
+      dialogContext: context,
+      color: color,
+    );
+  }
+
+  Future<void> _editService({
+    required UserModel? updatedUser,
+    required BuildContext context,
+    required String title,
+    required String subTitle,
+    Color? color,
+  }) async {
+    showUserDisplayWidget(
+      controllers: [await userFormService.getFormController(updatedUser)],
+      title: title,
+      subTitle: subTitle,
+      role: updatedUser?.role ?? UserRole.Guest,
+      dialogContext: context,
+      color: color,
+    );
+  }
+
+  Future<void> _deleteService(
+    BuildContext dialogContext,
+    UserModel userToDelete,
+  ) async {
+    final result = await MyAppFunctions.showConfirmationDialog(
+      context: context,
+      title: AppLocalizations.of(context)!.delete_pressing_service_title,
+      question: AppLocalizations.of(context)!.delete_pressing_service_question,
+    );
+    if (result) {
+      final index = widget.users
+          .indexWhere((serv) => serv.id == userToDelete.id)
+          .toInt();
+      if (index == -1) {
+        return;
+      }
+      widget.onDelete.call(index);
+      setState(() {});
+    }
+  }
+
+  void _changeUserStatus(UserModel userToChange) {
+    final index = widget.users
+        .indexWhere((serv) => serv.id == userToChange.id)
+        .toInt();
+    if (index == -1) {
+      return;
+    }
+    widget.onChangeStatus.call(index);
+    setState(() {});
+    debugPrint('Change status: ${userToChange.name}');
   }
 
   void _showCreateMenu(BuildContext context, String title, String subTitle) {
@@ -291,38 +240,12 @@ class UserDisplayWidgetState extends State<UserDisplayWidget> {
                   enabled: true,
                   routeName: '',
                   onTap: () async {
-                    final ownerForms = [
-                      await _addEmptyFormController(UserRole.Owner),
-                    ];
-
-                    MyAppFunctions.showMoveguiDialog(
-                      context,
-                      AddContactWidget(
-                        key: addContactKey,
-                        formControllers: ownerForms,
-                        title: title,
-                        subTitle: subTitle,
-                        onFormControllerAdded: _trackFormController,
-                        buttonTitle: AppLocalizations.of(
-                          context,
-                        )!.btn_add_owner,
-                      ),
-                      Colors.blue,
-                      [
-                        Row(
-                          children: [
-                            Expanded(child: cancelButton()),
-                            SizedBox(width: WidgetConstants.sepWidgetWidth * 2),
-                            Expanded(
-                              child: registerButton(
-                                UserRole.Owner,
-                                context,
-                                ownerForms,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                    _createUser(
+                      role: UserRole.Owner,
+                      context: context,
+                      title: title,
+                      subTitle: subTitle,
+                      color: Colors.blue,
                     );
                   },
                 ),
@@ -333,37 +256,12 @@ class UserDisplayWidgetState extends State<UserDisplayWidget> {
                   enabled: true,
                   routeName: '',
                   onTap: () async {
-                    final managerForms = [
-                      await _addEmptyFormController(UserRole.Manager),
-                    ];
-                    MyAppFunctions.showMoveguiDialog(
-                      context,
-                      AddContactWidget(
-                        key: addContactKey,
-                        formControllers: managerForms,
-                        title: title,
-                        subTitle: subTitle,
-                        onFormControllerAdded: _trackFormController,
-                        buttonTitle: AppLocalizations.of(
-                          context,
-                        )!.btn_add_manager,
-                      ),
-                      Colors.purple,
-                      [
-                        Row(
-                          children: [
-                            Expanded(child: cancelButton()),
-                            SizedBox(width: WidgetConstants.sepWidgetWidth * 2),
-                            Expanded(
-                              child: registerButton(
-                                UserRole.Manager,
-                                context,
-                                managerForms,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                    _createUser(
+                      role: UserRole.Manager,
+                      context: context,
+                      title: title,
+                      subTitle: subTitle,
+                      color: Colors.purple,
                     );
                   },
                 ),
@@ -374,37 +272,12 @@ class UserDisplayWidgetState extends State<UserDisplayWidget> {
                   enabled: true,
                   routeName: '',
                   onTap: () async {
-                    final employeeForms = [
-                      await _addEmptyFormController(UserRole.Employe),
-                    ];
-                    MyAppFunctions.showMoveguiDialog(
-                      context,
-                      AddContactWidget(
-                        key: addContactKey,
-                        formControllers: employeeForms,
-                        title: title,
-                        subTitle: subTitle,
-                        onFormControllerAdded: _trackFormController,
-                        buttonTitle: AppLocalizations.of(
-                          context,
-                        )!.btn_add_employe,
-                      ),
-                      Colors.green,
-                      [
-                        Row(
-                          children: [
-                            Expanded(child: cancelButton()),
-                            SizedBox(width: WidgetConstants.sepWidgetWidth * 2),
-                            Expanded(
-                              child: registerButton(
-                                UserRole.Employe,
-                                context,
-                                employeeForms,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                    _createUser(
+                      role: UserRole.Employe,
+                      context: context,
+                      title: title,
+                      subTitle: subTitle,
+                      color: Colors.green,
                     );
                   },
                 ),
@@ -427,6 +300,7 @@ class UserDisplayWidgetState extends State<UserDisplayWidget> {
         final newUsers = await userFormService.getModels(userForms);
         if (!mounted) return;
         widget.onRegister.call(newUsers);
+
         setState(() {
           for (final user in newUsers) {
             if (!widget.users.contains(user)) {
@@ -434,6 +308,7 @@ class UserDisplayWidgetState extends State<UserDisplayWidget> {
             }
           }
         });
+
         dialogContext.pop();
       },
       buttonItem: ButtonInfo(

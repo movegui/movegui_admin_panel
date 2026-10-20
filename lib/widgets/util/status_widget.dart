@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 
 class StatusWidget extends StatelessWidget {
@@ -10,8 +11,8 @@ class StatusWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = isActive
-        ? const Color.fromARGB(255, 13, 197, 19)
-        : Colors.red;
+        ? AppColors.active
+        : AppColors.disabled;
     final alignment = switch (textAlign) {
       TextAlign.center => Alignment.center,
       TextAlign.end => AlignmentDirectional.centerEnd,

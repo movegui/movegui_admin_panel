@@ -9,7 +9,6 @@ class UserModel extends Model {
   late bool isVerified;
   late UserRole role;
   String? resetLink;
-  bool isActive;
 
   UserModel({
     required this.updatedAt,
@@ -21,7 +20,7 @@ class UserModel extends Model {
     required this.isVerified,
     required this.role,
     this.resetLink = '',
-    this.isActive = true,
+    super.isActive = false,
   });
 
   @override
@@ -32,7 +31,6 @@ class UserModel extends Model {
     'person': personModel!.toJson(),
     'isVerified': isVerified,
     'role': role.name,
-    'isActive': isActive,
   };
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
@@ -49,6 +47,6 @@ class UserModel extends Model {
       (e) => e.name == json['role'],
       orElse: () => UserRole.Guest,
     ),
-    isActive: json['isActive'] ?? true,
+    isActive: json['isActive'] ?? false,
   );
 }

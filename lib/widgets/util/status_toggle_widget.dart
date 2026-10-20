@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movegui_admin_panel/consts/app_colors.dart';
+import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 
 class StatusToggleWidget extends StatelessWidget {
   final bool isActive;
@@ -28,28 +30,50 @@ class StatusToggleWidget extends StatelessWidget {
             ),
             child: Icon(
               Icons.check_circle_outline,
-              color: Theme.of(context).colorScheme.primary,
+              color: isActive?  AppColors.active : AppColors.disabled,
               size: 20,
             ),
           ),
           const SizedBox(width: 14),
-          const Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Service actif',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+          isActive
+              ? Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)!.service_active_title,
+                        style: TextStyle(color: AppColors.active),
+                      ),
+                      SizedBox(height: 2),
+                      Text(
+                        AppLocalizations.of(context)!.service_active_descrip,
+                        style: TextStyle(color: AppColors.info),
+                      ),
+                    ],
+                  ),
+                )
+              : Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)!.service_deactive_title,
+                        style: TextStyle(color: AppColors.disabled),
+                      ),
+                      SizedBox(height: 2),
+                      Text(
+                        AppLocalizations.of(context)!.service_deactive_descrip,
+                        style: TextStyle(color: AppColors.error),
+                      ),
+                    ],
+                  ),
                 ),
-                SizedBox(height: 2),
-                Text(
-                  'Le service sera visible et disponible à la commande.',
-                  style: TextStyle(color: Colors.grey, fontSize: 12),
-                ),
-              ],
-            ),
+          Switch(
+            value: isActive,
+            onChanged: onChanged,
+            activeColor: AppColors.active,
+            inactiveThumbColor: AppColors.disabled,
           ),
-          Switch(value: isActive, onChanged: onChanged),
         ],
       ),
     );

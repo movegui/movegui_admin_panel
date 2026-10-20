@@ -79,11 +79,11 @@ class AllRestaurantsWidgetState extends State<AllRestaurantsWidget> {
                           Row(
                             children: [
                               Expanded(
-                                child: Text(restaurants[index].name ?? ''),
+                                child: Text(restaurants[index].name),
                               ),
                               Expanded(
                                 child: Text(
-                                  restaurants[index].address.address ?? '' ),
+                                  restaurants[index].address.address),
                               ),
                               /*
                                        Expanded(
@@ -93,7 +93,7 @@ class AllRestaurantsWidgetState extends State<AllRestaurantsWidget> {
                               */
                                               Expanded(
                                 child: Text(
-                                  restaurants[index].telephon ?? '' ),
+                                  restaurants[index].phone),
                               )
                             ],
                           ),

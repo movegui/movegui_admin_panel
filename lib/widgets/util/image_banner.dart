@@ -2,16 +2,17 @@
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:movegui/services/assets_manager.dart';
+import 'package:movegui_admin_panel/services/assets_manager.dart';
+
 
 class ImageBanner extends StatelessWidget {
   final List<String> images = [
-    AssetsManager.pressing1Image,
-   AssetsManager.pressing2Image,
-   AssetsManager.pressing3Image,
+    AssetsManager.resto1Image,
+   AssetsManager.resto2Image,
+   AssetsManager.resto3Image,
   ];
 
-  const ImageBanner({super.key});
+   ImageBanner({super.key});
 
   @override
   Widget build(BuildContext context) {

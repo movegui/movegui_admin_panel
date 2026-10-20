@@ -8,6 +8,7 @@ import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
+import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/seed_service.dart';
 import 'package:movegui_admin_panel/util/user_form_controller.dart';
@@ -65,7 +66,7 @@ class AddContactWidgetState extends State<AddContactWidget> {
     UserModel? personTestData;
 
     if (seedService.api.env is EnvDev) {
-      personTestData = await seedService.getGeneratedUserModel();
+      personTestData = await seedService.getGeneratedUserModel(UserRole.Guest);
     }
 
     final role = widget.formControllers.last.role;
@@ -131,13 +132,13 @@ class AddContactWidgetState extends State<AddContactWidget> {
                         onBirthDateChanged: (value) {
                           setState(() => user.personForm.birthDate = value!);
                         },
-                        onPickImage: () {
-                          pickAnImage(index);
+                        onPickImage: () async{
+                         await pickAnImage(index);
                         },
                         onRemoveImage: () {
                           setState(() {
                             user.personForm.pickedImage = null;
-                            widget.formControllers[index].personForm.webImage =
+                            user.personForm.webImage =
                                 null;
                           });
                         },
@@ -180,6 +181,7 @@ class AddContactWidgetState extends State<AddContactWidget> {
       if (image != null) {
         var selected = File(image.path);
         setState(() {
+           print('jo ich bin da !');
           widget.formControllers[index].personForm.pickedImage = selected;
         });
       } else {
@@ -191,6 +193,7 @@ class AddContactWidgetState extends State<AddContactWidget> {
       if (image != null) {
         var f = await image.readAsBytes();
         setState(() {
+          print('jo ich bin da dada !');
           widget.formControllers[index].personForm.webImage = f;
           widget.formControllers[index].personForm.pickedImage = File('a');
         });

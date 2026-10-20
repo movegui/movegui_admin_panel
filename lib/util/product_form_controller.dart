@@ -4,8 +4,9 @@ import 'package:movegui_admin_panel/util/form_controller.dart';
 
 class ProductFormController<M extends ProductModel> extends FormController<M> {
   final name = TextEditingController();
-   final description = TextEditingController();
-     final formKey = GlobalKey<FormState>();
+  final nameFocusNode = FocusNode();
+  final description = TextEditingController();
+  final formKey = GlobalKey<FormState>();
   double price = 0.0;
   String? supplierId;
   bool isAvailable = false;

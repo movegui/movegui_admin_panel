@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
-import 'package:movegui_admin_panel/models/pressing/pressing_service_model.dart';
+import 'package:movegui_admin_panel/l10n/app_localizations.dart';
+import 'package:movegui_admin_panel/models/model.dart';
 
-class ActionTabWidget extends StatelessWidget {
-  const ActionTabWidget({super.key, required this.service});
-  final PressingServiceModel? service;
+
+class ActionTabWidget<M extends Model> extends StatelessWidget {
+  const ActionTabWidget({
+    super.key,
+    required this.service,
+    required this.onEdit,
+    required this.onDelete,
+    required this.onChangeStatus,
+  });
+  final M service;
+  final ValueChanged<M> onEdit;
+  final ValueChanged<M> onDelete;
+  final ValueChanged<M> onChangeStatus;
 
   @override
   Widget build(BuildContext context) {
@@ -14,40 +24,45 @@ class ActionTabWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         IconButton(
-          tooltip: 'Modifier',
-          onPressed: () => {}, //_editService(service),
+          tooltip: AppLocalizations.of(context)!.tooltip_btn_update,
+          onPressed: () {
+            onEdit.call(service);
+          },
           icon: const Icon(Icons.edit_outlined, size: 19),
-    //      color: Theme.of(context).primaryColor,
         ),
 
-        SizedBox(width: WidgetConstants.sepWidget * 0.5,),
+        SizedBox(width: WidgetConstants.sepWidget * 0.5),
 
         PopupMenuButton<ServiceAction>(
-          tooltip: 'Plus d\'actions',
-          icon: Icon(Icons.more_vert, size: 20, color: Theme.of(context).colorScheme.onPrimary,),
+          tooltip: AppLocalizations.of(context)!.tooltip_more_actions,
+          icon: Icon(
+            Icons.more_vert,
+            size: 20,
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
           onSelected: (action) {
             switch (action) {
               case ServiceAction.edit:
-                _editService(service);
+                onEdit.call(service);
                 break;
 
               case ServiceAction.toggleStatus:
-                _toggleServiceStatus(service);
+                onChangeStatus.call(service);
                 break;
 
               case ServiceAction.delete:
-                _deleteService(service);
+                onDelete.call(service);
                 break;
             }
           },
           itemBuilder: (context) => [
-            const PopupMenuItem(
+            PopupMenuItem(
               value: ServiceAction.edit,
               child: Row(
                 children: [
                   Icon(Icons.edit_outlined, size: 19),
                   SizedBox(width: 12),
-                  Text('Modifier'),
+                  Text(AppLocalizations.of(context)!.btn_update),
                 ],
               ),
             ),
@@ -57,26 +72,33 @@ class ActionTabWidget extends StatelessWidget {
               child: Row(
                 children: [
                   Icon(
-                    (service?.active ?? false)
+                    (service.isActive ?? false)
                         ? Icons.visibility_off_outlined
                         : Icons.visibility_outlined,
                     size: 19,
                   ),
                   const SizedBox(width: 12),
-                  Text((service?.active ?? false) ? 'Désactiver' : 'Activer'),
+                  Text(
+                    (service.isActive ?? false)
+                        ? AppLocalizations.of(context)!.deactif
+                        : AppLocalizations.of(context)!.actif,
+                  ),
                 ],
               ),
             ),
 
             const PopupMenuDivider(),
 
-            const PopupMenuItem(
+            PopupMenuItem(
               value: ServiceAction.delete,
               child: Row(
                 children: [
                   Icon(Icons.delete_outline, size: 19, color: Colors.red),
                   SizedBox(width: 12),
-                  Text('Supprimer', style: TextStyle(color: Colors.red)),
+                  Text(
+                    AppLocalizations.of(context)!.btn_delete,
+                    style: TextStyle(color: Colors.red),
+                  ),
                 ],
               ),
             ),
@@ -84,20 +106,6 @@ class ActionTabWidget extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  void _editService(PressingServiceModel? service) {
-    debugPrint('Modifier ${service?.name}');
-  }
-
-  void _toggleServiceStatus(PressingServiceModel? service) {
-    debugPrint(
-      '${(service?.isActive ?? false) ? 'Désactiver' : 'Activer'} ${service?.name}',
-    );
-  }
-
-  void _deleteService(PressingServiceModel? service) {
-    debugPrint('Supprimer ${service?.name}');
   }
 }
 

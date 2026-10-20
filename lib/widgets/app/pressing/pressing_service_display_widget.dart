@@ -27,11 +27,14 @@ class PressingServiceDisplayWidget extends StatefulWidget {
     required this.title,
     required this.subTitle,
     required this.onRegister,
+    required this.onDelete, required this.onChangeStatus,
   });
   final List<PressingServiceModel> services;
   final String title;
   final String subTitle;
-  final void Function(List<PressingServiceModel>? services) onRegister;
+  final void Function(List<PressingServiceModel>? newServices) onRegister;
+  final void Function(int index) onDelete;
+   final void Function(int index) onChangeStatus;
 
   @override
   State<PressingServiceDisplayWidget> createState() =>
@@ -64,16 +67,31 @@ class PressingServiceDisplayWidgetState
     });
   }
 
-  Future<PressingServiceFormController> _addEmptyFormController() async {
+  Future<PressingServiceFormController> _addEmptyFormController({
+    PressingServiceTypeModel? type,
+  }) async {
     final formController = seedService.api.env is EnvDev
         ? await servicesFormService.getFormController(
             await seedService.getGeneratedPressingService(),
           )
         : PressingServiceFormController();
 
-    formController.serviceType = selectedType?.id != '0999'
-        ? selectedType ??
-              PressingServiceTypeModel(
+    formController.serviceType =
+        type ??
+        (selectedType?.id != '0999'
+            ? selectedType ??
+                  PressingServiceTypeModel(
+                    id: '003',
+                    name: AppLocalizations.of(
+                      context,
+                    )!.pressing_service_dry_cleaning,
+                    description: AppLocalizations.of(
+                      context,
+                    )!.pressing_service_dry_cleaning_descrip,
+                    pricingType: PricingType.fixed,
+                    createdAt: DateTime.now(),
+                  )
+            : PressingServiceTypeModel(
                 id: '003',
                 name: AppLocalizations.of(
                   context,
@@ -83,16 +101,7 @@ class PressingServiceDisplayWidgetState
                 )!.pressing_service_dry_cleaning_descrip,
                 pricingType: PricingType.fixed,
                 createdAt: DateTime.now(),
-              )
-        : PressingServiceTypeModel(
-            id: '003',
-            name: AppLocalizations.of(context)!.pressing_service_dry_cleaning,
-            description: AppLocalizations.of(
-              context,
-            )!.pressing_service_dry_cleaning_descrip,
-            pricingType: PricingType.fixed,
-            createdAt: DateTime.now(),
-          );
+              ));
     _trackFormController(formController);
     return formController;
   }
@@ -154,26 +163,9 @@ class PressingServiceDisplayWidgetState
           subtitle: widget.subTitle,
           onPressed: (item) async {
             final controllers = [await _addEmptyFormController()];
-            MyAppFunctions.showMoveguiDialog(
-              context,
-              PressingServiceListWidget(
-                key: addServicesKey,
-                formControllers: controllers,
-                onFormControllerAdded: (PressingServiceFormController value) {},
-                selectedServiceType: selectedType?.id == '0999'
-                    ? null
-                    : selectedType,
-              ),
-              Theme.of(context).colorScheme.surface,
-              [
-                Row(
-                  children: [
-                    Expanded(child: cancelButton(context)),
-                    SizedBox(width: WidgetConstants.sepWidgetWidth * 2),
-                    Expanded(child: registerButton(context, controllers)),
-                  ],
-                ),
-              ],
+            await showPressingServiceWidget(
+              controllers: controllers,
+              dialogContext: context,
             );
           },
           buttonText: AppLocalizations.of(context)!.btn_create,
@@ -212,13 +204,7 @@ class PressingServiceDisplayWidgetState
         final newServices = await servicesFormService.getModels(controllers);
         if (!mounted) return;
         widget.onRegister.call(newServices);
-        setState(() {
-          for (final service in newServices) {
-            if (!widget.services.contains(service)) {
-              widget.services.add(service);
-            }
-          }
-        });
+        setState(() {});
         dialogContext.pop();
       },
       buttonItem: ButtonInfo(
@@ -305,6 +291,8 @@ class PressingServiceDisplayWidgetState
   }
 
   Widget _buildServiceTypes(BuildContext context) {
+
+    
     final visibleTypes = allServiceTypes.where((type) {
       if (selectedType != null &&
           type.id != selectedType?.id &&
@@ -331,9 +319,10 @@ class PressingServiceDisplayWidgetState
           serviceType: type,
           services: typeServices,
           primaryColor: Theme.of(context).primaryColor,
-          onAdd: () => _createService(serviceType: type),
+          onAdd: () => _createService(serviceType: type, context: context),
           onEdit: _editService,
-          onDelete: _deleteService,
+          onDelete: (service) async => _deleteService(context, service),
+          onChangeStatus: _changeServiceStatus,
         );
       },
     );
@@ -367,16 +356,88 @@ class PressingServiceDisplayWidgetState
     );
   }
 
-  void _createService({PressingServiceTypeModel? serviceType}) {
-    debugPrint('Create service: ${serviceType?.name}');
+  Future<void> showPressingServiceWidget({
+    required List<PressingServiceFormController> controllers,
+    PressingServiceTypeModel? type,
+    required BuildContext dialogContext,
+  }) async {
+    MyAppFunctions.showMoveguiDialog(
+      dialogContext,
+      PressingServiceListWidget(
+        key: addServicesKey,
+        formControllers: controllers,
+        onFormControllerAdded: (PressingServiceFormController value) {},
+        selectedServiceType:
+            type ?? (selectedType?.id == '0999' ? null : selectedType),
+        onStatusChanged: (index, status) {
+          setState(() {
+            controllers[index].active = status;
+          });
+        },
+      ),
+      Theme.of(dialogContext).colorScheme.surface,
+      [
+        Row(
+          children: [
+            Expanded(child: cancelButton(dialogContext)),
+            SizedBox(width: WidgetConstants.sepWidgetWidth * 2),
+            Expanded(child: registerButton(dialogContext, controllers)),
+          ],
+        ),
+      ],
+    );
   }
 
-  void _editService(PressingServiceModel service) {
-    debugPrint('Edit: ${service.name}');
+  Future<void> _createService({
+    PressingServiceTypeModel? serviceType,
+    required BuildContext context,
+  }) async {
+    showPressingServiceWidget(
+      controllers: [await _addEmptyFormController(type: serviceType)],
+      type: serviceType,
+      dialogContext: context,
+    );
   }
 
-  void _deleteService(PressingServiceModel service) {
-    debugPrint('Delete: ${service.name}');
+  Future<void> _editService(PressingServiceModel service) async {
+    showPressingServiceWidget(
+      controllers: [await servicesFormService.getFormController(service)],
+      type: service.serviceType,
+      dialogContext: context,
+    );
+  }
+
+  Future<void> _deleteService(
+    BuildContext dialogContext,
+    PressingServiceModel service,
+  ) async {
+    final result = await MyAppFunctions.showConfirmationDialog(
+      context: context,
+      title: AppLocalizations.of(context)!.delete_pressing_service_title,
+      question: AppLocalizations.of(context)!.delete_pressing_service_question,
+    );
+    if (result) {
+      final index = widget.services
+          .indexWhere((serv) => serv.id == service.id)
+          .toInt();
+      if (index == -1) {
+        return;
+      }
+      widget.onDelete.call(index);
+      setState(() {});
+    }
+  }
+
+  void _changeServiceStatus(PressingServiceModel service) {
+    final index = widget.services
+        .indexWhere((serv) => serv.id == service.id)
+        .toInt();
+    if (index == -1) {
+      return;
+    }
+    widget.onChangeStatus.call(index);
+    setState(() {});
+    debugPrint('Change status: ${service.name}');
   }
 
   void _manageServiceTypes() {

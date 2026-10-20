@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/config/env_dev.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
@@ -13,12 +14,15 @@ import 'package:movegui_admin_panel/widgets/app/pressing/pressing_service_widget
 class PressingServiceListWidget extends StatefulWidget {
   final List<PressingServiceFormController> formControllers;
   final ValueChanged<PressingServiceFormController> onFormControllerAdded;
+ // final Function(int index, PressingServiceFormController formController,) onFormControllerUpdated;
+ final Function(int index, bool status,) onStatusChanged;
   final PressingServiceTypeModel? selectedServiceType;
   const PressingServiceListWidget({
     super.key,
     required this.formControllers,
     required this.onFormControllerAdded,
     required this.selectedServiceType,
+    required this.onStatusChanged,
   });
 
   @override
@@ -44,15 +48,17 @@ class PressingServiceListWidgetState extends State<PressingServiceListWidget> {
 
     setState(() {
       widget.formControllers.add(PressingServiceFormController());
-      widget.formControllers.last.serviceType = widget.selectedServiceType ?? PressingServiceTypeModel(
-        id: '003',
-        name: AppLocalizations.of(context)!.pressing_service_dry_cleaning,
-        description: AppLocalizations.of(
-          context,
-        )!.pressing_service_dry_cleaning_descrip,
-        pricingType: PricingType.fixed,
-        createdAt: DateTime.now(),
-      );
+      widget.formControllers.last.serviceType =
+          widget.selectedServiceType ??
+          PressingServiceTypeModel(
+            id: '003',
+            name: AppLocalizations.of(context)!.pressing_service_dry_cleaning,
+            description: AppLocalizations.of(
+              context,
+            )!.pressing_service_dry_cleaning_descrip,
+            pricingType: PricingType.fixed,
+            createdAt: DateTime.now(),
+          );
 
       if (serviceDataTest != null) {
         widget.formControllers.last.setData(serviceDataTest);
@@ -91,8 +97,9 @@ class PressingServiceListWidgetState extends State<PressingServiceListWidget> {
   }
 
   Future<void> onStatusChange(int index, bool? status) async {
+    widget.onStatusChanged.call(index, status ?? true);
     setState(() {
-      widget.formControllers[index].isActive = status!;
+   //   widget.formControllers[index].isActive = status!;
     });
   }
 

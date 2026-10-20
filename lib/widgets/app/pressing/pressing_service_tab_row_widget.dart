@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
@@ -6,9 +8,18 @@ import 'package:movegui_admin_panel/widgets/util/display_widget.dart';
 import 'package:movegui_admin_panel/widgets/util/status_widget.dart';
 
 class PressingServiceTabRowWidget extends StatelessWidget {
-  final PressingServiceModel? service;
+  final PressingServiceModel service;
+  final ValueChanged<PressingServiceModel> onEdit;
+  final ValueChanged<PressingServiceModel> onDelete;
+  final ValueChanged<PressingServiceModel> onChangeStatus;
 
-  const PressingServiceTabRowWidget({super.key, this.service});
+  const PressingServiceTabRowWidget({
+    super.key,
+    required this.service,
+    required this.onEdit,
+    required this.onDelete,
+    required this.onChangeStatus,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +47,7 @@ class PressingServiceTabRowWidget extends StatelessWidget {
               Expanded(
                 flex: 4,
                 child: DisplayWidget(
-                  text: service?.product.name ?? '',
+                  text: service.product.name ?? '',
                   textAlign: TextAlign.left,
                 ),
               ),
@@ -44,30 +55,41 @@ class PressingServiceTabRowWidget extends StatelessWidget {
               Expanded(
                 flex: 2,
                 child: DisplayWidget(
-                  text: service?.basePrice?.toString() ?? '0.0',
+                  text: service.basePrice?.toString() ?? '0.0',
                 ),
               ),
 
               Expanded(
                 flex: 2,
                 child: DisplayWidget(
-                  text: service?.serviceType.pricingType?.name ?? '',
+                  text: service.serviceType.pricingType?.name ?? '',
                 ),
               ),
 
               Expanded(
                 flex: 2,
                 child: DisplayWidget(
-                  text: service?.estimatedDuration?.inHours.toString() ?? '0',
+                  text: service.estimatedDuration?.inHours.toString() ?? '0',
                 ),
               ),
 
               Expanded(
                 flex: 2,
-                child:   StatusWidget(isActive: service?.active ?? false, icon: Icons.dry_cleaning_rounded,), 
+                child: StatusWidget(
+                  isActive: service.isActive ?? false,
+                  icon: Icons.dry_cleaning_rounded,
+                ),
               ),
 
-              Expanded(child: ActionTabWidget(service: service))
+              Expanded(
+                flex: 2,
+                child: ActionTabWidget<PressingServiceModel>(
+                  service: service,
+                  onEdit: onEdit,
+                  onDelete: onDelete,
+                  onChangeStatus: onChangeStatus,
+                ),
+              ),
             ],
           ),
         ),
@@ -88,7 +110,7 @@ class PressingServiceTabRowWidget extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: DisplayWidget(
-                  text: service?.product.name ?? '',
+                  text: service.product.name ?? '',
                   textAlign: TextAlign.left,
                 ),
               ),
@@ -96,14 +118,14 @@ class PressingServiceTabRowWidget extends StatelessWidget {
               Expanded(
                 flex: 2,
                 child: DisplayWidget(
-                  text: service?.basePrice?.toString() ?? '0.0',
+                  text: service.basePrice?.toString() ?? '0.0',
                 ),
               ),
 
               Expanded(
                 flex: 2,
                 child: DisplayWidget(
-                  text: service?.active == true ? ' Actif ' : 'Désactif',
+                  text: service.isActive == true ? ' Actif ' : 'Désactif',
                   textAlign: TextAlign.end,
                 ),
               ),

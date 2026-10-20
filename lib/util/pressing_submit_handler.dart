@@ -38,8 +38,11 @@ class PressingSubmitHandler
     );
 
     if (imageUrl == null) throw Exception("Image upload failed");
-    form.contacts = await formService.userFormService.getModels(form.userForms);
-    form.adressModel = await formService.userFormService.personFormService.adressFormService.getModel(form.addressForm);
+    form.adressModel = await formService
+        .userFormService
+        .personFormService
+        .adressFormService
+        .getModel(form.addressForm);
 
     final pressing = PressingModel(
       id: const Uuid().v4(),
@@ -48,36 +51,28 @@ class PressingSubmitHandler
       address: form.adressModel!,
       phone: form.phone.text,
       email: form.email.text,
-      staff: form.contacts,
+      staff: form.staff,
       weeklyHours: form.weeklyHours,
       storeType: form.selectedType,
       createdAt: DateTime.now(),
-      imageUrl: imageUrl, 
-      rating: form.rating, 
+      imageUrl: imageUrl,
+      rating: form.rating,
       reviewCount: form.reviewCount,
     );
 
     await service.addModel(pressing).then((p) async {
-      form.services = await formService.servicesFormService.getModels(form.serviceForms) ;
       await service.addServices(p, form.services ?? []).then((pressing) async {
         List<HttpsCallableResult> results = [];
         for (UserModel? userModel in pressing.staff ?? []) {
-          final user = FirebaseAuth.instance.currentUser;
-
-          final token = await user!.getIdTokenResult(true);
-
-          debugPrint(user.uid);
-          debugPrint(token.claims.toString());
-
           final createUser = await userService.createUserWithoutPassword(
             userModel?.personModel?.email ?? '',
-            UserRole.Manager,
+            userModel?.role ?? UserRole.Guest,
             userModel?.personModel?.firstName ?? '',
             userModel?.personModel?.lastName ?? '',
             userModel?.personModel?.addresses ?? [],
             userModel?.personModel?.phone ?? '',
             userModel?.personModel?.gender ?? '',
-            userModel?.personModel?.birthDate  ,
+            userModel?.personModel?.birthDate,
           );
           final subject = AppLocalizations.of(context)!.register_employe_title;
           final messageTitle = AppLocalizations.of(
@@ -98,7 +93,6 @@ class PressingSubmitHandler
             messageToSend,
           );
           if (result.data['success'] == true) {
-            //form.clear();
             results.add(result);
           }
         }

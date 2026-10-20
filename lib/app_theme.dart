@@ -29,6 +29,7 @@ class AppTheme {
         backgroundColor: WidgetStatePropertyAll(AppColors.primary),
       ),
     ),
+    switchTheme: _switchThemeData(),
   );
 
   static ThemeData darkTheme = ThemeData(
@@ -56,6 +57,7 @@ class AppTheme {
         backgroundColor: WidgetStatePropertyAll(AppColors.primary),
       ),
     ),
+    switchTheme: _switchThemeData(),
   );
 
   static CardThemeData _cardTheme() {
@@ -191,7 +193,6 @@ class AppTheme {
         color: AppColors.onPrimary,
       ),
 
-
       // Texte normal
       bodyLarge: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
 
@@ -200,6 +201,32 @@ class AppTheme {
       bodySmall: TextStyle(fontSize: 13),
 
       // Boutons
+    );
+  }
+
+  static SwitchThemeData _switchThemeData() {
+    return SwitchThemeData(
+      overlayColor: WidgetStateProperty.resolveWith<Color?>((states) {
+        if (states.contains(WidgetState.hovered)) {
+          return Colors.transparent;
+        }
+        return null;
+      }),
+      thumbColor: WidgetStateProperty.resolveWith<Color>((states) {
+        if (states.contains(WidgetState.selected)) {
+          return AppColors.onPrimary; // ON button color
+        }
+
+        return Colors.grey; // OFF button color
+      }),
+
+      trackColor: WidgetStateProperty.resolveWith<Color>((states) {
+        if (states.contains(WidgetState.selected)) {
+          return AppColors.primary; // ON background
+        }
+
+        return Colors.grey.shade300; // OFF background
+      }),
     );
   }
 }

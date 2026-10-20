@@ -46,7 +46,7 @@ class UserFormService extends FormService<UserModel, UserFormController> {
 
   @override
   Future<UserModel> generateModel() {
-    return seedService.getGeneratedUserModel();
+    return seedService.getGeneratedUserModel(UserRole.Guest);
   }
 
 }

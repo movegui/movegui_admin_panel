@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/models/model.dart';
 import 'package:movegui_admin_panel/services/model_service.dart';
 
@@ -52,20 +51,15 @@ class CustomDropDownState<M extends Model, S extends ModelService<M>>
     }
 
     return Container(
-      color: AppColors.backgroundColor,
       child: Row(
         children: [
           Expanded(
             child: ListTile(
-              title: Text(widget.title, style: TextStyle(color: AppColors.textColor, fontSize: 24),),
+              title: Text(widget.title, style: TextStyle( fontSize: 24),),
              // subtitle: Text('Subtitle goes here'),
             ),
           ),
           DropdownButton<M>(
-            style: TextStyle(color: AppColors.textColor, fontSize: 18,),
-            dropdownColor: AppColors.backgroundColor,
-            iconEnabledColor: AppColors.textColor,
-            focusColor: AppColors.textColor,
             value: dropdownValue,
             onChanged: (M? newValue) {
               setState(() {

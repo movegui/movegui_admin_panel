@@ -26,8 +26,9 @@ class PersonFormController extends FormController<PersonModel> {
 
   bool get hasImage =>
       pickedImage != null ||
-      webImage != null ||
-      (profileImageUrl?.isNotEmpty ?? false);
+      webImage != null ;
+   //   ||
+  //    (profileImageUrl?.isNotEmpty ?? false);
 
   void addAddress() {
     adressesForms.add(AddressFormController());

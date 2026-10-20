@@ -38,8 +38,18 @@ class AllDriverWidgetState extends State<AllDriverWidget> {
         title: 'Drivers',
         subTitle: 'Add Driver und update ist -...',
         onRegister: (List<UserModel>? addUsers) {
-            users.addAll(addUsers ?? []);
+          users.addAll(addUsers ?? []);
         },
+                     onDelete: (int index) {
+                setState(() {
+                  users.removeAt(index);
+                });
+              },
+              onChangeStatus: (int index) {
+                setState(() {
+                  users[index].isActive = !(users[index].isActive ?? true);
+                });
+              },
       ),
     );
   }

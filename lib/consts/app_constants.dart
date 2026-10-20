@@ -20,15 +20,17 @@ class AppConstants {
 
   // [url=https://ibb.co/JM0KMG0][img]https://i.ibb.co/JM0KMG0/riz-gras.jpg[/img][/url]
 
-  static List<String> daysOfWeek = [
-    "Lundi",
-    "Mardi",
-    "Mercredi",
-    "Jeudi",
-    "Vendredi",
-    "Samdei",
-    "Dimanche",
-  ];
+  static Future<List<String>> daysOfWeek(BuildContext context) async {
+    return [
+      AppLocalizations.of(context)!.day_lundi,
+      AppLocalizations.of(context)!.day_mardi,
+      AppLocalizations.of(context)!.day_mercredi,
+      AppLocalizations.of(context)!.day_jeudi,
+      AppLocalizations.of(context)!.day_vendredi,
+      AppLocalizations.of(context)!.day_samedi,
+      AppLocalizations.of(context)!.day_dimanche,
+    ];
+  }
 
   static Future<List<PressingServiceTypeModel>> getPressingServices(
     BuildContext context,
@@ -124,8 +126,6 @@ class AppConstants {
     ];
   }
 
-
-
   static String getMunicipality(String value) {
     switch (value) {
       case 'di':
@@ -160,11 +160,14 @@ class AppConstants {
   }
 
   static String getGender(String value, BuildContext context) {
-      switch(value){
-        case 'm': return AppLocalizations.of(context)!.gender_masculin;
-        case 'f': return AppLocalizations.of(context)!.gender_female;
-        default: return '';
-      }
+    switch (value) {
+      case 'm':
+        return AppLocalizations.of(context)!.gender_masculin;
+      case 'f':
+        return AppLocalizations.of(context)!.gender_female;
+      default:
+        return '';
+    }
   }
 }
 
@@ -280,7 +283,7 @@ class RestaurantConstants extends StoreConstants {
   String getStoreCategory(BuildContext context) {
     return AppLocalizations.of(context)!.module_restaurant_name;
   }
-  
+
   @override
   String getCollectionName() {
     return "restaurants_model";
@@ -371,7 +374,7 @@ class ProfessionConstants extends StoreConstants {
   String getStoreCategory(BuildContext context) {
     return AppLocalizations.of(context)!.module_profession_name;
   }
-  
+
   @override
   String getCollectionName() {
     return "professionnels_model";
@@ -462,7 +465,7 @@ class PatisserieConstants extends StoreConstants {
   String getStoreCategory(BuildContext context) {
     return AppLocalizations.of(context)!.module_pastry_name;
   }
-  
+
   @override
   String getCollectionName() {
     return "patisseries_model";
@@ -553,10 +556,10 @@ class PressingConstants extends StoreConstants {
   String getStoreCategory(BuildContext context) {
     return AppLocalizations.of(context)!.module_pressing_name;
   }
-  
+
   @override
   String getCollectionName() {
-   return "pressings_model";
+    return "pressings_model";
   }
 }
 
@@ -644,7 +647,7 @@ class SuperMarktConstants extends StoreConstants {
   String getStoreCategory(BuildContext context) {
     return AppLocalizations.of(context)!.module_super_market_name;
   }
-  
+
   @override
   String getCollectionName() {
     return "superMarkts_model";
@@ -735,7 +738,7 @@ class SupplierConstants extends StoreConstants {
   String getStoreCategory(BuildContext context) {
     return AppLocalizations.of(context)!.module_supplier_name;
   }
-  
+
   @override
   String getCollectionName() {
     return "suppliers_model";
@@ -777,36 +780,26 @@ class StoreCategoriesConstants extends CategoriesConstants {
   }
 }
 
-
 class MoveGuiCollections {
   static final String COLLECTION_CATEGORIES = 'categories_model';
   static final String COLLECTION_SUPPLIERS = 'suppliers_model';
   static final String COLLECTION_INGREDIENTS = 'ingredients_model';
-  static final String COLLECTION_RECIPES = 'recipes_model'; 
-  static final String COLLECTION_PRODUCTS = 'products_model'; 
-  static final String COLLECTION_RESTAURANTS_MENUS = 'restaurants_menus_model'; 
-  static final String COLLECTION_RESTAURANTS = 'restaurants_model'; 
-  static final String COLLECTION_RESTAURANTS_TYPES = 'restaurants_types_model'; 
-  static final String COLLECTION_STORE_CATEGORIES = 'store_categories_model'; 
-  static final String COLLECTION_PASTRIES = 'pastries_model'; 
-  static final String COLLECTION_SUPER_MARKETS = 'superMarkts_model'; 
-  static final String COLLECTION_PRESSINGS = 'pressings_model'; 
-  static final String COLLECTION_PROFESSIONNELS = 'professionnels_model'; 
-  static final String COLLECTION_EMPLOYEES = 'employees'; 
-  static final String COLLECTION_USERS = 'users'; 
-  static final String COLLECTION_MANAGERS = 'managers'; 
+  static final String COLLECTION_RECIPES = 'recipes_model';
+  static final String COLLECTION_PRODUCTS = 'products_model';
+  static final String COLLECTION_RESTAURANTS_MENUS = 'restaurants_menus_model';
+  static final String COLLECTION_RESTAURANTS = 'restaurants_model';
+  static final String COLLECTION_RESTAURANTS_TYPES = 'restaurants_types_model';
+  static final String COLLECTION_STORE_CATEGORIES = 'store_categories_model';
+  static final String COLLECTION_PASTRIES = 'pastries_model';
+  static final String COLLECTION_SUPER_MARKETS = 'superMarkts_model';
+  static final String COLLECTION_PRESSINGS = 'pressings_model';
+  static final String COLLECTION_PROFESSIONNELS = 'professionnels_model';
+  static final String COLLECTION_EMPLOYEES = 'employees';
+  static final String COLLECTION_USERS = 'users';
+  static final String COLLECTION_MANAGERS = 'managers';
   static final String COLLECTION_DRIVERS = 'drivers';
   static final String COLLECTION_ORDERS = 'orders';
   static final String COLLECTION_PRESSING_ORDERS = 'pressing_orders';
   static final String COLLECTION_ACTIVITIES = 'activities';
-    static final String COLLECTION_PHARMACIES = 'pharmacies';
-
-
-
-
-
-
+  static final String COLLECTION_PHARMACIES = 'pharmacies';
 }
-
-
-

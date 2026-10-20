@@ -7,9 +7,9 @@ import 'package:movegui_admin_panel/models/user_model.dart';
 
 abstract class StoreModel extends Model {
 
-  final String  phone, email, imageUrl, description;
+  final String  phone, email, imageUrl;
   final AdressModel address; 
-  final List<UserModel?>? staff;
+  final List<UserModel>? staff;
   final List<OpenHoursModel> weeklyHours;
   final StoreTypeModel? storeType;
   double? rating ;
@@ -19,7 +19,7 @@ abstract class StoreModel extends Model {
     required super.id,
     required super.name,
     required super.createdAt,
-    required this.description,
+    required super.description,
     required this.email,
     required this.imageUrl,
     required this.phone,

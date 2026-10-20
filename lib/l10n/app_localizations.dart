@@ -98,6 +98,42 @@ abstract class AppLocalizations {
     Locale('fr'),
   ];
 
+  /// No description provided for @service_active_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Service enabled'**
+  String get service_active_title;
+
+  /// No description provided for @service_deactive_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Service disabled'**
+  String get service_deactive_title;
+
+  /// No description provided for @service_active_descrip.
+  ///
+  /// In en, this message translates to:
+  /// **'The service will be visible and available for ordering.'**
+  String get service_active_descrip;
+
+  /// No description provided for @service_deactive_descrip.
+  ///
+  /// In en, this message translates to:
+  /// **'The service will not be visible and will not be available for ordering.'**
+  String get service_deactive_descrip;
+
+  /// No description provided for @delete_pressing_service_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Service'**
+  String get delete_pressing_service_title;
+
+  /// No description provided for @delete_pressing_service_question.
+  ///
+  /// In en, this message translates to:
+  /// **'Would you like to delete this Service ?'**
+  String get delete_pressing_service_question;
+
   /// No description provided for @commune_title.
   ///
   /// In en, this message translates to:
@@ -121,6 +157,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Open Hours'**
   String get open_hours_title;
+
+  /// No description provided for @open_hours_sub_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Specify the days and times when the dry cleaner accepts orders.'**
+  String get open_hours_sub_title;
+
+  /// No description provided for @open_hours_open_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Le {category} is open today'**
+  String open_hours_open_title(Object category);
+
+  /// No description provided for @open_hours_close_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Le {category} is close today'**
+  String open_hours_close_title(Object category);
 
   /// No description provided for @store_services_title.
   ///
@@ -488,35 +542,41 @@ abstract class AppLocalizations {
   /// **'Please Create a new Service or update existing services.'**
   String get pressing_service_empty_subtitle;
 
-  /// No description provided for @pressing_service_header_tab_produit_title.
+  /// No description provided for @tab_header_produit_title.
   ///
   /// In en, this message translates to:
   /// **'Prodruct'**
-  String get pressing_service_header_tab_produit_title;
+  String get tab_header_produit_title;
 
-  /// No description provided for @pressing_service_header_tab_price_title.
+  /// No description provided for @tab_header_price_title.
   ///
   /// In en, this message translates to:
   /// **'Price'**
-  String get pressing_service_header_tab_price_title;
+  String get tab_header_price_title;
 
-  /// No description provided for @pressing_service_header_tab_invoicing_title.
+  /// No description provided for @tab_header_invoicing_title.
   ///
   /// In en, this message translates to:
   /// **'Invoicing'**
-  String get pressing_service_header_tab_invoicing_title;
+  String get tab_header_invoicing_title;
 
-  /// No description provided for @pressing_service_header_tab_duration_title.
+  /// No description provided for @tab_header_duration_title.
   ///
   /// In en, this message translates to:
   /// **'Time limit'**
-  String get pressing_service_header_tab_duration_title;
+  String get tab_header_duration_title;
 
-  /// No description provided for @pressing_service_header_tab_status_title.
+  /// No description provided for @tab_header_status_title.
   ///
   /// In en, this message translates to:
   /// **'Status'**
-  String get pressing_service_header_tab_status_title;
+  String get tab_header_status_title;
+
+  /// No description provided for @tab_header_actions.
+  ///
+  /// In en, this message translates to:
+  /// **'Actions'**
+  String get tab_header_actions;
 
   /// No description provided for @pressing_service_search_hinterText.
   ///
@@ -608,6 +668,18 @@ abstract class AppLocalizations {
   /// **'Add the services, offerings, categories and tariffs proposed by the dry cleaner'**
   String get pressing_service_add_dashboard_sub_title;
 
+  /// No description provided for @pressing_hours_open_sub_text.
+  ///
+  /// In en, this message translates to:
+  /// **'Le pressing est ouvert ce jour'**
+  String get pressing_hours_open_sub_text;
+
+  /// No description provided for @pressing_hours_close_sub_text.
+  ///
+  /// In en, this message translates to:
+  /// **'Le pressing est fermé ce jour'**
+  String get pressing_hours_close_sub_text;
+
   /// No description provided for @restaurant_add_bar_title.
   ///
   /// In en, this message translates to:
@@ -691,6 +763,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Type {storeCategory}'**
   String store_type(Object storeCategory);
+
+  /// No description provided for @store_open.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get store_open;
+
+  /// No description provided for @store_close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get store_close;
+
+  /// No description provided for @store_opening.
+  ///
+  /// In en, this message translates to:
+  /// **'Ouverture'**
+  String get store_opening;
+
+  /// No description provided for @store_closure.
+  ///
+  /// In en, this message translates to:
+  /// **'Closure'**
+  String get store_closure;
 
   /// No description provided for @description_title.
   ///
@@ -1009,6 +1105,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Types of Services'**
   String get btn_types_services;
+
+  /// No description provided for @btn_yes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get btn_yes;
+
+  /// No description provided for @btn_no.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get btn_no;
 
   /// No description provided for @verify_otp.
   ///
@@ -1712,6 +1820,24 @@ abstract class AppLocalizations {
   /// **'View all service types'**
   String get tooltip_all_pressing_services_types;
 
+  /// No description provided for @tooltip_btn_update.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get tooltip_btn_update;
+
+  /// No description provided for @tooltip_more_actions.
+  ///
+  /// In en, this message translates to:
+  /// **'More Actions'**
+  String get tooltip_more_actions;
+
+  /// No description provided for @tooltip_delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get tooltip_delete;
+
   /// No description provided for @profile_menu_invite_people.
   ///
   /// In en, this message translates to:
@@ -1790,6 +1916,18 @@ abstract class AppLocalizations {
   /// **'View All'**
   String get add_all;
 
+  /// No description provided for @deactif.
+  ///
+  /// In en, this message translates to:
+  /// **'Deactivate'**
+  String get deactif;
+
+  /// No description provided for @actif.
+  ///
+  /// In en, this message translates to:
+  /// **'Activate'**
+  String get actif;
+
   /// No description provided for @menu_main.
   ///
   /// In en, this message translates to:
@@ -1861,6 +1999,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sunday'**
   String get day_dimanche;
+
+  /// No description provided for @days.
+  ///
+  /// In en, this message translates to:
+  /// **'Days'**
+  String get days;
 
   /// No description provided for @last_orders.
   ///
@@ -2023,6 +2167,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add the Owners informations details'**
   String get owner_add_dashboard_sub_title;
+
+  /// No description provided for @add_slot_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a time slot'**
+  String get add_slot_title;
 }
 
 class _AppLocalizationsDelegate

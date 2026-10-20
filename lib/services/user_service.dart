@@ -468,9 +468,7 @@ class UserService extends ModelService<UserModel> implements IUserService {
     DateTime? birthDate,
   ) async {
     final user = FirebaseAuth.instance.currentUser;
-
     final idToken = await user?.getIdToken();
-
     final response = await http.post(
       Uri.parse(
         '${api.env.baseUrl}/movegui-253e0/us-central1/createUserWithoutPassword',
@@ -482,14 +480,14 @@ class UserService extends ModelService<UserModel> implements IUserService {
       body: jsonEncode({
         'email': email,
         'name': '$firstName $lastName',
-        'role': role,
+        'role': role.name,
       }),
     );
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       if (data != null && data.length > 0) {
         final userRole = UserRole.values.firstWhere(
-          (e) => e.name == role,
+          (e) => e.name == role.name,
           orElse: () => UserRole.Guest,
         );
         final model = await initializeCreatedUserWithLink(

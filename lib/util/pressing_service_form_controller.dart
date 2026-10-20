@@ -8,9 +8,7 @@ import 'package:movegui_admin_panel/util/product_form_controller.dart';
 
 class PressingServiceFormController
     extends FormController<PressingServiceModel> {
-        final formKey = GlobalKey<FormState>();
-
-  final name = TextEditingController();
+  final formKey = GlobalKey<FormState>();
   final description = TextEditingController();
   final processingTime = TextEditingController();
   final nameFocusNode = FocusNode();
@@ -27,10 +25,10 @@ class PressingServiceFormController
   String? id;
   double? basePrice;
   DateTime? createdAt;
-  bool isActive = true;
+  bool? active ;
+  String? currency = 'GNF';
 
   void dispose() {
-    name.dispose();
     description.dispose();
     minPrice.dispose();
     maxPrice.dispose();
@@ -40,7 +38,6 @@ class PressingServiceFormController
   }
 
   void clear() {
-    name.clear();
     minPrice.clear();
     maxPrice.clear();
     processingTime.clear();
@@ -54,25 +51,23 @@ class PressingServiceFormController
   @override
   Future<void> setData(PressingServiceModel model) async {
     id = model.id;
-    name.text = model.product.name;
     minPrice.text = model.minPrice.toString();
     maxPrice.text = model.maxPrice.toString();
     serviceTypeFormController.setData(model.serviceType);
-   // serviceType = model.serviceType;
+    serviceType = model.serviceType;
     articleFormController.setData(model.product);
     processingTime.text = model.estimatedDuration?.inHours.toString() ?? '';
     createdAt = model.createdAt;
     basePrice = model.basePrice;
-    description.text = model.product.description ?? '';
-    isActive = model.isActive ?? true;
-
+    description.text = model.description ?? '';
+    active = model.isActive ?? true;
+    currency = model.currency ?? 'GNF';
   }
 
   @override
   bool isValid() {
     final currentState = formKey.currentState;
     if (currentState == null) {
-      print('is false');
       return false;
     }
 
@@ -80,19 +75,7 @@ class PressingServiceFormController
       return false;
     }
 
-    /*
-
-    if (!serviceTypeFormController.isValid()) {
-      return false;
-    }
-
-    if (!articleFormController.isValid()) {
-      return false;
-    }
-
-    */
-print('joooooo');
-    return name.text.isNotEmpty &&
+    return articleFormController.name.text.isNotEmpty &&
         minPrice.text.isNotEmpty &&
         maxPrice.text.isNotEmpty &&
         serviceType != null &&

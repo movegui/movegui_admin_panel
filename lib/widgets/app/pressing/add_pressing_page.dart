@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:movegui_admin_panel/config/env_dev.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/app_constants.dart';
@@ -38,6 +39,7 @@ import 'package:movegui_admin_panel/widgets/app/dashboard/dashboard_header.dart'
 import 'package:movegui_admin_panel/widgets/app/dashboard/panel/order_status_panel.dart';
 import 'package:movegui_admin_panel/widgets/app/pressing/pressing_service_display_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/service_card.dart';
+import 'package:movegui_admin_panel/widgets/app/store/store_open_hours_display_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/store/store_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/dashboard/kpi_card.dart';
 import 'package:movegui_admin_panel/widgets/app/users/user_display_widget.dart';
@@ -62,8 +64,6 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
   late final DashboardService dashboardService;
   DashboardModel dashboardModel = DashboardModel.empty();
   bool _isLoadingDashboard = false;
-  late List<UserModel> users;
-  late List<PressingServiceModel> services;
 
   @override
   void initState() {
@@ -73,19 +73,6 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
     seedService = getIt<SeedService>();
     userService = getIt<UserService>();
     dashboardService = getIt<DashboardService>();
-    users = [];
-    services = [];
-    /*
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final generatedUser = await seedService.getGeneratedUserModel();
-      if (!mounted) {
-        return;
-      }
-      setState(() {
-        userModel = generatedUser;
-      });
-    });
-    */
   }
 
   @override
@@ -102,6 +89,43 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
     formController.services?.add(service);
     await loadDatatest();
     _isLoadingDashboard = false;
+  }
+
+
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: ModalProgressHUD(
+        inAsyncCall: isLoading,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            if (!Responsive.isDesktop(context)) {
+              return _buidContent();
+            }
+            return Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(child: _buidContent()),
+                SizedBox(
+                  width: 340,
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.fromLTRB(16, 24, 24, 24),
+                    child: Column(
+                      children: [
+                        itemsWidget(dashboardModel, dashboardService),
+                        const SizedBox(height: 16),
+                        OrderStatusPanel(models: dashboardModel),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+      ),
+    );
   }
 
   void updateOwnerCount(int value) {
@@ -129,8 +153,8 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
       if (!mounted) {
         return;
       }
+      await formController.setData(pressingTestData);
       setState(() {
-        formController.setData(pressingTestData);
         dashboardModel = model;
       });
     }
@@ -154,16 +178,13 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
   Future<void> _onSubmit() async {
     if (!formKey.currentState!.validate() ||
         formController.pickedImage == null ||
-        formController.userForms.any(
-          (userForm) =>
-              userForm.personForm.pickedImage == null ||
-              userForm.personForm.birthDate == null ||
-              userForm.personForm.gender == null,
-        )) {
+        formController.staff!.isEmpty ||
+        formController.services!.isEmpty ||
+        formController.weeklyHours.isEmpty) {
       MessageWidget.errorMessage(
         context,
         AppLocalizations.of(context)!.error_register_title,
-        AppLocalizations.of(context)!.error_send_formular,
+        AppLocalizations.of(context)!.error_register_with_phone_message,
         Icon(Icons.error, color: AppColors.error),
         FlushbarPosition.TOP,
       );
@@ -172,25 +193,17 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
 
     setState(() => isLoading = true);
     try {
-      formController.contacts = await formService.userFormService.getModels(
-        formController.userForms,
+      await submitHandler.submit(form: formController);
+      showAlertBar(
+        context,
+        AppLocalizations.of(context)!.store_add_success_message(
+          AppLocalizations.of(context)!.module_pressing_name,
+        ),
       );
-
-      if (formController.weeklyHours.isNotEmpty &&
-          formController.contacts.isNotEmpty) {
-        await submitHandler.submit(form: formController);
-        showAlertBar(
-          context,
-          AppLocalizations.of(context)!.store_add_success_message(
-            AppLocalizations.of(context)!.module_pressing_name,
-          ),
-        );
-        if (mounted) {
-          context.go(RouteConstants.PRESSING_ROUTE);
-        }
+      if (mounted) {
+        context.go(RouteConstants.PRESSING_ROUTE);
       }
     } catch (e) {
-      print(e.toString());
       showBtmAlert(context, e.toString());
     }
 
@@ -226,46 +239,11 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          if (!Responsive.isDesktop(context)) {
-            return _buidContent();
-          }
-
-          return Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(child: _buidContent()),
-              SizedBox(
-                width: 340,
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.fromLTRB(16, 24, 24, 24),
-                  child: Column(
-                    children: [
-                      itemsWidget(dashboardModel, dashboardService),
-                      const SizedBox(height: 16),
-                      OrderStatusPanel(models: dashboardModel),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          );
-        },
-      ),
-    );
-  }
 
   Widget _buidContent() {
     return SafeArea(
       child: SingleChildScrollView(
-        //      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 28),
         child: Center(
-          //  child: ConstrainedBox(
-          //   constraints: const BoxConstraints(maxWidth: 1120),
           child: Form(
             key: formKey,
             child: Column(
@@ -310,7 +288,11 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
                 ),
 
                 const SizedBox(height: WidgetConstants.sepWidget),
-                _buildServiceCard(context, users, services),
+                _buildServiceCard(
+                  context,
+                  formController.staff ?? [],
+                  formController.services ?? [],
+                ),
                 const SizedBox(height: WidgetConstants.sepWidget),
                 ValidateAndCancelButton(
                   onValidate: (ButtonInfo item) async {
@@ -341,6 +323,11 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
     final employees = users
         .where((elem) => elem.role == UserRole.Employe)
         .toList();
+    final openDays = formController.weeklyHours
+        .where((hour) => hour.isOpen == true)
+        .length;
+    final openTxt = AppLocalizations.of(context)!.store_open;
+    final daysTxt = AppLocalizations.of(context)!.days;
 
     return Wrap(
       spacing: 3,
@@ -365,6 +352,16 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
                 });
                 context.pop();
               },
+              onDelete: (int index) {
+                setState(() {
+                  users.removeAt(index);
+                });
+              },
+              onChangeStatus: (int index) {
+                setState(() {
+                  users[index].isActive = !(users[index].isActive ?? true);
+                });
+              },
             ),
             Theme.of(context).colorScheme.surface,
             [],
@@ -386,6 +383,16 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
               onRegister: (List<UserModel>? newManagers) {
                 setState(() {
                   users.addAll(newManagers ?? []);
+                });
+              },
+              onDelete: (int index) {
+                setState(() {
+                  users.removeAt(index);
+                });
+              },
+              onChangeStatus: (int index) {
+                setState(() {
+                  users[index].isActive = !(users[index].isActive ?? true);
                 });
               },
             ),
@@ -411,6 +418,16 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
                   users.addAll(newEmployees ?? []);
                 });
               },
+              onDelete: (int index) {
+                setState(() {
+                  users.removeAt(index);
+                });
+              },
+              onChangeStatus: (int index) {
+                setState(() {
+                  users[index].isActive = !(users[index].isActive ?? true);
+                });
+              },
             ),
             Theme.of(context).colorScheme.surface,
             [],
@@ -433,27 +450,31 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
               )!.pressing_services_dashboard_sub_title,
               onRegister: (List<PressingServiceModel>? newServices) {
                 setState(() {
-                   services.addAll(newServices ?? []);
+                  for (final newService in newServices ?? []) {
+                    final index = servicesModels.indexWhere(
+                      (service) => service.id == newService.id,
+                    );
+
+                    if (index == -1) {
+                      servicesModels.add(newService);
+                    } else {
+                      servicesModels[index] = newService;
+                    }
+                  }
                 });
-               
               },
-              
+              onDelete: (int index) {
+                setState(() {
+                  servicesModels.removeAt(index);
+                });
+              },
+              onChangeStatus: (int index) {
+                setState(() {
+                  servicesModels[index].isActive =
+                      !(servicesModels[index].isActive ?? true);
+                });
+              },
             ),
-            /*
-             Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: PressingServiceWidget(
-                        formControllers: formController.serviceForms,
-                        onServiceChange:
-                            (int index, PressingServiceTypeModel? value) {
-                              setState(() {
-                                formController.serviceForms[index].serviceType =
-                                    value;
-                              });
-                            },
-                      ),
-                    ),
-                    */
             Theme.of(context).colorScheme.surface,
             [],
           ),
@@ -462,8 +483,26 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
           title: AppLocalizations.of(context)!.open_hours_title,
           icon: Icons.access_time,
           color: const Color.fromARGB(255, 12, 206, 19),
-          onPress: () {},
-          subtitleText: ' ',
+          onPress: () => MyAppFunctions.showMoveguiDialog(
+            context,
+            StoreOpenHoursDisplayWidget(
+              openingHours: formController.weeklyHours,
+              openingHoursChanged: (List<OpenHoursModel> newHoures) {},
+              title: AppLocalizations.of(context)!.open_hours_title,
+              subTitle: AppLocalizations.of(context)!.open_hours_sub_title,
+              onRegister: (List<OpenHoursModel>? newOpeningHours) {
+                if (newOpeningHours != null && newOpeningHours.isNotEmpty) {
+                  setState(() {
+                    formController.weeklyHours = newOpeningHours;
+                  });
+                }
+              },
+            ),
+
+            Theme.of(context).colorScheme.surface,
+            [],
+          ),
+          subtitleText: '$openTxt  $openDays / 7 $daysTxt',
         ),
         ServiceCard(
           title: AppLocalizations.of(context)!.module_add_name,
@@ -475,55 +514,6 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
       ],
     );
   }
-
-  /*
-
-  void _showUserDialog(
-    BuildContext context,
-    List<UserModel> users,
-    String title,
-    String subTitle,
-  ) {
-    showDialog<void>(
-      context: context,
-      builder: (dialogContext) {
-        final size = MediaQuery.sizeOf(dialogContext);
-        return Dialog(
-          backgroundColor: AppColors.lightBackground,
-          child: SizedBox(
-            width: size.width * 0.7,
-            height: size.height * 0.6,
-            child: UserDisplayWidget(
-              users: users,
-              title: title,
-              subTitle: subTitle,
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  void _showServicesDialog(
-    BuildContext context,
-    List<PressingServiceModel> servicesModel,
-  ) {
-    showDialog<void>(
-      context: context,
-      builder: (dialogContext) {
-        final size = MediaQuery.sizeOf(dialogContext);
-        return Dialog(
-          child: SizedBox(
-            width: size.width * 0.9,
-            height: size.height * 0.8,
-            child: Text('To Implement !!!'), //UserDisplayScreen(users: users),
-          ),
-        );
-      },
-    );
-  }
-
-*/
 
   Widget itemsWidget(DashboardModel stats, DashboardService service) {
     return ResponsiveGrid(

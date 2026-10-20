@@ -29,7 +29,9 @@ class SeedService {
     description: faker.company.random.fromPattern(['description']),
     address: await getgeneratedAdress(),
     staff: [
-      await getGeneratedUserModel()
+      await getGeneratedUserModel(UserRole.Owner),
+      await getGeneratedUserModel(UserRole.Manager),
+      await getGeneratedUserModel(UserRole.Employe),
     ],
     email: faker.internet.email(),
     imageUrl: faker.image.toString(),
@@ -37,9 +39,65 @@ class SeedService {
     weeklyHours: [
       OpenHoursModel(
         day: 'lundi',
-        openTime: TimeOfDay(hour: 09, minute: 00),
-        closeTime: TimeOfDay(hour: 17, minute: 30),
+        isOpen: true,
+        slots: [
+          OpeningTimeSlot(
+            openingTime: TimeOfDay(hour: 09, minute: 00),
+            closingTime: TimeOfDay(hour: 17, minute: 30),
+          ),
+        ],
       ),
+      OpenHoursModel(
+        day: 'Mardi',
+        isOpen: true,
+        slots: [
+          OpeningTimeSlot(
+            openingTime: TimeOfDay(hour: 09, minute: 00),
+            closingTime: TimeOfDay(hour: 17, minute: 30),
+          ),
+        ],
+      ),
+      OpenHoursModel(
+        day: 'Mercredi',
+        isOpen: true,
+        slots: [
+          OpeningTimeSlot(
+            openingTime: TimeOfDay(hour: 09, minute: 00),
+            closingTime: TimeOfDay(hour: 17, minute: 30),
+          ),
+        ],
+      ),
+      OpenHoursModel(
+        day: 'Jeudi',
+        isOpen: true,
+        slots: [
+          OpeningTimeSlot(
+            openingTime: TimeOfDay(hour: 09, minute: 00),
+            closingTime: TimeOfDay(hour: 17, minute: 30),
+          ),
+        ],
+      ),
+      OpenHoursModel(
+        day: 'Vendredi',
+        isOpen: false,
+        slots: [
+          OpeningTimeSlot(
+            openingTime: TimeOfDay(hour: 09, minute: 00),
+            closingTime: TimeOfDay(hour: 17, minute: 30),
+          ),
+        ],
+      ),
+      OpenHoursModel(
+        day: 'Samedi',
+        isOpen: true,
+        slots: [
+          OpeningTimeSlot(
+            openingTime: TimeOfDay(hour: 09, minute: 00),
+            closingTime: TimeOfDay(hour: 17, minute: 30),
+          ),
+        ],
+      ),
+      OpenHoursModel(day: 'Dimanche', isOpen: false, slots: []),
     ],
     storeType: RestaurantTypeModel(
       id: Uuid().v4(),
@@ -61,7 +119,7 @@ class SeedService {
         estimatedDuration: Duration(hours: 2),
         name: faker.food.restaurant(),
         createdAt: DateTime.now(),
-         description: faker.person.name(),
+        description: faker.person.name(),
       );
 
   Future<PersonModel> getGeneratedPerson() async => PersonModel(
@@ -70,7 +128,8 @@ class SeedService {
     createdAt: DateTime.now(),
     firstName: faker.person.firstName(),
     lastName: faker.person.lastName(),
-    profileImageUrl: faker.image.toString(),
+    profileImageUrl:
+        null, //'https://i.pravatar.cc/200?img=${faker.randomGenerator.integer(70, min: 1)}',
     email: faker.internet.email(),
     phone: faker.phoneNumber.de(),
     gender: 'm',
@@ -106,35 +165,37 @@ class SeedService {
     adressType: 'h',
   );
 
-  Future<UserModel> getGeneratedUserModel() async => UserModel(
+  Future<UserModel> getGeneratedUserModel(UserRole? role) async => UserModel(
     updatedAt: DateTime.now(),
     id: Uuid().v4(),
     name: faker.person.name(),
     createdAt: DateTime.now(),
     username: faker.internet.email(),
     isVerified: false,
-    role: UserRole.Guest,
-    personModel: await getGeneratedPerson()
+    role: role ?? UserRole.Guest,
+    personModel: await getGeneratedPerson(),
   );
 
-  Future<PressingServiceTypeModel> generatePressingTypeModel() async =>PressingServiceTypeModel(
-          id: Uuid().v4(),
-          name: faker.lorem.word(),
-          description: faker.job.title(),
-          pricingType: PricingType.fixed,
-          createdAt: DateTime.now(),
-        ); 
+  Future<PressingServiceTypeModel> generatePressingTypeModel() async =>
+      PressingServiceTypeModel(
+        id: '003',
+        name: 'Nettoyage à sec',
+        description: 'Nettoyage spécial pour tissus délicats',
+        pricingType: PricingType.fixed,
+        createdAt: DateTime.now(),
+      );
 
-        Future<PressingArticleModel> generatePressingArticle() async => PressingArticleModel(
-          id: Uuid().v4(),
-          name: faker.lorem.word(),
-          createdAt: DateTime.now(),
-          price: faker.randomGenerator.decimal(scale: 2),
-          supplierId: Uuid().v4(),
-          imageUrl: faker.image.loremPicsum(),
-          category: faker.company.name(),
-          isAvailable: true,
-          currency: 'GNF',
-          description: faker.company.name()
-        );
+  Future<PressingArticleModel> generatePressingArticle() async =>
+      PressingArticleModel(
+        id: Uuid().v4(),
+        name: faker.lorem.word(),
+        createdAt: DateTime.now(),
+        price: faker.randomGenerator.decimal(scale: 2),
+        supplierId: Uuid().v4(),
+        imageUrl: faker.image.loremPicsum(),
+        category: faker.company.name(),
+        isAvailable: true,
+        currency: 'GNF',
+        description: faker.company.name(),
+      );
 }

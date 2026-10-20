@@ -1,9 +1,6 @@
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:movegui/consts/app_constants.dart';
-import 'package:movegui/l10n/app_localizations.dart';
-
 
 class CategoryImageBanner extends StatelessWidget {
   const CategoryImageBanner({super.key});
@@ -18,7 +15,7 @@ class CategoryImageBanner extends StatelessWidget {
         enlargeCenterPage: true,
         viewportFraction: 0.9,
       ),
-      items: AppConstants.allCategoriesItems(AppLocalizations.of(context)!,).map((categoryItem) {
+      items: [], /* AppConstants.allCategoriesItems(AppLocalizations.of(context)!,).map((categoryItem) {
         return ClipRRect(
           borderRadius: BorderRadius.circular(12),
           child: Image.asset(
@@ -28,6 +25,7 @@ class CategoryImageBanner extends StatelessWidget {
           ),
         );
       }).toList(),
+      */
     );
   }
 }

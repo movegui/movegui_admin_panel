@@ -62,7 +62,8 @@ factory Categoryrecipe.fromJson(Map<String, dynamic> json) => Categoryrecipe (
 
 class CategoryRestaurant extends Model {
   final String imageUrl;
-   final String description;
+   @override
+  final String description;
 
   CategoryRestaurant({
     required super.id,

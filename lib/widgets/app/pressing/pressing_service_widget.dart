@@ -31,19 +31,6 @@ class PressingServiceWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDesktop = Responsive.isDesktop(context);
 
-    /*
-    final l10n = AppLocalizations.of(context)!;
-    final serviceType =
-        controller.serviceType ??
-        PressingServiceTypeModel(
-          id: PricingType.fixed.id,
-          name: l10n.pressing_service_dry_cleaning,
-          description: l10n.pressing_service_dry_cleaning_descrip,
-          pricingType: PricingType.fixed,
-          createdAt: DateTime.now(),
-        );
-        */
-
     return isDesktop
         ? Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -84,8 +71,8 @@ class PressingServiceWidget extends StatelessWidget {
                   Expanded(
                     //    flex: 2,
                     child: InputWidget(
-                      controller: controller.name,
-                      focusNode: controller.nameFocusNode,
+                      controller: controller.articleFormController.name,
+                      focusNode: controller.articleFormController.nameFocusNode,
                       prefixIcon: const Icon(Icons.local_laundry_service),
                       labelText: AppLocalizations.of(
                         context,
@@ -210,7 +197,7 @@ class PressingServiceWidget extends StatelessWidget {
               ),
               const SizedBox(width: WidgetConstants.sepWidget),
               StatusToggleWidget(
-                isActive: controller.isActive,
+                isActive: controller.active ?? true,
                 onChanged: onStatusChange,
               ),
               Divider(
@@ -238,8 +225,8 @@ class PressingServiceWidget extends StatelessWidget {
               ),
               const SizedBox(height: WidgetConstants.sepWidget),
               InputWidget(
-                controller: controller.name,
-                focusNode: controller.nameFocusNode,
+                controller: controller.articleFormController.name,
+                focusNode: controller.articleFormController.nameFocusNode,
                 prefixIcon: const Icon(Icons.local_laundry_service),
                 labelText: AppLocalizations.of(
                   context,
@@ -322,7 +309,7 @@ class PressingServiceWidget extends StatelessWidget {
               ),
               const SizedBox(height: WidgetConstants.sepWidget),
               StatusToggleWidget(
-                isActive: controller.isActive,
+                isActive: controller.active ?? true,
                 onChanged: onStatusChange,
               ),
               Divider(

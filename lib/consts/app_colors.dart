@@ -18,7 +18,7 @@ class AppColors {
 
   static const Color primary = Color(0xFF90171B);
   static const Color lightBackground = Color.fromARGB(255, 114, 78, 223);
-    static const Color darkBackground = Color.fromARGB(255, 33, 33, 34);
+  static const Color darkBackground = Color.fromARGB(255, 33, 33, 34);
   static const Color card = Color(0xFFF1FFFF);
   static const Color success = Color(0xFF4CAF50);
   static const Color warning = Color(0xFFFFA000);
@@ -27,6 +27,7 @@ class AppColors {
   static const border = Color(0xFFE0E0E0);
   static const textPrimary = Color(0xFF212121);
   static const textSecondary = Color(0xFF757575);
-    static const Color disabled = Colors.grey;
+  static const Color disabled = Colors.grey;
+  static const Color active =  Color.fromARGB(255, 13, 197, 19);
 
 }

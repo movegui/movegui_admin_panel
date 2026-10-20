@@ -76,10 +76,10 @@ class AllPatisserieWidgetState extends State<AllPatisserieWidget> {
                           Row(
                             children: [
                               Expanded(
-                                child: Text(patisseries[index].name ?? ''),
+                                child: Text(patisseries[index].name),
                               ),
                               Expanded(
-                                child: Text(patisseries[index].address.address ?? ''),
+                                child: Text(patisseries[index].address.address),
                               ),
                               /*
                               Expanded(
@@ -87,7 +87,7 @@ class AllPatisserieWidgetState extends State<AllPatisserieWidget> {
                               ),
                               */
                               Expanded(
-                                child: Text(patisseries[index].telephon ?? ''),
+                                child: Text(patisseries[index].phone),
                               ),
                             ],
                           ),

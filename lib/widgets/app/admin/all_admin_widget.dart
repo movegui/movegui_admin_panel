@@ -45,7 +45,17 @@ class AllAdminWidgetState extends State<AllAdminWidget> {
           setState(() {
             users.addAll(addUsers);
           });
-        },
+        }, 
+                      onDelete: (int index) {
+                setState(() {
+                  users.removeAt(index);
+                });
+              },
+              onChangeStatus: (int index) {
+                setState(() {
+                  users[index].isActive = !(users[index].isActive ?? true);
+                });
+              },
       ),
     );
   }

@@ -5,6 +5,7 @@ import 'package:movegui_admin_panel/models/ingredient_model.dart';
 import 'package:movegui_admin_panel/models/model.dart';
 
 class RecipeModel extends Model {
+  @override
   final String description;
   final Categoryrecipe category;
   final List<IngredientModel> ingredients;

@@ -89,7 +89,7 @@ class StoreWidget extends StatelessWidget {
           nextFocusNode: formController.addressForm.addressFocusNode,
           validator: MyValidators.textValidator,
           prefixIcon: Icon(Icons.message),
-       //   isNumber: false,
+          //   isNumber: false,
           focusNode: formController.descriptionFocus,
           onChange: (String value) {},
           isFullBorder: true,
@@ -129,6 +129,29 @@ class StoreWidget extends StatelessWidget {
       onRemoveImage: onRemoveImage,
     );
 
+    final validatedImagePicker = FormField<bool>(
+      validator: (_) {
+        return formController.hasImage ? null : 'Veuillez choisir une image.';
+      },
+      builder: (field) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          imagePicker,
+          if (field.errorText != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 4),
+              child: Text(
+                field.errorText!,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(context).colorScheme.error,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+        ],
+      ),
+    );
+
     if (isDesktop) {
       return Flexible(
         flex: 1,
@@ -136,18 +159,14 @@ class StoreWidget extends StatelessWidget {
           padding: const EdgeInsets.only(
             right: WidgetConstants.sepWidgetHeight * 2,
           ),
-          child: imagePicker,
+          child: validatedImagePicker,
         ),
       );
     }
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: SizedBox(
-        height: 200,
-        width: 200, //MediaQuery.sizeOf(context).width * 0.8,
-        child: imagePicker,
-      ),
+      child: validatedImagePicker,
     );
   }
 }

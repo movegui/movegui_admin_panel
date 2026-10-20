@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:movegui_admin_panel/consts/app_constants.dart';
-import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/widgets/util/display_widget.dart';
@@ -149,7 +148,7 @@ class GlobalMethods {
                   ),
                 ),
 
-                StatusWidget(isActive: model.isActive)
+                StatusWidget(isActive: model.isActive ?? false)
               ],
             ),
           ),

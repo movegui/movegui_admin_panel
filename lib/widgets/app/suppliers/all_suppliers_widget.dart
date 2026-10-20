@@ -102,7 +102,7 @@ class AllSuppliersWidgetState extends State<AllSuppliersWidgetPage> {
                                 child: Text(suppliers[index].address.address),
                               ),
                                       Expanded(
-                                child: Text(suppliers[index].telephon),
+                                child: Text(suppliers[index].phone),
                               ),
                                       Expanded(
                                 child: Text(suppliers[index].email),
