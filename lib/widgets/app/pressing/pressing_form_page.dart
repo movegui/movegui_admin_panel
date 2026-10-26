@@ -17,8 +17,10 @@ import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
 import 'package:movegui_admin_panel/methods/show_alert.dart';
 import 'package:movegui_admin_panel/models/button_info.dart';
-import 'package:movegui_admin_panel/models/dashboard_model.dart';
+import 'package:movegui_admin_panel/models/dashboard/dashboard_model_data.dart';
+import 'package:movegui_admin_panel/models/dashboard/module_item.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
+import 'package:movegui_admin_panel/models/pressing/pressing_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_model.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
@@ -44,15 +46,17 @@ import 'package:movegui_admin_panel/widgets/app/store/store_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/dashboard/kpi_card.dart';
 import 'package:movegui_admin_panel/widgets/app/users/user_display_widget.dart';
 
-class AddPressingPage extends StatefulWidget {
-  const AddPressingPage({super.key});
+class PressingFormPage extends StatefulWidget {
+  const PressingFormPage({super.key, this.pressingId});
   final String collectionName = 'pressings';
+  final String? pressingId;
+  bool get isEditing => pressingId != null;
 
   @override
-  State<StatefulWidget> createState() => PressingAddWidgetPageState();
+  State<StatefulWidget> createState() => PressingFormPageState();
 }
 
-class PressingAddWidgetPageState extends State<AddPressingPage> {
+class PressingFormPageState extends State<PressingFormPage> {
   final formController = PressingFormController();
   final formKey = GlobalKey<FormState>();
 
@@ -62,8 +66,9 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
   late SeedService seedService;
   late UserService userService;
   late final DashboardService dashboardService;
-  DashboardModel dashboardModel = DashboardModel.empty();
+  DashboardModelData stats = DashboardModelData.empty();
   bool _isLoadingDashboard = false;
+  late PressingModel pressingModel;
 
   @override
   void initState() {
@@ -73,8 +78,15 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
     seedService = getIt<SeedService>();
     userService = getIt<UserService>();
     dashboardService = getIt<DashboardService>();
+    initDashboardItems();
+    if (widget.isEditing) {
+      initEditMode();
+    } else {
+      loadDatatest();
+    }
   }
 
+  /*
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();
@@ -82,17 +94,48 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
       return;
     }
     _isLoadingDashboard = true;
-    final service = await seedService.getGeneratedPressingService();
-    if (!mounted) {
-      return;
-    }
-    formController.services?.add(service);
     await loadDatatest();
     _isLoadingDashboard = false;
   }
+  */
 
+  Future<void> initEditMode() async {
+    final pressingId = widget.pressingId;
+    if (pressingId != null) {
+      pressingModel = await pressingService.getModelById(pressingId);
+      final services = await pressingService.getAllServices(pressingId);
+      formController.services?.addAll(services);
+      await formController.setData(pressingModel);
+      formController.editMode = true;
+      setState(() {});
+    }
+  }
 
-  
+  Future<void> initDashboardItems() async {
+    final items = await dashboardService.loadDashboardItems(
+      FirebaseFirestore.instance,
+    );
+
+    setState(() {
+      stats = items;
+    });
+  }
+
+  Future<void> loadDatatest() async {
+    if (seedService.api.env is EnvDev && !widget.isEditing) {
+      final service = await seedService.getGeneratedPressingService();
+
+      final pressingTestData = await seedService.generatePressing();
+
+      if (!mounted) {
+        return;
+      }
+      formController.services?.add(service);
+      await formController.setData(pressingTestData);
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,9 +156,9 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
                     padding: const EdgeInsets.fromLTRB(16, 24, 24, 24),
                     child: Column(
                       children: [
-                        itemsWidget(dashboardModel, dashboardService),
+                        itemsWidget(stats, dashboardService),
                         const SizedBox(height: 16),
-                        OrderStatusPanel(models: dashboardModel),
+                        OrderStatusPanel(stats: stats),
                       ],
                     ),
                   ),
@@ -144,22 +187,6 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
     setState(() {});
   }
 
-  Future<void> loadDatatest() async {
-    if (seedService.api.env is EnvDev) {
-      final pressingTestData = await seedService.generatePressing();
-      final model = await dashboardService.loadDashboardItems(
-        FirebaseFirestore.instance,
-      );
-      if (!mounted) {
-        return;
-      }
-      await formController.setData(pressingTestData);
-      setState(() {
-        dashboardModel = model;
-      });
-    }
-  }
-
   late final submitHandler = PressingSubmitHandler(
     service: pressingService,
     imageService: ImageService(),
@@ -177,7 +204,7 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
 
   Future<void> _onSubmit() async {
     if (!formKey.currentState!.validate() ||
-        formController.pickedImage == null ||
+        !formController.hasImage ||
         formController.staff!.isEmpty ||
         formController.services!.isEmpty ||
         formController.weeklyHours.isEmpty) {
@@ -193,21 +220,53 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
 
     setState(() => isLoading = true);
     try {
+      final isCompleted = formController.isPressingCompleted;
+      formController.isCompleted = isCompleted;
+
       await submitHandler.submit(form: formController);
-      showAlertBar(
-        context,
-        AppLocalizations.of(context)!.store_add_success_message(
-          AppLocalizations.of(context)!.module_pressing_name,
-        ),
-      );
-      if (mounted) {
-        context.go(RouteConstants.PRESSING_ROUTE);
+      if (!mounted) return;
+      if (!formController.editMode) {
+        showAlertBar(
+          context,
+          AppLocalizations.of(context)!.store_add_success_message(
+            AppLocalizations.of(context)!.module_pressing_name,
+          ),
+        );
+      } else {
+        showAlertBar(
+          context,
+          AppLocalizations.of(context)!.store_edit_success_message(
+            AppLocalizations.of(context)!.module_pressing_name,
+          ),
+        );
       }
+
+      context.go(RouteConstants.PRESSING_ROUTE);
     } catch (e) {
+      try {
+        final pressing = await pressingService.getModelById(formController.id!);
+        pressing.isActive = false;
+        pressing.isComplete = false;
+        await pressingService.addModel(pressing);
+      } catch (e) {
+        if (!mounted) return;
+
+        MessageWidget.errorMessage(
+          context,
+          AppLocalizations.of(context)!.error_register_title,
+          AppLocalizations.of(context)!.error_register_with_phone_message,
+          Icon(Icons.error, color: AppColors.error),
+          FlushbarPosition.TOP,
+        );
+        setState(() => isLoading = false);
+        return;
+      }
+      if (!mounted) return;
+
       showBtmAlert(context, e.toString());
     }
 
-    setState(() => isLoading = false);
+    if (mounted) setState(() => isLoading = false);
   }
 
   Future<void> pickAnImage() async {
@@ -239,7 +298,6 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
     }
   }
 
-
   Widget _buidContent() {
     return SafeArea(
       child: SingleChildScrollView(
@@ -259,7 +317,7 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
                   onPressed: (item) async {
                     context.go(RouteConstants.PRESSING_ALL_ROUTE);
                   },
-                  buttonText: AppLocalizations.of(context)!.btn_all,
+                  buttonText: AppLocalizations.of(context)!.btn_all_cleaners,
                 ),
 
                 const SizedBox(height: WidgetConstants.sepWidget),
@@ -279,11 +337,20 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
                     });
                   },
                   onCommuneChange: (String? value) {
-                    formController.addressForm.selectedMunicipality = value!;
+                    setState(() {
+                      formController.addressForm.selectedMunicipality = value!;
+                    });
                   },
                   //    textColor: AppColors.textColor,
                   onHoursChanged: (List<OpenHoursModel> hours) {
-                    formController.weeklyHours = hours;
+                    setState(() {
+                      formController.weeklyHours = hours;
+                    });
+                  },
+                  onStatusChanged: (bool value) {
+                    setState(() {
+                      formController.isActive = value;
+                    });
                   },
                 ),
 
@@ -515,47 +582,55 @@ class PressingAddWidgetPageState extends State<AddPressingPage> {
     );
   }
 
-  Widget itemsWidget(DashboardModel stats, DashboardService service) {
+  Widget itemsWidget(DashboardModelData stats, DashboardService service) {
     return ResponsiveGrid(
       isVertical: true,
       children: [
         SizedBox(
           height: 160,
           child: KpiCard(
-            title: 'Commandes',
-            value: stats.totalOrders.toString(),
-            subtitle: '${stats.pendingOrders} en attente',
-            icon: Icons.receipt_long_rounded,
+            item: ModuleItem(
+              title: 'Commandes',
+              value: stats.totalOrders.toString(),
+              subtitle: '${stats.pendingOrders} en attente',
+              icon: Icons.receipt_long_rounded,
+            ),
             //      color: AppColors.moveGuiRed,
           ),
         ),
         SizedBox(
           height: 160,
           child: KpiCard(
-            title: 'Clients',
-            value: stats.totalCustomers.toString(),
-            subtitle: 'Utilisateurs clients',
-            icon: Icons.people_alt_rounded,
+            item: ModuleItem(
+              title: 'Clients',
+              value: stats.totalCustomers.toString(),
+              subtitle: 'Utilisateurs clients',
+              icon: Icons.people_alt_rounded,
+            ),
             //  color: const Color(0xFF6A1B9A),
           ),
         ),
         SizedBox(
           height: 160,
           child: KpiCard(
-            title: 'Livreurs',
-            value: stats.totalDrivers.toString(),
-            subtitle: '${stats.onlineDrivers} connectés',
-            icon: Icons.delivery_dining_rounded,
+            item: ModuleItem(
+              title: 'Livreurs',
+              value: stats.totalDrivers.toString(),
+              subtitle: '${stats.onlineDrivers} connectés',
+              icon: Icons.delivery_dining_rounded,
+            ),
             //   color: AppColors.infoBlue,
           ),
         ),
         SizedBox(
           height: 160,
           child: KpiCard(
-            title: 'Revenus',
-            value: service.formatGnf(stats.totalRevenue),
-            subtitle: 'Total commandes payées',
-            icon: Icons.payments_rounded,
+            item: ModuleItem(
+              title: 'Revenus',
+              value: service.formatGnf(stats.totalRevenue),
+              subtitle: 'Total commandes payées',
+              icon: Icons.payments_rounded,
+            ),
             //  color: AppColors.successGreen,
           ),
         ),

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
-import 'package:movegui_admin_panel/models/dashboard_model.dart';
+import 'package:movegui_admin_panel/models/dashboard/dashboard_model_data.dart';
 import 'package:movegui_admin_panel/widgets/app/dashboard/panel/dashbord_panel.dart';
 
 class DashboardModelsPanel extends StatelessWidget {
-  final DashboardModel models;
+  final DashboardModelData stats;
 
-  const DashboardModelsPanel({super.key, required this.models});
+  const DashboardModelsPanel({super.key, required this.stats});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class DashboardModelsPanel extends StatelessWidget {
             label:
                 AppLocalizations.of(context)?.module_pressing_name ??
                 'Pressing',
-            value: models.pressings,
+            value: stats.pressings,
             color: Colors.indigo,
           ),
           ServiceRow(
@@ -31,7 +31,7 @@ class DashboardModelsPanel extends StatelessWidget {
             label:
                 AppLocalizations.of(context)?.module_restaurant_name ??
                 'Restaurants',
-            value: models.restaurants,
+            value: stats.restaurants,
             color: AppColors.placeHolderText,
           ),
 
@@ -40,7 +40,7 @@ class DashboardModelsPanel extends StatelessWidget {
             label:
                 AppLocalizations.of(context)?.module_super_market_name ??
                 'Supermarchés',
-            value: models.supermarkets,
+            value: stats.supermarkets,
             color: AppColors.placeHolderText,
           ),
           ServiceRow(
@@ -48,7 +48,7 @@ class DashboardModelsPanel extends StatelessWidget {
             label:
                 AppLocalizations.of(context)?.module_pharmacy_name ??
                 'Pharmacies',
-            value: models.pharmacies,
+            value: stats.pharmacies,
             color: AppColors.placeHolderText,
           ),
         ],

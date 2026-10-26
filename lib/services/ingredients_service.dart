@@ -49,4 +49,12 @@ class IngredientsService extends ModelService<IngredientModel> {
         .get();
     return IngredientModel.fromJson(snapshot.data()!);
   }
+
+  @override
+  Future<void> deleteModel(IngredientModel model) async {
+          await FirebaseFirestore.instance
+        .collection(getCollectionName())
+        .doc(model.id)
+        .delete();
+  }
 }

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:movegui_admin_panel/models/dashboard_model.dart';
+import 'package:movegui_admin_panel/models/dashboard/dashboard_model.dart';
 import 'package:movegui_admin_panel/services/dashboard_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/widgets/app/dashboard/dash_board_side_menu.dart';

@@ -134,6 +134,18 @@ abstract class AppLocalizations {
   /// **'Would you like to delete this Service ?'**
   String get delete_pressing_service_question;
 
+  /// No description provided for @delete_pressing_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Dry Cleaner'**
+  String get delete_pressing_title;
+
+  /// No description provided for @delete_pressing_question.
+  ///
+  /// In en, this message translates to:
+  /// **'Would you like to delete this Dry Cleaner ?'**
+  String get delete_pressing_question;
+
   /// No description provided for @commune_title.
   ///
   /// In en, this message translates to:
@@ -542,6 +554,48 @@ abstract class AppLocalizations {
   /// **'Please Create a new Service or update existing services.'**
   String get pressing_service_empty_subtitle;
 
+  /// No description provided for @pressing_problem_hours_non_configured.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedules not configured'**
+  String get pressing_problem_hours_non_configured;
+
+  /// No description provided for @pressing_problem_service_non_configured.
+  ///
+  /// In en, this message translates to:
+  /// **'No services configured'**
+  String get pressing_problem_service_non_configured;
+
+  /// No description provided for @pressing_proble_staff_employe.
+  ///
+  /// In en, this message translates to:
+  /// **'No Employe assigned'**
+  String get pressing_proble_staff_employe;
+
+  /// No description provided for @pressing_proble_staff_manager.
+  ///
+  /// In en, this message translates to:
+  /// **'No Manager assigned'**
+  String get pressing_proble_staff_manager;
+
+  /// No description provided for @pressing_proble_staff_owner.
+  ///
+  /// In en, this message translates to:
+  /// **'No Owner assigned'**
+  String get pressing_proble_staff_owner;
+
+  /// No description provided for @pressing_problem_incomplete_infos.
+  ///
+  /// In en, this message translates to:
+  /// **'Incompleted Dry Cleaning Informations'**
+  String get pressing_problem_incomplete_infos;
+
+  /// No description provided for @pressing_service_configured.
+  ///
+  /// In en, this message translates to:
+  /// **'Dry Cleaners configured'**
+  String get pressing_service_configured;
+
   /// No description provided for @tab_header_produit_title.
   ///
   /// In en, this message translates to:
@@ -577,6 +631,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Actions'**
   String get tab_header_actions;
+
+  /// No description provided for @tab_header_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get tab_header_name;
+
+  /// No description provided for @tab_header_problem.
+  ///
+  /// In en, this message translates to:
+  /// **'Problem'**
+  String get tab_header_problem;
 
   /// No description provided for @pressing_service_search_hinterText.
   ///
@@ -643,6 +709,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add the business details, contacts and services.'**
   String get pressing_add_dashboard_sub_title;
+
+  /// No description provided for @pressing_all_dashboard_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Dry Cleaners Liste'**
+  String get pressing_all_dashboard_title;
+
+  /// No description provided for @pressing_all_dashboard_sub_title.
+  ///
+  /// In en, this message translates to:
+  /// **'View and manage registed Dry Cleaners'**
+  String get pressing_all_dashboard_sub_title;
 
   /// No description provided for @pressing_services_dashboard_title.
   ///
@@ -758,6 +836,12 @@ abstract class AppLocalizations {
   /// **'{storeCategory} addedd successfully'**
   String store_add_success_message(Object storeCategory);
 
+  /// message de succes
+  ///
+  /// In en, this message translates to:
+  /// **'{storeCategory} successfully updated'**
+  String store_edit_success_message(Object storeCategory);
+
   /// Type of {storeCategory]
   ///
   /// In en, this message translates to:
@@ -787,6 +871,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Closure'**
   String get store_closure;
+
+  /// No description provided for @store_information_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Generales Informations'**
+  String get store_information_title;
+
+  /// No description provided for @store_information_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'name, description and  status'**
+  String get store_information_subtitle;
+
+  /// No description provided for @store_contact_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact'**
+  String get store_contact_title;
+
+  /// No description provided for @store_contact_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'email, phone, fax etc..'**
+  String get store_contact_subtitle;
+
+  /// No description provided for @store_adress_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Principal Adress'**
+  String get store_adress_title;
+
+  /// No description provided for @store_adress_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Localisation and Adress type'**
+  String get store_adress_subtitle;
 
   /// No description provided for @description_title.
   ///
@@ -1070,6 +1190,12 @@ abstract class AppLocalizations {
   /// **'Show All'**
   String get btn_all;
 
+  /// No description provided for @btn_all_cleaners.
+  ///
+  /// In en, this message translates to:
+  /// **'My Dry Cleaners'**
+  String get btn_all_cleaners;
+
   /// No description provided for @btn_delete.
   ///
   /// In en, this message translates to:
@@ -1117,6 +1243,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No'**
   String get btn_no;
+
+  /// No description provided for @btn_configure.
+  ///
+  /// In en, this message translates to:
+  /// **'Configure'**
+  String get btn_configure;
+
+  /// No description provided for @btn_manage.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage'**
+  String get btn_manage;
+
+  /// No description provided for @btn_see.
+  ///
+  /// In en, this message translates to:
+  /// **'See'**
+  String get btn_see;
 
   /// No description provided for @verify_otp.
   ///
@@ -1483,6 +1627,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Services'**
   String get module_services_name;
+
+  /// No description provided for @module_configuration_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Configuration Modules'**
+  String get module_configuration_title;
+
+  /// No description provided for @module_configuration_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Configure the global settings related to MoveGui pressings.'**
+  String get module_configuration_subtitle;
+
+  /// No description provided for @module_configuration_to_complete_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Configuration to complete'**
+  String get module_configuration_to_complete_title;
+
+  /// No description provided for @module_configuration_to_complete_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Some {pressings} need your attention.'**
+  String module_configuration_to_complete_subtitle(Object pressings);
+
+  /// No description provided for @module_configuration_item_pressing_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Dry Cleaners'**
+  String get module_configuration_item_pressing_title;
+
+  /// No description provided for @module_configuration_item_pressing_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage information and the status of dry cleaners.'**
+  String get module_configuration_item_pressing_subtitle;
+
+  /// No description provided for @module_configuration_item_pressing_type_service_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Services Types Configured'**
+  String get module_configuration_item_pressing_type_service_title;
+
+  /// No description provided for @module_configuration_item_pressing_type_service_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'View the types of services that have been configured.'**
+  String get module_configuration_item_pressing_type_service_subtitle;
+
+  /// No description provided for @module_configuration_item_pressing_open_hours_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Hours'**
+  String get module_configuration_item_pressing_open_hours_title;
+
+  /// No description provided for @module_configuration_item_pressing_open_hours_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage the dry cleaners\' hours of operation.'**
+  String get module_configuration_item_pressing_open_hours_subtitle;
+
+  /// No description provided for @module_configuration_item_pressing_configured_services_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Configured Services'**
+  String get module_configuration_item_pressing_configured_services_title;
+
+  /// No description provided for @module_configuration_item_pressing_configured_services_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of services offered by dry cleaners.'**
+  String get module_configuration_item_pressing_configured_services_subtitle;
 
   /// No description provided for @tooltip_add.
   ///
@@ -1928,6 +2144,18 @@ abstract class AppLocalizations {
   /// **'Activate'**
   String get actif;
 
+  /// No description provided for @complete.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete'**
+  String get complete;
+
+  /// No description provided for @incomplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Incomplete'**
+  String get incomplete;
+
   /// No description provided for @menu_main.
   ///
   /// In en, this message translates to:
@@ -2173,6 +2401,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add a time slot'**
   String get add_slot_title;
+
+  /// No description provided for @static_module_item_pressing_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Dry Cleaners'**
+  String get static_module_item_pressing_title;
+
+  /// No description provided for @static_module_item_pressing_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Dry Cleaners'**
+  String get static_module_item_pressing_subtitle;
+
+  /// No description provided for @static_module_item_pressing_actifs_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Actives'**
+  String get static_module_item_pressing_actifs_title;
+
+  /// No description provided for @static_module_item_pressing_actifs_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Actives dry Cleaners'**
+  String get static_module_item_pressing_actifs_subtitle;
+
+  /// No description provided for @static_module_item_pressing_inactifs_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactives'**
+  String get static_module_item_pressing_inactifs_title;
+
+  /// No description provided for @static_module_item_pressing_inactifs_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactives Dry Cleaners'**
+  String get static_module_item_pressing_inactifs_subtitle;
+
+  /// No description provided for @static_module_item_pressing_configured_services_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Configured Services'**
+  String get static_module_item_pressing_configured_services_title;
+
+  /// No description provided for @static_module_item_pressing_configured_services_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Total of services'**
+  String get static_module_item_pressing_configured_services_subtitle;
+
+  /// No description provided for @static_module_item_pressing_incomplete_open_hours_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Incomplete Open hours'**
+  String get static_module_item_pressing_incomplete_open_hours_title;
+
+  /// No description provided for @static_module_item_pressing_incomplete_open_hours_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Dry Cleaners to complete'**
+  String get static_module_item_pressing_incomplete_open_hours_subtitle;
+
+  /// No description provided for @image_chose_image_text.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose an Image'**
+  String get image_chose_image_text;
+
+  /// No description provided for @image_change_image_text.
+  ///
+  /// In en, this message translates to:
+  /// **'Change an Image'**
+  String get image_change_image_text;
+
+  /// No description provided for @image_add_image_text.
+  ///
+  /// In en, this message translates to:
+  /// **'Add an Image'**
+  String get image_add_image_text;
 }
 
 class _AppLocalizationsDelegate

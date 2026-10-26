@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
-import 'package:movegui_admin_panel/models/dashboard_model.dart';
+import 'package:movegui_admin_panel/models/dashboard/dashboard_model_data.dart';
 import 'package:movegui_admin_panel/widgets/app/dashboard/panel/dashbord_panel.dart';
 
 class OrderStatusPanel extends StatelessWidget {
-  final DashboardModel models;
+  final DashboardModelData stats;
 
-  const OrderStatusPanel({super.key, required this.models});
+  const OrderStatusPanel({super.key, required this.stats});
 
   @override
   Widget build(BuildContext context) {
@@ -18,27 +18,27 @@ class OrderStatusPanel extends StatelessWidget {
         children: [
           StatusRow(
             label: AppLocalizations.of(context)!.dashbord_orders_pending,
-            value: models.pendingOrders,
+            value: stats.pendingOrders,
             color: AppColors.warning,
           ),
           StatusRow(
             label: AppLocalizations.of(context)!.dashbord_orders_preparing,
-            value: models.preparingOrders,
+            value: stats.preparingOrders,
             color: AppColors.info,
           ),
           StatusRow(
             label: AppLocalizations.of(context)!.dashbord_orders_delivering,
-            value: models.deliveringOrders,
+            value: stats.deliveringOrders,
             color: AppColors.on_delivery,
           ),
           StatusRow(
             label: AppLocalizations.of(context)!.dashbord_orders_completed,
-            value: models.completedOrders,
+            value: stats.completedOrders,
             color: AppColors.success,
           ),
           StatusRow(
             label: AppLocalizations.of(context)!.dashbord_orders_cancelled,
-            value: models.cancelledOrders,
+            value: stats.cancelledOrders,
             color: AppColors.error,
           ),
         ],

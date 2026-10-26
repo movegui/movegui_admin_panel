@@ -1,168 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:movegui_admin_panel/consts/app_constants.dart';
-import 'package:movegui_admin_panel/models/dashboard_model.dart';
+import 'package:movegui_admin_panel/models/dashboard/dashboard_model_data.dart';
 import 'package:movegui_admin_panel/models/order_model.dart';
 import 'package:movegui_admin_panel/services/api_service.dart';
 import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
-
-
-
-
-/*
-class DashboardService {
-  Stream<DashboardModel> loadDashboardItems(
-    FirebaseFirestore firestore,
-  ) {
-    final ordersRef =
-        firestore.collection(MoveGuiCollections.COLLECTION_ORDERS);
-
-    final usersRef =
-        firestore.collection(MoveGuiCollections.COLLECTION_USERS);
-
-    final driversRef =
-        firestore.collection(MoveGuiCollections.COLLECTION_DRIVERS);
-
-    final restaurantsRef =
-        firestore.collection(MoveGuiCollections.COLLECTION_RESTAURANTS);
-
-    final pressingOrdersRef =
-        firestore.collection(MoveGuiCollections.COLLECTION_PRESSING_ORDERS);
-
-    final superMarketsRef =
-        firestore.collection(MoveGuiCollections.COLLECTION_SUPER_MARKETS);
-
-    final pharmaciesRef =
-        firestore.collection(MoveGuiCollections.COLLECTION_PHARMACIES);
-
-    /*
-      Ce merge sert juste à déclencher un recalcul
-      dès qu'une des collections importantes change.
-    */
-    return Rx.merge<void>([
-      ordersRef.snapshots().map((_) {})*
-      usersRef.snapshots().map((_* {}),
-      driversRef.snapshots()*map((_) {}),
-      restaurantsRef.*napshots().map((_) {}),
-      pres*ingOrdersRef.snapshots().map((_) {*),
-      superMarketsRef.snapshots*).map((_) {}),
-      pharmaciesRef*snapshots().map((_) {}),
-    ]).st*rtWith(null).asyncMap((_) async {
-*     final results = await Future.*ait<int>([
-        _count(ordersRef),
-        _count(
-          order*Ref.where(
-            'status',
- *          isEqualTo: OrderStatus.p*nding.name,
-          ),
-        )*
-        _count(
-          ordersR*f.where(
-            'status',
-   *        isEqualTo: OrderStatus.in_*rogress.name,
-          ),
-       *),
-        _count(
-          order*Ref.where(
-            'status',
- *          isEqualTo: OrderStatus.d*livered.name,
-          ),
-       *),
-        _count(
-          order*Ref.where(
-            'status',
- *          isEqualTo: OrderStatus.c*mpleted.name,
-          ),
-       *),
-        _count(
-          order*Ref.where(
-            'status',
- *          isEqualTo: OrderStatus.c*ncelled.name,
-          ),
-       *),
-        _count(
-          users*ef.where(
-            'role',
-    *       isEqualTo: UserRole.Custome*.name,
-          ),
-        ),
-   *    _count(
-          driversRef.w*ere(
-            'role',
-         *  isEqualTo: UserRole.Driver.name,*          ),
-        ),
-        _c*unt(
-          driversRef.where(
- *          'online',
-            is*qualTo: true,
-          ),
-       *),
-        _count(restaurantsRef),*        _count(pressingOrdersRef),*        _count(superMarketsRef),
- *      _count(pharmaciesRef),
-     *]);
-
-      final revenue = await _*umRevenue(firestore);
-
-      retur* DashboardModel(
-        totalOrde*s: results[0],
-        pendingOrde*s: results[1],
-        preparingOr*ers: results[2],
-        deliverin*Orders: results[3],
-        comple*edOrders: results[4],
-        canc*lledOrders: results[5],
-        to*alCustomers: results[6],
-        t*talDrivers: results[7],
-        on*ineDrivers: results[8],
-        re*taurants: results[9],
-        pres*ingOrders: results[10],
-        su*ermarkets: results[11],
-        ph*rmacies: results[12],
-        tota*Revenue: revenue,
-      );
-    });*  }
-
-  Future<int> _count(Query qu*ry) async {
-    final snapshot = a*ait query.count().get();
-
-    retu*n snapshot.count ?? 0;
-  }
-
-  Futu*e<double> _sumRevenue(
-    Firebas*Firestore firestore,
-  ) async {
- *  final snapshot = await firestore*        .collection(MoveGuiCollect*ons.COLLECTION_ORDERS)
-        .wh*re(
-          'paymentStatus',
-   *      isEqualTo: PaymentStatus.pai*.name,
-        )
-        .get();
-
-*   double total = 0;
-
-    for (fin*l doc in snapshot.docs) {
-      fi*al data = doc.data();
-
-      final*amount = data['totalPrice'];
-
-    * if (amount is int) {
-        tota* += amount.toDouble();
-      } els* if (amount is double) {
-        t*tal += amount;
-      } else if (am*unt is num) {
-        total += amo*nt.toDouble();
-      }
-    }
-
-    return total;
-  }
-}
-*/
 
 
 class DashboardService {
   final ApiService api;
   DashboardService({required this.api});
 
-   Future<DashboardModel> loadDashboardItems(
+   Future<DashboardModelData> loadDashboardItems(
     FirebaseFirestore firestore,
   ) async {
     try {
@@ -186,7 +34,7 @@ class DashboardService {
 
     final revenue = await _sumRevenue(firestore);
 
-    return DashboardModel(
+    return DashboardModelData(
       totalOrders: results[0],
       pendingOrders: results[1],
       preparingOrders: results[2],
@@ -204,7 +52,7 @@ class DashboardService {
     );
     } catch (e) {
       print('Error loading dashboard items: $e');
-      return DashboardModel.empty();
+      return DashboardModelData.empty();
     }
 
   }

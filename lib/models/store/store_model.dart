@@ -14,12 +14,14 @@ abstract class StoreModel extends Model {
   final StoreTypeModel? storeType;
   double? rating ;
   int? reviewCount;
+  bool? isComplete;
 
   StoreModel({
     required super.id,
     required super.name,
     required super.createdAt,
     required super.description,
+    required super.isActive,
     required this.email,
     required this.imageUrl,
     required this.phone,
@@ -27,8 +29,10 @@ abstract class StoreModel extends Model {
     required this.weeklyHours,
     required this.storeType,
     required this.address,
+    this.isComplete = false,
     this.rating = 0.0,
     this.reviewCount = 0,
+    
   });
 
   @override
@@ -37,7 +41,7 @@ abstract class StoreModel extends Model {
     ...super.toJson(),
     'description': description,
     'staff': staff != null && staff!.isNotEmpty? staff!.map((user) {
-      return user!.toJson();
+      return user.toJson();
     }).toList() : [],
     'email': email,
     'imageUrl': imageUrl,
@@ -50,6 +54,7 @@ abstract class StoreModel extends Model {
     'address': address.toJson(), 
     'rating': rating,
     'reviewCount': reviewCount,
+    'isComplete': isComplete
   };
 }
 

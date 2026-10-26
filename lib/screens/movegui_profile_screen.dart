@@ -25,12 +25,11 @@ import 'package:movegui_admin_panel/util/menu_tile.dart';
 import 'package:movegui_admin_panel/widgets/auth/movegui_profile_header_widget.dart';
 
 class MoveguiProfileScreen extends ConsumerStatefulWidget {
-  const MoveguiProfileScreen({super.key,});
-  
+  const MoveguiProfileScreen({super.key});
+
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => MoveguiProfileScreenState();
-
-
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      MoveguiProfileScreenState();
 }
 
 class MoveguiProfileScreenState extends ConsumerState<MoveguiProfileScreen> {
@@ -61,6 +60,7 @@ class MoveguiProfileScreenState extends ConsumerState<MoveguiProfileScreen> {
         personModel: currentUser!.personModel,
         isVerified: currentUser!.isVerified,
         role: currentUser!.role,
+        isActive: currentUser!.isActive ?? false,
       );
       await userService.update(updatedUser);
       setState(() {
@@ -151,7 +151,7 @@ class MoveguiProfileScreenState extends ConsumerState<MoveguiProfileScreen> {
             birthDate: currentUser!.personModel!.birthDate,
             addresses: currentUser!.personModel!.addresses,
           ),
-          role: currentUser!.role,
+          role: currentUser!.role, isActive: currentUser?.isActive ?? false,
         );
         if (isNew) {
           await userService.addModel(updatedUser);
@@ -162,7 +162,7 @@ class MoveguiProfileScreenState extends ConsumerState<MoveguiProfileScreen> {
         setState(() {
           currentUser = updatedUser;
         });
-            } else {
+      } else {
         MessageWidget.errorMessage(
           context,
           AppLocalizations.of(context)!.error_send_mail_title,
@@ -191,12 +191,12 @@ class MoveguiProfileScreenState extends ConsumerState<MoveguiProfileScreen> {
   }
 
   Future<void> _initialize() async {
-     final  loggedUser = await userService.getCurrentUser(context, ref);
-     if(loggedUser != null){
+    final loggedUser = await userService.getCurrentUser(context, ref);
+    if (loggedUser != null) {
       setState(() {
         currentUser = loggedUser;
       });
-     }
+    }
   }
 
   @override
@@ -207,7 +207,7 @@ class MoveguiProfileScreenState extends ConsumerState<MoveguiProfileScreen> {
         if (snapshot.hasData) {
           //     chekLoginMode();
           return Scaffold(
-       //     backgroundColor: AppColors.textColor,
+            //     backgroundColor: AppColors.textColor,
             body: SafeArea(
               child: ListView(
                 padding: const EdgeInsets.all(
@@ -250,8 +250,7 @@ class MoveguiProfileScreenState extends ConsumerState<MoveguiProfileScreen> {
           : MenuTile(
               icon: Icon(Icons.login),
               title: AppLocalizations.of(context)!.profile_menu_login,
-              onTap: () =>
-                 context.go(RouteConstants.LOGIN_ROUTE),
+              onTap: () => context.go(RouteConstants.LOGIN_ROUTE),
               enabled: true,
               routeName: RouteConstants.LOGIN_ROUTE,
             ),
@@ -260,31 +259,36 @@ class MoveguiProfileScreenState extends ConsumerState<MoveguiProfileScreen> {
         icon: Icon(Icons.person_add),
         title: AppLocalizations.of(context)!.profile_menu_invite_people,
         onTap: () => notImplemented(),
-        enabled: false, routeName: '',
+        enabled: false,
+        routeName: '',
       ),
       MenuTile(
         icon: Icon(Icons.list),
         title: AppLocalizations.of(context)!.profile_menu_orders,
         onTap: () => notImplemented(),
-        enabled: false, routeName: '',
+        enabled: false,
+        routeName: '',
       ),
       MenuTile(
         icon: Icon(Icons.campaign),
         title: AppLocalizations.of(context)!.profile_menu_message,
         onTap: () => notImplemented(),
-        enabled: false, routeName: '',
+        enabled: false,
+        routeName: '',
       ),
       MenuTile(
         icon: Icon(Icons.star_border),
         title: AppLocalizations.of(context)!.profile_menu_important,
         onTap: () => notImplemented(),
-        enabled: false, routeName: '',
+        enabled: false,
+        routeName: '',
       ),
       MenuTile(
         icon: Icon(Icons.devices),
         title: AppLocalizations.of(context)!.profile_menu_devices,
         onTap: () => notImplemented(),
-        enabled: false, routeName: '',
+        enabled: false,
+        routeName: '',
       ),
     ]);
   }
@@ -295,25 +299,29 @@ class MoveguiProfileScreenState extends ConsumerState<MoveguiProfileScreen> {
         icon: Icon(Icons.key),
         title: AppLocalizations.of(context)!.profile_menu_account,
         onTap: () => notImplemented(),
-        enabled: false, routeName: '',
+        enabled: false,
+        routeName: '',
       ),
       MenuTile(
         icon: Icon(Icons.lock_outline),
         title: AppLocalizations.of(context)!.profile_menu_confidentiality,
         onTap: () => notImplemented(),
-        enabled: false, routeName: '',
+        enabled: false,
+        routeName: '',
       ),
       MenuTile(
         icon: Icon(Icons.chat_bubble_outline),
         title: AppLocalizations.of(context)!.profile_menu_discussions,
         onTap: () => notImplemented(),
-        enabled: false, routeName: '',
+        enabled: false,
+        routeName: '',
       ),
       MenuTile(
         icon: Icon(Icons.notifications_none),
         title: AppLocalizations.of(context)!.notification_title,
         onTap: () => notImplemented(),
-        enabled: false, routeName: '',
+        enabled: false,
+        routeName: '',
       ),
     ]);
   }
@@ -324,7 +332,8 @@ class MoveguiProfileScreenState extends ConsumerState<MoveguiProfileScreen> {
         icon: Icon(Icons.delete),
         title: AppLocalizations.of(context)!.profile_menu_delete_account,
         onTap: () => notImplemented(),
-        enabled: false, routeName: '',
+        enabled: false,
+        routeName: '',
       ),
     ]);
   }
@@ -382,7 +391,7 @@ class MoveguiProfileScreenState extends ConsumerState<MoveguiProfileScreen> {
     );
   }
 
-  void navigateToRoute(String routeName){
+  void navigateToRoute(String routeName) {
     context.go(routeName);
   }
 }

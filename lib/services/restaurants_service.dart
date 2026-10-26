@@ -49,4 +49,12 @@ class RestaurantsService extends ModelService<RestaurantModel> {
         .get();
     return RestaurantModel.fromJson(snapshot.data()!);
   }
+
+  @override
+  Future<void> deleteModel(RestaurantModel model) async {
+          await FirebaseFirestore.instance
+        .collection(getCollectionName())
+        .doc(model.id)
+        .delete();
+  }
 }

@@ -19,6 +19,8 @@ import 'package:movegui_admin_panel/screens/main_screen.dart';
 import 'package:movegui_admin_panel/screens/manager_screen.dart';
 import 'package:movegui_admin_panel/screens/movegui_profile_screen.dart';
 import 'package:movegui_admin_panel/screens/pressing/add_pressing_screen.dart';
+import 'package:movegui_admin_panel/screens/pressing/all_pressing_screen.dart';
+import 'package:movegui_admin_panel/screens/pressing/edit_pressing_screen.dart';
 import 'package:movegui_admin_panel/screens/pressing/pressing_screen.dart';
 import 'package:movegui_admin_panel/screens/recipes_screen.dart';
 import 'package:movegui_admin_panel/widgets/app/admin/add_admin_widget.dart';
@@ -31,7 +33,6 @@ import 'package:movegui_admin_panel/widgets/app/employe/all_employe_widget.dart'
 import 'package:movegui_admin_panel/widgets/app/manager/add_manager_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/manager/all_manager_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/menu/my_menu.dart';
-import 'package:movegui_admin_panel/widgets/app/pressing/all_pressing_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/store/store_detail_widget.dart';
 import 'package:movegui_admin_panel/widgets/web/web_appbar.dart';
 
@@ -333,11 +334,29 @@ class AppRouter {
               path: RouteConstants.PRESSING_ADD_ROUTE,
               builder: (context, state) => AddPressingScreen(),
             ),
+                 GoRoute(
+              name: 'editPressing',
+              path: '${RouteConstants.PRESSING_EDIT_ROUTE}/:id',
+              builder: (context, state) {
+                final id = state.pathParameters['id']!;
+                return EditPressingScreen(pressingId: id);
+              },
+            ),
             GoRoute(
               path: RouteConstants.PRESSING_ALL_ROUTE,
-              builder: (context, state) => AllPressingWidget(),
+              builder: (context, state) => AllPressingScreen(),
             ),
             /*
+
+            GoRoute(
+              name: 'storeDetails',
+              path: '${RouteConstants.STORE_DETAIL_ROUTE}/:id',
+              builder: (context, state) {
+                final id = state.pathParameters['id']!;
+                return StoreDetailWidget(storeId: id);
+              },
+            ),
+
             GoRoute(
               path: RouteConstants.PROFESSIONEL_ROUTE,
               builder: (context, state) => ProfessionelScreen(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/consts/validator.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
+import 'package:movegui_admin_panel/responsive.dart';
+import 'package:movegui_admin_panel/widgets/util/form_card_widget.dart';
 
 class AddressTypePicker extends StatefulWidget {
   final String? adresseType;
@@ -31,67 +33,67 @@ class AddressTypePickerState extends State<AddressTypePicker> {
     String office = AppLocalizations.of(context)!.address_office_title;
     String neighbor = AppLocalizations.of(context)!.address_neighbor_title;
     String other = AppLocalizations.of(context)!.address_other_title;
-    return Card(
-  //    color: AppColors.backgroundColor,
-      margin: const EdgeInsets.all(2),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      elevation: 1,
-      child: Padding(
-        padding: const EdgeInsets.all(6),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            //  const SizedBox(height: 12),
-            // Gender dropdown
-            DropdownButtonFormField<String>(
-              decoration: InputDecoration(
-                filled: true,
-             //   fillColor: AppColors.backgroundColor,
-                labelText: AppLocalizations.of(context)!.input_hint_adress,
-                labelStyle: TextStyle(  fontSize: 12),
-                border: InputBorder.none,
-              ),
-              value: _selectedAdressType,
-              items: [
-                DropdownMenuItem(value: 'h', child: Text(home, style: Theme.of(context).textTheme.bodyMedium)),
-                DropdownMenuItem(value: 'o', child: Text(office, style: Theme.of(context).textTheme.bodyMedium)),
-                DropdownMenuItem(value: 'n', child: Text(neighbor, style: Theme.of(context).textTheme.bodyMedium)),
-                DropdownMenuItem(value: 'ot', child: Text(other, style: Theme.of(context).textTheme.bodyMedium)),
-              ],
-              onChanged: (value) {
-                setState(() => _selectedAdressType = value);
-
-                switch (value) {
-                  case 'h':
-                    widget.onAdressTypeChange.call(
-                      AppLocalizations.of(context)!.address_home_title,
-                    );
-                  case 'o':
-                    widget.onAdressTypeChange.call(
-                      AppLocalizations.of(context)!.address_office_title,
-                    );
-                  case 'n':
-                    widget.onAdressTypeChange.call(
-                      AppLocalizations.of(context)!.address_neighbor_title,
-                    );
-                  case 'ot':
-                    widget.onAdressTypeChange.call(
-                      AppLocalizations.of(context)!.address_other_title,
-                    );
-                  default:
-                    return widget.onAdressTypeChange.call('');
-                }
-
-                //    widget.onAdressTypeChange.call(getAddressTypeLabel(value!));
-              },
-              validator: (value) {
-                return MyValidators.textValidator(value);
-              },
-            ),
-
-            //   const SizedBox(height: 16),
-          ],
+    final style = Responsive.isDesktop(context)
+        ? Theme.of(context).textTheme.bodyMedium
+        : Theme.of(context).textTheme.bodySmall;
+    final labelStyle = Responsive.isDesktop(context)
+        ? Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold, fontSize: 20 )
+        : Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold, fontSize: 14 );
+    return FormCardWidget(
+      child: DropdownButtonFormField<String>(
+        decoration: InputDecoration(
+          filled: true,
+          labelText: AppLocalizations.of(context)!.input_hint_adress,
+          labelStyle: labelStyle,
+          border: InputBorder.none,
+          floatingLabelStyle: labelStyle
         ),
+        value: _selectedAdressType,
+        items: [
+          DropdownMenuItem(
+            value: 'h',
+            child: Text(home, style: style),
+          ),
+          DropdownMenuItem(
+            value: 'o',
+            child: Text(office, style: style),
+          ),
+          DropdownMenuItem(
+            value: 'n',
+            child: Text(neighbor, style: style),
+          ),
+          DropdownMenuItem(
+            value: 'ot',
+            child: Text(other, style: style),
+          ),
+        ],
+        onChanged: (value) {
+          setState(() => _selectedAdressType = value);
+
+          switch (value) {
+            case 'h':
+              widget.onAdressTypeChange.call(
+                AppLocalizations.of(context)!.address_home_title,
+              );
+            case 'o':
+              widget.onAdressTypeChange.call(
+                AppLocalizations.of(context)!.address_office_title,
+              );
+            case 'n':
+              widget.onAdressTypeChange.call(
+                AppLocalizations.of(context)!.address_neighbor_title,
+              );
+            case 'ot':
+              widget.onAdressTypeChange.call(
+                AppLocalizations.of(context)!.address_other_title,
+              );
+            default:
+              return widget.onAdressTypeChange.call('');
+          }
+        },
+        validator: (value) {
+          return MyValidators.textValidator(value);
+        },
       ),
     );
   }

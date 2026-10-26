@@ -20,7 +20,7 @@ class UserModel extends Model {
     required this.isVerified,
     required this.role,
     this.resetLink = '',
-    super.isActive = false,
+    required super.isActive ,
   });
 
   @override

@@ -74,6 +74,7 @@ class AddPersonWidget extends StatelessWidget {
     final imagePicker = ImagePickerWidget(
       webImage: personForm.webImage,
       pickedImage: personForm.pickedImage,
+      imageUrl: personForm.profileImageUrl,
       onPickImage: onPickImage,
       onRemoveImage: onRemoveImage,
     );

@@ -18,7 +18,7 @@ class UserFormController extends FormController<UserModel> {
   bool? isVerified = false;
   UserRole? role = UserRole.Guest;
   String? resetLink = '';
-  bool? isActive = false;
+  bool? isActive = true;
 
   void dispose() {
     username.dispose();
@@ -49,6 +49,7 @@ class UserFormController extends FormController<UserModel> {
     createdAt = model.createdAt;
     personModel = model.personModel;
     await personForm.setData(model.personModel ?? service.getDefaultModel());
+    isActive = model.isActive ?? true;
   }
 
   @override

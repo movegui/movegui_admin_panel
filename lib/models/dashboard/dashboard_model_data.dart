@@ -1,4 +1,4 @@
-class DashboardModel {
+class DashboardModelData {
 
   final int totalOrders;
   final int pendingOrders;
@@ -15,7 +15,7 @@ class DashboardModel {
   final int pharmacies;
   final num totalRevenue;
 
-  const DashboardModel({
+  const DashboardModelData({
     required this.totalOrders,
     required this.pendingOrders,
     required this.preparingOrders,
@@ -32,8 +32,8 @@ class DashboardModel {
     required this.totalRevenue,
   });
 
-  factory DashboardModel.empty() {
-    return const DashboardModel(
+  factory DashboardModelData.empty() {
+    return const DashboardModelData(
       totalOrders: 0,
       pendingOrders: 0,
       preparingOrders: 0,

@@ -2,7 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/consts/route_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
-import 'package:movegui_admin_panel/models/dashboard_model.dart';
+import 'package:movegui_admin_panel/models/dashboard/dashboard_model_data.dart';
+import 'package:movegui_admin_panel/models/dashboard/module_item.dart';
 import 'package:movegui_admin_panel/movegui_colors.dart';
 import 'package:movegui_admin_panel/responsive_grid.dart';
 import 'package:movegui_admin_panel/services/dashboard_service.dart';
@@ -40,8 +41,8 @@ extension ServiceTypeColor on ServiceType {
 }
 
 class DashboardPage extends StatelessWidget {
-  const DashboardPage({super.key, required this.models, required this.service});
-  final DashboardModel models;
+  const DashboardPage({super.key, required this.stats, required this.service});
+  final DashboardModelData stats;
   final DashboardService service;
 
   void _showCreateMenu(BuildContext context) {
@@ -106,76 +107,85 @@ class DashboardPage extends StatelessWidget {
         // Le FutureBuilder se reconstruit si la page parente appelle setState.
         // Pour un dashboard temps réel, tu peux remplacer FutureBuilder par StreamBuilder.
       },
-      child: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-     //   padding: const EdgeInsets.all(WidgetConstants.sepWidget),
-        child: Column(
-          children: [
-            DashboardHeader(
-              title: AppLocalizations.of(context)!.dashbord_movegui_title,
-              subtitle: AppLocalizations.of(
-                context,
-              )!.dashbord_movegui_sub_title,
-              onPressed: (item) async {
-                _showCreateMenu(context);
-              },
+      child: Column(
+        children: [
+          DashboardHeader(
+            title: AppLocalizations.of(context)!.dashbord_movegui_title,
+            subtitle: AppLocalizations.of(context)!.dashbord_movegui_sub_title,
+            onPressed: (item) async {
+              _showCreateMenu(context);
+            },
+          ),
+
+          const SizedBox(height: 12),
+          Expanded(
+            child: SingleChildScrollView(
+              //    physics: const AlwaysScrollableScrollPhysics(),
+              //   padding: const EdgeInsets.all(WidgetConstants.sepWidget),
+              child: Column(
+                children: [
+                  itemsWidget(stats, service),
+
+                  const SizedBox(height: 12),
+
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      final isLarge = constraints.maxWidth >= 1000;
+                      return Flex(
+                        direction: isLarge ? Axis.horizontal : Axis.vertical,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            flex: isLarge ? 2 : 0,
+                            child: OrderStatusPanel(stats: stats),
+                          ),
+
+                          SizedBox(
+                            width: isLarge ? 24 : 0,
+                            height: isLarge ? 0 : 24,
+                          ),
+
+                          Expanded(
+                            flex: isLarge ? 2 : 0,
+                            child: DashboardModelsPanel(stats: stats),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+
+                  const SizedBox(height: 28),
+
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      final isLarge = constraints.maxWidth >= 1000;
+                      return Flex(
+                        direction: isLarge ? Axis.horizontal : Axis.vertical,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            flex: isLarge ? 3 : 0,
+                            child: RecentActivitiesPanel(
+                              firestore: FirebaseFirestore.instance,
+                            ),
+                          ),
+                          SizedBox(
+                            width: isLarge ? 24 : 0,
+                            height: isLarge ? 0 : 24,
+                          ),
+                          Expanded(
+                            flex: isLarge ? 2 : 0,
+                            child: AlertsPanel(stats: stats),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
-            
-            const SizedBox(height: 12),
-
-            itemsWidget(models, service),
-
-            const SizedBox(height: 12),
-
-            LayoutBuilder(
-              builder: (context, constraints) {
-                final isLarge = constraints.maxWidth >= 1000;
-                return Flex(
-                  direction: isLarge ? Axis.horizontal : Axis.vertical,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      flex: isLarge ? 2 : 0,
-                      child: OrderStatusPanel(models: models),
-                    ),
-                    SizedBox(width: isLarge ? 24 : 0, height: isLarge ? 0 : 24),
-
-                    Expanded(
-                      flex: isLarge ? 2 : 0,
-                      child: DashboardModelsPanel(models: models),
-                    ),
-                  ],
-                );
-              },
-            ),
-
-            const SizedBox(height: 28),
-
-            LayoutBuilder(
-              builder: (context, constraints) {
-                final isLarge = constraints.maxWidth >= 1000;
-                return Flex(
-                  direction: isLarge ? Axis.horizontal : Axis.vertical,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      flex: isLarge ? 3 : 0,
-                      child: RecentActivitiesPanel(
-                        firestore: FirebaseFirestore.instance,
-                      ),
-                    ),
-                    SizedBox(width: isLarge ? 24 : 0, height: isLarge ? 0 : 24),
-                    Expanded(
-                      flex: isLarge ? 2 : 0,
-                      child: AlertsPanel(models: models),
-                    ),
-                  ],
-                );
-              },
-            ),
-            
-          ],
-        ),
+          ),
+        ],
       ),
     );
     //      },
@@ -184,36 +194,40 @@ class DashboardPage extends StatelessWidget {
   }
 }
 
-Widget itemsWidget(DashboardModel stats, DashboardService service) {
+Widget itemsWidget(DashboardModelData stats, DashboardService service) {
   return ResponsiveGrid(
     children: [
       KpiCard(
-        title: 'Commandes',
-        value: stats.totalOrders.toString(),
-        subtitle: '${stats.pendingOrders} en attente',
-        icon: Icons.receipt_long_rounded,
-        //      color: AppColors.moveGuiRed,
+        item: ModuleItem(
+          title: 'Commandes',
+          value: stats.totalOrders.toString(),
+          subtitle: '${stats.pendingOrders} en attente',
+          icon: Icons.receipt_long_rounded,
+        ),
       ),
       KpiCard(
-        title: 'Clients',
-        value: stats.totalCustomers.toString(),
-        subtitle: 'Utilisateurs clients',
-        icon: Icons.people_alt_rounded,
-        //  color: const Color(0xFF6A1B9A),
+        item: ModuleItem(
+          title: 'Clients',
+          value: stats.totalCustomers.toString(),
+          subtitle: 'Utilisateurs clients',
+          icon: Icons.people_alt_rounded,
+        ),
       ),
       KpiCard(
-        title: 'Livreurs',
-        value: stats.totalDrivers.toString(),
-        subtitle: '${stats.onlineDrivers} connectés',
-        icon: Icons.delivery_dining_rounded,
-        //   color: AppColors.infoBlue,
+        item: ModuleItem(
+          title: 'Livreurs',
+          value: stats.totalDrivers.toString(),
+          subtitle: '${stats.onlineDrivers} connectés',
+          icon: Icons.delivery_dining_rounded,
+        ),
       ),
       KpiCard(
-        title: 'Revenus',
-        value: service.formatGnf(stats.totalRevenue),
-        subtitle: 'Total commandes payées',
-        icon: Icons.payments_rounded,
-        //  color: AppColors.successGreen,
+        item: ModuleItem(
+          title: 'Revenus',
+          value: service.formatGnf(stats.totalRevenue),
+          subtitle: 'Total commandes payées',
+          icon: Icons.payments_rounded,
+        ),
       ),
     ],
   );

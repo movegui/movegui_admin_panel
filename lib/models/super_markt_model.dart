@@ -20,7 +20,7 @@ class SuperMarktModel extends StoreModel {
     required super.weeklyHours,
     required super.storeType,
     required this.category,
-
+    required super.isActive,
   });
 
   @override
@@ -30,7 +30,9 @@ class SuperMarktModel extends StoreModel {
       SuperMarktModel(
         id: json['id'],
         name: json['name'],
-        createdAt: json['createdAt'] != null ? json['createdAt'].toDate() : DateTime.now(),
+        createdAt: json['createdAt'] != null
+            ? json['createdAt'].toDate()
+            : DateTime.now(),
         description: json['description'],
         imageUrl: json['imageUrl'],
         address: AdressModel.fromJson(json['adresse']),
@@ -39,8 +41,11 @@ class SuperMarktModel extends StoreModel {
         staff: (json['staff'] as List? ?? [])
             .map((e) => UserModel.fromJson(e))
             .toList(),
-        weeklyHours: (json['weeklyHours'] as List? ?? []).map((e) => OpenHoursModel.fromJson(e)).toList(),
-         storeType: RestaurantTypeModel.fromJson(json['storeType']),
-          category: CategoriesModel.fromJson(json['category']),
+        weeklyHours: (json['weeklyHours'] as List? ?? [])
+            .map((e) => OpenHoursModel.fromJson(e))
+            .toList(),
+        storeType: RestaurantTypeModel.fromJson(json['storeType']),
+        category: CategoriesModel.fromJson(json['category']),
+        isActive: json['isActive'] as bool,
       );
 }

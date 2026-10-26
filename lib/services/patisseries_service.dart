@@ -50,4 +50,12 @@ class PatisseriesService extends ModelService<PatisserieModel> {
         .get();
     return PatisserieModel.fromJson(snapshot.data()!);
   }
+
+  @override
+  Future<void> deleteModel(PatisserieModel model) async {
+    await FirebaseFirestore.instance
+        .collection(getCollectionName())
+        .doc(model.id)
+        .delete();
+  }
 }

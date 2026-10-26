@@ -19,7 +19,8 @@ class PatisserieModel extends StoreModel {
     required super.phone,
     required super.weeklyHours,
     required super.storeType,
-    required this.category,
+    required this.category, 
+    required super.isActive,
   });
 
   @override
@@ -44,5 +45,6 @@ class PatisserieModel extends StoreModel {
         createdAt: json['createdAt'] != null ? json['createdAt'].toDate() : DateTime.now(),
         weeklyHours: (json['weeklyHours'] as List? ?? []).map((e) => OpenHoursModel.fromJson(e)).toList(),
          storeType: RestaurantTypeModel.fromJson(json['storeType']),
+         isActive: json['isActive'] as bool,
       );
 }

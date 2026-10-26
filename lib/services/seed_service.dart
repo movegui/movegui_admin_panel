@@ -120,6 +120,7 @@ class SeedService {
         name: faker.food.restaurant(),
         createdAt: DateTime.now(),
         description: faker.person.name(),
+        isActive: true,
       );
 
   Future<PersonModel> getGeneratedPerson() async => PersonModel(
@@ -174,6 +175,7 @@ class SeedService {
     isVerified: false,
     role: role ?? UserRole.Guest,
     personModel: await getGeneratedPerson(),
+    isActive: true,
   );
 
   Future<PressingServiceTypeModel> generatePressingTypeModel() async =>

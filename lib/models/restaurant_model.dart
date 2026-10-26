@@ -18,6 +18,7 @@ class RestaurantModel extends StoreModel {
     required super.staff,
     required super.weeklyHours,
     required super.storeType,
+    required super.isActive,
   });
 
   @override
@@ -44,13 +45,18 @@ class RestaurantModel extends StoreModel {
         storeType: RestaurantTypeModel.fromJson(json['storeType']),
         weeklyHours: (json['weeklyHours'] as List? ?? [])
             .map(
-              (e) => (e != null && e['openTime'] != null && e['closeTime'] != null && e['day'] != null)
+              (e) =>
+                  (e != null &&
+                      e['openTime'] != null &&
+                      e['closeTime'] != null &&
+                      e['day'] != null)
                   ? OpenHoursModel.fromJson(e)
                   : null,
             )
             .where((e) => e != null)
             .cast<OpenHoursModel>()
             .toList(),
+        isActive: json['isActive'] as bool,
       );
 }
 

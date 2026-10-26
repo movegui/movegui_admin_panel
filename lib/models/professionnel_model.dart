@@ -9,7 +9,6 @@ class ProfessionnelModel extends StoreModel {
   final List<String> professions;
   final CategoriesModel category;
 
-
   ProfessionnelModel({
     required super.id,
     required super.name,
@@ -24,13 +23,14 @@ class ProfessionnelModel extends StoreModel {
     required super.storeType,
     required this.professions,
     required this.category,
+    required super.isActive,
   });
 
   @override
   Map<String, dynamic> toJson() => {
     ...super.toJson(),
     'professions': professions,
-    'category': category.toJson()
+    'category': category.toJson(),
   };
 
   factory ProfessionnelModel.fromJson(Map<String, dynamic> json) =>
@@ -46,11 +46,15 @@ class ProfessionnelModel extends StoreModel {
             .map((e) => UserModel.fromJson(e))
             .toList(),
         category: CategoriesModel.fromJson(json['category']),
-        createdAt: json['createdAt'] != null ? json['createdAt'].toDate() : DateTime.now(),
-        weeklyHours: (json['weeklyHours'] as List? ?? []).map((e) => OpenHoursModel.fromJson(e)).toList(),
+        createdAt: json['createdAt'] != null
+            ? json['createdAt'].toDate()
+            : DateTime.now(),
+        weeklyHours: (json['weeklyHours'] as List? ?? [])
+            .map((e) => OpenHoursModel.fromJson(e))
+            .toList(),
         storeType: RestaurantTypeModel.fromJson(json['storeType']),
-         professions: (json['professions'] as List<String>) ,
-  
+        professions: (json['professions'] as List<String>),
+        isActive: json['isActive'] as bool,
       );
 
   @override

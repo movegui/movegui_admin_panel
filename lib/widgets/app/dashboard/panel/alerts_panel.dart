@@ -1,35 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
-import 'package:movegui_admin_panel/models/dashboard_model.dart';
+import 'package:movegui_admin_panel/models/dashboard/dashboard_model_data.dart';
 import 'package:movegui_admin_panel/widgets/app/dashboard/panel/dashbord_panel.dart';
 import 'package:movegui_admin_panel/widgets/app/dashboard/panel/empty_stat_panel.dart';
 
 class AlertsPanel extends StatelessWidget {
-  final DashboardModel models;
+  final DashboardModelData stats;
 
-  const AlertsPanel({super.key, required this.models});
+  const AlertsPanel({super.key, required this.stats});
 
   @override
   Widget build(BuildContext context) {
     final alerts = <Widget>[
-      if (models.pendingOrders > 0)
+      if (stats.pendingOrders > 0)
         AlertTile(
           icon: Icons.hourglass_top_rounded,
-          title: '${models.pendingOrders} commandes en attente',
+          title: '${stats.pendingOrders} commandes en attente',
           subtitle: 'À traiter rapidement',
           color: AppColors.warning,
         ),
-      if (models.totalDrivers > 0 && models.onlineDrivers == 0)
+      if (stats.totalDrivers > 0 && stats.onlineDrivers == 0)
         const AlertTile(
           icon: Icons.delivery_dining,
           title: 'Aucun livreur connecté',
           subtitle: 'Vérifier la disponibilité des livreurs',
           color: AppColors.error,
         ),
-      if (models.cancelledOrders > 0)
+      if (stats.cancelledOrders > 0)
         AlertTile(
           icon: Icons.cancel_rounded,
-          title: '${models.cancelledOrders} commandes annulées',
+          title: '${stats.cancelledOrders} commandes annulées',
           subtitle: 'Analyser les raisons d’annulation',
           color: AppColors.error,
         ),

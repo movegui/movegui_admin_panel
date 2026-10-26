@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/widgets/app/dashboard/dash_board_side_menu.dart';
-import 'package:movegui_admin_panel/widgets/app/pressing/add_pressing_page.dart';
+import 'package:movegui_admin_panel/widgets/app/pressing/pressing_form_page.dart';
 import 'package:movegui_admin_panel/widgets/web/main_page.dart';
 
 class AddPressingScreen extends StatelessWidget {
@@ -10,7 +10,7 @@ class AddPressingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MainPage(
             sideWidget: DashBoardSideMenu(),
-            mainWidget: AddPressingPage()
+            mainWidget: PressingFormPage()
           );
   } 
   

@@ -2,15 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/consts/app_constants.dart';
 import 'package:movegui_admin_panel/consts/validator.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
+import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/util/store_form_controller.dart';
-import 'package:movegui_admin_panel/widgets/address/address_widget.dart';
+import 'package:movegui_admin_panel/widgets/address/single_adress_widget.dart';
 import 'package:movegui_admin_panel/widgets/image_picker_widget.dart';
 import 'package:movegui_admin_panel/widgets/input/input_email_widget.dart';
 import 'package:movegui_admin_panel/widgets/input/input_name_widget.dart';
 import 'package:movegui_admin_panel/widgets/input/input_phone_widget.dart';
 import 'package:movegui_admin_panel/widgets/input/input_widget.dart';
+import 'package:movegui_admin_panel/widgets/section_header_widget.dart';
+import 'package:movegui_admin_panel/widgets/util/form_card_widget.dart';
+import 'package:movegui_admin_panel/widgets/util/layout_buider_widget.dart';
+import 'package:movegui_admin_panel/widgets/util/status_switch_widget.dart';
 
 class StoreWidget extends StatelessWidget {
   final StoreFormController formController;
@@ -20,6 +25,7 @@ class StoreWidget extends StatelessWidget {
   final VoidCallback onRemoveImage;
   final StoreConstants storeConstants;
   final Function(List<OpenHoursModel>) onHoursChanged;
+  final ValueChanged<bool> onStatusChanged;
 
   const StoreWidget({
     super.key,
@@ -30,6 +36,7 @@ class StoreWidget extends StatelessWidget {
     required this.onCommuneChange,
     required this.formController,
     required this.onHoursChanged,
+    required this.onStatusChanged,
   });
 
   @override
@@ -38,86 +45,35 @@ class StoreWidget extends StatelessWidget {
     return Center(
       child: Column(
         children: [
-          _buildStoreWidget(context, isDesktop),
-          SizedBox(height: WidgetConstants.sepWidget),
+          Flex(
+            direction: isDesktop ? Axis.horizontal : Axis.vertical,
+            children: [
+              if (isDesktop)
+                Expanded(child: _buildContent(context, isDesktop))
+              else
+                _buildContent(context, isDesktop),
+              SizedBox(height: WidgetConstants.sepWidget),
+            ],
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildStoreWidget(BuildContext context, bool isDesktop) {
-    return Card(
-      child: Flex(
-        direction: isDesktop ? Axis.horizontal : Axis.vertical,
+  Widget _buildContent(BuildContext context, bool isDesktop) {
+    return FormCardWidget(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          !isDesktop
-              ? _buildImagePicker(context, isDesktop)
-              : SizedBox(width: 8, height: 8),
-          if (isDesktop)
-            Expanded(flex: 4, child: _buildFormFields(context))
-          else
-            _buildFormFields(context),
-          const SizedBox(width: 8, height: 8),
-          isDesktop
-              ? _buildImagePicker(context, isDesktop)
-              : SizedBox(width: 8, height: 8),
+          _buildHeaderSection(context, isDesktop),
+          const SizedBox(height: WidgetConstants.sepWidget),
+          _buildInformationSection(context, isDesktop),
+          const SizedBox(height: WidgetConstants.sepWidget),
+          _buildContactSection(context, isDesktop),
+          const SizedBox(height: WidgetConstants.sepWidget),
+          _buildAdressSection(context),
         ],
       ),
-    );
-  }
-
-  Widget _buildFormFields(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        SizedBox(height: WidgetConstants.sepWidget * 2),
-        InputNameWidget(
-          nameController: formController.name,
-          labelText: storeConstants.getNameLabelText(context),
-          hinterText: storeConstants.getNameHinterText(context),
-          nextFocusNode: formController.descriptionFocus,
-          icon: Icons.business,
-          nameFocusNode: formController.nameFocus,
-        ),
-        SizedBox(height: WidgetConstants.sepWidget * 2),
-        InputWidget(
-          controller: formController.description,
-          labelText: storeConstants.getDescripLabelText(context),
-          hintText: storeConstants.getDescripHinterText(context),
-          textInputType: TextInputType.multiline,
-          maxLines: 5,
-          nextFocusNode: formController.addressForm.addressFocusNode,
-          validator: MyValidators.textValidator,
-          prefixIcon: Icon(Icons.message),
-          //   isNumber: false,
-          focusNode: formController.descriptionFocus,
-          onChange: (String value) {},
-          isFullBorder: true,
-        ),
-        SizedBox(height: WidgetConstants.sepWidget * 2),
-        InputEmailWidget(
-          emailController: formController.email,
-          labelText: storeConstants.getEmailLabelText(context),
-          nextFocusNode: formController.telephonFocus,
-          emailFocusNode: formController.emailFocus,
-        ),
-        SizedBox(height: WidgetConstants.sepWidget * 2),
-        InputPhoneWidget(
-          phoneController: formController.phone,
-          labelText: storeConstants.getPhoneLabelText(context),
-          phoneFocusNode: formController.telephonFocus,
-        ),
-        SizedBox(height: WidgetConstants.sepWidget),
-        AddressWidget(
-          onCommuneChange: onCommuneChange,
-          onAdressTypeChange: onAdressTypeChange,
-          isFullBorder: true,
-          addressForm: formController.addressForm,
-          onChange: (value) {},
-          defaultId: '',
-          onDefaultAdressChange: (String? value) {},
-        ),
-      ],
     );
   }
 
@@ -125,6 +81,7 @@ class StoreWidget extends StatelessWidget {
     final imagePicker = ImagePickerWidget(
       webImage: formController.webImage,
       pickedImage: formController.pickedImage,
+      imageUrl: formController.imageUrl,
       onPickImage: onPickImage,
       onRemoveImage: onRemoveImage,
     );
@@ -152,21 +109,182 @@ class StoreWidget extends StatelessWidget {
       ),
     );
 
-    if (isDesktop) {
-      return Flexible(
-        flex: 1,
-        child: Padding(
-          padding: const EdgeInsets.only(
-            right: WidgetConstants.sepWidgetHeight * 2,
-          ),
-          child: validatedImagePicker,
-        ),
-      );
-    }
-
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: isDesktop
+          ? const EdgeInsets.only(right: WidgetConstants.sepWidgetHeight * 2)
+          : const EdgeInsets.all(8.0),
       child: validatedImagePicker,
+    );
+  }
+
+  Widget _buildHeaderSection(BuildContext context, bool isDesktop) {
+    return LayoutBuilderWidget(
+      children: [
+        SectionHeaderWidget(
+          icon: Icons.info,
+          title: AppLocalizations.of(context)!.store_information_title,
+          subtitle: AppLocalizations.of(context)!.store_information_subtitle,
+          iconColor: Colors.blueAccent,
+        ),
+        StatusSwitchWidget(
+          value: formController.isActive ?? false,
+          onChanged: onStatusChanged,
+        ),
+      ],
+    );
+
+    /*
+    return Flex(
+      direction: isDesktop ? Axis.horizontal : Axis.vertical,
+      children: [
+        if (isDesktop)
+          Expanded(
+            child: SectionHeaderWidget(
+              icon: Icons.info,
+              title: AppLocalizations.of(context)!.store_information_title,
+              subtitle: AppLocalizations.of(
+                context,
+              )!.store_information_subtitle,
+              iconColor: Colors.blueAccent,
+            ),
+          )
+        else
+          SectionHeaderWidget(
+            icon: Icons.storefront_outlined,
+            title: AppLocalizations.of(context)!.store_information_title,
+            subtitle: AppLocalizations.of(context)!.store_information_subtitle,
+          ),
+        StatusSwitchWidget(value: formController.isActive ?? false, onChanged: onStatusChanged),
+      ],
+    );
+    */
+  }
+
+  Widget _buildInformationSection(BuildContext context, bool isDesktop) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (isDesktop) {
+          return Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(child: _buildGeneralFields(context)),
+              const SizedBox(width: WidgetConstants.sepWidget),
+              SizedBox(
+                width: 280,
+                child: _buildImagePicker(context, isDesktop),
+              ),
+            ],
+          );
+        }
+
+        return Column(
+          children: [
+            _buildImagePicker(context, isDesktop),
+            const SizedBox(height: WidgetConstants.sepWidget),
+            _buildGeneralFields(context),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildContactSection(BuildContext context, bool isDesktop) {
+    return Column(
+      children: [
+        SectionHeaderWidget(
+          icon: Icons.contact_mail_outlined,
+          title: AppLocalizations.of(context)!.store_contact_title,
+          subtitle: AppLocalizations.of(context)!.store_contact_subtitle,
+          iconColor: Colors.greenAccent,
+        ),
+
+        const SizedBox(height: WidgetConstants.sepWidget),
+
+        LayoutBuilder(
+          builder: (context, constraints) {
+            final emailField = InputEmailWidget(
+              emailController: formController.email,
+              labelText: storeConstants.getEmailLabelText(context),
+              nextFocusNode: formController.telephonFocus,
+              emailFocusNode: formController.emailFocus,
+            );
+
+            final phoneField = InputPhoneWidget(
+              phoneController: formController.phone,
+              labelText: storeConstants.getPhoneLabelText(context),
+              phoneFocusNode: formController.telephonFocus,
+            );
+
+            if (isDesktop) {
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(child: emailField),
+                  const SizedBox(width: 16),
+                  Expanded(child: phoneField),
+                ],
+              );
+            }
+
+            return Column(
+              children: [emailField, const SizedBox(height: 16), phoneField],
+            );
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildAdressSection(BuildContext context) {
+    return Column(
+      children: [
+        SectionHeaderWidget(
+          icon: Icons.location_on_outlined,
+          title: AppLocalizations.of(context)!.store_adress_title,
+          subtitle: AppLocalizations.of(context)!.store_adress_subtitle,
+          iconColor: Colors.red,
+        ),
+        SizedBox(height: WidgetConstants.sepWidget),
+        SingleAdressWidget(
+          onCommuneChange: onCommuneChange,
+          onAdressTypeChange: onAdressTypeChange,
+          isFullBorder: true,
+          addressForm: formController.addressForm,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildGeneralFields(BuildContext context) {
+    return Column(
+      children: [
+        InputNameWidget(
+          nameController: formController.name,
+          labelText: storeConstants.getNameLabelText(context),
+          hinterText: storeConstants.getNameHinterText(context),
+          nextFocusNode: formController.descriptionFocus,
+          icon: Icons.business,
+          nameFocusNode: formController.nameFocus,
+        ),
+        SizedBox(height: WidgetConstants.sepWidget * 2),
+        InputWidget(
+          controller: formController.description,
+          labelText: storeConstants.getDescripLabelText(context),
+          hintText: storeConstants.getDescripHinterText(context),
+          textInputType: TextInputType.multiline,
+          maxLines: 6,
+          nextFocusNode: formController.addressForm.addressFocusNode,
+          validator: MyValidators.textValidator,
+          prefixIcon: Icon(Icons.message),
+          focusNode: formController.descriptionFocus,
+          onChange: (String value) {},
+          isFullBorder: true,
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 16,
+          ),
+        ),
+      ],
     );
   }
 }

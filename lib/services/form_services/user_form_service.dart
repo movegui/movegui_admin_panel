@@ -25,12 +25,12 @@ class UserFormService extends FormService<UserModel, UserFormController> {
       isVerified: false,
       role: UserRole.Guest,
       personModel: personFormService.getDefaultModel(),
+      isActive: true,
     );
   }
 
   @override
   Future<UserModel> getModel(UserFormController controller) async {
-  
     return UserModel(
       updatedAt: DateTime.now(),
       id: Uuid().v4(),
@@ -48,5 +48,4 @@ class UserFormService extends FormService<UserModel, UserFormController> {
   Future<UserModel> generateModel() {
     return seedService.getGeneratedUserModel(UserRole.Guest);
   }
-
 }

@@ -30,6 +30,13 @@ class AppLocalizationsFr extends AppLocalizations {
       'Voulez-vous vraiment supprimer ce service ?';
 
   @override
+  String get delete_pressing_title => 'Supprimer Pressing';
+
+  @override
+  String get delete_pressing_question =>
+      'Voulez-vous vraiment supprimer ce Pressing ?';
+
+  @override
   String get commune_title => 'Commune';
 
   @override
@@ -255,6 +262,29 @@ class AppLocalizationsFr extends AppLocalizations {
       'Créez un service ou modifiez vos critères de recherche.';
 
   @override
+  String get pressing_problem_hours_non_configured => 'Horaires non configurés';
+
+  @override
+  String get pressing_problem_service_non_configured =>
+      'Aucun service configuré';
+
+  @override
+  String get pressing_proble_staff_employe => 'Aucun employé assigné';
+
+  @override
+  String get pressing_proble_staff_manager => 'Aucun Manager assigné';
+
+  @override
+  String get pressing_proble_staff_owner => 'Aucun Propriétaire assigné';
+
+  @override
+  String get pressing_problem_incomplete_infos =>
+      'Informations du pressing incomplètes';
+
+  @override
+  String get pressing_service_configured => 'pressings configurés';
+
+  @override
   String get tab_header_produit_title => 'Produit';
 
   @override
@@ -271,6 +301,12 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get tab_header_actions => 'Actions';
+
+  @override
+  String get tab_header_name => 'Nom';
+
+  @override
+  String get tab_header_problem => 'Problème';
 
   @override
   String get pressing_service_search_hinterText => 'Rechercher un service';
@@ -307,6 +343,13 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get pressing_add_dashboard_sub_title =>
       'Ajouter les détails de l\'entreprise, les coordonnées et les services.';
+
+  @override
+  String get pressing_all_dashboard_title => 'Liste des Pressing';
+
+  @override
+  String get pressing_all_dashboard_sub_title =>
+      'Consultez et gérez les pressings enregistrés';
 
   @override
   String get pressing_services_dashboard_title => 'Services Pressing';
@@ -388,6 +431,11 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String store_edit_success_message(Object storeCategory) {
+    return '$storeCategory modifié avec succès';
+  }
+
+  @override
   String store_type(Object storeCategory) {
     return 'Type $storeCategory';
   }
@@ -402,7 +450,25 @@ class AppLocalizationsFr extends AppLocalizations {
   String get store_opening => 'Ouverture';
 
   @override
-  String get store_closure => 'Closure';
+  String get store_closure => 'Fermeture';
+
+  @override
+  String get store_information_title => 'Informations générales';
+
+  @override
+  String get store_information_subtitle => 'Nom, description et status';
+
+  @override
+  String get store_contact_title => 'Contact';
+
+  @override
+  String get store_contact_subtitle => 'email, telephone, fax etc..';
+
+  @override
+  String get store_adress_title => 'Adresse principale';
+
+  @override
+  String get store_adress_subtitle => 'Localisation et type d\'adresse';
 
   @override
   String get description_title => 'Description';
@@ -553,6 +619,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get btn_all => 'Tout Afficher';
 
   @override
+  String get btn_all_cleaners => 'Mes Pressing';
+
+  @override
   String get btn_delete => 'Supprimer';
 
   @override
@@ -575,6 +644,15 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get btn_no => 'Non';
+
+  @override
+  String get btn_configure => 'Configurer';
+
+  @override
+  String get btn_manage => 'Gérer';
+
+  @override
+  String get btn_see => 'Voir';
 
   @override
   String get verify_otp => 'Envoyer Code';
@@ -764,6 +842,53 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get module_services_name => 'Services';
+
+  @override
+  String get module_configuration_title => 'Modules de configuration';
+
+  @override
+  String get module_configuration_subtitle =>
+      'Paramétrez les éléments globaux liés aux pressings MoveGui.';
+
+  @override
+  String get module_configuration_to_complete_title =>
+      'Configuration à compléter';
+
+  @override
+  String module_configuration_to_complete_subtitle(Object pressings) {
+    return 'Certains $pressings nécéssitent votre attention.';
+  }
+
+  @override
+  String get module_configuration_item_pressing_title => 'Pressings';
+
+  @override
+  String get module_configuration_item_pressing_subtitle =>
+      'Gérez les informations et le statut des pressings.';
+
+  @override
+  String get module_configuration_item_pressing_type_service_title =>
+      'Types Services Configurés';
+
+  @override
+  String get module_configuration_item_pressing_type_service_subtitle =>
+      'Consultez les types de services configurés..';
+
+  @override
+  String get module_configuration_item_pressing_open_hours_title =>
+      'Horaires d\'ouverture';
+
+  @override
+  String get module_configuration_item_pressing_open_hours_subtitle =>
+      'Administrez les horaires d\'ouverture des pressings.';
+
+  @override
+  String get module_configuration_item_pressing_configured_services_title =>
+      'Services configurés';
+
+  @override
+  String get module_configuration_item_pressing_configured_services_subtitle =>
+      'Nombre de services associés aux pressings.';
 
   @override
   String get tooltip_add => 'Cliquez ici pour Ajouter';
@@ -991,6 +1116,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get actif => 'Activer';
 
   @override
+  String get complete => 'Complet';
+
+  @override
+  String get incomplete => 'Incomplet';
+
+  @override
   String get menu_main => 'Acceuil';
 
   @override
@@ -1116,4 +1247,48 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get add_slot_title => 'Ajouter un créneau';
+
+  @override
+  String get static_module_item_pressing_title => 'Pressings';
+
+  @override
+  String get static_module_item_pressing_subtitle => 'Pressings au total';
+
+  @override
+  String get static_module_item_pressing_actifs_title => 'Actifs';
+
+  @override
+  String get static_module_item_pressing_actifs_subtitle => 'Pressings Actifs';
+
+  @override
+  String get static_module_item_pressing_inactifs_title => 'Inactifs';
+
+  @override
+  String get static_module_item_pressing_inactifs_subtitle =>
+      'Pressing inactifs';
+
+  @override
+  String get static_module_item_pressing_configured_services_title =>
+      'Services configurés';
+
+  @override
+  String get static_module_item_pressing_configured_services_subtitle =>
+      'services au total';
+
+  @override
+  String get static_module_item_pressing_incomplete_open_hours_title =>
+      'Horaires Incomplets';
+
+  @override
+  String get static_module_item_pressing_incomplete_open_hours_subtitle =>
+      'Pressings à completer';
+
+  @override
+  String get image_chose_image_text => 'Choisir une image';
+
+  @override
+  String get image_change_image_text => 'Changer l\'image';
+
+  @override
+  String get image_add_image_text => 'Ajouter une Image';
 }

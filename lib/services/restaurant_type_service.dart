@@ -40,13 +40,21 @@ class RestaurantTypeService extends ModelService<RestaurantTypeModel> {
         .map((doc) => RestaurantTypeModel.fromJson(doc.data()))
         .toList();
   }
-  
+
   @override
   Future<RestaurantTypeModel> getModelById(String id) async {
-       final snapshot = await FirebaseFirestore.instance
+    final snapshot = await FirebaseFirestore.instance
         .collection(getCollectionName())
         .doc(id)
         .get();
     return RestaurantTypeModel.fromJson(snapshot.data()!);
+  }
+
+  @override
+  Future<void> deleteModel(RestaurantTypeModel model) async {
+    await FirebaseFirestore.instance
+        .collection(getCollectionName())
+        .doc(model.id)
+        .delete();
   }
 }

@@ -41,4 +41,12 @@ class StoreCategoriesService extends CategoriesService<CategoriesModel> {
         .get();
     return CategoriesModel.fromJson(snapshot.data()!);
   }
+
+  @override
+  Future<void> deleteModel(CategoriesModel model) async {
+          await FirebaseFirestore.instance
+        .collection(getCollectionName())
+        .doc(model.id)
+        .delete();
+  }
 }

@@ -171,6 +171,7 @@ class UserService extends ModelService<UserModel> implements IUserService {
         addresses: [],
       ),
       role: UserRole.Guest,
+      isActive: true,
     );
     return currentUser;
   }
@@ -203,6 +204,7 @@ class UserService extends ModelService<UserModel> implements IUserService {
         addresses: [],
       ),
       role: UserRole.Guest,
+      isActive: true,
     );
     return currentUser;
   }
@@ -228,8 +230,8 @@ class UserService extends ModelService<UserModel> implements IUserService {
               return userModel;
             }
           }
-        } 
-       /* 
+        }
+        /* 
         else {
           MessageWidget.errorMessage(
             context,
@@ -278,7 +280,7 @@ class UserService extends ModelService<UserModel> implements IUserService {
     } on Exception catch (e) {
       print(e);
       await FirebaseAuth.instance.currentUser?.delete();
-    
+
       if (e is AuthenticationException) {
         rethrow;
       }
@@ -434,6 +436,7 @@ class UserService extends ModelService<UserModel> implements IUserService {
         birthDate: birthDate,
         addresses: addresses,
       ),
+      isActive: true,
     );
   }
 
@@ -544,7 +547,16 @@ class UserService extends ModelService<UserModel> implements IUserService {
         birthDate: birthDate,
         addresses: addresses,
       ),
+      isActive: true,
     );
+  }
+
+  @override
+  Future<void> deleteModel(UserModel model) async {
+      await FirebaseFirestore.instance
+        .collection(getCollectionName())
+        .doc(model.id)
+        .delete();
   }
 
   /*

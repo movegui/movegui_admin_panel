@@ -11,7 +11,7 @@ class PressingServiceModel extends ServiceModel<PressingArticleModel> {
     required super.minPrice,
     required super.maxPrice,
     required super.basePrice,
-    super.isActive = false,
+    super.isActive,
     super.estimatedDuration,
     required super.name,
     required super.createdAt,
@@ -35,15 +35,21 @@ class PressingServiceModel extends ServiceModel<PressingArticleModel> {
     'serviceType': serviceType.toJson(),
   };
 
-  factory PressingServiceModel.fromJson(Map<String, dynamic> json) =>
-      PressingServiceModel(
+  factory PressingServiceModel.fromJson(Map<String, dynamic> json) {
+    final productJson = json['product'] ?? json['article'];
+
+    return PressingServiceModel(
         id: json['id'] ?? '001',
         name: json['name'] ?? 'sev1',
         createdAt: json['createdAt'] != null
             ? json['createdAt'].toDate()
             : DateTime.now(),
-        product: PressingArticleModel.fromJson(json['article']),
-        serviceType: PressingServiceTypeModel.fromJson(json['serviceType']),
+        product: PressingArticleModel.fromJson(
+          _requiredJsonMap(productJson, 'product/article'),
+        ),
+        serviceType: PressingServiceTypeModel.fromJson(
+          _requiredJsonMap(json['serviceType'], 'serviceType'),
+        ),
         minPrice: json['minPrice'] ?? 0.0,
         maxPrice: json['maxPrice'] ?? 0.0,
         basePrice: json['basePrice'] ?? 0.0,
@@ -54,4 +60,11 @@ class PressingServiceModel extends ServiceModel<PressingArticleModel> {
         currency: json['currency'] ?? 'GNF',
         isActive: json['isActive'] ?? false
       );
+  }
+}
+
+Map<String, dynamic> _requiredJsonMap(Object? value, String field) {
+  if (value is Map<String, dynamic>) return value;
+  if (value is Map) return Map<String, dynamic>.from(value);
+  throw FormatException('Missing or invalid "$field" map in pressing service.');
 }

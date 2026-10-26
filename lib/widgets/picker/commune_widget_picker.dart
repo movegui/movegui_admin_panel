@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/consts/constants.dart';
 import 'package:movegui_admin_panel/consts/validator.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
+import 'package:movegui_admin_panel/responsive.dart';
 
 class CommuneWidgetPicker extends StatefulWidget {
   final String? commune;
@@ -36,6 +37,16 @@ class CommuneWidgetPickerState extends State<CommuneWidgetPicker> {
 
   @override
   Widget build(BuildContext context) {
+    final style = Responsive.isDesktop(context)
+        ? Theme.of(context).textTheme.bodyMedium
+        : Theme.of(context).textTheme.bodySmall;
+    final labelStyle = Responsive.isDesktop(context)
+        ? Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold, fontSize: 20)
+        : Theme.of(
+            context,
+          ).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold, fontSize: 14);
     return Card(
       //   color: AppColors.backgroundColor,
       margin: const EdgeInsets.all(2),
@@ -51,101 +62,62 @@ class CommuneWidgetPickerState extends State<CommuneWidgetPicker> {
                 filled: true,
                 //   fillColor: AppColors.backgroundColor,
                 labelText: AppLocalizations.of(context)!.commune_title,
-                labelStyle: TextStyle(fontSize: 12),
+                labelStyle: labelStyle,
                 border: InputBorder.none,
               ),
               value: _toCommuneCode(_selectedCommune),
               items: [
                 DropdownMenuItem(
                   value: 'di',
-                  child: Text(
-                    COMMUNE_DIXINN,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
+                  child: Text(COMMUNE_DIXINN, style: style),
                 ),
                 DropdownMenuItem(
                   value: 'gb',
-                  child: Text(
-                    COMMUNE_GBESSIA,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
+                  child: Text(COMMUNE_GBESSIA, style: style),
                 ),
                 DropdownMenuItem(
                   value: 'ka',
-                  child: Text(
-                    COMMUNE_KALOUM,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
+                  child: Text(COMMUNE_KALOUM, style: style),
                 ),
                 DropdownMenuItem(
                   value: 'kg',
-                  child: Text(
-                    COMMUNE_KAGBELEN,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
+                  child: Text(COMMUNE_KAGBELEN, style: style),
                 ),
                 DropdownMenuItem(
                   value: 'ks',
-                  child: Text(
-                    COMMUNE_KASSA,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
+                  child: Text(COMMUNE_KASSA, style: style),
                 ),
                 DropdownMenuItem(
                   value: 'la',
-                  child: Text(
-                    COMMUNE_LAMBANYI,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
+                  child: Text(COMMUNE_LAMBANYI, style: style),
                 ),
                 DropdownMenuItem(
                   value: 'ma',
-                  child: Text(
-                    COMMUNE_MATAM,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
+                  child: Text(COMMUNE_MATAM, style: style),
                 ),
                 DropdownMenuItem(
                   value: 'mn',
-                  child: Text(
-                    COMMUNE_MANEAH,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
+                  child: Text(COMMUNE_MANEAH, style: style),
                 ),
                 DropdownMenuItem(
                   value: 'mt',
-                  child: Text(
-                    COMMUNE_MATOTO,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
+                  child: Text(COMMUNE_MATOTO, style: style),
                 ),
                 DropdownMenuItem(
                   value: 'ra',
-                  child: Text(
-                    COMMUNE_RATOMA,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
+                  child: Text(COMMUNE_RATOMA, style: style),
                 ),
                 DropdownMenuItem(
                   value: 'so',
-                  child: Text(
-                    COMMUNE_SONFONIA,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
+                  child: Text(COMMUNE_SONFONIA, style: style),
                 ),
                 DropdownMenuItem(
                   value: 'sn',
-                  child: Text(
-                    COMMUNE_SANOYAH,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
+                  child: Text(COMMUNE_SANOYAH, style: style),
                 ),
                 DropdownMenuItem(
                   value: 'to',
-                  child: Text(
-                    COMMUNE_TOMBOLIA,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
+                  child: Text(COMMUNE_TOMBOLIA, style: style),
                 ),
               ],
 

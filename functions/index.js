@@ -125,9 +125,9 @@ exports.sendEmail = onCall(
       };
     }
   }
-);
-
-
+); 
+ 
+ 
 exports.setSuperAdminRole = functions.https.onRequest(async (req, res) => {
   console.log("FIREBASE_AUTH_EMULATOR_HOST:", process.env.FIREBASE_AUTH_EMULATOR_HOST);
   
@@ -167,10 +167,10 @@ exports.setSuperAdminRole = functions.https.onRequest(async (req, res) => {
       console.log("Found Firebase user:", user.email);
   
       await getAuth().setCustomUserClaims(uid, {
-        role: role,
+        role: role, 
       });
-      
-
+       
+ 
       res.status(200).send({ success: true });
     } catch (error) {
       console.error("Error setting custom claims:", error);
@@ -178,7 +178,7 @@ exports.setSuperAdminRole = functions.https.onRequest(async (req, res) => {
     }
   });
 
-
+  
 
 });
 
@@ -215,8 +215,8 @@ exports.createUser = functions.https.onRequest(async (req, res) => {
           error: `Not allowed to assign role: ${role}`,
         });
       }
-
-      // Create user
+    
+      // Create user 
       const user = await getAuth().createUser({
         email,
         password,
@@ -363,7 +363,7 @@ exports.addressFromGeoCoord = functions.https.onRequest(
             error: "latitude and longitude are required",
           });  
         }   
-  
+   
         const url =
           `https://nominatim.openstreetmap.org/reverse` +
           `?lat=${latitude}` +
@@ -374,9 +374,9 @@ exports.addressFromGeoCoord = functions.https.onRequest(
           headers: {
             "User-Agent": "MoveGui/1.0",
           },
-        });
+        });  
 
-        const data = response.data;
+        const data = response.data; 
 
         if (!data || !data.display_name) {
           return res.status(404).json({

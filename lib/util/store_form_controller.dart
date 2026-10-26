@@ -13,7 +13,7 @@ import 'package:uuid/uuid.dart';
 
 abstract class StoreFormController<T extends StoreModel>
     extends FormController<T> {
-       String? id = Uuid().v4();
+  String? id = Uuid().v4();
   final name = TextEditingController();
   final phone = TextEditingController();
   final email = TextEditingController();
@@ -23,7 +23,6 @@ abstract class StoreFormController<T extends StoreModel>
   final emailFocus = FocusNode();
   final telephonFocus = FocusNode();
   final addressForm = AddressFormController();
- // final userForms = [UserFormController()];
   List<UserModel>? staff = [];
   List<OpenHoursModel> weeklyHours = [];
   File? pickedImage;
@@ -34,6 +33,9 @@ abstract class StoreFormController<T extends StoreModel>
   double? rating;
   int? reviewCount;
   String? imageUrl;
+  bool? isCompleted = false;
+  bool? isActive = true;
+  bool editMode = false;
 
   void dispose() {
     name.dispose();
@@ -45,7 +47,8 @@ abstract class StoreFormController<T extends StoreModel>
 
     bool get hasImage =>
       pickedImage != null ||
-      webImage != null ;
+      webImage != null ||
+     (imageUrl != null && imageUrl!.isNotEmpty);
 
   void clear() {
     name.clear();
@@ -62,6 +65,7 @@ abstract class StoreFormController<T extends StoreModel>
     adressModel = null;
     rating = null;
     reviewCount = null;
+    isCompleted = false;
   }
 
   @override
@@ -77,5 +81,7 @@ abstract class StoreFormController<T extends StoreModel>
     rating = model.rating ?? 0.0;
     reviewCount = model.reviewCount ?? 0;
     weeklyHours = model.weeklyHours;
+    isCompleted = model.isComplete;
+    isActive = model.isActive ?? true;
   }
 }

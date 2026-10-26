@@ -1,18 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:movegui_admin_panel/models/dashboard/module_item.dart';
 
 class KpiCard extends StatelessWidget {
-  final String title;
-  final String value;
-  final String subtitle;
-  final IconData icon;
+  final ModuleItem item;
 
-  const KpiCard({
-    super.key,
-    required this.title,
-    required this.value,
-    required this.subtitle,
-    required this.icon,
-  });
+  const KpiCard({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +19,17 @@ class KpiCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                SizedBox(width: 46, height: 46, child: Icon(icon, size: 26)),
+                SizedBox(
+                  width: 46,
+                  height: 46,
+                  child: Icon(item.icon, size: 26),
+                ),
                 const Spacer(),
                 Text(
-                  title,
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                  item.title,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 const Spacer(),
                 Icon(Icons.trending_up_rounded),
@@ -42,15 +38,15 @@ class KpiCard extends StatelessWidget {
             const Spacer(),
             const SizedBox(height: 6),
             Text(
-              value,
+              item.value,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.w900,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w900),
             ),
             const SizedBox(height: 4),
-            Text(subtitle, style: Theme.of(context).textTheme.bodySmall),
+            Text(item.subtitle, style: Theme.of(context).textTheme.bodySmall),
           ],
         ),
       ),

@@ -50,4 +50,12 @@ class ProfessionnelService extends ModelService<ProfessionnelModel> {
         .get();
     return ProfessionnelModel.fromJson(snapshot.data()!);
   }
+
+  @override
+  Future<void> deleteModel(ProfessionnelModel model) async {
+          await FirebaseFirestore.instance
+        .collection(getCollectionName())
+        .doc(model.id)
+        .delete();
+  }
 }

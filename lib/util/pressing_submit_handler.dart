@@ -1,6 +1,3 @@
-import 'package:cloud_functions/cloud_functions.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_model.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
@@ -31,11 +28,17 @@ class PressingSubmitHandler
 
   @override
   Future<void> submit({required PressingFormController form}) async {
-    final imageUrl = await imageService.uploadImage(
-      file: form.pickedImage,
-      webBytes: form.webImage,
-      collectionName: collectionName,
-    );
+    final imageUrl =
+        (form.imageUrl != null &&
+            form.imageUrl!.isNotEmpty &&
+            form.webImage == null &&
+            form.pickedImage == null)
+        ? form.imageUrl
+        : await imageService.uploadImage(
+            file: form.pickedImage,
+            webBytes: form.webImage,
+            collectionName: collectionName,
+          );
 
     if (imageUrl == null) throw Exception("Image upload failed");
     form.adressModel = await formService
@@ -45,7 +48,7 @@ class PressingSubmitHandler
         .getModel(form.addressForm);
 
     final pressing = PressingModel(
-      id: const Uuid().v4(),
+      id: form.id ?? Uuid().v4(),
       name: form.name.text,
       description: form.description.text,
       address: form.adressModel!,
@@ -58,48 +61,63 @@ class PressingSubmitHandler
       imageUrl: imageUrl,
       rating: form.rating,
       reviewCount: form.reviewCount,
+      isActive: form.isActive,
+      isComplete: form.isCompleted,
     );
 
-    await service.addModel(pressing).then((p) async {
-      await service.addServices(p, form.services ?? []).then((pressing) async {
-        List<HttpsCallableResult> results = [];
-        for (UserModel? userModel in pressing.staff ?? []) {
-          final createUser = await userService.createUserWithoutPassword(
-            userModel?.personModel?.email ?? '',
-            userModel?.role ?? UserRole.Guest,
-            userModel?.personModel?.firstName ?? '',
-            userModel?.personModel?.lastName ?? '',
-            userModel?.personModel?.addresses ?? [],
-            userModel?.personModel?.phone ?? '',
-            userModel?.personModel?.gender ?? '',
-            userModel?.personModel?.birthDate,
+    final savedPressing = await service.addModel(pressing);
+    final pressingWithServices = await service.addServices(
+      savedPressing,
+      form.services ?? [],
+    );
+    final staff = pressingWithServices.staff ?? [];
+    var successfulMessages = 0;
+    var savedStaff = 0;
+
+    for (final userModel in staff) {
+      if (!form.editMode) {
+        final createUser = await userService.createUserWithoutPassword(
+          userModel.personModel?.email ?? '',
+          userModel.role ?? UserRole.Guest,
+          userModel.personModel?.firstName ?? '',
+          userModel.personModel?.lastName ?? '',
+          userModel.personModel?.addresses ?? [],
+          userModel.personModel?.phone ?? '',
+          userModel.personModel?.gender ?? '',
+          userModel.personModel?.birthDate,
+        );
+        if (createUser == null) {
+          throw StateError(
+            'Failed to create account for ${userModel.personModel?.email ?? 'staff member'}',
           );
-          final subject = AppLocalizations.of(context)!.register_employe_title;
-          final messageTitle = AppLocalizations.of(
-            context,
-          )!.message_movegui_title;
-          final messageLink = AppLocalizations.of(
-            context,
-          )!.message_movegui_link;
-          final message = AppLocalizations.of(context)!.message_movegui;
-          final messageToSend =
-              '$messageTitle \n <a href="${createUser!.resetLink}"> $messageLink </a> \n $message';
-          final result = await sendMessage(
-            userModel?.personModel?.firstName ?? '',
-            userModel?.personModel?.lastName ?? '',
-            userModel?.personModel?.email ?? '',
-            userModel?.personModel?.phone ?? '',
-            subject,
-            messageToSend,
-          );
-          if (result.data['success'] == true) {
-            results.add(result);
-          }
         }
-        if (results.length == pressing.staff?.length) {
-          form.clear();
+
+        final localizations = AppLocalizations.of(context)!;
+        final messageToSend =
+            '${localizations.message_movegui_title} \n '
+            '<a href="${createUser.resetLink}"> '
+            '${localizations.message_movegui_link} </a> \n '
+            '${localizations.message_movegui}';
+        final result = await sendMessage(
+          userModel.personModel?.firstName ?? '',
+          userModel.personModel?.lastName ?? '',
+          userModel.personModel?.email ?? '',
+          userModel.personModel?.phone ?? '',
+          localizations.register_employe_title,
+          messageToSend,
+        );
+        if (result.data['success'] == true) {
+          successfulMessages++;
         }
-      });
-    });
+      } else {
+        await userService.addModel(userModel);
+        savedStaff++;
+      }
+    }
+
+    final allStaffProcessed = form.editMode
+        ? savedStaff == staff.length
+        : successfulMessages == staff.length;
+    if (allStaffProcessed) form.clear();
   }
 }

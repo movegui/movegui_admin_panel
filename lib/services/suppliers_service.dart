@@ -50,4 +50,12 @@ class SuppliersService extends ModelService<SupplierModel> {
         .get();
     return SupplierModel.fromJson(snapshot.data()!);
   }
+
+  @override
+  Future<void> deleteModel(SupplierModel model) async {
+          await FirebaseFirestore.instance
+        .collection(getCollectionName())
+        .doc(model.id)
+        .delete();
+  }
 }

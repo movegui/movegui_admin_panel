@@ -8,8 +8,8 @@ class InputEmailWidget extends StatelessWidget {
   final FocusNode emailFocusNode;
   final FocusNode? nextFocusNode;
   final String? labelText;
-    final EdgeInsetsGeometry? contentPadding;
-      final FontWeight? fontweight;
+  final EdgeInsetsGeometry? contentPadding;
+  final FontWeight? fontweight;
 
   const InputEmailWidget({
     super.key,
@@ -18,7 +18,7 @@ class InputEmailWidget extends StatelessWidget {
     required this.emailFocusNode,
     this.labelText,
     this.contentPadding,
-    this.fontweight
+    this.fontweight,
   });
 
   @override
@@ -35,7 +35,7 @@ class InputEmailWidget extends StatelessWidget {
         return MyValidators.emailValidator(value);
       },
       onChange: (String value) {},
-  //    isNumber: false,
+      //    isNumber: false,
       isFullBorder: true,
       contentPadding: contentPadding,
       fontweight: fontweight,

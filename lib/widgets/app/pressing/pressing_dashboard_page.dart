@@ -1,207 +1,193 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movegui_admin_panel/consts/route_constants.dart';
+import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
+import 'package:movegui_admin_panel/models/dashboard/module_item.dart';
+import 'package:movegui_admin_panel/models/incomplete_module_configuration_model.dart';
+import 'package:movegui_admin_panel/models/module_configuration_item_model.dart';
+import 'package:movegui_admin_panel/models/pressing/pressing_model.dart';
+import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/widgets/app/dashboard/dashboard_header.dart';
 import 'package:movegui_admin_panel/widgets/app/dashboard/dashboard_page.dart';
+import 'package:movegui_admin_panel/widgets/app/module_configuration_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/pressing/dashboard/pressing_kpi_card.dart';
+import 'package:movegui_admin_panel/widgets/app/pressing/pressing_incomplete_display_widget.dart';
+import 'package:movegui_admin_panel/widgets/section_header_widget.dart';
+import 'package:movegui_admin_panel/widgets/util/form_card_widget.dart';
 
 class PressingDashboardPage extends DashboardPage {
-     const PressingDashboardPage({super.key , required super.models, required super.service});
+  const PressingDashboardPage({
+    super.key,
+    required super.stats,
+    required super.service,
+    required this.configurationModules,
+    required this.incompletesPressings,
+    required this.staticsItems,
+  });
+  final List<ModuleConfigurationItemModel> configurationModules;
+  final List<IncompleteModuleConfigurationModel<PressingModel>>
+  incompletesPressings;
+  final List<ModuleItem> staticsItems;
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-
-    return SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            DashboardHeader(
-              title: AppLocalizations.of(context)!.pressing_dashboard_title,
-              subtitle: AppLocalizations.of(
-                context,
-              )!.pressing_dashboard_sub_title,
-              buttonText: AppLocalizations.of(context)!.btn_add_pressing,
-              onPressed: (item) async {
-               context.go(RouteConstants.PRESSING_ADD_ROUTE);
-              },
-            ),
-/*
-            const SizedBox(height: 24),
-
-            /// STATS
-            GridView.count(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: width < 900 ? 2 : 4,
-              crossAxisSpacing: 16,
-              mainAxisSpacing: 16,
-              childAspectRatio: 2.2,
-              children: const [
-                DashboardStatCard(
-                  title: "Pressings",
-                  value: "24",
-                  icon: Icons.store,
-                  color: Colors.blue,
-                ),
-                DashboardStatCard(
-                  title: "Commandes",
-                  value: "1 284",
-                  icon: Icons.receipt_long,
-                  color: Colors.orange,
-                ),
-                DashboardStatCard(
-                  title: "Employés",
-                  value: "83",
-                  icon: Icons.groups,
-                  color: Colors.green,
-                ),
-                DashboardStatCard(
-                  title: "Revenus",
-                  value: "58M GNF",
-                  icon: Icons.payments,
-                  color: Colors.purple,
-                ),
-              ],
-            ),
-
-            const SizedBox(height: 24),
-
-            /// SERVICES
-            Text(
-              "Services Disponibles",
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-
-            const SizedBox(height: 12),
-
-            Wrap(
-              spacing: 16,
-              runSpacing: 16,
-              children: [
-                _serviceCard(
-                  title: "Pressing",
-                  icon: Icons.local_laundry_service,
-                  count: 24,
-                  color: Colors.blue,
-                ),
-                _serviceCard(
-                  title: "Restaurant",
-                  icon: Icons.restaurant,
-                  count: 12,
-                  color: Colors.orange,
-                ),
-                _serviceCard(
-                  title: "Pharmacie",
-                  icon: Icons.local_pharmacy,
-                  count: 6,
-                  color: Colors.green,
-                ),
-                _serviceCard(
-                  title: "Supermarché",
-                  icon: Icons.shopping_cart,
-                  count: 10,
-                  color: Colors.purple,
-                ),
-                _addServiceCard(),
-              ],
-            ),
-
-            const SizedBox(height: 30),
-
-            /// SEARCH
-            TextField(
-              decoration: InputDecoration(
-                hintText: "Rechercher un pressing...",
-                prefixIcon: const Icon(Icons.search),
-                filled: true,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-              ),
-            ),
-
-            const SizedBox(height: 20),
-
-            ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: 5, // pressings.length,
-              separatorBuilder: (_, __) => const SizedBox(height: 12),
-              itemBuilder: (_, index) {
-                //  final pressing = pressings[index];
-
-                return Card(
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      child: Icon(Icons.local_laundry_service),
-                    ),
-                    title: Text(
-                      "Name", // pressing.name,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Text(
-                      "City" // "${pressing.city} • ${pressing.manager}\n"
-                      "2 Com,mandes" // "${pressing.orders} commandes • "
-                      "3 employés", // "${pressing.employeeCount} employés",
-                    ),
-                    trailing: PopupMenuButton(
-                      itemBuilder: (_) => [
-                        const PopupMenuItem(
-                          value: "details",
-                          child: Text("Détails"),
-                        ),
-                        const PopupMenuItem(
-                          value: "edit",
-                          child: Text("Modifier"),
-                        ),
-                        const PopupMenuItem(
-                          value: "delete",
-                          child: Text("Supprimer"),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
-
-  */
-          ],
+    return Column(
+      children: [
+        DashboardHeader(
+          title: AppLocalizations.of(context)!.pressing_dashboard_title,
+          subtitle: AppLocalizations.of(context)!.pressing_dashboard_sub_title,
+          buttonText: AppLocalizations.of(context)!.btn_add_pressing,
+          onPressed: (item) async {
+            context.go(RouteConstants.PRESSING_ADD_ROUTE);
+          },
         ),
-      
-    );
-  }
+        SizedBox(height: WidgetConstants.sepWidget),
 
-  DataRow _row(
-    String name,
-    String city,
-    String manager,
-    String employees,
-    String orders,
-    bool active,
-  ) {
-    return DataRow(
-      cells: [
-        DataCell(Text(name)),
-        DataCell(Text(city)),
-        DataCell(Text(manager)),
-        DataCell(Text(employees)),
-        DataCell(Text(orders)),
-        DataCell(Chip(label: Text(active ? "Actif" : "Inactif"))),
-        DataCell(
-          Row(
-            children: [
-              IconButton(onPressed: () {}, icon: const Icon(Icons.visibility)),
-              IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
-              IconButton(onPressed: () {}, icon: const Icon(Icons.delete)),
-            ],
+        Expanded(
+          child: PressingConfigurationPage(
+            modules: configurationModules,
+            incompletePressings: incompletesPressings,
+            staticsItems: staticsItems,
           ),
         ),
       ],
     );
   }
+}
 
+class PressingConfigurationPage extends StatelessWidget {
+  const PressingConfigurationPage({
+    super.key,
+    required this.incompletePressings,
+    this.onAddPressing,
+    this.onManagePressings,
+    this.onConfigureServices,
+    this.onConfigureOpeningHours,
+    this.onConfigureDelivery,
+    this.onConfigurePressing,
+    required this.modules,
+    required this.staticsItems,
+  });
 
+  final List<IncompleteModuleConfigurationModel<PressingModel>>
+  incompletePressings;
+  final List<ModuleConfigurationItemModel> modules;
+  final VoidCallback? onAddPressing;
+  final VoidCallback? onManagePressings;
+  final VoidCallback? onConfigureServices;
+  final VoidCallback? onConfigureOpeningHours;
+  final VoidCallback? onConfigureDelivery;
+  final ValueChanged<IncompleteModuleConfigurationModel<PressingModel>>?
+  onConfigurePressing;
+  final List<ModuleItem> staticsItems;
 
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final double padding = Responsive.isMobile(context) ? 12 : 20;
+        return SingleChildScrollView(
+          padding: EdgeInsets.all(padding),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _buildStatisticsSection(staticsItems),
+
+              const SizedBox(height: 16),
+
+              FormCardWidget(
+                color: Theme.of(context).primaryColor.withValues(alpha: 0.2),
+                child: ModuleConfigurationWidget(
+                  onManagePressings: onManagePressings,
+                  onConfigureServices: onConfigureServices,
+                  onConfigureOpeningHours: onConfigureOpeningHours,
+                  onConfigureDelivery: onConfigureDelivery,
+                  modules: modules,
+                ),
+              ),
+
+              const SizedBox(height: 16),
+
+              FormCardWidget(
+                color: Theme.of(context).primaryColor.withValues(alpha: 0.2),
+                child: _buildIcompleteSection(incompletePressings, context),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildStatisticsSection(List<ModuleItem> items) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        const spacing = 12.0;
+        int columns;
+        Responsive.isDesktop(context) ? columns = 5 : columns = 1;
+        final width =
+            (constraints.maxWidth - (spacing * (columns - 1))) / columns;
+
+        return Wrap(
+          spacing: spacing,
+          runSpacing: spacing,
+          children: [
+            for (final item in items)
+              SizedBox(
+                width: width,
+                child: PressingKpiCard(item: item),
+              ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildIcompleteSection(
+    List<IncompleteModuleConfigurationModel<PressingModel>> items,
+    BuildContext context,
+  ) {
+    return Column(
+      children: [
+        SectionHeaderWidget(
+          title: AppLocalizations.of(
+            context,
+          )!.module_configuration_to_complete_title,
+          subtitle: AppLocalizations.of(context)!
+              .module_configuration_to_complete_subtitle(
+                AppLocalizations.of(context)!.module_pressing_name,
+              ),
+        ),
+
+        PressingIncompleteDisplayWidget(items: items),
+      ],
+    );
+  }
+}
+
+class _EmptyConfigurationState extends StatelessWidget {
+  const _EmptyConfigurationState();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Padding(
+      padding: EdgeInsets.symmetric(vertical: 28),
+      child: Column(
+        children: [
+          Icon(Icons.task_alt_rounded, color: Color(0xFF16A34A), size: 44),
+          SizedBox(height: 10),
+          Text(
+            'Toutes les configurations sont complètes',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Color(0xFF172554),
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

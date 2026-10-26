@@ -53,12 +53,15 @@ class InputWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  TextFormField(
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child: TextFormField(
         controller: controller,
         focusNode: focusNode,
         readOnly: readOnly ?? false,
         maxLines: maxLines,
         textInputAction: TextInputAction.next,
+        textAlignVertical: TextAlignVertical.center,
         keyboardType: textInputType,
         obscureText: obscureText ?? false,
         style:
@@ -93,18 +96,19 @@ class InputWidget extends StatelessWidget {
                 prefixIcon: prefixIcon,
                 labelText: labelText!.isEmpty ? hintText : labelText,
                 labelStyle: Responsive.isDesktop(context)
-                ? Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontSize: fontSize,
-                    fontFamily: fontFamily,
-                    fontWeight: fontweight,
-                    color: color,
-                  )
-                : Theme.of(context).textTheme.bodySmall?.copyWith(
-                    fontSize: fontSize,
-                    fontFamily: fontFamily,
-                    fontWeight: fontweight,
-                    color: color,
-                  ),
+                    ? Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontSize: 20,
+                        fontFamily: fontFamily,
+                        fontWeight: FontWeight.bold,
+                        color: color,
+                      )
+                    : Theme.of(context).textTheme.bodySmall?.copyWith(
+                        fontSize: 14,
+                        fontFamily: fontFamily,
+                        fontWeight: FontWeight.bold,
+                        color: color,
+                      ),
+      
                 errorStyle: TextStyle(
                   color: AppColors.error,
                 ), // change validator color
@@ -116,18 +120,18 @@ class InputWidget extends StatelessWidget {
                 ),
                 hintText: hintText,
                 hintStyle: Responsive.isDesktop(context)
-                ? Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontSize: fontSize,
-                    fontFamily: fontFamily,
-                    fontWeight: fontweight,
-                    color: AppColors.disabled,
-                  )
-                : Theme.of(context).textTheme.bodySmall?.copyWith(
-                    fontSize: fontSize,
-                    fontFamily: fontFamily,
-                    fontWeight: fontweight,
-                    color: AppColors.disabled,
-                  ),
+                    ? Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontSize: fontSize,
+                        fontFamily: fontFamily,
+                        fontWeight: fontweight,
+                        color: AppColors.disabled,
+                      )
+                    : Theme.of(context).textTheme.bodySmall?.copyWith(
+                        fontSize: fontSize,
+                        fontFamily: fontFamily,
+                        fontWeight: fontweight,
+                        color: AppColors.disabled,
+                      ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(),
                   borderRadius: BorderRadius.circular(8),
@@ -137,7 +141,7 @@ class InputWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 suffixIcon: suffixIcon,
-                contentPadding: contentPadding,
+                contentPadding: contentPadding ,
               )
             : InputDecoration(
                 hintText: hintText,
@@ -154,6 +158,7 @@ class InputWidget extends StatelessWidget {
                   ),
                 ),
               ),
+      ),
     );
   }
 }
