@@ -112,7 +112,16 @@ class SeedService {
       PressingServiceModel(
         id: Uuid().v4(),
         product: await generatePressingArticle(),
-        serviceType: await generatePressingTypeModel(),
+        serviceType: PressingServiceTypeModel(
+          id: '003',
+          name: 'Nettoyage à sec',
+          description: 'Nettoyage spécial pour tissus délicats',
+          pricingType: PricingType.fixed,
+          createdAt: DateTime.now(),
+          iconName: 'checkroom',
+          colorValue: 'blue',
+          isActive: true,
+        ),
         minPrice: 1000,
         maxPrice: 5000,
         basePrice: 1000,
@@ -178,14 +187,20 @@ class SeedService {
     isActive: true,
   );
 
-  Future<PressingServiceTypeModel> generatePressingTypeModel() async =>
-      PressingServiceTypeModel(
-        id: '003',
-        name: 'Nettoyage à sec',
-        description: 'Nettoyage spécial pour tissus délicats',
-        pricingType: PricingType.fixed,
-        createdAt: DateTime.now(),
-      );
+  Future<PressingServiceTypeModel>
+  generatePressingTypeModel() async => PressingServiceTypeModel(
+    id: Uuid().v4(),
+    name: faker.company.name(),
+    description: faker.randomGenerator.fromPattern([
+      'Pressing professionnel proposant  lavage, repassage et nettoyage spécialisé...,.',
+    ]),
+
+    pricingType: PricingType.fixed,
+    createdAt: DateTime.now(),
+    iconName: 'checkroom',
+    colorValue: 'blue',
+    isActive: true,
+  );
 
   Future<PressingArticleModel> generatePressingArticle() async =>
       PressingArticleModel(

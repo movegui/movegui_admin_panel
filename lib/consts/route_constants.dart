@@ -1,5 +1,4 @@
 class RouteConstants {
-  // ignore: constant_identifier_names
   static const HOME_ROUTE = '/home';
   static const LOGIN_ROUTE = '/login';
   static const LOGOUT_ROUTE = '/logout';
@@ -31,6 +30,7 @@ class RouteConstants {
   static const PRESSING_ADD_ROUTE = '/pressing/add';
   static const PRESSING_ALL_ROUTE = '/pressing/all';
   static const PRESSING_EDIT_ROUTE = '/pressing/edit';
+  static const PRESSING_TYPE_SERVICE_ROUTE = '/pressing/typeService';
   static const PROFESSIONEL_ROUTE = '/professionnel';
   static const PROFESSIONEL_ADD_ROUTE = '/professionnel/add';
   static const PROFESSIONEL_ALL_ROUTE = '/professionnel/all';
@@ -59,5 +59,4 @@ class RouteConstants {
   static const NOTIFICATIONS_ROUTE = '/notifications';
   static const ORDERS_ROUTE = '/orders';
   static const DELIVERIES_ROUTE = '/deliveries';
-
 }

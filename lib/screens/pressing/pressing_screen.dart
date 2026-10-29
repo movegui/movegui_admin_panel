@@ -16,7 +16,8 @@ import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
 import 'package:movegui_admin_panel/services/pressing_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/util/pressing_completion.dart';
-import 'package:movegui_admin_panel/widgets/app/pressing/pressing_dashboard_page.dart';
+import 'package:movegui_admin_panel/widgets/app/pressing/dashboard/pressing_dashboard_page.dart';
+import 'package:uuid/uuid.dart';
 
 class PressingScreen extends DashboardScreen {
   PressingScreen({super.key})
@@ -132,15 +133,18 @@ class _PressingDashboardLoaderState extends State<_PressingDashboardLoader> {
     return [
       ModuleConfigurationItemModel(
         item: ModuleItem(
-          title: AppLocalizations.of(
+          name: AppLocalizations.of(
             context,
           )!.module_configuration_item_pressing_title,
-          subtitle: AppLocalizations.of(
+          description: AppLocalizations.of(
             context,
           )!.module_configuration_item_pressing_subtitle,
           icon: Icons.dry_cleaning,
           color: const Color(0xFFD81B60),
           value: '${data.totalPressings}',
+          id: Uuid().v4(),
+          createdAt: DateTime.now(),
+          isActive: data.totalPressings > 0,
         ),
         valueLabel: AppLocalizations.of(
           context,
@@ -151,51 +155,60 @@ class _PressingDashboardLoaderState extends State<_PressingDashboardLoader> {
 
       ModuleConfigurationItemModel(
         item: ModuleItem(
-          title: AppLocalizations.of(
+          name: AppLocalizations.of(
             context,
           )!.module_configuration_item_pressing_type_service_title,
-          subtitle: AppLocalizations.of(
+          description: AppLocalizations.of(
             context,
           )!.module_configuration_item_pressing_type_service_subtitle,
           icon: Icons.layers_rounded,
           color: const Color(0xFF1976D2),
           value: '${data.serviceTypes}',
+          id: Uuid().v4(),
+          createdAt: DateTime.now(),
+          isActive: data.serviceTypes > 0,
         ),
         valueLabel: AppLocalizations.of(
           context,
         )!.module_configuration_item_pressing_type_service_title,
         buttonLabel: AppLocalizations.of(context)!.btn_see,
-        onPressed: () => context.go(RouteConstants.PRESSING_ALL_ROUTE),
+        onPressed: () => context.go(RouteConstants.PRESSING_TYPE_SERVICE_ROUTE),
       ),
 
       ModuleConfigurationItemModel(
         item: ModuleItem(
-          title: AppLocalizations.of(
+          name: AppLocalizations.of(
             context,
           )!.module_configuration_item_pressing_open_hours_title,
-          subtitle: AppLocalizations.of(
+          description: AppLocalizations.of(
             context,
           )!.module_configuration_item_pressing_open_hours_subtitle,
           icon: Icons.schedule_rounded,
           color: const Color(0xFF16A34A),
           value: '${data.configuredOpeningHours} / ${data.totalPressings}',
+          id: Uuid().v4(),
+          createdAt: DateTime.now(),
+          isActive: data.configuredOpeningHours > 0 && data.totalPressings > 0,
         ),
         valueLabel: AppLocalizations.of(context)!.pressing_service_configured,
         buttonLabel: AppLocalizations.of(context)!.btn_see,
-        onPressed: () => context.go(RouteConstants.PRESSING_ALL_ROUTE),
+        onPressed: () => context.go(RouteConstants.PRESSING_ALL_ROUTE), 
       ),
 
       ModuleConfigurationItemModel(
         item: ModuleItem(
-          title: AppLocalizations.of(
+          name: AppLocalizations.of(
             context,
           )!.module_configuration_item_pressing_configured_services_title,
-          subtitle: AppLocalizations.of(
+          description: AppLocalizations.of(
             context,
           )!.module_configuration_item_pressing_configured_services_subtitle,
           icon: Icons.local_laundry_service_rounded,
           color: const Color(0xFFF59E0B),
           value: '${data.configuredServices}',
+          id: Uuid().v4(),
+          createdAt: DateTime.now(),
+          isActive: data.configuredServices > 0,
         ),
         valueLabel: AppLocalizations.of(context)!.store_services_title,
         buttonLabel: AppLocalizations.of(context)!.btn_see,
@@ -213,6 +226,7 @@ class _PressingDashboardLoaderState extends State<_PressingDashboardLoader> {
     incompletePressings = [];
     for (var index = 0; index < pressings.length; index++) {
       final pressing = pressings[index];
+      String problems = "";
       final pressingServices = servicesByPressing[index];
       if (pressing.isComplete == true &&
           PressingCompletion.isComplete(
@@ -224,73 +238,38 @@ class _PressingDashboardLoaderState extends State<_PressingDashboardLoader> {
       }
 
       if (!PressingCompletion.hasConfiguredOpeningHours(pressing.weeklyHours)) {
-        incompletePressings.add(
-          IncompleteModuleConfigurationModel<PressingModel>(
-            problem: AppLocalizations.of(
-              context,
-            )!.pressing_problem_hours_non_configured,
-            problemIcon: Icons.schedule_rounded,
-            store: pressing,
-          ),
-        );
+        problems =
+            '$problems ${AppLocalizations.of(context)!.pressing_problem_hours_non_configured}';
       }
       if (!PressingCompletion.hasActiveService(pressingServices)) {
-        incompletePressings.add(
-          IncompleteModuleConfigurationModel<PressingModel>(
-            problem: AppLocalizations.of(
-              context,
-            )!.pressing_problem_service_non_configured,
-            problemIcon: Icons.layers_rounded,
-            store: pressing,
-          ),
-        );
+        problems =
+            '$problems ${AppLocalizations.of(context)!.pressing_problem_service_non_configured}';
       }
       if (!PressingCompletion.hasConfiguredStaff(pressing.staff)) {
         if (!PressingCompletion.hasRole(pressing.staff, UserRole.Employe)) {
-          incompletePressings.add(
-            IncompleteModuleConfigurationModel<PressingModel>(
-              problem: AppLocalizations.of(
-                context,
-              )!.pressing_proble_staff_employe,
-              problemIcon: Icons.people_alt_rounded,
-              store: pressing,
-            ),
-          );
+          problems =
+              '$problems ${AppLocalizations.of(context)!.pressing_proble_staff_employe}';
         }
         if (!PressingCompletion.hasRole(pressing.staff, UserRole.Manager)) {
-          incompletePressings.add(
-            IncompleteModuleConfigurationModel<PressingModel>(
-              problem: AppLocalizations.of(
-                context,
-              )!.pressing_proble_staff_manager,
-              problemIcon: Icons.manage_accounts,
-              store: pressing,
-            ),
-          );
+          problems =
+              '$problems ${AppLocalizations.of(context)!.pressing_proble_staff_manager}';
         }
         if (!PressingCompletion.hasRole(pressing.staff, UserRole.Employe)) {
-          incompletePressings.add(
-            IncompleteModuleConfigurationModel<PressingModel>(
-              problem: AppLocalizations.of(
-                context,
-              )!.pressing_proble_staff_owner,
-              problemIcon: Icons.admin_panel_settings,
-              store: pressing,
-            ),
-          );
+          problems =
+              '$problems ${AppLocalizations.of(context)!.pressing_proble_staff_owner}';
         }
       }
       if (pressing.isComplete != true) {
-        incompletePressings.add(
-          IncompleteModuleConfigurationModel<PressingModel>(
-            problem: AppLocalizations.of(
-              context,
-            )!.pressing_problem_incomplete_infos,
-            problemIcon: Icons.info_outline_rounded,
-            store: pressing,
-          ),
-        );
+        problems =
+            '$problems ${AppLocalizations.of(context)!.pressing_problem_incomplete_infos}';
       }
+      incompletePressings.add(
+        IncompleteModuleConfigurationModel<PressingModel>(
+          problem: problems,
+          problemIcon: Icons.dangerous,
+          store: pressing,
+        ),
+      );
     }
     return incompletePressings;
   }
@@ -300,61 +279,59 @@ class _PressingDashboardLoaderState extends State<_PressingDashboardLoader> {
   ) async {
     return [
       ModuleItem(
-        title: AppLocalizations.of(context)!.static_module_item_pressing_title,
+        name: AppLocalizations.of(context)!.static_module_item_pressing_title,
         value: '${data.totalPressings}',
-        subtitle: AppLocalizations.of(
+        description: AppLocalizations.of(
           context,
         )!.static_module_item_pressing_subtitle,
         icon: Icons.apartment_rounded,
         color: const Color(0xFF7047E3),
+        id: Uuid().v4(),
+        createdAt: DateTime.now(),
+        isActive: true,
       ),
       ModuleItem(
-        title: AppLocalizations.of(
+        name: AppLocalizations.of(
           context,
         )!.static_module_item_pressing_actifs_title,
         value: '${data.activePressings}',
-        subtitle: AppLocalizations.of(
+        description: AppLocalizations.of(
           context,
         )!.static_module_item_pressing_actifs_subtitle,
         icon: Icons.check_circle_rounded,
         color: const Color(0xFF16A34A),
+        id: Uuid().v4(),
+        createdAt: DateTime.now(),
+        isActive: true,
       ),
       ModuleItem(
-        title: AppLocalizations.of(
+        name: AppLocalizations.of(
           context,
         )!.static_module_item_pressing_inactifs_title,
         value: '${data.inactivePressings}',
-        subtitle: AppLocalizations.of(
+        description: AppLocalizations.of(
           context,
         )!.static_module_item_pressing_inactifs_subtitle,
         icon: Icons.cancel_rounded,
         color: const Color(0xFFDC2626),
+        id: Uuid().v4(),
+        createdAt: DateTime.now(),
+        isActive: true,
       ),
       ModuleItem(
-        title: AppLocalizations.of(
+        name: AppLocalizations.of(
           context,
         )!.static_module_item_pressing_configured_services_title,
         value: '${data.configuredServices}',
-        subtitle: AppLocalizations.of(
+        description: AppLocalizations.of(
           context,
         )!.static_module_item_pressing_configured_services_subtitle,
         icon: Icons.layers_rounded,
         color: const Color(0xFF1976D2),
+        id: Uuid().v4(),
+        createdAt: DateTime.now(),
+        isActive: true,
       ),
-
-/*
-      ModuleItem(
-        title: AppLocalizations.of(
-          context,
-        )!.static_module_item_pressing_incomplete_open_hours_title,
-        value: '${data.incompleteOpeningHours}',
-        subtitle: AppLocalizations.of(
-          context,
-        )!.static_module_item_pressing_incomplete_open_hours_subtitle,
-        icon: Icons.schedule_rounded,
-        color: const Color(0xFFF59E0B),
-      ),
-      */
     ];
   }
 }

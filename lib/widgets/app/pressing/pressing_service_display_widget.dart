@@ -7,7 +7,6 @@ import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/button_info.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_type_model.dart';
-import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/services/form_services/pressing_services_form_service.dart';
 import 'package:movegui_admin_panel/services/form_services/pressing_services_type_form_service.dart';
 import 'package:movegui_admin_panel/services/my_app_functions.dart';
@@ -15,10 +14,12 @@ import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/seed_service.dart';
 import 'package:movegui_admin_panel/util/pressing_service_form_controller.dart';
 import 'package:movegui_admin_panel/widgets/app/dashboard/dashboard_header.dart';
+import 'package:movegui_admin_panel/widgets/app/empty_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/pressing/pressing_service_type_display_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/pressing/pressing_service_list_widget.dart';
-import 'package:movegui_admin_panel/widgets/picker/pressing_service_type_picker.dart';
+import 'package:movegui_admin_panel/widgets/picker/model_picker.dart';
 import 'package:movegui_admin_panel/widgets/util/button_widget.dart';
+import 'package:movegui_admin_panel/widgets/util/search_filter_row.dart';
 
 class PressingServiceDisplayWidget extends StatefulWidget {
   const PressingServiceDisplayWidget({
@@ -27,14 +28,15 @@ class PressingServiceDisplayWidget extends StatefulWidget {
     required this.title,
     required this.subTitle,
     required this.onRegister,
-    required this.onDelete, required this.onChangeStatus,
+    required this.onDelete,
+    required this.onChangeStatus,
   });
   final List<PressingServiceModel> services;
   final String title;
   final String subTitle;
   final void Function(List<PressingServiceModel>? newServices) onRegister;
   final void Function(int index) onDelete;
-   final void Function(int index) onChangeStatus;
+  final void Function(int index) onChangeStatus;
 
   @override
   State<PressingServiceDisplayWidget> createState() =>
@@ -90,6 +92,9 @@ class PressingServiceDisplayWidgetState
                     )!.pressing_service_dry_cleaning_descrip,
                     pricingType: PricingType.fixed,
                     createdAt: DateTime.now(),
+                    isActive: true,
+                    iconName: 'local_laundry_service',
+                    colorValue: 'teal',
                   )
             : PressingServiceTypeModel(
                 id: '003',
@@ -101,6 +106,9 @@ class PressingServiceDisplayWidgetState
                 )!.pressing_service_dry_cleaning_descrip,
                 pricingType: PricingType.fixed,
                 createdAt: DateTime.now(),
+                isActive: true,
+                iconName: 'local_laundry_service',
+                colorValue: 'teal',
               ));
     _trackFormController(formController);
     return formController;
@@ -122,6 +130,9 @@ class PressingServiceDisplayWidgetState
         )!.pressing_services_types_all_descrip,
         pricingType: PricingType.fixed,
         createdAt: DateTime.now(),
+        isActive: true,
+        colorValue: null,
+        iconName: null,
       ),
     );
     allServiceTypes.addAll(
@@ -241,58 +252,28 @@ class PressingServiceDisplayWidgetState
   }
 
   Widget _buildFilters(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Expanded(
-          child: TextField(
-            onChanged: (value) {
-              setState(() {
-                searchText = value;
-              });
-            },
-            decoration: InputDecoration(
-              hintText: AppLocalizations.of(
-                context,
-              )!.pressing_service_search_hinterText,
-              prefixIcon: const Icon(Icons.search),
-              filled: true,
-              fillColor: Colors.white,
-              contentPadding: const EdgeInsets.symmetric(
-                vertical: 14,
-                horizontal: 16,
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide.none,
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(width: WidgetConstants.sepWidgetWidth),
-
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-
-            child: PressingServiceTypePicker(
-              service: selectedType,
-              servicesTypes: allServiceTypes,
-              onServiceTypeChange: (PressingServiceTypeModel? value) {
-                setState(() {
-                  selectedType = value!;
-                });
-              },
-            ),
-          ),
-        ),
-      ],
+    return SearchFilterRow(
+      hintText: AppLocalizations.of(
+        context,
+      )!.pressing_service_search_hinterText,
+      onSearchChanged: (value) {
+        setState(() {
+          searchText = value;
+        });
+      },
+      filter: ModelPicker<PressingServiceTypeModel>(
+        selectedModel: selectedType,
+        models: allServiceTypes,
+        onSelectedModelChange: (PressingServiceTypeModel? value) {
+          setState(() {
+            selectedType = value!;
+          });
+        },
+      ),
     );
   }
 
   Widget _buildServiceTypes(BuildContext context) {
-
-    
     final visibleTypes = allServiceTypes.where((type) {
       if (selectedType != null &&
           type.id != selectedType?.id &&
@@ -303,7 +284,12 @@ class PressingServiceDisplayWidgetState
     }).toList();
 
     if (visibleTypes.isEmpty) {
-      return _buildEmptyState();
+      return EmptyWidget(
+        title: AppLocalizations.of(context)!.pressing_service_empty_title,
+        subtitle: AppLocalizations.of(context)!.pressing_service_empty_subtitle,
+        icon: Icons.local_laundry_service_outlined,
+      );
+      //  _buildEmptyState();
     }
 
     return ListView.separated(
@@ -325,34 +311,6 @@ class PressingServiceDisplayWidgetState
           onChangeStatus: _changeServiceStatus,
         );
       },
-    );
-  }
-
-  Widget _buildEmptyState() {
-    final styleText = Responsive.isDesktop(context)
-        ? Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 20)
-        : Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 14);
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            Icons.local_laundry_service_outlined,
-            size: 64,
-            color: Theme.of(context).primaryColor.withValues(alpha: .25),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            AppLocalizations.of(context)!.pressing_service_empty_title,
-            style: styleText?.copyWith(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            AppLocalizations.of(context)!.pressing_service_empty_subtitle,
-            style: styleText,
-          ),
-        ],
-      ),
     );
   }
 

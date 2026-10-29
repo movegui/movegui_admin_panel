@@ -12,6 +12,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get service_active_title => 'Service actif';
 
   @override
+  String get status_actif => 'Actif';
+
+  @override
+  String get status_inactif => 'Inactif';
+
+  @override
   String get service_deactive_title => 'Service desactivé';
 
   @override
@@ -248,6 +254,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get pressing_services_types_title => 'Types de Services';
 
   @override
+  String get pressing_services_types_subtitle =>
+      'Définissez les catégories de services disponibles';
+
+  @override
   String get pressing_services_types_all_title => 'Tous les Types de services';
 
   @override
@@ -280,6 +290,10 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get pressing_problem_incomplete_infos =>
       'Informations du pressing incomplètes';
+
+  @override
+  String get pressing_incomplete_no_problem_subtitle =>
+      'Toutes les configurations sont complètes';
 
   @override
   String get pressing_service_configured => 'pressings configurés';
@@ -364,6 +378,14 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get pressing_service_add_dashboard_sub_title =>
       'Ajouter les services, prestations, categories et tarifs proposés par le pressing';
+
+  @override
+  String get pressing_service_type_add_dashboard_title =>
+      'Ajouter un Type de Service';
+
+  @override
+  String get pressing_service_type_add_dashboard_sub_title =>
+      'Ajouter les type de services proposés par votre pressing';
 
   @override
   String get pressing_hours_open_sub_text => 'Le pressing est ouvert ce jour';
@@ -1284,6 +1306,22 @@ class AppLocalizationsFr extends AppLocalizations {
       'Pressings à completer';
 
   @override
+  String get static_module_item_pressing_services_types_title =>
+      'Types de Service';
+
+  @override
+  String get static_module_item_pressing_services_types_subtitle =>
+      'Types de Services au total';
+
+  @override
+  String get static_module_item_pressing_services_types_actifs_subtitle =>
+      'Services Types Actifs';
+
+  @override
+  String get static_module_item_pressing_services_types_inactifs_subtitle =>
+      'Services Types Inactifs';
+
+  @override
   String get image_chose_image_text => 'Choisir une image';
 
   @override
@@ -1291,4 +1329,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get image_add_image_text => 'Ajouter une Image';
+
+  @override
+  String get price_type_label => 'Type de prix';
 }

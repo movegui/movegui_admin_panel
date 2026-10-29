@@ -121,12 +121,12 @@ exports.sendEmail = onCall(
       console.error(error);
       return {
         success: false,
-        error: error.message,
+        error: error.message, 
       };
-    }
-  }
-); 
- 
+    } 
+  } 
+);  
+   
  
 exports.setSuperAdminRole = functions.https.onRequest(async (req, res) => {
   console.log("FIREBASE_AUTH_EMULATOR_HOST:", process.env.FIREBASE_AUTH_EMULATOR_HOST);
@@ -141,12 +141,12 @@ exports.setSuperAdminRole = functions.https.onRequest(async (req, res) => {
       return res.status(401).send({ error: "Unauthorized" });
     }
 
-    const { uid, role } = req.body;
-
+    const { uid, role } = req.body; 
+ 
     if (!USER_ROLES.includes(role)) {
-      return res.status(400).send({ error: `Invalid role: ${role}` });
-    }
-
+      return res.status(400).send({ error: `Invalid role: ${role}` });  
+    }  
+ 
     // A SuperAdmin can set any role. The only other case allowed is the
     // dev bootstrap in main_dev.dart, where a freshly created user sets its
     // own role - and only from a locally running functions emulator, never
@@ -156,7 +156,7 @@ exports.setSuperAdminRole = functions.https.onRequest(async (req, res) => {
       process.env.FUNCTIONS_EMULATOR === "true" && caller.uid === uid;
     if (!isSuperAdmin && !isEmulatorBootstrap) {
       return res.status(403).send({ error: "Forbidden" });
-    }
+    } 
 
     try {
       console.log("UID received:", uid);

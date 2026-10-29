@@ -45,6 +45,7 @@ import 'package:movegui_admin_panel/widgets/app/store/store_open_hours_display_w
 import 'package:movegui_admin_panel/widgets/app/store/store_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/dashboard/kpi_card.dart';
 import 'package:movegui_admin_panel/widgets/app/users/user_display_widget.dart';
+import 'package:uuid/uuid.dart';
 
 class PressingFormPage extends StatefulWidget {
   const PressingFormPage({super.key, this.pressingId});
@@ -67,7 +68,7 @@ class PressingFormPageState extends State<PressingFormPage> {
   late UserService userService;
   late final DashboardService dashboardService;
   DashboardModelData stats = DashboardModelData.empty();
-  bool _isLoadingDashboard = false;
+  final bool _isLoadingDashboard = false;
   late PressingModel pressingModel;
 
   @override
@@ -86,18 +87,6 @@ class PressingFormPageState extends State<PressingFormPage> {
     }
   }
 
-  /*
-  @override
-  void didChangeDependencies() async {
-    super.didChangeDependencies();
-    if (_isLoadingDashboard) {
-      return;
-    }
-    _isLoadingDashboard = true;
-    await loadDatatest();
-    _isLoadingDashboard = false;
-  }
-  */
 
   Future<void> initEditMode() async {
     final pressingId = widget.pressingId;
@@ -366,7 +355,15 @@ class PressingFormPageState extends State<PressingFormPage> {
                     await _onSubmit();
                   },
                   onCancel: (ButtonInfo item) async {
-                    context.pop();
+                    if (context.canPop()) {
+                      context.pop();
+                    } else {
+                      context.go(
+                        widget.isEditing
+                            ? RouteConstants.PRESSING_ALL_ROUTE
+                            : RouteConstants.PRESSING_ROUTE,
+                      );
+                    }
                   },
                 ),
               ],
@@ -590,10 +587,13 @@ class PressingFormPageState extends State<PressingFormPage> {
           height: 160,
           child: KpiCard(
             item: ModuleItem(
-              title: 'Commandes',
+              name: 'Commandes',
               value: stats.totalOrders.toString(),
-              subtitle: '${stats.pendingOrders} en attente',
+              description: '${stats.pendingOrders} en attente',
               icon: Icons.receipt_long_rounded,
+              id: Uuid().v4(),
+              createdAt: DateTime.now(),
+              isActive: true,
             ),
             //      color: AppColors.moveGuiRed,
           ),
@@ -602,10 +602,13 @@ class PressingFormPageState extends State<PressingFormPage> {
           height: 160,
           child: KpiCard(
             item: ModuleItem(
-              title: 'Clients',
+              name: 'Clients',
               value: stats.totalCustomers.toString(),
-              subtitle: 'Utilisateurs clients',
+              description: 'Utilisateurs clients',
               icon: Icons.people_alt_rounded,
+              id: Uuid().v4(),
+              createdAt: DateTime.now(),
+              isActive: true,
             ),
             //  color: const Color(0xFF6A1B9A),
           ),
@@ -614,10 +617,13 @@ class PressingFormPageState extends State<PressingFormPage> {
           height: 160,
           child: KpiCard(
             item: ModuleItem(
-              title: 'Livreurs',
+              name: 'Livreurs',
               value: stats.totalDrivers.toString(),
-              subtitle: '${stats.onlineDrivers} connectés',
+              description: '${stats.onlineDrivers} connectés',
               icon: Icons.delivery_dining_rounded,
+              id: Uuid().v4(),
+              createdAt: DateTime.now(),
+              isActive: true,
             ),
             //   color: AppColors.infoBlue,
           ),
@@ -626,10 +632,13 @@ class PressingFormPageState extends State<PressingFormPage> {
           height: 160,
           child: KpiCard(
             item: ModuleItem(
-              title: 'Revenus',
+              name: 'Revenus',
               value: service.formatGnf(stats.totalRevenue),
-              subtitle: 'Total commandes payées',
+              description: 'Total commandes payées',
               icon: Icons.payments_rounded,
+              id: Uuid().v4(),
+              createdAt: DateTime.now(),
+              isActive: true,
             ),
             //  color: AppColors.successGreen,
           ),

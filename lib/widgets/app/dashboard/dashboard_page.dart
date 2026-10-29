@@ -14,6 +14,7 @@ import 'package:movegui_admin_panel/widgets/app/dashboard/panel/alerts_panel.dar
 import 'package:movegui_admin_panel/widgets/app/dashboard/panel/dashbord_models_panel.dart';
 import 'package:movegui_admin_panel/widgets/app/dashboard/panel/order_status_panel.dart';
 import 'package:movegui_admin_panel/widgets/app/dashboard/panel/recent_activities_panel.dart';
+import 'package:uuid/uuid.dart';
 
 enum ServiceType { restaurant, pressing, supermarket, pharmacy, delivery }
 
@@ -199,34 +200,46 @@ Widget itemsWidget(DashboardModelData stats, DashboardService service) {
     children: [
       KpiCard(
         item: ModuleItem(
-          title: 'Commandes',
+          name: 'Commandes',
           value: stats.totalOrders.toString(),
-          subtitle: '${stats.pendingOrders} en attente',
+          description: '${stats.pendingOrders} en attente',
           icon: Icons.receipt_long_rounded,
+          id: Uuid().v4(),
+          createdAt: DateTime.now(),
+          isActive: true,
         ),
       ),
       KpiCard(
         item: ModuleItem(
-          title: 'Clients',
+          name: 'Clients',
           value: stats.totalCustomers.toString(),
-          subtitle: 'Utilisateurs clients',
+          description: 'Utilisateurs clients',
           icon: Icons.people_alt_rounded,
+          id: Uuid().v4(),
+          createdAt: DateTime.now(),
+          isActive: true,
         ),
       ),
       KpiCard(
         item: ModuleItem(
-          title: 'Livreurs',
+          name: 'Livreurs',
           value: stats.totalDrivers.toString(),
-          subtitle: '${stats.onlineDrivers} connectés',
+          description: '${stats.onlineDrivers} connectés',
           icon: Icons.delivery_dining_rounded,
+          id: Uuid().v4(),
+          createdAt: DateTime.now(),
+          isActive: true,
         ),
       ),
       KpiCard(
         item: ModuleItem(
-          title: 'Revenus',
+          name: 'Revenus',
           value: service.formatGnf(stats.totalRevenue),
-          subtitle: 'Total commandes payées',
+          description: 'Total commandes payées',
           icon: Icons.payments_rounded,
+          id: Uuid().v4(),
+          createdAt: DateTime.now(),
+          isActive: true,
         ),
       ),
     ],

@@ -5,11 +5,15 @@ import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 class StatusToggleWidget extends StatelessWidget {
   final bool isActive;
   final ValueChanged<bool> onChanged;
+  final String? activeDescription;
+  final String? deactiveDescription;
 
   const StatusToggleWidget({
     super.key,
     required this.isActive,
     required this.onChanged,
+    this.activeDescription,
+    this.deactiveDescription,
   });
 
   @override
@@ -30,7 +34,7 @@ class StatusToggleWidget extends StatelessWidget {
             ),
             child: Icon(
               Icons.check_circle_outline,
-              color: isActive?  AppColors.active : AppColors.disabled,
+              color: isActive ? AppColors.active : AppColors.disabled,
               size: 20,
             ),
           ),
@@ -46,7 +50,7 @@ class StatusToggleWidget extends StatelessWidget {
                       ),
                       SizedBox(height: 2),
                       Text(
-                        AppLocalizations.of(context)!.service_active_descrip,
+                        activeDescription ?? AppLocalizations.of(context)!.service_active_descrip,
                         style: TextStyle(color: AppColors.info),
                       ),
                     ],
@@ -57,7 +61,7 @@ class StatusToggleWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        AppLocalizations.of(context)!.service_deactive_title,
+                       deactiveDescription ?? AppLocalizations.of(context)!.service_deactive_title,
                         style: TextStyle(color: AppColors.disabled),
                       ),
                       SizedBox(height: 2),

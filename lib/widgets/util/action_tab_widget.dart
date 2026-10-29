@@ -7,12 +7,12 @@ import 'package:movegui_admin_panel/models/model.dart';
 class ActionTabWidget<M extends Model> extends StatelessWidget {
   const ActionTabWidget({
     super.key,
-    required this.service,
+    required this.model,
     required this.onEdit,
     required this.onDelete,
     required this.onChangeStatus,
   });
-  final M service;
+  final M model;
   final ValueChanged<M> onEdit;
   final ValueChanged<M> onDelete;
   final ValueChanged<M> onChangeStatus;
@@ -26,7 +26,7 @@ class ActionTabWidget<M extends Model> extends StatelessWidget {
         IconButton(
           tooltip: AppLocalizations.of(context)!.tooltip_btn_update,
           onPressed: () {
-            onEdit.call(service);
+            onEdit.call(model);
           },
           icon: const Icon(Icons.edit_outlined, size: 19),
         ),
@@ -43,15 +43,15 @@ class ActionTabWidget<M extends Model> extends StatelessWidget {
           onSelected: (action) {
             switch (action) {
               case ServiceAction.edit:
-                onEdit.call(service);
+                onEdit.call(model);
                 break;
 
               case ServiceAction.toggleStatus:
-                onChangeStatus.call(service);
+                onChangeStatus.call(model);
                 break;
 
               case ServiceAction.delete:
-                onDelete.call(service);
+                onDelete.call(model);
                 break;
             }
           },
@@ -72,14 +72,14 @@ class ActionTabWidget<M extends Model> extends StatelessWidget {
               child: Row(
                 children: [
                   Icon(
-                    (service.isActive ?? false)
+                    (model.isActive ?? false)
                         ? Icons.visibility_off_outlined
                         : Icons.visibility_outlined,
                     size: 19,
                   ),
                   const SizedBox(width: 12),
                   Text(
-                    (service.isActive ?? false)
+                    (model.isActive ?? false)
                         ? AppLocalizations.of(context)!.deactif
                         : AppLocalizations.of(context)!.actif,
                   ),

@@ -28,6 +28,9 @@ class PressingServicesTypeFormService
       description: 'default',
       pricingType: PricingType.fixed,
       createdAt: DateTime.now(),
+      isActive: false,
+      iconName: null,
+      colorValue: null,
     );
   }
 
@@ -36,11 +39,15 @@ class PressingServicesTypeFormService
     PressingServiceTypeFormController controller,
   ) async {
     return PressingServiceTypeModel(
-      id: controller.id ?? '',
+      id: controller.id ?? Uuid().v4(),
       name: controller.name.text,
       description: controller.description.text,
       pricingType: controller.pricingType ?? PricingType.fixed,
       createdAt: controller.createdAt ?? DateTime.now(),
+      isActive: controller.isActive ?? false,
+      iconName: controller.iconName,
+      colorValue: controller.colorValue,
+      servicesCount: controller.servicesCount
     );
   }
 }

@@ -1,10 +1,15 @@
+import 'dart:developer';
+
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_model.dart';
-import 'package:movegui_admin_panel/models/user_model.dart';
+import 'package:movegui_admin_panel/models/pressing/pressing_service_model.dart';
+import 'package:movegui_admin_panel/models/pressing/pressing_service_type_model.dart';
 import 'package:movegui_admin_panel/services/form_services/pressing_form_service.dart';
 import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
 import 'package:movegui_admin_panel/services/message_service.dart';
 import 'package:movegui_admin_panel/services/pressing_service.dart';
+import 'package:movegui_admin_panel/services/pressing_services_types_service.dart';
+import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/util/pressing_form_controller.dart';
 import 'package:movegui_admin_panel/util/store_submit_hadler.dart';
 import 'package:uuid/uuid.dart';
@@ -65,11 +70,50 @@ class PressingSubmitHandler
       isComplete: form.isCompleted,
     );
 
+    final previousServices = form.editMode && form.id != null
+        ? await service.getAllServices(form.id!)
+        : <PressingServiceModel>[];
+    final currentServices = form.services ?? [];
     final savedPressing = await service.addModel(pressing);
+    final currentServicesById = {
+      for (final pressingService in currentServices) pressingService.id,
+    };
+    final removedServices = previousServices
+        .where((pressingService) => !currentServicesById.contains(pressingService.id))
+        .toList();
+    if (removedServices.isNotEmpty) {
+      await service.deleteServices(savedPressing, removedServices);
+    }
     final pressingWithServices = await service.addServices(
       savedPressing,
-      form.services ?? [],
+      currentServices,
     );
+
+    final previousCounts = _countServicesByTypeId(previousServices);
+    final currentCounts = _countServicesByTypeId(currentServices);
+    final affectedTypeIds = {...previousCounts.keys, ...currentCounts.keys};
+    final typesById = <String, PressingServiceTypeModel>{
+      for (final pressingService in previousServices)
+        pressingService.serviceType.id: pressingService.serviceType,
+      for (final pressingService in currentServices)
+        pressingService.serviceType.id: pressingService.serviceType,
+    };
+    final pressingServiceTypeService = getIt<PressingServicesTypesService>();
+    for (final savedType in await pressingServiceTypeService.allModels()) {
+      if (affectedTypeIds.contains(savedType.id)) {
+        typesById[savedType.id] = savedType;
+      }
+    }
+
+    for (final typeId in affectedTypeIds) {
+      final type = typesById[typeId]!;
+      final countDelta =
+          (currentCounts[typeId] ?? 0) - (previousCounts[typeId] ?? 0);
+      final updatedCount = (type.servicesCount ?? 0) + countDelta;
+      type.servicesCount = updatedCount < 0 ? 0 : updatedCount;
+      await pressingServiceTypeService.addModel(type);
+    }
+
     final staff = pressingWithServices.staff ?? [];
     var successfulMessages = 0;
     var savedStaff = 0;
@@ -119,5 +163,19 @@ class PressingSubmitHandler
         ? savedStaff == staff.length
         : successfulMessages == staff.length;
     if (allStaffProcessed) form.clear();
+  }
+
+  Map<String, int> _countServicesByTypeId(
+    Iterable<PressingServiceModel> services,
+  ) {
+    final counts = <String, int>{};
+    for (final pressingService in services) {
+      counts.update(
+        pressingService.serviceType.id,
+        (count) => count + 1,
+        ifAbsent: () => 1,
+      );
+    }
+    return counts;
   }
 }

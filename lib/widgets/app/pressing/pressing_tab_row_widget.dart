@@ -76,7 +76,7 @@ class PressingTabRowWidget extends StatelessWidget {
               Expanded(
                 flex: 2,
                 child: ActionTabWidget<PressingModel>(
-                  service: pressing,
+                  model: pressing,
                   onEdit: onEdit,
                   onDelete: onDelete,
                   onChangeStatus: onChangeStatus,

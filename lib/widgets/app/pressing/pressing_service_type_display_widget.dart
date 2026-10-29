@@ -100,7 +100,7 @@ class PressingServiceTypeDisplayWidget extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        serviceType.description,
+                        serviceType.description ?? '',
                         style: TextStyle(
                           color: Colors.grey.shade600,
                           fontSize: 13,
@@ -128,4 +128,9 @@ class PressingServiceTypeDisplayWidget extends StatelessWidget {
       ),
     );
   }
+
+
+
+
+
 }

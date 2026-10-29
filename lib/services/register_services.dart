@@ -16,6 +16,7 @@ import 'package:movegui_admin_panel/services/image_service.dart';
 import 'package:movegui_admin_panel/services/ingredients_service.dart';
 import 'package:movegui_admin_panel/services/patisseries_service.dart';
 import 'package:movegui_admin_panel/services/pressing_service.dart';
+import 'package:movegui_admin_panel/services/pressing_services_types_service.dart';
 import 'package:movegui_admin_panel/services/professionnel_service.dart';
 import 'package:movegui_admin_panel/services/restaurant_type_service.dart';
 import 'package:movegui_admin_panel/services/restaurants_service.dart';
@@ -62,6 +63,7 @@ void initServices(Env env) {
   getIt.registerLazySingleton<ProfessionnelService>(
     () => ProfessionnelService(api: api),
   );
+  getIt.registerLazySingleton<PressingServicesTypesService>(() => PressingServicesTypesService(api: api));
   getIt.registerLazySingleton<UserService>(() => UserService(api: api));
   getIt.registerLazySingleton<ImageService>(() => ImageService());
   getIt.registerLazySingleton<AddressService>(() => AddressService(api: api));

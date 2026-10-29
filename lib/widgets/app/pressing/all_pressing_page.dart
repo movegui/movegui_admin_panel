@@ -1,9 +1,11 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/route_constants.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
+import 'package:movegui_admin_panel/error/message_widget.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_model.dart';
 import 'package:movegui_admin_panel/providers/store_model_provider.dart';
@@ -91,17 +93,32 @@ class AllPressingPageState extends ConsumerState<AllPressingPage> {
                             child: PressingTabRowWidget(
                               pressing: press,
                               onEdit: (PressingModel value) {
-                                context.go('${RouteConstants.PRESSING_EDIT_ROUTE}/${value.id}');
+                                context.go(
+                                  '${RouteConstants.PRESSING_EDIT_ROUTE}/${value.id}',
+                                );
                               },
                               onDelete: (PressingModel value) async {
-                                  await _deletePressing(context, value);
+                                // await _deletePressing(context, value);
+                                MessageWidget.errorMessage(
+                                  context,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.deactivate_button_title,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.deactivate_button_message,
+                                  Icon(Icons.error, color: AppColors.error),
+                                  FlushbarPosition.TOP,
+                                );
                               },
                               onChangeStatus: (PressingModel value) {
-                                  setState(() {
-                                  final pressing =  pressings.firstWhere((pressing) => pressing.id == value.id);
-                                    pressing.isActive = !value.isActive!;
-                                    pressingService.addModel(pressing);
-                                  });
+                                setState(() {
+                                  final pressing = pressings.firstWhere(
+                                    (pressing) => pressing.id == value.id,
+                                  );
+                                  pressing.isActive = !value.isActive!;
+                                  pressingService.addModel(pressing);
+                                });
                               },
                             ),
                           ),
@@ -118,9 +135,9 @@ class AllPressingPageState extends ConsumerState<AllPressingPage> {
     );
   }
 
-    Future<void> _deletePressing(
+  Future<void> _deletePressing(
     BuildContext dialogContext,
-    PressingModel pressing
+    PressingModel pressing,
   ) async {
     final result = await MyAppFunctions.showConfirmationDialog(
       context: context,
@@ -134,7 +151,7 @@ class AllPressingPageState extends ConsumerState<AllPressingPage> {
       if (index == -1) {
         return;
       }
-    pressingService.deleteModel(pressing);
+      pressingService.deleteModel(pressing);
       setState(() {});
     }
   }

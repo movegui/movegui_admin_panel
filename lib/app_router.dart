@@ -22,6 +22,7 @@ import 'package:movegui_admin_panel/screens/pressing/add_pressing_screen.dart';
 import 'package:movegui_admin_panel/screens/pressing/all_pressing_screen.dart';
 import 'package:movegui_admin_panel/screens/pressing/edit_pressing_screen.dart';
 import 'package:movegui_admin_panel/screens/pressing/pressing_screen.dart';
+import 'package:movegui_admin_panel/screens/pressing/pressing_services_types_screen.dart';
 import 'package:movegui_admin_panel/screens/recipes_screen.dart';
 import 'package:movegui_admin_panel/widgets/app/admin/add_admin_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/admin/all_admin_widget.dart';
@@ -345,6 +346,10 @@ class AppRouter {
             GoRoute(
               path: RouteConstants.PRESSING_ALL_ROUTE,
               builder: (context, state) => AllPressingScreen(),
+            ),
+                 GoRoute(
+              path: RouteConstants.PRESSING_TYPE_SERVICE_ROUTE,
+              builder: (context, state) => PressingServicesTypesScreen(),
             ),
             /*
 

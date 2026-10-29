@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:movegui_admin_panel/models/model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_type_model.dart';
@@ -50,6 +48,7 @@ class PressingService extends ModelService<PressingModel>
     return "pressings_model";
   }
 
+  @override
   Future<PressingModel> addServices(
     PressingModel pressing,
     List<PressingServiceModel>? services,

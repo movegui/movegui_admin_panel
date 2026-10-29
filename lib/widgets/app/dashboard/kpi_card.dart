@@ -26,7 +26,7 @@ class KpiCard extends StatelessWidget {
                 ),
                 const Spacer(),
                 Text(
-                  item.title,
+                  item.name,
                   style: Theme.of(
                     context,
                   ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
@@ -46,7 +46,7 @@ class KpiCard extends StatelessWidget {
               ).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w900),
             ),
             const SizedBox(height: 4),
-            Text(item.subtitle, style: Theme.of(context).textTheme.bodySmall),
+            Text(item.description ?? '', style: Theme.of(context).textTheme.bodySmall),
           ],
         ),
       ),

@@ -50,15 +50,18 @@ class PressingServiceListWidgetState extends State<PressingServiceListWidget> {
       widget.formControllers.add(PressingServiceFormController());
       widget.formControllers.last.serviceType =
           widget.selectedServiceType ??
-          PressingServiceTypeModel(
-            id: '003',
-            name: AppLocalizations.of(context)!.pressing_service_dry_cleaning,
-            description: AppLocalizations.of(
-              context,
-            )!.pressing_service_dry_cleaning_descrip,
-            pricingType: PricingType.fixed,
-            createdAt: DateTime.now(),
-          );
+              PressingServiceTypeModel(
+        id: '003',
+        name: AppLocalizations.of(context)!.pressing_service_dry_cleaning,
+        description: AppLocalizations.of(
+          context,
+        )!.pressing_service_dry_cleaning_descrip,
+        pricingType: PricingType.fixed,
+        createdAt: DateTime.now(),
+        isActive: true,
+        iconName: 'local_laundry_service',
+        colorValue: 'teal',
+      );
 
       if (serviceDataTest != null) {
         widget.formControllers.last.setData(serviceDataTest);

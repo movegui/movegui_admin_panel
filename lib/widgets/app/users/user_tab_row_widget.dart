@@ -76,7 +76,7 @@ class UserTabRowWidget extends StatelessWidget {
               Expanded(
                 flex: 2,
                 child: ActionTabWidget<UserModel>(
-                  service: user,
+                  model: user,
                   onEdit: onEdit,
                   onDelete: onDelete,
                   onChangeStatus: onChangeStatus,

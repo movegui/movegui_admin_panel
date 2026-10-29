@@ -39,89 +39,109 @@ class AppConstants {
   }
 
   static Future<List<PressingServiceTypeModel>> getPressingServicesTypes(
-    BuildContext context,
+    BuildContext context, {
+    AppLocalizations? localizations,
+  }
   ) async {
+    final strings = localizations ?? AppLocalizations.of(context)!;
     return [
       PressingServiceTypeModel(
         id: '001',
-        name: AppLocalizations.of(context)!.pressing_service_delicate_fabrics,
-        description: AppLocalizations.of(
-          context,
-        )!.pressing_service_delicate_fabrics_descrip,
+        name: strings.pressing_service_delicate_fabrics,
+        description: strings.pressing_service_delicate_fabrics_descrip,
         pricingType: PricingType.fixed,
         createdAt: DateTime.now(),
+        isActive: true,
+        iconName: 'dry_cleaning',
+        colorValue: 'purple',
       ),
+
       PressingServiceTypeModel(
         id: '002',
-        name: AppLocalizations.of(context)!.pressing_service_folding,
-        description: AppLocalizations.of(
-          context,
-        )!.pressing_service_folding_descrip,
+        name: strings.pressing_service_folding,
+        description: strings.pressing_service_folding_descrip,
         pricingType: PricingType.fixed,
         createdAt: DateTime.now(),
+        isActive: true,
+        iconName: 'inventory_2',
+        colorValue: 'indigo',
       ),
+
       PressingServiceTypeModel(
         id: '003',
-        name: AppLocalizations.of(context)!.pressing_service_dry_cleaning,
-        description: AppLocalizations.of(
-          context,
-        )!.pressing_service_dry_cleaning_descrip,
+        name: strings.pressing_service_dry_cleaning,
+        description: strings.pressing_service_dry_cleaning_descrip,
         pricingType: PricingType.fixed,
         createdAt: DateTime.now(),
+        isActive: true,
+        iconName: 'local_laundry_service',
+        colorValue: 'teal',
       ),
+
       PressingServiceTypeModel(
         id: '004',
-        name: AppLocalizations.of(context)!.pressing_service_home_laundry,
-        description: AppLocalizations.of(
-          context,
-        )!.pressing_service_home_laundry_descrip,
+        name: strings.pressing_service_home_laundry,
+        description: strings.pressing_service_home_laundry_descrip,
         pricingType: PricingType.fixed,
         createdAt: DateTime.now(),
+        isActive: true,
+        iconName: 'home',
+        colorValue: 'deepPurple',
       ),
+
       PressingServiceTypeModel(
         id: '005',
-        name: AppLocalizations.of(context)!.pressing_service_ironing,
-        description: AppLocalizations.of(
-          context,
-        )!.pressing_service_ironing_descrip,
+        name: strings.pressing_service_ironing,
+        description: strings.pressing_service_ironing_descrip,
         pricingType: PricingType.fixed,
         createdAt: DateTime.now(),
+        isActive: true,
+        iconName: 'iron',
+        colorValue: 'orange',
       ),
+
       PressingServiceTypeModel(
         id: '006',
-        name: AppLocalizations.of(context)!.pressing_service_laundry,
-        description: AppLocalizations.of(
-          context,
-        )!.pressing_service_laundry_descrip,
+        name: strings.pressing_service_laundry,
+        description: strings.pressing_service_laundry_descrip,
         pricingType: PricingType.fixed,
         createdAt: DateTime.now(),
+        isActive: true,
+        iconName: 'local_laundry_service',
+        colorValue: 'blue',
       ),
+
       PressingServiceTypeModel(
         id: '007',
-        name: AppLocalizations.of(context)!.pressing_service_service_express,
-        description: AppLocalizations.of(
-          context,
-        )!.pressing_service_service_express_descrip,
+        name: strings.pressing_service_service_express,
+        description: strings.pressing_service_service_express_descrip,
         pricingType: PricingType.fixed,
         createdAt: DateTime.now(),
+        isActive: true,
+        iconName: 'bolt',
+        colorValue: 'amber',
       ),
+
       PressingServiceTypeModel(
         id: '008',
-        name: AppLocalizations.of(context)!.pressing_service_stain_removal,
-        description: AppLocalizations.of(
-          context,
-        )!.pressing_service_stain_removal_descrip,
+        name: strings.pressing_service_stain_removal,
+        description: strings.pressing_service_stain_removal_descrip,
         pricingType: PricingType.fixed,
         createdAt: DateTime.now(),
+        isActive: true,
+        iconName: 'cleaning_services',
+        colorValue: 'red',
       ),
+
       PressingServiceTypeModel(
         id: '009',
-        name: AppLocalizations.of(context)!.pressing_service_washing,
-        description: AppLocalizations.of(
-          context,
-        )!.pressing_service_washing_descrip,
+        name: strings.pressing_service_washing,
+        description: strings.pressing_service_washing_descrip,
         pricingType: PricingType.fixed,
         createdAt: DateTime.now(),
+        isActive: true,
+        iconName: 'water_drop',
+        colorValue: 'cyan',
       ),
     ];
   }

@@ -1,16 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:movegui_admin_panel/consts/app_colors.dart';
+import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/models/module_configuration_item_model.dart';
 import 'package:movegui_admin_panel/widgets/util/icon_badge_widget.dart';
+import 'package:movegui_admin_panel/widgets/util/status_chip_widget.dart';
 
 class ModuleConfigurationCard extends StatelessWidget {
-  const ModuleConfigurationCard({super.key, required this.module});
+  const ModuleConfigurationCard({
+    super.key,
+    required this.module,
+    this.actions,
+    this.options
+  });
 
   final ModuleConfigurationItemModel module;
+  final Widget? actions;
+  final List<Widget>? options;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: const BoxConstraints(minHeight: 225),
+      constraints: const BoxConstraints(minHeight: 180),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.72),
@@ -30,35 +40,48 @@ class ModuleConfigurationCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               IconBadgeWidget(icon: module.item.icon, color: module.item.color),
               const SizedBox(width: 13),
+
               Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 8),
-                  child: Text(
-                    module.item.title,
-                    style: const TextStyle(
-                      color: Color(0xFF172554),
-                      fontSize: 17,
-                      fontWeight: FontWeight.w700,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      module.item.name,
+                      style: const TextStyle(
+                        color: Color(0xFF172554),
+                        fontSize: 17,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
-                  ),
+                    const SizedBox(height: 5),
+                    Text(
+                      module.item.description ?? '',
+                      style: const TextStyle(
+                        color: Color(0xFF536078),
+                        height: 1.45,
+                        fontSize: 13,
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: StatusChip(
+                        active: module.item.model != null
+                            ? (module.item.isActive == true &&
+                                  module.item.model?.isActive == true)
+                            : module.item.isActive == true,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 15),
-          Text(
-            module.item.subtitle,
-            style: const TextStyle(
-              color: Color(0xFF536078),
-              height: 1.45,
-              fontSize: 13,
-            ),
-          ),
-          const SizedBox(height: 18),
+
+          const SizedBox(height: WidgetConstants.sepWidget),
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
@@ -92,30 +115,37 @@ class ModuleConfigurationCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 10),
-              ElevatedButton(
-                onPressed: module.onPressed,
-                style: ElevatedButton.styleFrom(
-                //  backgroundColor: PressingConfigurationPage.primaryColor,
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 16,
+              actions ??
+                  ElevatedButton(
+                    onPressed: module.item.isActive == true
+                        ? module.onPressed
+                        : null,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: module.item.isActive ?? false
+                          ? Theme.of(context).primaryColor
+                          : AppColors.disabled,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 16,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(9),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(module.buttonLabel),
+                        const SizedBox(width: 5),
+                        const Icon(Icons.arrow_forward, size: 17),
+                      ],
+                    ),
                   ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(9),
-                  ),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(module.buttonLabel),
-                    const SizedBox(width: 5),
-                    const Icon(Icons.arrow_forward, size: 17),
-                  ],
-                ),
-              ),
             ],
           ),
+            const SizedBox(width: 16),
+           ...?options,
         ],
       ),
     );

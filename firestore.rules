@@ -175,6 +175,11 @@ service cloud.firestore {
         && (isOwner(id) || isAdmin() || isSuperAdmin());
     }
 
+    match /pressing_services_types_model/{id} {
+      allow read, create, update, delete: if isSignedIn()
+        && (isAdmin() || isSuperAdmin());
+    }
+
 
     match /store_category_model/{id} {
 

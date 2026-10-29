@@ -12,6 +12,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get service_active_title => 'Service enabled';
 
   @override
+  String get status_actif => 'Active';
+
+  @override
+  String get status_inactif => 'Inactive';
+
+  @override
   String get service_deactive_title => 'Service disabled';
 
   @override
@@ -244,6 +250,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pressing_services_types_title => 'Types of Services';
 
   @override
+  String get pressing_services_types_subtitle =>
+      'Define the available service categories';
+
+  @override
   String get pressing_services_types_all_title => 'All services types';
 
   @override
@@ -276,6 +286,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get pressing_problem_incomplete_infos =>
       'Incompleted Dry Cleaning Informations';
+
+  @override
+  String get pressing_incomplete_no_problem_subtitle =>
+      'All configurations are completed';
 
   @override
   String get pressing_service_configured => 'Dry Cleaners configured';
@@ -362,10 +376,17 @@ class AppLocalizationsEn extends AppLocalizations {
       'Add the services, offerings, categories and tariffs proposed by the dry cleaner';
 
   @override
-  String get pressing_hours_open_sub_text => 'Le pressing est ouvert ce jour';
+  String get pressing_service_type_add_dashboard_title => 'Add a Service Type';
 
   @override
-  String get pressing_hours_close_sub_text => 'Le pressing est fermé ce jour';
+  String get pressing_service_type_add_dashboard_sub_title =>
+      'Add the types of services offered by your dry cleaner';
+
+  @override
+  String get pressing_hours_open_sub_text => 'Dry Cleaner is open today';
+
+  @override
+  String get pressing_hours_close_sub_text => 'Dry cleaner is close today';
 
   @override
   String get restaurant_add_bar_title => 'Add Restaurant';
@@ -1277,6 +1298,22 @@ class AppLocalizationsEn extends AppLocalizations {
       'Dry Cleaners to complete';
 
   @override
+  String get static_module_item_pressing_services_types_title =>
+      'Services Types';
+
+  @override
+  String get static_module_item_pressing_services_types_subtitle =>
+      ' Total Services Types';
+
+  @override
+  String get static_module_item_pressing_services_types_actifs_subtitle =>
+      'Active Services Types';
+
+  @override
+  String get static_module_item_pressing_services_types_inactifs_subtitle =>
+      'Inactive Services Types';
+
+  @override
   String get image_chose_image_text => 'Choose an Image';
 
   @override
@@ -1284,4 +1321,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get image_add_image_text => 'Add an Image';
+
+  @override
+  String get price_type_label => 'Pricing type';
 }

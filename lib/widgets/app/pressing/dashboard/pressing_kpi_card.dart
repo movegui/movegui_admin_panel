@@ -23,7 +23,8 @@ class PressingKpiCard extends KpiCard {
           children: [
             IconBadgeWidget(
               icon: item.icon,
-              color: item.color ?? Theme.of(context).primaryColor,
+              color: item.color ?? Theme.of(context).primaryColor.withValues(alpha: 0.13),
+           //   iconColor: item.color,
             ),
             const SizedBox(width: 14),
             Expanded(
@@ -31,7 +32,7 @@ class PressingKpiCard extends KpiCard {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    item.title,
+                    item.name,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
@@ -51,7 +52,7 @@ class PressingKpiCard extends KpiCard {
                   ),
                   const SizedBox(height: 3),
                   Text(
-                    item.subtitle,
+                    item.description ?? '',
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       color: Color(0xFF645A7D),

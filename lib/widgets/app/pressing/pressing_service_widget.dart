@@ -6,7 +6,7 @@ import 'package:movegui_admin_panel/models/pressing/pressing_service_type_model.
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/util/pressing_service_form_controller.dart';
 import 'package:movegui_admin_panel/widgets/input/input_widget.dart';
-import 'package:movegui_admin_panel/widgets/picker/pressing_service_type_picker.dart';
+import 'package:movegui_admin_panel/widgets/picker/model_picker.dart';
 import 'package:movegui_admin_panel/widgets/picker/price_type_picker.dart';
 import 'package:movegui_admin_panel/widgets/util/section_title_widget.dart';
 import 'package:movegui_admin_panel/widgets/util/status_toggle_widget.dart';
@@ -47,8 +47,8 @@ class PressingServiceWidget extends StatelessWidget {
                 children: [
                   Expanded(
                     flex: 1,
-                    child: PressingServiceTypePicker(
-                      service:
+                    child: ModelPicker<PressingServiceTypeModel>(
+                      selectedModel:
                           selectedServiceType ??
                           PressingServiceTypeModel(
                             id: '003',
@@ -60,9 +60,12 @@ class PressingServiceWidget extends StatelessWidget {
                             )!.pressing_service_dry_cleaning_descrip,
                             pricingType: PricingType.fixed,
                             createdAt: DateTime.now(),
+                            isActive: true,
+                            iconName: 'local_laundry_service',
+                            colorValue: 'teal',
                           ),
-                      onServiceTypeChange: onServiceTypeChange,
-                      servicesTypes: selectedServiceType != null
+                      onSelectedModelChange: onServiceTypeChange,
+                      models: selectedServiceType != null
                           ? [selectedServiceType!]
                           : [],
                     ),
@@ -216,10 +219,10 @@ class PressingServiceWidget extends StatelessWidget {
                 )!.pressing_service_info_title,
               ),
               const SizedBox(height: WidgetConstants.sepWidget),
-              PressingServiceTypePicker(
-                service: selectedServiceType,
-                onServiceTypeChange: onServiceTypeChange,
-                servicesTypes: selectedServiceType != null
+              ModelPicker<PressingServiceTypeModel>(
+                selectedModel: selectedServiceType,
+                onSelectedModelChange: onServiceTypeChange,
+                models: selectedServiceType != null
                     ? [selectedServiceType!]
                     : [],
               ),

@@ -3,14 +3,18 @@ abstract class Model {
   final String name;
   final DateTime createdAt;
   final String? description;
-   bool? isActive;
+  bool? isActive;
+  String? iconName;
+  String? colorValue;
 
   Model({
     required this.id,
     required this.name,
     required this.createdAt,
     this.description,
-    this.isActive
+    this.isActive,
+    this.iconName,
+    this.colorValue
   });
 
   Map<String, dynamic> toJson() => {
@@ -18,6 +22,8 @@ abstract class Model {
     'name': name,
     'createdAt': createdAt,
     'description': description ?? '',
-    'isActive': isActive ?? false
+    'isActive': isActive ?? false,
+    'iconName': iconName,
+    'colorValue': colorValue
   };
 }

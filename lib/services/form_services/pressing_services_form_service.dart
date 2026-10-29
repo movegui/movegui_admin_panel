@@ -35,6 +35,9 @@ class PressingServicesFormService
         description: 'default',
         pricingType: PricingType.perItem,
         createdAt: DateTime.now(),
+        isActive: false,
+        iconName: null,
+        colorValue: null,
       ),
       minPrice: 0.0,
       maxPrice: 0.0,
@@ -63,21 +66,26 @@ class PressingServicesFormService
   ) async {
     return PressingServiceModel(
       id: controller.id ?? Uuid().v4(),
-      serviceType: controller.serviceType ?? await servicesTypeFormService.getModel(
-        controller.serviceTypeFormController,
-      ),
+      serviceType:
+          controller.serviceType ??
+          await servicesTypeFormService.getModel(
+            controller.serviceTypeFormController,
+          ),
       minPrice: double.parse(controller.minPrice.text),
       maxPrice: double.parse(controller.maxPrice.text),
       basePrice: controller.basePrice ?? 0.0,
-      name:  '${controller.serviceType?.name}_${controller.articleFormController.name.text}', // controller.name.text,
+      name:
+          '${controller.serviceType?.name}_${controller.articleFormController.name.text}', // controller.name.text,
       createdAt: controller.createdAt ?? DateTime.now(),
       product: await articleFormService.getModel(
         controller.articleFormController,
       ),
       description: controller.description.text,
-      estimatedDuration: Duration(hours: int.parse(controller.processingTime.text)),
+      estimatedDuration: Duration(
+        hours: int.parse(controller.processingTime.text),
+      ),
       isActive: controller.active,
-      currency:  controller.currency
+      currency: controller.currency,
     );
   }
 }

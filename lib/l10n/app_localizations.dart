@@ -104,6 +104,18 @@ abstract class AppLocalizations {
   /// **'Service enabled'**
   String get service_active_title;
 
+  /// No description provided for @status_actif.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get status_actif;
+
+  /// No description provided for @status_inactif.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactive'**
+  String get status_inactif;
+
   /// No description provided for @service_deactive_title.
   ///
   /// In en, this message translates to:
@@ -530,6 +542,12 @@ abstract class AppLocalizations {
   /// **'Types of Services'**
   String get pressing_services_types_title;
 
+  /// No description provided for @pressing_services_types_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Define the available service categories'**
+  String get pressing_services_types_subtitle;
+
   /// No description provided for @pressing_services_types_all_title.
   ///
   /// In en, this message translates to:
@@ -589,6 +607,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Incompleted Dry Cleaning Informations'**
   String get pressing_problem_incomplete_infos;
+
+  /// No description provided for @pressing_incomplete_no_problem_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'All configurations are completed'**
+  String get pressing_incomplete_no_problem_subtitle;
 
   /// No description provided for @pressing_service_configured.
   ///
@@ -746,16 +770,28 @@ abstract class AppLocalizations {
   /// **'Add the services, offerings, categories and tariffs proposed by the dry cleaner'**
   String get pressing_service_add_dashboard_sub_title;
 
+  /// No description provided for @pressing_service_type_add_dashboard_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a Service Type'**
+  String get pressing_service_type_add_dashboard_title;
+
+  /// No description provided for @pressing_service_type_add_dashboard_sub_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add the types of services offered by your dry cleaner'**
+  String get pressing_service_type_add_dashboard_sub_title;
+
   /// No description provided for @pressing_hours_open_sub_text.
   ///
   /// In en, this message translates to:
-  /// **'Le pressing est ouvert ce jour'**
+  /// **'Dry Cleaner is open today'**
   String get pressing_hours_open_sub_text;
 
   /// No description provided for @pressing_hours_close_sub_text.
   ///
   /// In en, this message translates to:
-  /// **'Le pressing est fermé ce jour'**
+  /// **'Dry cleaner is close today'**
   String get pressing_hours_close_sub_text;
 
   /// No description provided for @restaurant_add_bar_title.
@@ -2462,6 +2498,30 @@ abstract class AppLocalizations {
   /// **'Dry Cleaners to complete'**
   String get static_module_item_pressing_incomplete_open_hours_subtitle;
 
+  /// No description provided for @static_module_item_pressing_services_types_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Services Types'**
+  String get static_module_item_pressing_services_types_title;
+
+  /// No description provided for @static_module_item_pressing_services_types_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **' Total Services Types'**
+  String get static_module_item_pressing_services_types_subtitle;
+
+  /// No description provided for @static_module_item_pressing_services_types_actifs_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Active Services Types'**
+  String get static_module_item_pressing_services_types_actifs_subtitle;
+
+  /// No description provided for @static_module_item_pressing_services_types_inactifs_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactive Services Types'**
+  String get static_module_item_pressing_services_types_inactifs_subtitle;
+
   /// No description provided for @image_chose_image_text.
   ///
   /// In en, this message translates to:
@@ -2479,6 +2539,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add an Image'**
   String get image_add_image_text;
+
+  /// No description provided for @price_type_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Pricing type'**
+  String get price_type_label;
 }
 
 class _AppLocalizationsDelegate
