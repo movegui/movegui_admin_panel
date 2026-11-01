@@ -5,7 +5,6 @@ import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/dashboard/module_item.dart';
 import 'package:movegui_admin_panel/models/incomplete_module_configuration_model.dart';
-import 'package:movegui_admin_panel/models/model.dart';
 import 'package:movegui_admin_panel/models/module_configuration_item_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
@@ -16,7 +15,7 @@ import 'package:movegui_admin_panel/widgets/app/module_configuration_widget.dart
 import 'package:movegui_admin_panel/widgets/app/pressing/dashboard/pressing_kpi_card.dart';
 import 'package:movegui_admin_panel/widgets/app/pressing/pressing_incomplete_display_widget.dart';
 import 'package:movegui_admin_panel/widgets/section_header_widget.dart';
-import 'package:movegui_admin_panel/widgets/util/form_card_widget.dart';
+import 'package:movegui_admin_panel/widgets/util/section_container_widget.dart';
 
 class PressingDashboardPage extends DashboardPage {
   const PressingDashboardPage({
@@ -98,7 +97,7 @@ class PressingConfigurationPage extends StatelessWidget {
 
               const SizedBox(height: 16),
 
-              FormCardWidget(
+              SectionContainerWidget(
                 color: Theme.of(context).primaryColor.withValues(alpha: 0.2),
                 child: ModuleConfigurationWidget(
                   onManagePressings: onManagePressings,
@@ -111,7 +110,7 @@ class PressingConfigurationPage extends StatelessWidget {
 
               const SizedBox(height: 16),
 
-              FormCardWidget(
+              SectionContainerWidget(
                 color: Theme.of(context).primaryColor.withValues(alpha: 0.2),
                 child: incompletePressings.isEmpty
                     ? EmptyWidget(

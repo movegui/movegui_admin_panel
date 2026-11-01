@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/services/global_method.dart';
 import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
 import 'package:movegui_admin_panel/widgets/util/display_widget.dart';
+import 'package:movegui_admin_panel/widgets/util/section_title_widget.dart';
 
 class StoreEmployeWidget extends StatelessWidget {
   final List<UserModel?>? employees;
+  final List<Widget>? options;
 
 
   const StoreEmployeWidget({
     super.key,
     required this.employees,
+    this.options
   });
 
   @override
@@ -19,15 +23,14 @@ class StoreEmployeWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          AppLocalizations.of(context)!.employe_all_bar_title,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
 
-        const SizedBox(height: 12),
+          SectionTitleWidget(
+            title: AppLocalizations.of(context)!.employe_all_bar_title,
+            subtitle: AppLocalizations.of(context)!.employe_all_bar_subtitle,
+            childs: options ?? [],
+          ),
+
+        const SizedBox(height: WidgetConstants.sepWidget * 2),
 
         ...employees!.map(
           (e) => Card(
@@ -47,18 +50,13 @@ class StoreEmployeWidget extends StatelessWidget {
               ),
               subtitle: Row(
                 children: [
-                  SizedBox(
-                    width: 60,
-                    child:  DisplayWidget(text: UserRole.Manager.name, textAlign: TextAlign.left,)),
-                  const SizedBox(width: 8), // spacing between role and status
-                  SizedBox(
-                    width: 10,
-                    child: Icon(
+                  DisplayWidget(text: e?.role.name ?? UserRole.Employe.name, textAlign: TextAlign.left,),
+                  const SizedBox(width: WidgetConstants.sepWidget), 
+                   Icon(
                       Icons.circle,
                       size: 12, // smaller size for status
                       color: e?.isActive != false ? Colors.green : Colors.red,
                     ),
-                  ),
                 ],
               ),
               onTap: () {

@@ -1,24 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
-import 'package:movegui_admin_panel/models/button_info.dart';
 import 'package:movegui_admin_panel/models/dashboard/dashboard_model_data.dart';
 import 'package:movegui_admin_panel/models/dashboard/module_item.dart';
 import 'package:movegui_admin_panel/models/module_configuration_item_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_type_model.dart';
 import 'package:movegui_admin_panel/models/pressing/services_types_dashboard_model.dart';
 import 'package:movegui_admin_panel/models/pressing/services_types_dashboard_model_data.dart';
-import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/screens/dashboard_screen.dart';
 import 'package:movegui_admin_panel/services/dashboard_service.dart';
-import 'package:movegui_admin_panel/services/form_services/pressing_services_form_service.dart';
 import 'package:movegui_admin_panel/services/form_services/pressing_services_type_form_service.dart';
 import 'package:movegui_admin_panel/services/pressing_services_types_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/util/pressing_service_type_form_controller.dart';
 import 'package:movegui_admin_panel/widgets/app/pressing/dashboard/model_types_dahsboard_page.dart';
-import 'package:movegui_admin_panel/widgets/util/button_widget.dart';
 import 'package:uuid/uuid.dart';
 
 class PressingServicesTypesScreen extends DashboardScreen {
@@ -45,6 +39,7 @@ class _PressingDashboardLoaderState extends State<_PressingDashboardLoader> {
   bool _hasStartedDashboardLoad = false;
   late AppLocalizations _localizations;
   late PressingServiceTypeModel selectedType;
+  String searchText = '';
   late PressingServicesTypesService pressingServicesTypesService;
   late PressingServicesTypeFormService pressingServicesTypeFormService;
 
@@ -78,15 +73,35 @@ class _PressingDashboardLoaderState extends State<_PressingDashboardLoader> {
         }
 
         final data = snapshot.data!;
+        final normalizedSearch = searchText.trim().toLowerCase();
+        final visibleModules = (data.modules ?? []).where((module) {
+          final matchesType =
+              selectedType.id == '0999' || module.item.id == selectedType.id;
+          final matchesSearch =
+              normalizedSearch.isEmpty ||
+              module.item.name.toLowerCase().contains(normalizedSearch) ||
+              module.item.description!.toLowerCase().contains(normalizedSearch);
+          return matchesType && matchesSearch;
+        }).toList();
+
         return ModelTypesDahsboardPage<PressingServiceTypeModel>(
           stats: widget.stats,
           service: widget.service,
           staticsItems: data.staticsItems ?? [],
-          modules: data.modules ?? [],
+          modules: visibleModules,
           types: data.types,
           selectedType: selectedType,
-          onTypeChange: (PressingServiceTypeModel? value) {},
-          onSearchChanged: (String value) {},
+          onTypeChange: (PressingServiceTypeModel? value) {
+            if (value == null) return;
+            setState(() {
+              selectedType = value;
+            });
+          },
+          onSearchChanged: (String value) {
+            setState(() {
+              searchText = value;
+            });
+          },
           onEdit:
               (ModuleConfigurationItemModel<PressingServiceTypeModel> value) {},
           onDelete:
@@ -210,7 +225,7 @@ class _PressingDashboardLoaderState extends State<_PressingDashboardLoader> {
                 children: [
                   Text(
                     AppLocalizations.of(context)!.price_type_label,
-                    style: Theme.of(context)!.textTheme.bodyMedium?.copyWith(
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Color(0xFF172554),
                       fontSize: 17,
                       fontWeight: FontWeight.w700,

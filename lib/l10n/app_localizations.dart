@@ -260,6 +260,12 @@ abstract class AppLocalizations {
   /// **'All Employes'**
   String get employe_all_bar_title;
 
+  /// No description provided for @employe_all_bar_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Employees liste and Roles'**
+  String get employe_all_bar_subtitle;
+
   /// No description provided for @employe_status_actf.
   ///
   /// In en, this message translates to:
@@ -1892,6 +1898,420 @@ abstract class AppLocalizations {
   /// **'By default'**
   String get address_default_title;
 
+  /// No description provided for @dashboard_menu_overview.
+  ///
+  /// In en, this message translates to:
+  /// **'Overview'**
+  String get dashboard_menu_overview;
+
+  /// No description provided for @dashboard_menu_marketplace.
+  ///
+  /// In en, this message translates to:
+  /// **'Marketplace'**
+  String get dashboard_menu_marketplace;
+
+  /// No description provided for @dashboard_menu_establishments.
+  ///
+  /// In en, this message translates to:
+  /// **'Establishments'**
+  String get dashboard_menu_establishments;
+
+  /// No description provided for @dashboard_menu_all_establishments.
+  ///
+  /// In en, this message translates to:
+  /// **'All establishments'**
+  String get dashboard_menu_all_establishments;
+
+  /// No description provided for @dashboard_menu_pressings.
+  ///
+  /// In en, this message translates to:
+  /// **'Dry cleaners'**
+  String get dashboard_menu_pressings;
+
+  /// No description provided for @dashboard_menu_all_pressings.
+  ///
+  /// In en, this message translates to:
+  /// **'All dry cleaners'**
+  String get dashboard_menu_all_pressings;
+
+  /// No description provided for @dashboard_menu_add_pressing.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a dry cleaner'**
+  String get dashboard_menu_add_pressing;
+
+  /// No description provided for @dashboard_menu_service_types.
+  ///
+  /// In en, this message translates to:
+  /// **'Service types'**
+  String get dashboard_menu_service_types;
+
+  /// No description provided for @dashboard_menu_orders.
+  ///
+  /// In en, this message translates to:
+  /// **'Orders'**
+  String get dashboard_menu_orders;
+
+  /// No description provided for @dashboard_menu_pharmacies.
+  ///
+  /// In en, this message translates to:
+  /// **'Pharmacies'**
+  String get dashboard_menu_pharmacies;
+
+  /// No description provided for @dashboard_menu_stores.
+  ///
+  /// In en, this message translates to:
+  /// **'Stores'**
+  String get dashboard_menu_stores;
+
+  /// No description provided for @dashboard_menu_pending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get dashboard_menu_pending;
+
+  /// No description provided for @dashboard_menu_suspended.
+  ///
+  /// In en, this message translates to:
+  /// **'Suspended'**
+  String get dashboard_menu_suspended;
+
+  /// No description provided for @dashboard_menu_users.
+  ///
+  /// In en, this message translates to:
+  /// **'Users'**
+  String get dashboard_menu_users;
+
+  /// No description provided for @dashboard_menu_all_users.
+  ///
+  /// In en, this message translates to:
+  /// **'All users'**
+  String get dashboard_menu_all_users;
+
+  /// No description provided for @dashboard_menu_customers.
+  ///
+  /// In en, this message translates to:
+  /// **'Customers'**
+  String get dashboard_menu_customers;
+
+  /// No description provided for @dashboard_menu_owners.
+  ///
+  /// In en, this message translates to:
+  /// **'Owners'**
+  String get dashboard_menu_owners;
+
+  /// No description provided for @dashboard_menu_employees.
+  ///
+  /// In en, this message translates to:
+  /// **'Employees'**
+  String get dashboard_menu_employees;
+
+  /// No description provided for @dashboard_menu_couriers.
+  ///
+  /// In en, this message translates to:
+  /// **'Couriers'**
+  String get dashboard_menu_couriers;
+
+  /// No description provided for @dashboard_menu_blocked_users.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked users'**
+  String get dashboard_menu_blocked_users;
+
+  /// No description provided for @dashboard_menu_all_orders.
+  ///
+  /// In en, this message translates to:
+  /// **'All orders'**
+  String get dashboard_menu_all_orders;
+
+  /// No description provided for @dashboard_menu_new_orders.
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get dashboard_menu_new_orders;
+
+  /// No description provided for @dashboard_menu_in_progress.
+  ///
+  /// In en, this message translates to:
+  /// **'In progress'**
+  String get dashboard_menu_in_progress;
+
+  /// No description provided for @dashboard_menu_completed.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get dashboard_menu_completed;
+
+  /// No description provided for @dashboard_menu_cancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get dashboard_menu_cancelled;
+
+  /// No description provided for @dashboard_menu_disputes.
+  ///
+  /// In en, this message translates to:
+  /// **'Disputes'**
+  String get dashboard_menu_disputes;
+
+  /// No description provided for @dashboard_menu_delivery_logistics.
+  ///
+  /// In en, this message translates to:
+  /// **'Delivery & logistics'**
+  String get dashboard_menu_delivery_logistics;
+
+  /// No description provided for @dashboard_menu_missions.
+  ///
+  /// In en, this message translates to:
+  /// **'Missions'**
+  String get dashboard_menu_missions;
+
+  /// No description provided for @dashboard_menu_active_deliveries.
+  ///
+  /// In en, this message translates to:
+  /// **'Active deliveries'**
+  String get dashboard_menu_active_deliveries;
+
+  /// No description provided for @dashboard_menu_delivery_zones.
+  ///
+  /// In en, this message translates to:
+  /// **'Delivery zones'**
+  String get dashboard_menu_delivery_zones;
+
+  /// No description provided for @dashboard_menu_business_management.
+  ///
+  /// In en, this message translates to:
+  /// **'Business management'**
+  String get dashboard_menu_business_management;
+
+  /// No description provided for @dashboard_menu_finances.
+  ///
+  /// In en, this message translates to:
+  /// **'Finance'**
+  String get dashboard_menu_finances;
+
+  /// No description provided for @dashboard_menu_financial_overview.
+  ///
+  /// In en, this message translates to:
+  /// **'Financial overview'**
+  String get dashboard_menu_financial_overview;
+
+  /// No description provided for @dashboard_menu_transactions.
+  ///
+  /// In en, this message translates to:
+  /// **'Transactions'**
+  String get dashboard_menu_transactions;
+
+  /// No description provided for @dashboard_menu_payments.
+  ///
+  /// In en, this message translates to:
+  /// **'Payments'**
+  String get dashboard_menu_payments;
+
+  /// No description provided for @dashboard_menu_commissions.
+  ///
+  /// In en, this message translates to:
+  /// **'Commissions'**
+  String get dashboard_menu_commissions;
+
+  /// No description provided for @dashboard_menu_refunds.
+  ///
+  /// In en, this message translates to:
+  /// **'Refunds'**
+  String get dashboard_menu_refunds;
+
+  /// No description provided for @dashboard_menu_subscriptions_billing.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscriptions & billing'**
+  String get dashboard_menu_subscriptions_billing;
+
+  /// No description provided for @dashboard_menu_general_overview.
+  ///
+  /// In en, this message translates to:
+  /// **'Overview'**
+  String get dashboard_menu_general_overview;
+
+  /// No description provided for @dashboard_menu_offers.
+  ///
+  /// In en, this message translates to:
+  /// **'Plans'**
+  String get dashboard_menu_offers;
+
+  /// No description provided for @dashboard_menu_active_subscriptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Active subscriptions'**
+  String get dashboard_menu_active_subscriptions;
+
+  /// No description provided for @dashboard_menu_expired.
+  ///
+  /// In en, this message translates to:
+  /// **'Expired'**
+  String get dashboard_menu_expired;
+
+  /// No description provided for @dashboard_menu_invoices.
+  ///
+  /// In en, this message translates to:
+  /// **'Invoices'**
+  String get dashboard_menu_invoices;
+
+  /// No description provided for @dashboard_menu_catalog_categories.
+  ///
+  /// In en, this message translates to:
+  /// **'Catalog & categories'**
+  String get dashboard_menu_catalog_categories;
+
+  /// No description provided for @dashboard_menu_business_types.
+  ///
+  /// In en, this message translates to:
+  /// **'Business types'**
+  String get dashboard_menu_business_types;
+
+  /// No description provided for @dashboard_menu_categories.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get dashboard_menu_categories;
+
+  /// No description provided for @dashboard_menu_services.
+  ///
+  /// In en, this message translates to:
+  /// **'Services'**
+  String get dashboard_menu_services;
+
+  /// No description provided for @dashboard_menu_product_categories.
+  ///
+  /// In en, this message translates to:
+  /// **'Product categories'**
+  String get dashboard_menu_product_categories;
+
+  /// No description provided for @dashboard_menu_products.
+  ///
+  /// In en, this message translates to:
+  /// **'Products'**
+  String get dashboard_menu_products;
+
+  /// No description provided for @dashboard_menu_promotions_loyalty.
+  ///
+  /// In en, this message translates to:
+  /// **'Promotions & loyalty'**
+  String get dashboard_menu_promotions_loyalty;
+
+  /// No description provided for @dashboard_menu_promo_codes.
+  ///
+  /// In en, this message translates to:
+  /// **'Promo codes'**
+  String get dashboard_menu_promo_codes;
+
+  /// No description provided for @dashboard_menu_campaigns.
+  ///
+  /// In en, this message translates to:
+  /// **'Campaigns'**
+  String get dashboard_menu_campaigns;
+
+  /// No description provided for @dashboard_menu_loyalty_program.
+  ///
+  /// In en, this message translates to:
+  /// **'Loyalty program'**
+  String get dashboard_menu_loyalty_program;
+
+  /// No description provided for @dashboard_menu_steering.
+  ///
+  /// In en, this message translates to:
+  /// **'Management'**
+  String get dashboard_menu_steering;
+
+  /// No description provided for @dashboard_menu_analytics_reports.
+  ///
+  /// In en, this message translates to:
+  /// **'Analytics & reports'**
+  String get dashboard_menu_analytics_reports;
+
+  /// No description provided for @dashboard_menu_geographic_areas.
+  ///
+  /// In en, this message translates to:
+  /// **'Geographic areas'**
+  String get dashboard_menu_geographic_areas;
+
+  /// No description provided for @dashboard_menu_support_claims.
+  ///
+  /// In en, this message translates to:
+  /// **'Support & claims'**
+  String get dashboard_menu_support_claims;
+
+  /// No description provided for @dashboard_menu_tickets.
+  ///
+  /// In en, this message translates to:
+  /// **'Tickets'**
+  String get dashboard_menu_tickets;
+
+  /// No description provided for @dashboard_menu_claims.
+  ///
+  /// In en, this message translates to:
+  /// **'Claims'**
+  String get dashboard_menu_claims;
+
+  /// No description provided for @dashboard_menu_refund_requests.
+  ///
+  /// In en, this message translates to:
+  /// **'Refund requests'**
+  String get dashboard_menu_refund_requests;
+
+  /// No description provided for @dashboard_menu_notifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get dashboard_menu_notifications;
+
+  /// No description provided for @dashboard_menu_send_notification.
+  ///
+  /// In en, this message translates to:
+  /// **'Send a notification'**
+  String get dashboard_menu_send_notification;
+
+  /// No description provided for @dashboard_menu_templates.
+  ///
+  /// In en, this message translates to:
+  /// **'Templates'**
+  String get dashboard_menu_templates;
+
+  /// No description provided for @dashboard_menu_history.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get dashboard_menu_history;
+
+  /// No description provided for @dashboard_menu_administration.
+  ///
+  /// In en, this message translates to:
+  /// **'Administration'**
+  String get dashboard_menu_administration;
+
+  /// No description provided for @dashboard_menu_administrators.
+  ///
+  /// In en, this message translates to:
+  /// **'Administrators'**
+  String get dashboard_menu_administrators;
+
+  /// No description provided for @dashboard_menu_roles_permissions.
+  ///
+  /// In en, this message translates to:
+  /// **'Roles & permissions'**
+  String get dashboard_menu_roles_permissions;
+
+  /// No description provided for @dashboard_menu_activity_log.
+  ///
+  /// In en, this message translates to:
+  /// **'Activity log'**
+  String get dashboard_menu_activity_log;
+
+  /// No description provided for @dashboard_menu_platform_settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Platform settings'**
+  String get dashboard_menu_platform_settings;
+
   /// No description provided for @label_login_forget_password.
   ///
   /// In en, this message translates to:
@@ -2156,6 +2576,18 @@ abstract class AppLocalizations {
   /// **'Login'**
   String get profile_menu_login;
 
+  /// No description provided for @menu_principal.
+  ///
+  /// In en, this message translates to:
+  /// **'Principal Menu'**
+  String get menu_principal;
+
+  /// No description provided for @menu_preferency.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferencies'**
+  String get menu_preferency;
+
   /// No description provided for @add.
   ///
   /// In en, this message translates to:
@@ -2275,6 +2707,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Last Orders'**
   String get last_orders;
+
+  /// No description provided for @last_orders_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Last orders list'**
+  String get last_orders_subtitle;
 
   /// No description provided for @message_movegui_title.
   ///
@@ -2522,6 +2960,66 @@ abstract class AppLocalizations {
   /// **'Inactive Services Types'**
   String get static_module_item_pressing_services_types_inactifs_subtitle;
 
+  /// No description provided for @static_module_item_pressing_owners_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Owners'**
+  String get static_module_item_pressing_owners_title;
+
+  /// No description provided for @static_module_item_pressing_owners_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Owners in total'**
+  String get static_module_item_pressing_owners_subtitle;
+
+  /// No description provided for @static_module_item_pressing_managers_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Managers'**
+  String get static_module_item_pressing_managers_title;
+
+  /// No description provided for @static_module_item_pressing_managers_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Manager in total'**
+  String get static_module_item_pressing_managers_subtitle;
+
+  /// No description provided for @static_module_item_pressing_employes_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Employees'**
+  String get static_module_item_pressing_employes_title;
+
+  /// No description provided for @static_module_item_pressing_employes_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Employees in total'**
+  String get static_module_item_pressing_employes_subtitle;
+
+  /// No description provided for @static_module_item_pressing_total_services_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Services'**
+  String get static_module_item_pressing_total_services_title;
+
+  /// No description provided for @static_module_item_pressing_total_services_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Registed Services'**
+  String get static_module_item_pressing_total_services_subtitle;
+
+  /// No description provided for @static_module_item_pressing_services_actifs_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Services in total'**
+  String get static_module_item_pressing_services_actifs_subtitle;
+
+  /// No description provided for @static_module_item_pressing_services_inactifs_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Services in total'**
+  String get static_module_item_pressing_services_inactifs_subtitle;
+
   /// No description provided for @image_chose_image_text.
   ///
   /// In en, this message translates to:
@@ -2545,6 +3043,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Pricing type'**
   String get price_type_label;
+
+  /// No description provided for @informations_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Informations'**
+  String get informations_title;
+
+  /// No description provided for @informations_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Dry Cleaners general Informations'**
+  String get informations_subtitle;
 }
 
 class _AppLocalizationsDelegate

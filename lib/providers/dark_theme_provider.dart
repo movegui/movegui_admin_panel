@@ -14,12 +14,14 @@ class DarkThemeProvider with ChangeNotifier {
     notifyListeners();
   }
 
+/*
  static final themeProvider =
     ChangeNotifierProvider<DarkThemeProvider>((ref) {
   final provider = DarkThemeProvider();
   provider.getDarkTheme; // load saved theme
   return provider;
 });
+*/
 
 }
 

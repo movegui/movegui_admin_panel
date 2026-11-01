@@ -2,14 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movegui_admin_panel/consts/app_colors.dart';
-import 'package:movegui_admin_panel/consts/route_constants.dart';
-import 'package:movegui_admin_panel/l10n/app_localizations.dart';
-import 'package:movegui_admin_panel/models/button_info.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/providers/providers.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/user_service.dart';
-import 'package:movegui_admin_panel/widgets/app/menu/menu_item_widget.dart';
 
 class MyMenu extends ConsumerWidget {
   const MyMenu({super.key});
@@ -91,6 +87,7 @@ class MyMenu extends ConsumerWidget {
               child: ListView(
                 padding: const EdgeInsets.all(12),
                 children: [
+                  /*
                   HoverListTile(
                     icon: Icons.home_outlined,
                     item: ButtonInfo(
@@ -99,7 +96,7 @@ class MyMenu extends ConsumerWidget {
                       routeName: RouteConstants.HOME_ROUTE,
                     ),
                   ),
-
+*/
                   /*
                   HoverListTile(
                     icon: Icons.shopping_bag,
@@ -136,7 +133,7 @@ class MyMenu extends ConsumerWidget {
                       routeName: RouteConstants.FAVORITES_ROUTE,
                     ),
                   ),
-                  */
+                  *//*
                   HoverListTile(
                     icon: Icons.shopping_cart_outlined,
                     item: ButtonInfo(
@@ -208,8 +205,10 @@ class MyMenu extends ConsumerWidget {
                     },
                     color: AppColors.error,
                   ),
+                  */
                 ],
               ),
+              
             ),
           ],
         ),
@@ -252,6 +251,7 @@ class SocialMenu extends StatelessWidget {
               style: TextStyle(color: Colors.white, fontSize: 24),
             ),
           ),
+          /*
           ListTile(
             title: MenuItemWidget(
               title: 'Facebook',
@@ -272,6 +272,7 @@ class SocialMenu extends StatelessWidget {
               // Handle item tap
             },
           ),
+          */
         ],
       ),
     );
@@ -295,6 +296,7 @@ class InfoMenu extends StatelessWidget {
               style: TextStyle(color: Colors.white, fontSize: 24),
             ),
           ),
+          /*
           ListTile(
             title: MenuItemWidget(
               title: 'Contact',
@@ -315,6 +317,7 @@ class InfoMenu extends StatelessWidget {
               // Handle item tap
             },
           ),
+          */
         ],
       ),
     );
@@ -338,6 +341,7 @@ class UserMenu extends StatelessWidget {
               style: TextStyle(color: Colors.white, fontSize: 24),
             ),
           ),
+          /*
           ListTile(
             title: MenuItemWidget(
               title: 'Se Connecter',
@@ -368,6 +372,7 @@ class UserMenu extends StatelessWidget {
               // Handle item tap
             },
           ),
+          */
         ],
       ),
     );

@@ -1,5 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+
+
+class MenuItem {
+  final IconData icon;
+  final String title;
+  final VoidCallback? onTap;
+  final bool enabled;
+  final List<MenuItem>? subMenus;
+  final String? route;
+
+  const MenuItem({
+    required this.icon,
+    required this.title,
+    this.onTap,
+    required this.enabled,
+    this.subMenus,
+    this.route
+  });
+
+  bool get hasChildren => subMenus?.isNotEmpty ?? false;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 
 class MenuItem  {
   const MenuItem({ 
@@ -38,3 +73,4 @@ class FooterItem extends StatelessWidget{
     );
   }
 }
+*/

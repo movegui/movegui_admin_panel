@@ -4,12 +4,14 @@ class SectionTitleWidget extends StatelessWidget {
   final String title;
   final String? subtitle;
   final IconData? icon;
+  final List<Widget>? childs;
 
   const SectionTitleWidget({
     super.key,
     required this.title,
     this.subtitle,
     this.icon,
+    this.childs
   });
 
   @override
@@ -42,6 +44,7 @@ class SectionTitleWidget extends StatelessWidget {
             ],
           ),
         ),
+        ...?childs,
       ],
     );
   }

@@ -31,23 +31,5 @@ class SearchFilterRow extends StatelessWidget {
         FormCardWidget(child: filter),
       ],
     );
-
-    /*
-    return Row(
-      children: [
-        Expanded(
-          child: TextField(
-            onChanged: onSearchChanged,
-            decoration: InputDecoration(
-              hintText: hintText,
-              prefixIcon: const Icon(Icons.search),
-            ),
-          ),
-        ),
-        const SizedBox(width: 16),
-        Expanded(child: filter),
-      ],
-    );
-    */
   }
 }

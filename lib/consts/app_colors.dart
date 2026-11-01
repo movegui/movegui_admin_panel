@@ -17,17 +17,26 @@ class AppColors {
   //********************************************** */
 
   static const Color primary = Color(0xFF90171B);
-  static const Color lightBackground = Color.fromARGB(255, 114, 78, 223);
-  static const Color darkBackground = Color.fromARGB(255, 33, 33, 34);
+  static const Color lightBackground = Color.fromARGB(255, 195, 183, 230);
+
   static const Color card = Color(0xFFF1FFFF);
   static const Color success = Color(0xFF4CAF50);
   static const Color warning = Color(0xFFFFA000);
   static const Color info = Color(0xFF2196F3);
-  static const Color on_delivery =  Color(0xFF7B1FA2);
+  static const Color on_delivery = Color(0xFF7B1FA2);
   static const border = Color(0xFFE0E0E0);
   static const textPrimary = Color(0xFF212121);
   static const textSecondary = Color(0xFF757575);
   static const Color disabled = Colors.grey;
-  static const Color active =  Color.fromARGB(255, 13, 197, 19);
+  static const Color active = Color.fromARGB(255, 13, 197, 19);
+  static const Color burgundy = Color(0xFF8F191D);
+  static const Color selectedColor = Color(0xFFAD3A3F);
 
+
+static const Color darkBackground = Color(0xFF171522);
+static const Color darkPrimary = Color(0xFFA99ACB);
+static const Color darkCard = Color(0xFF211E2D);
+static const Color darkOnSurface = Color(0xFFF2EFF8);
+static const Color darkOnPrimary = Color(0xFF211E2D);
+static const Color darkError = Color(0xFFEF6B78);
 }

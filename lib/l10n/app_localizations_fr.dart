@@ -100,6 +100,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get employe_all_bar_title => 'Tous les Employés';
 
   @override
+  String get employe_all_bar_subtitle => 'Liste des employés et leurs rôles';
+
+  @override
   String get employe_status_actf => 'Actif';
 
   @override
@@ -991,6 +994,214 @@ class AppLocalizationsFr extends AppLocalizations {
   String get address_default_title => 'Par défaut';
 
   @override
+  String get dashboard_menu_overview => 'Vue d’ensemble';
+
+  @override
+  String get dashboard_menu_marketplace => 'Place de marché';
+
+  @override
+  String get dashboard_menu_establishments => 'Établissements';
+
+  @override
+  String get dashboard_menu_all_establishments => 'Tous les établissements';
+
+  @override
+  String get dashboard_menu_pressings => 'Pressings';
+
+  @override
+  String get dashboard_menu_all_pressings => 'Tous les pressings';
+
+  @override
+  String get dashboard_menu_add_pressing => 'Ajouter un pressing';
+
+  @override
+  String get dashboard_menu_service_types => 'Types de services';
+
+  @override
+  String get dashboard_menu_orders => 'Commandes';
+
+  @override
+  String get dashboard_menu_pharmacies => 'Pharmacies';
+
+  @override
+  String get dashboard_menu_stores => 'Magasins';
+
+  @override
+  String get dashboard_menu_pending => 'En attente';
+
+  @override
+  String get dashboard_menu_suspended => 'Suspendus';
+
+  @override
+  String get dashboard_menu_users => 'Utilisateurs';
+
+  @override
+  String get dashboard_menu_all_users => 'Tous les utilisateurs';
+
+  @override
+  String get dashboard_menu_customers => 'Clients';
+
+  @override
+  String get dashboard_menu_owners => 'Propriétaires';
+
+  @override
+  String get dashboard_menu_employees => 'Employés';
+
+  @override
+  String get dashboard_menu_couriers => 'Livreurs';
+
+  @override
+  String get dashboard_menu_blocked_users => 'Utilisateurs bloqués';
+
+  @override
+  String get dashboard_menu_all_orders => 'Toutes les commandes';
+
+  @override
+  String get dashboard_menu_new_orders => 'Nouvelles';
+
+  @override
+  String get dashboard_menu_in_progress => 'En cours';
+
+  @override
+  String get dashboard_menu_completed => 'Terminées';
+
+  @override
+  String get dashboard_menu_cancelled => 'Annulées';
+
+  @override
+  String get dashboard_menu_disputes => 'Litiges';
+
+  @override
+  String get dashboard_menu_delivery_logistics => 'Livraison et logistique';
+
+  @override
+  String get dashboard_menu_missions => 'Missions';
+
+  @override
+  String get dashboard_menu_active_deliveries => 'Livraisons en cours';
+
+  @override
+  String get dashboard_menu_delivery_zones => 'Zones de livraison';
+
+  @override
+  String get dashboard_menu_business_management => 'Gestion commerciale';
+
+  @override
+  String get dashboard_menu_finances => 'Finances';
+
+  @override
+  String get dashboard_menu_financial_overview => 'Vue financière';
+
+  @override
+  String get dashboard_menu_transactions => 'Transactions';
+
+  @override
+  String get dashboard_menu_payments => 'Paiements';
+
+  @override
+  String get dashboard_menu_commissions => 'Commissions';
+
+  @override
+  String get dashboard_menu_refunds => 'Remboursements';
+
+  @override
+  String get dashboard_menu_subscriptions_billing =>
+      'Abonnements et facturation';
+
+  @override
+  String get dashboard_menu_general_overview => 'Vue générale';
+
+  @override
+  String get dashboard_menu_offers => 'Offres';
+
+  @override
+  String get dashboard_menu_active_subscriptions => 'Abonnements actifs';
+
+  @override
+  String get dashboard_menu_expired => 'Expirés';
+
+  @override
+  String get dashboard_menu_invoices => 'Factures';
+
+  @override
+  String get dashboard_menu_catalog_categories => 'Catalogue et catégories';
+
+  @override
+  String get dashboard_menu_business_types => 'Types d’établissements';
+
+  @override
+  String get dashboard_menu_categories => 'Catégories';
+
+  @override
+  String get dashboard_menu_services => 'Services';
+
+  @override
+  String get dashboard_menu_product_categories => 'Catégories de produits';
+
+  @override
+  String get dashboard_menu_products => 'Produits';
+
+  @override
+  String get dashboard_menu_promotions_loyalty => 'Promotions et fidélité';
+
+  @override
+  String get dashboard_menu_promo_codes => 'Codes promo';
+
+  @override
+  String get dashboard_menu_campaigns => 'Campagnes';
+
+  @override
+  String get dashboard_menu_loyalty_program => 'Programme de fidélité';
+
+  @override
+  String get dashboard_menu_steering => 'Pilotage';
+
+  @override
+  String get dashboard_menu_analytics_reports => 'Analyses et rapports';
+
+  @override
+  String get dashboard_menu_geographic_areas => 'Zones géographiques';
+
+  @override
+  String get dashboard_menu_support_claims => 'Support et réclamations';
+
+  @override
+  String get dashboard_menu_tickets => 'Tickets';
+
+  @override
+  String get dashboard_menu_claims => 'Réclamations';
+
+  @override
+  String get dashboard_menu_refund_requests => 'Demandes de remboursement';
+
+  @override
+  String get dashboard_menu_notifications => 'Notifications';
+
+  @override
+  String get dashboard_menu_send_notification => 'Envoyer une notification';
+
+  @override
+  String get dashboard_menu_templates => 'Modèles';
+
+  @override
+  String get dashboard_menu_history => 'Historique';
+
+  @override
+  String get dashboard_menu_administration => 'Administration';
+
+  @override
+  String get dashboard_menu_administrators => 'Administrateurs';
+
+  @override
+  String get dashboard_menu_roles_permissions => 'Rôles et permissions';
+
+  @override
+  String get dashboard_menu_activity_log => 'Journal d’activité';
+
+  @override
+  String get dashboard_menu_platform_settings => 'Paramètres de la plateforme';
+
+  @override
   String get label_login_forget_password => 'Mot de pass oublier?';
 
   @override
@@ -1126,6 +1337,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get profile_menu_login => 'Connexion';
 
   @override
+  String get menu_principal => 'Menu Principal';
+
+  @override
+  String get menu_preferency => 'Preférences';
+
+  @override
   String get add => 'Ajouter';
 
   @override
@@ -1184,6 +1401,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get last_orders => 'Dernières Commandes';
+
+  @override
+  String get last_orders_subtitle => 'la liste de vos dernières Commandes';
 
   @override
   String get message_movegui_title => '<p>Bienvenue sur Movegui</p>';
@@ -1322,6 +1542,42 @@ class AppLocalizationsFr extends AppLocalizations {
       'Services Types Inactifs';
 
   @override
+  String get static_module_item_pressing_owners_title => 'Propriétaires';
+
+  @override
+  String get static_module_item_pressing_owners_subtitle =>
+      'Propriétaires au total';
+
+  @override
+  String get static_module_item_pressing_managers_title => 'Managers';
+
+  @override
+  String get static_module_item_pressing_managers_subtitle =>
+      'Manager au total';
+
+  @override
+  String get static_module_item_pressing_employes_title => 'Employés';
+
+  @override
+  String get static_module_item_pressing_employes_subtitle =>
+      'Employés au total';
+
+  @override
+  String get static_module_item_pressing_total_services_title => 'Services';
+
+  @override
+  String get static_module_item_pressing_total_services_subtitle =>
+      'Services enregistrés';
+
+  @override
+  String get static_module_item_pressing_services_actifs_subtitle =>
+      'Services au total';
+
+  @override
+  String get static_module_item_pressing_services_inactifs_subtitle =>
+      'Services au total';
+
+  @override
   String get image_chose_image_text => 'Choisir une image';
 
   @override
@@ -1332,4 +1588,11 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get price_type_label => 'Type de prix';
+
+  @override
+  String get informations_title => 'Informations';
+
+  @override
+  String get informations_subtitle =>
+      'Informations générales de votre pressing';
 }

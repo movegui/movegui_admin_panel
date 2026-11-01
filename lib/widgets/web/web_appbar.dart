@@ -47,8 +47,7 @@ class WebAppBar extends ConsumerWidget implements PreferredSizeWidget {
                     'assets/icons/movegui.jpg',
                     width: 24,
                     height: 24,
-                   // color: Theme.of(context).colorScheme.onPrimary,
-                    
+                 
                   ),
                 ),
                 textStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(color: AppColors.onPrimary),

@@ -6,7 +6,7 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
 
-    scaffoldBackgroundColor: AppColors.lightBackground,
+    scaffoldBackgroundColor: const Color.fromARGB(255, 196, 191, 211),
 
     colorScheme: ColorScheme.light(
       primary: AppColors.primary,
@@ -16,7 +16,7 @@ class AppTheme {
       error: AppColors.error,
     ),
 
-    cardTheme: _cardTheme(),
+    cardTheme: _cardTheme(AppColors.card),
     inputDecorationTheme: _inputDecorationTheme(),
     elevatedButtonTheme: _elevatedButtonTheme(),
     scrollbarTheme: _scrollbarTheme(),
@@ -38,14 +38,14 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.darkBackground,
 
     colorScheme: ColorScheme.light(
-      primary: AppColors.primary,
-      onPrimary: AppColors.onPrimary,
-      surface: AppColors.card,
-      onSurface: AppColors.primary,
-      error: AppColors.error,
+      primary: AppColors.darkPrimary,
+      onPrimary: AppColors.darkOnPrimary,
+      surface: AppColors.darkCard,
+      onSurface: AppColors.darkOnSurface,
+      error: AppColors.darkError,
     ),
 
-    cardTheme: _cardTheme(),
+    cardTheme: _cardTheme(AppColors.darkCard),
     inputDecorationTheme: _inputDecorationTheme(),
     elevatedButtonTheme: _elevatedButtonTheme(),
     scrollbarTheme: _scrollbarTheme(),
@@ -60,9 +60,9 @@ class AppTheme {
     switchTheme: _switchThemeData(),
   );
 
-  static CardThemeData _cardTheme() {
+  static CardThemeData _cardTheme(Color color) {
     return CardThemeData(
-      color: AppColors.card,
+      color: color,
       elevation: 3,
       shadowColor: Colors.black12,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),

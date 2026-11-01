@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_model.dart';

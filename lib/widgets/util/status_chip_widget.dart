@@ -4,8 +4,9 @@ import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 
 class StatusChip extends StatelessWidget {
   final bool active;
+  final double? fontsize;
 
-  const StatusChip({super.key, required this.active});
+  const StatusChip({super.key, required this.active, this.fontsize});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class StatusChip extends StatelessWidget {
         active ? '●  ${AppLocalizations.of(context)!.status_actif}' : '●  ${AppLocalizations.of(context)!.status_inactif}',
         style: TextStyle(
           color: color,
-          fontSize: 12,
+          fontSize: fontsize ?? 12,
           fontWeight: FontWeight.w600,
         ),
       ),

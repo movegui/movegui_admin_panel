@@ -21,6 +21,7 @@ import 'package:movegui_admin_panel/screens/movegui_profile_screen.dart';
 import 'package:movegui_admin_panel/screens/pressing/add_pressing_screen.dart';
 import 'package:movegui_admin_panel/screens/pressing/all_pressing_screen.dart';
 import 'package:movegui_admin_panel/screens/pressing/edit_pressing_screen.dart';
+import 'package:movegui_admin_panel/screens/pressing/pressing_details_screen.dart';
 import 'package:movegui_admin_panel/screens/pressing/pressing_screen.dart';
 import 'package:movegui_admin_panel/screens/pressing/pressing_services_types_screen.dart';
 import 'package:movegui_admin_panel/screens/recipes_screen.dart';
@@ -34,7 +35,6 @@ import 'package:movegui_admin_panel/widgets/app/employe/all_employe_widget.dart'
 import 'package:movegui_admin_panel/widgets/app/manager/add_manager_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/manager/all_manager_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/menu/my_menu.dart';
-import 'package:movegui_admin_panel/widgets/app/store/store_detail_widget.dart';
 import 'package:movegui_admin_panel/widgets/web/web_appbar.dart';
 
 class AppRouter {
@@ -445,7 +445,8 @@ class AppRouter {
               path: '${RouteConstants.STORE_DETAIL_ROUTE}/:id',
               builder: (context, state) {
                 final id = state.pathParameters['id']!;
-                return StoreDetailWidget(storeId: id);
+                // return StoreDetailWidget(storeId: id);
+                return PressingDetailsScreen(storeId: id);
               },
             ),
           ],

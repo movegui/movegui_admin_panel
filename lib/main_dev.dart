@@ -111,6 +111,7 @@ class _MoveguiAdminAppState extends ConsumerState<MoveguiAdminApp> {
   @override
   Widget build(BuildContext context) {
     final router = ref.watch(AppRouter.routerProvider);
+    final themeState = ref.watch(themeProvider);
 
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
@@ -127,8 +128,8 @@ class _MoveguiAdminAppState extends ConsumerState<MoveguiAdminApp> {
       ],
       title: 'Movegui Panel',
       theme: Styles.themeData(
-        ref.watch(themeProvider),
-        isDarkTheme: false,
+        themeState,
+        isDarkTheme: themeState.isDarkTheme,
         context: context,
       ),
       //   theme: AppTheme.lightTheme,

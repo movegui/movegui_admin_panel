@@ -124,6 +124,20 @@ class _PressingDashboardLoaderState extends State<_PressingDashboardLoader> {
       serviceTypes: serviceTypeCount,
       configuredOpeningHours: configuredHoursCount,
       incompleteOpeningHours: pressings.length - configuredHoursCount,
+      totalOrders: 0,
+      pendingOrders: 0,
+      preparingOrders: 0,
+      deliveringOrders: 0,
+      completedOrders: 0,
+      cancelledOrders: 0,
+      totalCustomers: 0,
+      totalDrivers: 0,
+      onlineDrivers: 0,
+      restaurants: 0,
+      pressings: 0,
+      supermarkets: 0,
+      pharmacies: 0,
+      totalRevenue: 0,
     );
   }
 
@@ -192,7 +206,7 @@ class _PressingDashboardLoaderState extends State<_PressingDashboardLoader> {
         ),
         valueLabel: AppLocalizations.of(context)!.pressing_service_configured,
         buttonLabel: AppLocalizations.of(context)!.btn_see,
-        onPressed: () => context.go(RouteConstants.PRESSING_ALL_ROUTE), 
+        onPressed: () => context.go(RouteConstants.PRESSING_ALL_ROUTE),
       ),
 
       ModuleConfigurationItemModel(

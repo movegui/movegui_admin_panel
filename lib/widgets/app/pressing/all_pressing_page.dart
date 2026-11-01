@@ -93,7 +93,7 @@ class AllPressingPageState extends ConsumerState<AllPressingPage> {
                             child: PressingTabRowWidget(
                               pressing: press,
                               onEdit: (PressingModel value) {
-                                context.go(
+                                context.push(
                                   '${RouteConstants.PRESSING_EDIT_ROUTE}/${value.id}',
                                 );
                               },

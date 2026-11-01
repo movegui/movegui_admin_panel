@@ -1,183 +1,117 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'package:movegui_admin_panel/providers/store_model_provider.dart';
+import 'package:go_router/go_router.dart';
+import 'package:movegui_admin_panel/consts/route_constants.dart';
+import 'package:movegui_admin_panel/l10n/app_localizations.dart';
+import 'package:movegui_admin_panel/models/button_info.dart';
+import 'package:movegui_admin_panel/models/dashboard/module_item.dart';
+import 'package:movegui_admin_panel/models/store/store_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
-import 'package:movegui_admin_panel/widgets/app/loading_widget.dart';
+import 'package:movegui_admin_panel/widgets/app/pressing/dashboard/pressing_kpi_card.dart';
 import 'package:movegui_admin_panel/widgets/app/store/store_employe_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/store/store_info_widget.dart';
 import 'package:movegui_admin_panel/widgets/app/store/store_order_widget.dart';
+import 'package:movegui_admin_panel/widgets/util/button_widget.dart';
+import 'package:movegui_admin_panel/widgets/util/form_card_widget.dart';
+import 'package:movegui_admin_panel/widgets/util/layout_buider_widget.dart';
 
-class StoreDetailWidget extends ConsumerWidget {
-  final String storeId;
+class StoreDetailWidget<M extends StoreModel> extends StatelessWidget {
+  final List<ModuleItem> staticsItems;
+  final M model;
 
-  const StoreDetailWidget({super.key, required this.storeId});
+  const StoreDetailWidget({
+    super.key,
+    required this.staticsItems,
+    required this.model,
+  });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Responsive.isDesktop(context)
-        ? buidDesktop(context, ref)
-        : buildMobile(context, ref);
-  }
-
-  Widget buidDesktop(BuildContext context, WidgetRef ref) {
-    final storeProvider = ref.watch(StoreModelProvider.storeProvider(storeId));
-    return storeProvider.when(
-      data: (store) {
-        return Scaffold(
-          body: CustomScrollView(
-            slivers: [
-              /// HEADER IMAGE
-              SliverAppBar(
-                expandedHeight: 300,
-                pinned: true,
-                flexibleSpace: FlexibleSpaceBar(
-                  title: Text(store.name),
-                  background: Image.network(store.imageUrl, fit: BoxFit.cover),
-                ),
-              ),
-
-              /// CONTENT
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      /// DESCRIPTION
-                      Text(
-                        store.description ?? '',
-                        style: const TextStyle(fontSize: 16),
-                      ),
-
-                      const SizedBox(height: 20),
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          /// STORE INFO
-                          Expanded(child: StoreInfoWidget(storeModel: store)),
-
-                          const SizedBox(height: 20),
-
-/*
-                          /// OPENING HOURS
-                          Expanded(
-                            child: StoreOpenHoursWidget(
-                              weeklyHours: store.weeklyHours,
-                            ),
-                          ),
-                          */
-                        ],
-                      ),
-
-                      const SizedBox(height: 20),
-
-                      /*
-                  /// SERVICES
-                  const PressingServiceDetailsWidget(),
-
-                  const SizedBox(height: 20),
-                  */
-
-                      /// EMPLOYEES
-                      StoreEmployeWidget(employees: store.staff ?? []),
-
-                      const SizedBox(height: 20),
-
-                      /// ORDERS
-                      const StoreOrderWidget(),
-
-                      const SizedBox(height: 100),
-                    ],
-                  ),
-                ),
-              ),
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final double padding = Responsive.isMobile(context) ? 12 : 20;
+        return SingleChildScrollView(
+          padding: EdgeInsets.all(padding),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _buildStatisticsSection(staticsItems),
+              const SizedBox(height: 16),
+              _buildInformationCard(context),
+              const SizedBox(height: 16),
+              const StoreOrderWidget(),
             ],
           ),
         );
-      },
-
-      error: (error, _) => Text(error.toString()),
-      // loading: () => SizedBox(width: 40, height: 40, child: const CircularProgressIndicator(strokeWidth: 3,)),
-      loading: () {
-        return LoadingWidget();
       },
     );
   }
 
-  Widget buildMobile(BuildContext context, WidgetRef ref) {
-    final storeProvider = ref.watch(StoreModelProvider.storeProvider(storeId));
-    return storeProvider.when(
-      data: (store) {
-        return Scaffold(
-          body: CustomScrollView(
-            slivers: [
-              /// HEADER IMAGE
-              SliverAppBar(
-                expandedHeight: 250,
-                pinned: true,
-                flexibleSpace: FlexibleSpaceBar(
-                  title: Text(store.name),
-                  background: Image.network(store.imageUrl, fit: BoxFit.cover),
-                ),
+  Widget _buildStatisticsSection(List<ModuleItem> items) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        const spacing = 12.0;
+        int columns;
+        Responsive.isDesktop(context) ? columns = 5 : columns = 1;
+        final width =
+            (constraints.maxWidth - (spacing * (columns - 1))) / columns;
+
+        return Wrap(
+          spacing: spacing,
+          runSpacing: spacing,
+          children: [
+            for (final item in items)
+              SizedBox(
+                width: width,
+                child: PressingKpiCard(item: item),
               ),
+          ],
+        );
+      },
+    );
+  }
 
-              /// CONTENT
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      /// DESCRIPTION
-                      Text(
-                        store.description ?? '',
-                        style: const TextStyle(fontSize: 16),
-                      ),
-
-                      const SizedBox(height: 20),
-
-                      /// STORE INFO
-                      StoreInfoWidget(storeModel: store),
-
-                      const SizedBox(height: 20),
-
-                      /// OPENING HOURS
-                  //    StoreOpenHoursWidget(weeklyHours: store.weeklyHours),
-
-                      const SizedBox(height: 20),
-
-                      /*
-                  /// SERVICES
-                  const PressingServiceDetailsWidget(),
-
-                  const SizedBox(height: 20),
-                  */
-
-                      /// EMPLOYEES
-                      StoreEmployeWidget(employees: store.staff ?? []),
-
-                      const SizedBox(height: 20),
-
-                      /// ORDERS
-                      const StoreOrderWidget(),
-
-                      const SizedBox(height: 100),
-                    ],
-                  ),
+  Widget _buildInformationCard(BuildContext context) {
+    return LayoutBuilderWidget(
+      children: [
+        FormCardWidget(
+          child: StoreInfoWidget(
+            model: model,
+            options: [
+              ButtonWidget(
+                onPressed: (item) async {
+                  context.push(
+                    '${RouteConstants.PRESSING_EDIT_ROUTE}/${model.id}',
+                  );
+                },
+                buttonItem: ButtonInfo(
+                  title: AppLocalizations.of(context)!.btn_update,
+                  enabled: true,
                 ),
               ),
             ],
           ),
-        );
-      },
+        ),
 
-      error: (error, _) => Text(error.toString()),
-      // loading: () => SizedBox(width: 40, height: 40, child: const CircularProgressIndicator(strokeWidth: 3,)),
-      loading: () {
-        return LoadingWidget();
-      },
+        /// EMPLOYEES
+        FormCardWidget(
+          child: StoreEmployeWidget(
+            employees: model.staff ?? [],
+            options: [
+              ButtonWidget(
+                onPressed: (item) async {
+                  context.push(
+                    '${RouteConstants.PRESSING_EDIT_ROUTE}/${model.id}',
+                  );
+                },
+                buttonItem: ButtonInfo(
+                  title: AppLocalizations.of(context)!.btn_update,
+                  enabled: true,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
