@@ -49,3 +49,53 @@ class DashboardStatCard extends StatelessWidget {
     );
   }
 }
+
+
+/*
+
+class _DashboardCard extends StatelessWidget {
+  final String title;
+  final IconData icon;
+  final Widget child;
+  final Widget? trailing;
+
+  const _DashboardCard({
+    required this.title,
+    required this.icon,
+    required this.child,
+    this.trailing,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: _cardDecoration(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(icon, color: MoveGuiOverviewPage.burgundy, size: 21),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w700,
+                    color: MoveGuiOverviewPage.burgundy,
+                  ),
+                ),
+              ),
+              if (trailing != null) trailing!,
+            ],
+          ),
+          const SizedBox(height: 20),
+          child,
+        ],
+      ),
+    );
+  }
+}
+ */

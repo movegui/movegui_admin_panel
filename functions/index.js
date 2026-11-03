@@ -34,12 +34,15 @@ setGlobalOptions({ maxInstances: 10 });
 const functions = require("firebase-functions");
 const admin = require("firebase-admin"); 
 const { getAuth } = require("firebase-admin/auth");
+const { getFirestore, Firestore, FieldValue } = require("firebase-admin/firestore");
 const axios = require('axios');
 admin.initializeApp();
+const db = getFirestore();
 const cors = require('cors')({ origin: true });
 
 const { onCall, HttpsError } = require("firebase-functions/v2/https");
 const { defineSecret } = require("firebase-functions/params");
+const { onDocumentCreated } = require("firebase-functions/v2/firestore");
 
 
 
@@ -159,13 +162,9 @@ exports.setSuperAdminRole = functions.https.onRequest(async (req, res) => {
     } 
 
     try {
-      console.log("UID received:", uid);
-      console.log("ROLE received:", role);
 
       const user = await getAuth().getUser(uid);
 
-      console.log("Found Firebase user:", user.email);
-  
       await getAuth().setCustomUserClaims(uid, {
         role: role, 
       });
@@ -398,6 +397,46 @@ exports.addressFromGeoCoord = functions.https.onRequest(
       }
     });
   }
+);
+
+exports.onPressingCreated = onDocumentCreated(
+  {
+    document: "pressings_model/{establishmentId}",
+    region: "europe-west1",
+  },
+  async (event) => {
+    const establishment = event.data?.data();
+
+    if (!establishment) {
+      console.log('error happen');
+      return;
+    }
+
+    const establishmentId = event.params?.establishmentId ?? establishment.id ?? event.data?.id;
+    const activityId = `establishment_created_${establishmentId}`;
+
+    await db
+      .collection("activity_logs")
+      .doc(activityId)
+      .set({
+        storeType: {
+          id: "pressing",
+          name: "Pressing",
+          createdAt: FieldValue.serverTimestamp(),
+        },
+        activityType: "establishment_created",
+        category: "establishment",
+        title: "Nouvel établissement",
+        description: `${establishment.name ?? "Un établissement"} a été ajouté`,
+        establishmentId,
+        userId: null,
+        metadata: {
+          name: establishment.name ?? null,
+          type: establishment.storeType ?? "pressing",
+        },
+        createdAt: FieldValue.serverTimestamp(),
+      });
+  },
 );
 
   

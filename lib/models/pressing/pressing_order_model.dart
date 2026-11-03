@@ -1,11 +1,12 @@
 import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_order_item.dart';
+import 'package:movegui_admin_panel/models/store/store_model.dart';
 import 'package:movegui_admin_panel/models/store/store_order_model.dart';
-import 'package:movegui_admin_panel/models/user_model.dart';
+
 
 class PressingOrderModel
-    extends StoreOrderModel<PressingModel, UserModel, PressingOrderItem> {
+    extends StoreOrderModel<PressingModel, PressingOrderItem> {
   PressingOrderModel({
     required super.id,
     required super.name,
@@ -52,6 +53,8 @@ class PressingOrderModel
     status: json['status'], 
     currency: json['currency'],
     orderId: json['orderId'],
-    storeType: json['storeType']
+    storeType: StoreType.values.firstWhere(
+      (elem) => elem.name == StoreTypeModel.fromJson(json['storeType']).name,
+    )
   );
 }

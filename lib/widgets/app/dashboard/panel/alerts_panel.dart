@@ -1,67 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:movegui_admin_panel/consts/app_colors.dart';
-import 'package:movegui_admin_panel/models/dashboard/dashboard_model_data.dart';
-import 'package:movegui_admin_panel/widgets/app/dashboard/panel/dashbord_panel.dart';
-import 'package:movegui_admin_panel/widgets/app/dashboard/panel/empty_stat_panel.dart';
+import 'package:movegui_admin_panel/models/dashboard/module_item.dart';
+import 'package:movegui_admin_panel/widgets/app/dashboard/dashbord_cards.dart';
+import 'package:movegui_admin_panel/widgets/app/dashboard/panel/empty_panel.dart';
+import 'package:movegui_admin_panel/widgets/app/dashboard/panel/panel_item_widget.dart';
 
 class AlertsPanel extends StatelessWidget {
-  final DashboardModelData stats;
+  final List<ModuleItem> modules;
 
-  const AlertsPanel({super.key, required this.stats});
+  const AlertsPanel({super.key, required this.modules});
 
   @override
   Widget build(BuildContext context) {
-    final alerts = <Widget>[
-      if (stats.pendingOrders > 0)
-        AlertTile(
-          icon: Icons.hourglass_top_rounded,
-          title: '${stats.pendingOrders} commandes en attente',
-          subtitle: 'À traiter rapidement',
-          color: AppColors.warning,
-        ),
-      if (stats.totalDrivers > 0 && stats.onlineDrivers == 0)
-        const AlertTile(
-          icon: Icons.delivery_dining,
-          title: 'Aucun livreur connecté',
-          subtitle: 'Vérifier la disponibilité des livreurs',
-          color: AppColors.error,
-        ),
-      if (stats.cancelledOrders > 0)
-        AlertTile(
-          icon: Icons.cancel_rounded,
-          title: '${stats.cancelledOrders} commandes annulées',
-          subtitle: 'Analyser les raisons d’annulation',
-          color: AppColors.error,
-        ),
-    ];
-
-    return DashboardPanel(
+    return DashBordCards(
       title: 'Alertes',
       icon: Icons.notifications_active_rounded,
-      child: alerts.isEmpty
-          ? const EmptyStatePanel(
+      child: modules.isEmpty
+          ? const EmptyPanel(
               icon: Icons.verified_rounded,
               title: 'Tout est normal',
               subtitle: 'Aucune alerte importante pour le moment.',
             )
-          : Column(children: alerts),
+          : Column(
+              children: modules
+                  .map((module) => PanelItemWidget(moduleItem: module))
+                  .toList(),
+            ),
     );
   }
 }
 
 class AlertTile extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String subtitle;
-  final Color color;
-
-  const AlertTile({
-    super.key,
-    required this.icon,
-    required this.title,
-    required this.subtitle,
-    required this.color,
-  });
+  final ModuleItem moduleItem;
+  const AlertTile({super.key, required this.moduleItem});
 
   @override
   Widget build(BuildContext context) {
@@ -69,24 +39,28 @@ class AlertTile extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.08),
+        color: moduleItem.color!.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: color.withOpacity(0.2)),
+        border: Border.all(color: moduleItem.color!.withValues(alpha: 0.2)),
       ),
       child: Row(
         children: [
-          Icon(icon, color: color),
+          Icon(moduleItem.icon, color: moduleItem.color),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  title,
+                  moduleItem.value,
                   style: const TextStyle(fontWeight: FontWeight.w800),
                 ),
+
                 const SizedBox(height: 3),
-                Text(subtitle, style: const TextStyle(color: Colors.black54)),
+                Text(
+                  moduleItem.description ?? '',
+                  style: const TextStyle(color: Colors.black54),
+                ),
               ],
             ),
           ),

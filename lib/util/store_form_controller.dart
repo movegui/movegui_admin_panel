@@ -27,7 +27,7 @@ abstract class StoreFormController<T extends StoreModel>
   List<OpenHoursModel> weeklyHours = [];
   File? pickedImage;
   Uint8List? webImage;
-  StoreTypeModel? selectedType;
+  StoreType? selectedType = StoreType.laundry;
   CategoriesModel? categoriesModel;
   AdressModel? adressModel;
   double? rating;
@@ -60,7 +60,7 @@ abstract class StoreFormController<T extends StoreModel>
     webImage = null;
     staff!.clear();
     weeklyHours.clear();
-    selectedType = null;
+    selectedType =  StoreType.laundry;
     categoriesModel = null;
     adressModel = null;
     rating = null;
@@ -83,5 +83,6 @@ abstract class StoreFormController<T extends StoreModel>
     weeklyHours = model.weeklyHours;
     isCompleted = model.isComplete;
     isActive = model.isActive ?? true;
+    selectedType = model.storeType;
   }
 }

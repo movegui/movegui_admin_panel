@@ -39,4 +39,10 @@ static const Color darkCard = Color(0xFF211E2D);
 static const Color darkOnSurface = Color(0xFFF2EFF8);
 static const Color darkOnPrimary = Color(0xFF211E2D);
 static const Color darkError = Color(0xFFEF6B78);
+static const Color descriptionColor =  Color(0xFF645A7D);
+
+ // static const burgundy = Color(0xFFA3171F);
+  static const navy = Color(0xFF14244A);
+  static const background = Color(0xFFF5F7FB);
+ // static const border = Color(0xFFE4E8F0);
 }

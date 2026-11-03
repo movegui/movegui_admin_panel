@@ -147,7 +147,7 @@ class PressingFormPageState extends State<PressingFormPage> {
                       children: [
                         itemsWidget(stats, dashboardService),
                         const SizedBox(height: 16),
-                        OrderStatusPanel(stats: stats),
+                        OrderStatusPanel(stats: stats,),
                       ],
                     ),
                   ),

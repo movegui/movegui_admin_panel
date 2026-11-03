@@ -11,11 +11,13 @@ class ModuleItem<T extends Model> extends Model {
     required super.name,
     required super.createdAt,
     required super.description,
-    required super.isActive
+    required super.isActive,
+    this.onTap,
   });
 
   final String value;
   final IconData icon;
   final Color? color;
   final T? model;
+  final VoidCallback? onTap;
 }

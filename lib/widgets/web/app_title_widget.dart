@@ -10,7 +10,7 @@ class AppTitleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final showTitle = constraints.maxWidth > 160 && !isCollapse;
+        final showTitle = constraints.maxWidth > 200 && !isCollapse;
         return Row(
           children: [
             Container(

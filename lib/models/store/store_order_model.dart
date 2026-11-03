@@ -3,19 +3,17 @@ import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/order_item_model.dart';
 import 'package:movegui_admin_panel/models/order_model.dart';
 import 'package:movegui_admin_panel/models/store/store_model.dart';
-import 'package:movegui_admin_panel/models/user_model.dart';
 
 
-enum OrderStoreType { pressing, restaurant, pharmacy, boutique, gas, courier,}
+
 
 abstract class StoreOrderModel<
   S extends StoreModel,
-  U extends UserModel,
   T extends OrderItemModel
 >
-    extends OrderModel<U, T> {
+    extends OrderModel<T> {
   final String storeId;
-   final OrderStoreType storeType;
+   final StoreType storeType;
   DateTime? pickupDate;
   DateTime? deliveryDate;
   AdressModel? pickupAdress;
@@ -48,6 +46,6 @@ abstract class StoreOrderModel<
     'deliveryDate': deliveryDate == null ? '' : DateFormat('dd MMM yyyy', 'fr').format(deliveryDate!),      
     'pickupAdress': pickupAdress?.toJson(),
     'deliveryAdress': deliveryAdress?.toJson(),
-    'storeType': storeType.name
+    'storeType': storeType.type.toJson()
   };
 }

@@ -3,6 +3,7 @@ import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_type_model.dart';
+import 'package:movegui_admin_panel/models/store/store_model.dart';
 import 'package:movegui_admin_panel/services/form_services/pressing_form_service.dart';
 import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
 import 'package:movegui_admin_panel/services/message_service.dart';
@@ -60,7 +61,7 @@ class PressingSubmitHandler
       email: form.email.text,
       staff: form.staff,
       weeklyHours: form.weeklyHours,
-      storeType: form.selectedType,
+      storeType: form.selectedType ?? StoreType.laundry,
       createdAt: DateTime.now(),
       imageUrl: imageUrl,
       rating: form.rating,

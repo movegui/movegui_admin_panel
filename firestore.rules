@@ -239,7 +239,7 @@ service cloud.firestore {
       //  && (isOwner(id) || isAdmin() || isSuperAdmin());
     }
 
-    match /activities/{id} {
+    match /activity_logs/{id} {
 
       allow create: if isSignedIn()
       //     && ( isAdmin() || isSuperAdmin());

@@ -17,6 +17,13 @@ class SectionContainerWidget extends StatelessWidget {
         color: color ?? Theme.of(context).colorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: const Color(0xFFE2E7EF), width: 1),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x0A000000),
+            blurRadius: 12,
+            offset: Offset(0, 4),
+          ),
+        ],
       ),
       child: child,
     );

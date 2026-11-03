@@ -7,18 +7,15 @@ import 'package:movegui_admin_panel/consts/route_constants.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
-import 'package:movegui_admin_panel/providers/appbar_title_provider.dart';
 import 'package:movegui_admin_panel/providers/auth_provider.dart';
-import 'package:movegui_admin_panel/providers/dark_theme_provider.dart';
 import 'package:movegui_admin_panel/providers/dashboard_menu_provider.dart';
 import 'package:movegui_admin_panel/providers/providers.dart';
+import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 import 'package:movegui_admin_panel/services/user_service.dart';
-import 'package:movegui_admin_panel/util/menu_tile.dart';
 import 'package:movegui_admin_panel/widgets/app/menu/menu_item.dart';
 import 'package:movegui_admin_panel/widgets/app/menu/menu_item_widget.dart';
-import 'package:movegui_admin_panel/widgets/util/profile_menu_title.dart';
 import 'package:movegui_admin_panel/widgets/web/app_title_widget.dart';
 import 'package:movegui_admin_panel/widgets/web/menu_section_title.dart';
 
@@ -92,22 +89,26 @@ class DashBoardSideMenu extends ConsumerWidget {
               );
             }
 
+            final menu = MoveGuiDrawer(
+              role: currentUser.role,
+              onNavigate: (route) {
+                if (route.startsWith('/')) context.go(route);
+              },
+              onLogout: () {
+                // ref.read(authRoles.notifier).logout();
+                FirebaseAuth.instance.signOut();
+                context.go(RouteConstants.LOGIN_ROUTE);
+              },
+              onThemeChanged: (value) {
+                themeState.setDarkTheme(themeValue: value);
+              },
+            );
+
+            if (Responsive.isDesktop(context)) return menu;
+
             return Drawer(
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              child: MoveGuiDrawer(
-                role: currentUser.role,
-                onNavigate: (route) {
-                  if (route.startsWith('/')) context.go(route);
-                },
-                onLogout: () {
-                  // ref.read(authRoles.notifier).logout();
-                  FirebaseAuth.instance.signOut();
-                  context.go(RouteConstants.LOGIN_ROUTE);
-                },
-                onThemeChanged: (value) {
-                  themeState.setDarkTheme(themeValue: value);
-                },
-              ),
+              child: menu,
             );
           },
           loading: () => const CircularProgressIndicator(),
@@ -216,6 +217,12 @@ class MoveGuiDrawer extends ConsumerWidget {
               route: RouteConstants.PRESSING_ROUTE,
               enabled: true,
               subMenus: [
+                MenuItem(
+                  title: l10n.dashboard_menu_overview,
+                  icon: Icons.dashboard_outlined,
+                  route: RouteConstants.PRESSING_ROUTE,
+                  enabled: true,
+                ),
                 MenuItem(
                   title: l10n.dashboard_menu_all_pressings,
                   icon: Icons.list,
@@ -709,15 +716,16 @@ class MoveGuiDrawer extends ConsumerWidget {
     final menuController = ref.read(dashboardMenuProvider);
     final l10n = AppLocalizations.of(context)!;
     final menuItems = _menus(l10n);
-    final width = menuState.collapsed ? 82.0 : 280.0;
+    //  final width = menuState.collapsed ? 82.0 : 280.0;
     final currentUser = ref.watch(userProviderState).user;
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 250),
       curve: Curves.easeInOut,
-      width: width,
-      decoration: const BoxDecoration(
-        color: AppColors.burgundy,
+      width: menuState.collapsed ? 82.0 : 367.0,
+      decoration: BoxDecoration(
+        color: Theme.of(context).primaryColor,
+        borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
             color: Color(0x22000000),
@@ -726,82 +734,91 @@ class MoveGuiDrawer extends ConsumerWidget {
           ),
         ],
       ),
-      child: Column(
-        children: [
-          // HEADER
-          Container(
-            height: 82,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: AppTitleWidget(isCollapse: menuState.collapsed),
-          ),
-          const Divider(color: Color(0xFFAD5559), height: 1),
-          const SizedBox(height: WidgetConstants.sepWidget),
-          if (!menuState.collapsed)
-            MenuSectionTitle(
-              title: AppLocalizations.of(context)!.menu_principal.toUpperCase(),
-            ),
-          Expanded(
-            child: ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              children: menuItems.map((menu) {
-                return MenuItemWidget(
-                  menuItem: menu,
-                  isCollapsed: menuState.collapsed,
-                  expandedItems: menuState.expandedItems,
-                  expansionKey: menu.title,
-                  onExpanded: (key, value) {
-                    menuController.setExpanded(key, value);
-                  },
-                  onNavigate: (menuItem) {
-                    final route = menuItem.route;
-                    menuController.select(route ?? menuItem.title);
-                    if (route != null) onNavigate(route);
-                  },
-                  selected: menuState.selected,
-                );
-              }).toList(),
-            ),
-          ),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final isCollapsed = menuState.collapsed || constraints.maxWidth < 180;
 
-          // PREFERENCES
-          if (!menuState.collapsed)
-            MenuSectionTitle(
-              title: AppLocalizations.of(context)!.menu_preferency,
-            ),
-          _preferenceItem(
-            collapsed: menuState.collapsed,
-            darkMode: menuState.darkMode,
-            onChanged: (value) {
-              menuController.setDarkMode(value);
-              onThemeChanged?.call(value);
-            },
-          ),
+          return Column(
+            children: [
+              // HEADER
+              Container(
+                height: 82,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: AppTitleWidget(isCollapse: isCollapsed),
+              ),
+              const Divider(color: Color(0xFFAD5559), height: 1),
+              const SizedBox(height: WidgetConstants.sepWidget),
+              if (!isCollapsed)
+                MenuSectionTitle(
+                  title: AppLocalizations.of(
+                    context,
+                  )!.menu_principal.toUpperCase(),
+                ),
+              Expanded(
+                child: ListView(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  children: menuItems.map((menu) {
+                    return MenuItemWidget(
+                      menuItem: menu,
+                      isCollapsed: isCollapsed,
+                      expandedItems: menuState.expandedItems,
+                      expansionKey: menu.title,
+                      onExpanded: (key, value) {
+                        menuController.setExpanded(key, value);
+                      },
+                      onNavigate: (menuItem) {
+                        final route = menuItem.route;
+                        menuController.select(route ?? menuItem.title);
+                        if (route != null) onNavigate(route);
+                      },
+                      selected: menuState.selected,
+                    );
+                  }).toList(),
+                ),
+              ),
 
-          const Divider(
-            color: Color(0xFFAD5559),
-            height: 24,
-            indent: 16,
-            endIndent: 16,
-          ),
+              // PREFERENCES
+              if (!isCollapsed)
+                MenuSectionTitle(
+                  title: AppLocalizations.of(context)!.menu_preferency,
+                ),
+              _preferenceItem(
+                collapsed: isCollapsed,
+                darkMode: menuState.darkMode,
+                onChanged: (value) {
+                  menuController.setDarkMode(value);
+                  onThemeChanged?.call(value);
+                },
+              ),
 
-          // USER PROFILE
-          _profile(collapsed: menuState.collapsed, currentUser: currentUser!),
+              const Divider(
+                color: Color(0xFFAD5559),
+                height: 24,
+                indent: 16,
+                endIndent: 16,
+              ),
 
-          const SizedBox(height: 12),
+              // USER PROFILE
+              _profile(collapsed: isCollapsed, currentUser: currentUser!),
 
-          // COLLAPSE BUTTON
-          IconButton(
-            onPressed: () => menuController.setCollapsed(!menuState.collapsed),
-            icon: Icon(
-              menuState.collapsed
-                  ? Icons.keyboard_double_arrow_right
-                  : Icons.keyboard_double_arrow_left,
-              color: Colors.white,
-            ),
-          ),
+              const SizedBox(height: 12),
 
-          const SizedBox(height: 12),
-        ],
+              // COLLAPSE BUTTON
+              IconButton(
+                onPressed: () =>
+                    menuController.setCollapsed(!menuState.collapsed),
+                icon: Icon(
+                  menuState.collapsed
+                      ? Icons.keyboard_double_arrow_right
+                      : Icons.keyboard_double_arrow_left,
+                  color: Colors.white,
+                ),
+              ),
+
+              const SizedBox(height: 12),
+            ],
+          );
+        },
       ),
     );
   }
@@ -834,8 +851,7 @@ class MoveGuiDrawer extends ConsumerWidget {
     );
   }
 
-  Widget _profile({required bool collapsed, required UserModel currentUser,}) {
-  
+  Widget _profile({required bool collapsed, required UserModel currentUser}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: ListTile(
@@ -847,10 +863,10 @@ class MoveGuiDrawer extends ConsumerWidget {
         ),
         title: collapsed
             ? null
-            :  Text(
+            : Text(
                 (currentUser.personModel?.name.isNotEmpty ?? false)
-                  ? currentUser.personModel!.name
-                  : currentUser.name.isNotEmpty
+                    ? currentUser.personModel!.name
+                    : currentUser.name.isNotEmpty
                     ? currentUser.name
                     : currentUser.role.name,
                 style: TextStyle(
@@ -861,8 +877,10 @@ class MoveGuiDrawer extends ConsumerWidget {
               ),
         subtitle: collapsed
             ? null
-            :  Text(
-                currentUser.personModel?.email ?? currentUser.personModel?.phone ?? 'Email non disponible',
+            : Text(
+                currentUser.personModel?.email ??
+                    currentUser.personModel?.phone ??
+                    'Email non disponible',
                 style: TextStyle(color: Color(0xFFE8BFC1), fontSize: 10),
               ),
         trailing: collapsed

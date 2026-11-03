@@ -44,7 +44,10 @@ class PatisserieModel extends StoreModel {
         category: CategoriesModel.fromJson(json['category']),
         createdAt: json['createdAt'] != null ? json['createdAt'].toDate() : DateTime.now(),
         weeklyHours: (json['weeklyHours'] as List? ?? []).map((e) => OpenHoursModel.fromJson(e)).toList(),
-         storeType: RestaurantTypeModel.fromJson(json['storeType']),
+         storeType: StoreType.values.firstWhere(
+          (store) => store.type.name == (json['type'] as StoreType).name,
+          orElse: () => StoreType.laundry,
+        ),
          isActive: json['isActive'] as bool,
       );
 }

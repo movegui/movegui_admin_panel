@@ -37,7 +37,10 @@ class SupplierModel extends StoreModel {
     createdAt: json['createdAt'] != null
         ? json['createdAt'].toDate()
         : DateTime.now(),
-    storeType: RestaurantTypeModel.fromJson(json['storeType']),
+    storeType: StoreType.values.firstWhere(
+          (store) => store.type.name == (json['type'] as StoreType).name,
+          orElse: () => StoreType.laundry,
+        ),
     weeklyHours: (json['weeklyHours'] as List? ?? [])
         .map(
           (e) =>

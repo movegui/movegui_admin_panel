@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/consts/app_constants.dart';
-import 'package:movegui_admin_panel/widgets/app/dashboard/panel/dashbord_panel.dart';
-import 'package:movegui_admin_panel/widgets/app/dashboard/panel/empty_stat_panel.dart';
+import 'package:movegui_admin_panel/widgets/app/dashboard/dashbord_cards.dart';
+import 'package:movegui_admin_panel/widgets/app/dashboard/panel/empty_panel.dart';
+
 
 class RecentActivitiesPanel extends StatelessWidget {
   final FirebaseFirestore firestore;
@@ -11,12 +12,12 @@ class RecentActivitiesPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DashboardPanel(
+    return DashBordCards(
       title: 'Activités récentes',
       icon: Icons.history_rounded,
       child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: firestore
-            .collection(MoveGuiCollections.COLLECTION_PRESSINGS)
+            .collection(MoveGuiCollections.COLLECTION_RECENTE_CTIVITES)
             .orderBy('createdAt', descending: true)
             .limit(8)
             .snapshots(),
@@ -30,7 +31,7 @@ class RecentActivitiesPanel extends StatelessWidget {
 
           final docs = snapshot.data?.docs ?? [];
           if (docs.isEmpty) {
-            return const EmptyStatePanel(
+            return const EmptyPanel(
               icon: Icons.inbox_rounded,
               title: 'Aucune activité récente',
               subtitle: 'Les nouvelles actions apparaîtront ici.',

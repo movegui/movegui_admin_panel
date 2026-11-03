@@ -10,6 +10,7 @@ import 'package:movegui_admin_panel/models/pressing/pressing_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_type_model.dart';
 import 'package:movegui_admin_panel/models/restaurant_model.dart';
+import 'package:movegui_admin_panel/models/store/store_model.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/services/api_service.dart';
 import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
@@ -99,11 +100,8 @@ class SeedService {
       ),
       OpenHoursModel(day: 'Dimanche', isOpen: false, slots: []),
     ],
-    storeType: RestaurantTypeModel(
-      id: Uuid().v4(),
-      name: faker.company.name(),
-      createdAt: DateTime.now(),
-    ),
+    storeType: StoreType.laundry,
+    
     rating: 0,
     reviewCount: 0,
   );

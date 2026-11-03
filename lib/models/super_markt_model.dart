@@ -44,7 +44,10 @@ class SuperMarktModel extends StoreModel {
         weeklyHours: (json['weeklyHours'] as List? ?? [])
             .map((e) => OpenHoursModel.fromJson(e))
             .toList(),
-        storeType: RestaurantTypeModel.fromJson(json['storeType']),
+        storeType: StoreType.values.firstWhere(
+          (store) => store.type.name == (json['type'] as StoreType).name,
+          orElse: () => StoreType.laundry,
+        ),
         category: CategoriesModel.fromJson(json['category']),
         isActive: json['isActive'] as bool,
       );

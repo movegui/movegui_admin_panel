@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/legacy.dart' show ChangeNotifierProvider;
 import 'package:movegui_admin_panel/services/dark_them_preferences.dart';
 class DarkThemeProvider with ChangeNotifier {
   DarkThemePreference darkThemePreference = DarkThemePreference();

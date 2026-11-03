@@ -2,10 +2,8 @@
 
 import 'package:movegui_admin_panel/models/model.dart';
 import 'package:movegui_admin_panel/models/order_item_model.dart';
-import 'package:movegui_admin_panel/models/user_model.dart';
 
-abstract class OrderModel<M extends UserModel , T extends OrderItemModel> extends Model {
-//  final M user;
+abstract class OrderModel<T extends OrderItemModel> extends Model {
    List<T> items;
    double total;
    OrderStatus status;
@@ -16,7 +14,6 @@ abstract class OrderModel<M extends UserModel , T extends OrderItemModel> extend
     required super.id,
     required super.name,
     required super.createdAt,
- //   required this.user,
     required this.total,
     required this.items,
     required this.status,

@@ -7,11 +7,6 @@ class PressingKpiCard extends KpiCard {
 
   @override
   Widget build(BuildContext context) {
-    /*
-    return _DashboardSurface(
-      padding: const EdgeInsets.all(18),
-      child: 
-      */
 
     return Card(
       elevation: 5,

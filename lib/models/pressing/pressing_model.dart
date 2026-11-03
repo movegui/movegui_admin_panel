@@ -34,14 +34,19 @@ class PressingModel extends StoreModel {
       );
     }
 
+    final rawStoreType = json['storeType'];
+    final String normalizedStoreTypeId = rawStoreType is Map
+        ? (rawStoreType['id'] as String? ?? rawStoreType['name'] as String? ?? 'laundry')
+        : (rawStoreType is String ? rawStoreType : 'laundry');
+
     return PressingModel(
       id: json['id'],
       name: json['name'],
       description: json['description'],
-      imageUrl: json['imageUrl'],
+      imageUrl: json['imageUrl'] ?? '',
       address: AdressModel.fromJson(Map<String, dynamic>.from(addressJson)),
-      email: json['email'],
-      phone: json['telephon'],
+      email: json['email'] ?? '',
+      phone: json['telephon'] ?? '',
       staff: (json['staff'] as List? ?? [])
           .map((e) => UserModel.fromJson(e))
           .toList(),
@@ -51,11 +56,12 @@ class PressingModel extends StoreModel {
       weeklyHours: (json['weeklyHours'] as List? ?? [])
           .map((e) => OpenHoursModel.fromJson(e))
           .toList(),
-      storeType: json['storeType'] != null
-          ? RestaurantTypeModel.fromJson(json['storeType']) as StoreTypeModel
-          : null,
-      rating: json['rating'] ?? 0.0,
-      reviewCount: json['reviewCount'] ?? 0,
+      storeType: StoreType.values.firstWhere(
+          (store) => store.id == normalizedStoreTypeId || store.name == normalizedStoreTypeId,
+          orElse: () => StoreType.laundry,
+        ),
+      rating: (json['rating'] as num?)?.toDouble() ?? 0.0,
+      reviewCount: json['reviewCount'] as int? ?? 0,
       isComplete: json['isComplete'] is bool
           ? json['isComplete'] as bool
           : false,

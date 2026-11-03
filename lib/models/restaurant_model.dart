@@ -1,4 +1,5 @@
 import 'package:movegui_admin_panel/models/adress_model.dart';
+import 'package:movegui_admin_panel/models/model.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
 import 'package:movegui_admin_panel/models/store/store_model.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
@@ -42,7 +43,10 @@ class RestaurantModel extends StoreModel {
         createdAt: json['createdAt'] != null
             ? json['createdAt'].toDate()
             : DateTime.now(),
-        storeType: RestaurantTypeModel.fromJson(json['storeType']),
+        storeType: StoreType.values.firstWhere(
+          (store) => store.type.name == (json['type'] as StoreType).name,
+          orElse: () => StoreType.laundry,
+        ),
         weeklyHours: (json['weeklyHours'] as List? ?? [])
             .map(
               (e) =>
@@ -60,7 +64,7 @@ class RestaurantModel extends StoreModel {
       );
 }
 
-class RestaurantTypeModel extends StoreTypeModel {
+class RestaurantTypeModel extends Model {
   RestaurantTypeModel({
     required super.id,
     required super.name,

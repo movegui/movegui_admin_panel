@@ -1,4 +1,4 @@
-abstract class Model {
+ class Model {
   final String id;
   final String name;
   final DateTime createdAt;

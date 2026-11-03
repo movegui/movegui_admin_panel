@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:movegui_admin_panel/consts/app_colors.dart';
 import 'package:movegui_admin_panel/consts/route_constants.dart';
+import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/dashboard/dashboard_model_data.dart';
 import 'package:movegui_admin_panel/models/dashboard/module_item.dart';
@@ -11,9 +13,14 @@ import 'package:movegui_admin_panel/util/menu_tile.dart';
 import 'package:movegui_admin_panel/widgets/app/dashboard/dashboard_header.dart';
 import 'package:movegui_admin_panel/widgets/app/dashboard/kpi_card.dart';
 import 'package:movegui_admin_panel/widgets/app/dashboard/panel/alerts_panel.dart';
-import 'package:movegui_admin_panel/widgets/app/dashboard/panel/dashbord_models_panel.dart';
+import 'package:movegui_admin_panel/widgets/app/dashboard/panel/link_panel.dart';
+import 'package:movegui_admin_panel/widgets/app/dashboard/panel/order_evolution_panel.dart';
 import 'package:movegui_admin_panel/widgets/app/dashboard/panel/order_status_panel.dart';
 import 'package:movegui_admin_panel/widgets/app/dashboard/panel/recent_activities_panel.dart';
+import 'package:movegui_admin_panel/widgets/app/dashboard/panel/recent_order_panel.dart';
+import 'package:movegui_admin_panel/widgets/app/dashboard/panel/services_panel.dart';
+import 'package:movegui_admin_panel/widgets/util/section_container_widget.dart';
+import 'package:movegui_admin_panel/widgets/util/section_title_widget.dart';
 import 'package:uuid/uuid.dart';
 
 enum ServiceType { restaurant, pressing, supermarket, pharmacy, delivery }
@@ -67,27 +74,6 @@ class DashboardPage extends StatelessWidget {
                 ),
 
                 MenuTile(
-                  title: AppLocalizations.of(context)!.admin_add_bar_title,
-                  icon: Icon(Icons.admin_panel_settings),
-                  enabled: false,
-                  routeName: RouteConstants.ADMIN_ROUTE,
-                ),
-
-                MenuTile(
-                  title: AppLocalizations.of(context)!.manager_add_bar_title,
-                  icon: Icon(Icons.manage_accounts),
-                  enabled: false,
-                  routeName: RouteConstants.MANAGER_ROUTE,
-                ),
-
-                MenuTile(
-                  title: AppLocalizations.of(context)!.employe_add_bar_title,
-                  icon: Icon(Icons.badge),
-                  enabled: false,
-                  routeName: RouteConstants.EMPLOYE_ROUTE,
-                ),
-
-                MenuTile(
                   title: AppLocalizations.of(context)!.restaurant_add_bar_title,
                   icon: Icon(Icons.restaurant),
                   enabled: false,
@@ -104,10 +90,7 @@ class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: () async {
-        // Le FutureBuilder se reconstruit si la page parente appelle setState.
-        // Pour un dashboard temps réel, tu peux remplacer FutureBuilder par StreamBuilder.
-      },
+      onRefresh: () async {},
       child: Column(
         children: [
           DashboardHeader(
@@ -120,78 +103,15 @@ class DashboardPage extends StatelessWidget {
 
           const SizedBox(height: 12),
           Expanded(
-            child: SingleChildScrollView(
-              //    physics: const AlwaysScrollableScrollPhysics(),
-              //   padding: const EdgeInsets.all(WidgetConstants.sepWidget),
-              child: Column(
-                children: [
-                  itemsWidget(stats, service),
-
-                  const SizedBox(height: 12),
-
-                  LayoutBuilder(
-                    builder: (context, constraints) {
-                      final isLarge = constraints.maxWidth >= 1000;
-                      return Flex(
-                        direction: isLarge ? Axis.horizontal : Axis.vertical,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            flex: isLarge ? 2 : 0,
-                            child: OrderStatusPanel(stats: stats),
-                          ),
-
-                          SizedBox(
-                            width: isLarge ? 24 : 0,
-                            height: isLarge ? 0 : 24,
-                          ),
-
-                          Expanded(
-                            flex: isLarge ? 2 : 0,
-                            child: DashboardModelsPanel(stats: stats),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-
-                  const SizedBox(height: 28),
-
-                  LayoutBuilder(
-                    builder: (context, constraints) {
-                      final isLarge = constraints.maxWidth >= 1000;
-                      return Flex(
-                        direction: isLarge ? Axis.horizontal : Axis.vertical,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            flex: isLarge ? 3 : 0,
-                            child: RecentActivitiesPanel(
-                              firestore: FirebaseFirestore.instance,
-                            ),
-                          ),
-                          SizedBox(
-                            width: isLarge ? 24 : 0,
-                            height: isLarge ? 0 : 24,
-                          ),
-                          Expanded(
-                            flex: isLarge ? 2 : 0,
-                            child: AlertsPanel(stats: stats),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                ],
-              ),
+            child: MoveGuiOverviewPage(
+              stats: stats,
+              service: service,
+              onShowCreateMenu: () => _showCreateMenu(context),
             ),
           ),
         ],
       ),
     );
-    //      },
-    //    ),
-    //   );
   }
 }
 
@@ -246,39 +166,235 @@ Widget itemsWidget(DashboardModelData stats, DashboardService service) {
   );
 }
 
-/*
-class _DashboardError extends StatelessWidget {
-  final String message;
+class MoveGuiOverviewPage extends StatelessWidget {
+  const MoveGuiOverviewPage({
+    super.key,
+    required this.stats,
+    required this.service,
+    this.onShowCreateMenu,
+  });
+  final DashboardModelData stats;
+  final DashboardService service;
+  final VoidCallback? onShowCreateMenu;
 
-  const _DashboardError({required this.message});
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(
-              Icons.error_outline,
-              size: 56,
+    return SectionContainerWidget(
+      color: AppColors.background,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            padding: const EdgeInsets.all(24),
+            child: _Dashboard(
+              width: constraints.maxWidth,
+              stats: stats,
+              service: service,
+              onShowCreateMenu: onShowCreateMenu,
             ),
-            const SizedBox(height: 16),
-            const Text(
-              'Erreur de chargement du dashboard',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              message,
-              textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.black54),
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
 }
-*/
+
+class _Dashboard extends StatelessWidget {
+  final double width;
+  final DashboardModelData stats;
+  final DashboardService service;
+  final VoidCallback? onShowCreateMenu;
+
+  const _Dashboard({
+    required this.width,
+    required this.stats,
+    required this.service,
+    this.onShowCreateMenu,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SectionTitleWidget(
+          title: 'Vue ensemble',
+          subtitle:
+              'Suivez les informations essentielles de votre activité MoveGui.',
+          icon: Icons.dashboard_customize_rounded,
+          childs: [
+            OutlinedButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.calendar_today_outlined),
+              label: const Text("Aujourd'hui"),
+              style: OutlinedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 18,
+                ),
+              ),
+            ),
+          ],
+        ),
+
+        // _buildHeader(),
+        const SizedBox(height: WidgetConstants.sepWidget * 2),
+
+        // KPI
+        LayoutBuilder(
+          builder: (context, constraints) {
+            final columns = constraints.maxWidth > 1100 ? 4 : 2;
+
+            return GridView.count(
+              crossAxisCount: columns,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+              childAspectRatio: 2.3,
+              children: [
+                KpiCard(
+                  item: ModuleItem(
+                    name: 'Commandes',
+                    value: '142',
+                    description: '+12% vs. hier',
+                    icon: Icons.receipt_long,
+                    color: Color(0xFFA3171F),
+                    //  iconBackground: Color(0xFFFCE8E8),
+                    id: '001',
+                    createdAt: DateTime.now(),
+                    isActive: false,
+                  ),
+                ),
+                KpiCard(
+                  item: ModuleItem(
+                    name: 'Clients',
+                    value: '98',
+                    description: '+8% vs. hier',
+                    icon: Icons.people_alt_rounded,
+                    color: Color(0xFF2196F3),
+                    //   iconBackground: Color(0xFFE3F2FD),
+                    id: '002',
+                    createdAt: DateTime.now(),
+                    isActive: true,
+                  ),
+                ),
+                KpiCard(
+                  item: ModuleItem(
+                    name: 'Établissements',
+                    value: '24',
+                    description: '+2 actifs',
+                    icon: Icons.store_rounded,
+                    color: Color(0xFF22A447),
+                    //      iconBackground: Color(0xFFE5F7EA),
+                    id: '003',
+                    createdAt: DateTime.now(),
+                    isActive: true,
+                  ),
+                ),
+                KpiCard(
+                  item: ModuleItem(
+                    name: 'Revenus',
+                    value: '256 400 GNF',
+                    description: '+15% vs. hier',
+                    icon: Icons.monetization_on_rounded,
+                    color: Color(0xFFF28C18),
+                    //     iconBackground: Color(0xFFFFF2DE),
+                    id: '004',
+                    createdAt: DateTime.now(),
+                    isActive: true,
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+
+        const SizedBox(height: WidgetConstants.sepWidget * 2),
+
+        LayoutBuilder(
+          builder: (context, constraints) {
+            final horizontal = constraints.maxWidth >= 1000;
+
+            if (!horizontal) {
+              return Column(
+                children: [
+                  OrderEvolutionPanel(),
+                  SizedBox(height: WidgetConstants.sepWidget),
+                  OrderStatusPanel(stats: stats),
+                  SizedBox(height: WidgetConstants.sepWidget),
+                  ServicesPanel(stats: stats),
+                ],
+              );
+            }
+
+            return Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(flex: 4, child: OrderEvolutionPanel()),
+                SizedBox(width: 16),
+                Expanded(flex: 3, child: OrderStatusPanel(stats: stats)),
+                SizedBox(width: 16),
+                Expanded(flex: 3, child: ServicesPanel(stats: stats)),
+              ],
+            );
+          },
+        ),
+
+        const SizedBox(height: 20),
+
+        LayoutBuilder(
+          builder: (context, constraints) {
+            if (constraints.maxWidth < 900) {
+              return Column(
+                children: [
+                  const RecentOrderPanel(orders: []),
+                  const SizedBox(height: 16),
+                  RecentActivitiesPanel(firestore: FirebaseFirestore.instance),
+                ],
+              );
+            }
+
+            return Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Expanded(flex: 6, child: RecentOrderPanel(orders: [])),
+                const SizedBox(width: 16),
+                Expanded(
+                  flex: 4,
+                  child: RecentActivitiesPanel(
+                    firestore: FirebaseFirestore.instance,
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+
+        const SizedBox(height: 20),
+
+        LayoutBuilder(
+          builder: (context, constraints) {
+            if (constraints.maxWidth < 900) {
+              return Column(
+                children: [
+                  const AlertsPanel(modules: []),
+                  const SizedBox(height: 16),
+                  LinkPanel(onShowCreateMenu: onShowCreateMenu),
+                ],
+              );
+            }
+
+            return Row(
+              children: [
+                const Expanded(child: AlertsPanel(modules: [])),
+                const SizedBox(width: 16),
+                Expanded(child: LinkPanel(onShowCreateMenu: onShowCreateMenu)),
+              ],
+            );
+          },
+        ),
+      ],
+    );
+  }
+}

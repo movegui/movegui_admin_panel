@@ -1,54 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../providers/dark_theme_provider.dart';
+import 'package:movegui_admin_panel/widgets/util/section_container_widget.dart';
 
 class DashBordCards extends ConsumerWidget {
-  const DashBordCards({super.key, required this.title, required this.value});
   final String title;
-  final String value;
+  final IconData icon;
+  final Widget child;
+  final Widget? trailing;
+
+  const DashBordCards({
+    required this.title,
+    required this.icon,
+    required this.child,
+    this.trailing,
+    super.key,
+  });
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeState = ref.read(DarkThemeProvider.themeProvider);// Provider.of<DarkThemeProvider>(context);
-    final Color color = themeState.getDarkTheme ? Colors.white : Colors.black;
-    var size = MediaQuery.of(context).size;
-    double FontSize = size.width < 600 ? 25 : 32;
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Material(
-        color: Theme.of(
-          context,
-        ).cardColor, // AppColors.backgroundColor,  //Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(16),
-        elevation: 10,
-        child: SizedBox(
-          width: size.width * 0.2,
-          height: size.height * 0.12,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+
+  return  SectionContainerWidget(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
             children: [
-              Flexible(
+              Icon(
+                icon,
+           //     color: MoveGuiOverviewPage.burgundy,
+                size: 21,
+              ),
+              const SizedBox(width: 10),
+              Expanded(
                 child: Text(
                   title,
-                  style: TextStyle(
-                    color: color,
-                    fontSize: FontSize,
-                    fontWeight: FontWeight.bold,
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.w700,
+                    color: Theme.of(context).primaryColor,
                   ),
                 ),
               ),
-              Flexible(
-                child: Text(
-                  value,
-                  style: TextStyle(
-                    color: Colors.green,
-                    fontSize: FontSize,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
+              if (trailing != null) trailing!,
             ],
           ),
-        ),
+          const SizedBox(height: 20),
+          child,
+        ],
       ),
     );
   }
