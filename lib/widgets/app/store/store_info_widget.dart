@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
-import 'package:movegui_admin_panel/models/store/store_model.dart';
+import 'package:movegui_admin_panel/models/establishment/establishment_model.dart';
 import 'package:movegui_admin_panel/widgets/util/item_widget.dart';
 import 'package:movegui_admin_panel/widgets/util/section_title_widget.dart';
 import 'package:movegui_admin_panel/widgets/util/status_chip_widget.dart';
 
 class StoreInfoWidget extends StatelessWidget {
-  final StoreModel model;
+  final EstablishmentModel model;
   final List<Widget>? options;
 
   const StoreInfoWidget({super.key, required this.model, this.options});

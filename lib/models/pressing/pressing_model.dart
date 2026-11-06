@@ -1,24 +1,24 @@
 import 'package:movegui_admin_panel/models/adress_model.dart';
+import 'package:movegui_admin_panel/models/establishment_category_model.dart';
+import 'package:movegui_admin_panel/models/establishment/establishment_model.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
-import 'package:movegui_admin_panel/models/restaurant_model.dart';
-import 'package:movegui_admin_panel/models/store/store_model.dart';
-import 'package:movegui_admin_panel/models/user_model.dart';
 
-class PressingModel extends StoreModel {
+
+class PressingModel extends EstablishmentModel {
   PressingModel({
     required super.id,
     required super.name,
     required super.createdAt,
     required super.description,
     required super.address,
-    required super.staff,
     required super.email,
     required super.imageUrl,
     required super.phone,
     required super.weeklyHours,
-    required super.storeType,
+    required super.establishmentType,
     required super.rating,
     required super.reviewCount,
+    required super.establishmentCategory,
     super.isComplete,
     super.isActive,
   });
@@ -34,10 +34,10 @@ class PressingModel extends StoreModel {
       );
     }
 
-    final rawStoreType = json['storeType'];
+    final rawStoreType = json['establishmentType'];
     final String normalizedStoreTypeId = rawStoreType is Map
-        ? (rawStoreType['id'] as String? ?? rawStoreType['name'] as String? ?? 'laundry')
-        : (rawStoreType is String ? rawStoreType : 'laundry');
+        ? (rawStoreType['id'] as String? ?? rawStoreType['name'] as String? ?? 'other')
+        : (rawStoreType is String ? rawStoreType : 'other');
 
     return PressingModel(
       id: json['id'],
@@ -47,18 +47,15 @@ class PressingModel extends StoreModel {
       address: AdressModel.fromJson(Map<String, dynamic>.from(addressJson)),
       email: json['email'] ?? '',
       phone: json['telephon'] ?? '',
-      staff: (json['staff'] as List? ?? [])
-          .map((e) => UserModel.fromJson(e))
-          .toList(),
       createdAt: json['createdAt'] != null
           ? json['createdAt'].toDate()
           : DateTime.now(),
       weeklyHours: (json['weeklyHours'] as List? ?? [])
           .map((e) => OpenHoursModel.fromJson(e))
           .toList(),
-      storeType: StoreType.values.firstWhere(
+      establishmentType: EstablishmentType.values.firstWhere(
           (store) => store.id == normalizedStoreTypeId || store.name == normalizedStoreTypeId,
-          orElse: () => StoreType.laundry,
+          orElse: () => EstablishmentType.other,
         ),
       rating: (json['rating'] as num?)?.toDouble() ?? 0.0,
       reviewCount: json['reviewCount'] as int? ?? 0,
@@ -66,6 +63,7 @@ class PressingModel extends StoreModel {
           ? json['isComplete'] as bool
           : false,
       isActive: json['isActive'] is bool ? json['isActive'] as bool : false,
+      establishmentCategory: EstablishmentCategoryModel.fromJson(json['establishmentCategory'])
     );
   }
 }

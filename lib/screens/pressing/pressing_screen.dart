@@ -10,6 +10,7 @@ import 'package:movegui_admin_panel/models/pressing/pressing_dahboard_model.dart
 import 'package:movegui_admin_panel/models/pressing/pressing_dashboard_model_data.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_model.dart';
+import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/screens/dashboard_screen.dart';
 import 'package:movegui_admin_panel/services/dashboard_service.dart';
 import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
@@ -77,10 +78,17 @@ class _PressingDashboardLoaderState extends State<_PressingDashboardLoader> {
     final servicesByPressing = await Future.wait(
       pressings.map((pressing) => pressingService.getAllServices(pressing.id)),
     );
+    final staffByPressing = await Future.wait(
+      pressings.map((pressing) async {
+        final staff = await pressingService.getStaff(pressing);
+        return staff ?? const <UserModel>[];
+      }),
+    );
     final dashboardData = await getDashboardData(pressings, servicesByPressing);
     final incompletePressings = await getIncompleteModules(
       pressings,
       servicesByPressing,
+      staffByPressing,
     );
     final configuredModulles = await getConfiguredModules(dashboardData);
     final staticsItems = await getStaticItems(dashboardData);
@@ -235,6 +243,7 @@ class _PressingDashboardLoaderState extends State<_PressingDashboardLoader> {
   getIncompleteModules(
     List<PressingModel> pressings,
     List<List<PressingServiceModel>> servicesByPressing,
+    List<List<UserModel>> staffs
   ) async {
     List<IncompleteModuleConfigurationModel<PressingModel>>
     incompletePressings = [];
@@ -242,9 +251,10 @@ class _PressingDashboardLoaderState extends State<_PressingDashboardLoader> {
       final pressing = pressings[index];
       String problems = "";
       final pressingServices = servicesByPressing[index];
+      final staff = staffs[index];
       if (pressing.isComplete == true &&
           PressingCompletion.isComplete(
-            staff: pressing.staff,
+            staff: staff,
             services: pressingServices,
             weeklyHours: pressing.weeklyHours,
           )) {
@@ -259,16 +269,16 @@ class _PressingDashboardLoaderState extends State<_PressingDashboardLoader> {
         problems =
             '$problems ${AppLocalizations.of(context)!.pressing_problem_service_non_configured}';
       }
-      if (!PressingCompletion.hasConfiguredStaff(pressing.staff)) {
-        if (!PressingCompletion.hasRole(pressing.staff, UserRole.Employe)) {
+      if (!PressingCompletion.hasConfiguredStaff(staff)) {
+        if (!PressingCompletion.hasRole(staff, UserRole.Employe)) {
           problems =
               '$problems ${AppLocalizations.of(context)!.pressing_proble_staff_employe}';
         }
-        if (!PressingCompletion.hasRole(pressing.staff, UserRole.Manager)) {
+        if (!PressingCompletion.hasRole(staff, UserRole.Manager)) {
           problems =
               '$problems ${AppLocalizations.of(context)!.pressing_proble_staff_manager}';
         }
-        if (!PressingCompletion.hasRole(pressing.staff, UserRole.Employe)) {
+        if (!PressingCompletion.hasRole(staff, UserRole.Employe)) {
           problems =
               '$problems ${AppLocalizations.of(context)!.pressing_proble_staff_owner}';
         }

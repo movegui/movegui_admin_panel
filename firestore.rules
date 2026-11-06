@@ -181,6 +181,15 @@ service cloud.firestore {
     }
 
 
+        match /establishment_members/{id} {
+      allow read, create, update, delete: if isSignedIn()
+        && (isAdmin() || isSuperAdmin());
+    }
+
+
+    
+
+
     match /store_category_model/{id} {
 
       allow create: if isSignedIn()

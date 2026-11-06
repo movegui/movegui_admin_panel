@@ -4,7 +4,8 @@ import 'package:movegui_admin_panel/consts/route_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/button_info.dart';
 import 'package:movegui_admin_panel/models/dashboard/module_item.dart';
-import 'package:movegui_admin_panel/models/store/store_model.dart';
+import 'package:movegui_admin_panel/models/establishment/establishment_model.dart';
+import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/widgets/app/pressing/dashboard/pressing_kpi_card.dart';
 import 'package:movegui_admin_panel/widgets/app/store/store_employe_widget.dart';
@@ -14,14 +15,16 @@ import 'package:movegui_admin_panel/widgets/util/button_widget.dart';
 import 'package:movegui_admin_panel/widgets/util/form_card_widget.dart';
 import 'package:movegui_admin_panel/widgets/util/layout_buider_widget.dart';
 
-class StoreDetailWidget<M extends StoreModel> extends StatelessWidget {
+class StoreDetailWidget<M extends EstablishmentModel> extends StatelessWidget {
   final List<ModuleItem> staticsItems;
   final M model;
+  final List<UserModel> staff;
 
   const StoreDetailWidget({
     super.key,
     required this.staticsItems,
     required this.model,
+    required this.staff
   });
 
   @override
@@ -95,7 +98,7 @@ class StoreDetailWidget<M extends StoreModel> extends StatelessWidget {
         /// EMPLOYEES
         FormCardWidget(
           child: StoreEmployeWidget(
-            employees: model.staff ?? [],
+            employees: staff,
             options: [
               ButtonWidget(
                 onPressed: (item) async {

@@ -1,9 +1,9 @@
-
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
+import 'package:movegui_admin_panel/models/establishment/establishment_members_model.dart';
+import 'package:movegui_admin_panel/models/establishment/establishment_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_type_model.dart';
-import 'package:movegui_admin_panel/models/store/store_model.dart';
 import 'package:movegui_admin_panel/services/form_services/pressing_form_service.dart';
 import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
 import 'package:movegui_admin_panel/services/message_service.dart';
@@ -29,6 +29,7 @@ class PressingSubmitHandler
     required super.formService,
     required super.userService,
     required super.context,
+    required super.establishmentMembersService,
   });
 
   @override
@@ -59,15 +60,15 @@ class PressingSubmitHandler
       address: form.adressModel!,
       phone: form.phone.text,
       email: form.email.text,
-      staff: form.staff,
       weeklyHours: form.weeklyHours,
-      storeType: form.selectedType ?? StoreType.laundry,
+      establishmentType: form.establishmentType ?? EstablishmentType.pressing,
       createdAt: DateTime.now(),
       imageUrl: imageUrl,
       rating: form.rating,
       reviewCount: form.reviewCount,
       isActive: form.isActive,
       isComplete: form.isCompleted,
+      establishmentCategory: form.establishmentCategory,
     );
 
     final previousServices = form.editMode && form.id != null
@@ -79,15 +80,15 @@ class PressingSubmitHandler
       for (final pressingService in currentServices) pressingService.id,
     };
     final removedServices = previousServices
-        .where((pressingService) => !currentServicesById.contains(pressingService.id))
+        .where(
+          (pressingService) =>
+              !currentServicesById.contains(pressingService.id),
+        )
         .toList();
     if (removedServices.isNotEmpty) {
       await service.deleteServices(savedPressing, removedServices);
     }
-    final pressingWithServices = await service.addServices(
-      savedPressing,
-      currentServices,
-    );
+    await service.addServices(savedPressing, currentServices);
 
     final previousCounts = _countServicesByTypeId(previousServices);
     final currentCounts = _countServicesByTypeId(currentServices);
@@ -113,8 +114,10 @@ class PressingSubmitHandler
       type.servicesCount = updatedCount < 0 ? 0 : updatedCount;
       await pressingServiceTypeService.addModel(type);
     }
+    final staff =
+        form.staff ?? []; //formService.userFormService.getModels(form.staff);
 
-    final staff = pressingWithServices.staff ?? [];
+    //   final staff = [];  // pressingWithServices.staff ?? [];
     var successfulMessages = 0;
     var savedStaff = 0;
 
@@ -136,6 +139,22 @@ class PressingSubmitHandler
           );
         }
 
+        await establishmentMembersService.addModel(
+          EstablishmentMembersModel(
+            userId: createUser.id,
+            storeId: savedPressing.id,
+            establishmentType: savedPressing.establishmentType,
+            roles: EstablishmentRole.values
+                .where((role) => role.name == userModel.role.name)
+                .toList(),
+            id: Uuid().v4(),
+            name: '${userModel.name}_${userModel.role.name}',
+            createdAt: DateTime.now(),
+            isActive: userModel.isActive,
+            isVerified: userModel.isVerified,
+          ),
+        );
+
         final localizations = AppLocalizations.of(context)!;
         final messageToSend =
             '${localizations.message_movegui_title} \n '
@@ -155,6 +174,7 @@ class PressingSubmitHandler
         }
       } else {
         await userService.addModel(userModel);
+
         savedStaff++;
       }
     }

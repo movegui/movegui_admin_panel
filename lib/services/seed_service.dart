@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/models/adress_model.dart';
+import 'package:movegui_admin_panel/models/establishment/establishment_model.dart';
+import 'package:movegui_admin_panel/models/establishment_category_model.dart';
 import 'package:movegui_admin_panel/models/geo_cordinates_model.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
 import 'package:movegui_admin_panel/models/person_model.dart';
@@ -9,8 +11,6 @@ import 'package:movegui_admin_panel/models/pressing/pressing_article_model.dart'
 import 'package:movegui_admin_panel/models/pressing/pressing_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_type_model.dart';
-import 'package:movegui_admin_panel/models/restaurant_model.dart';
-import 'package:movegui_admin_panel/models/store/store_model.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/services/api_service.dart';
 import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
@@ -29,11 +29,13 @@ class SeedService {
     createdAt: DateTime.now(),
     description: faker.company.random.fromPattern(['description']),
     address: await getgeneratedAdress(),
+    /*
     staff: [
       await getGeneratedUserModel(UserRole.Owner),
       await getGeneratedUserModel(UserRole.Manager),
       await getGeneratedUserModel(UserRole.Employe),
     ],
+    */
     email: faker.internet.email(),
     imageUrl: faker.image.toString(),
     phone: faker.phoneNumber.de(),
@@ -100,10 +102,11 @@ class SeedService {
       ),
       OpenHoursModel(day: 'Dimanche', isOpen: false, slots: []),
     ],
-    storeType: StoreType.laundry,
-    
+
     rating: 0,
     reviewCount: 0,
+    establishmentType: EstablishmentType.pressing,
+    establishmentCategory: EstablishmentCategoryModel.pressing_etablishment,
   );
 
   Future<PressingServiceModel> getGeneratedPressingService() async =>

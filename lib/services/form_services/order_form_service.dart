@@ -2,7 +2,7 @@
 
 import 'package:movegui_admin_panel/models/order_item_model.dart';
 import 'package:movegui_admin_panel/models/order_model.dart';
-import 'package:movegui_admin_panel/models/store/store_model.dart';
+import 'package:movegui_admin_panel/models/establishment/store_model.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/services/form_services/form_service.dart';
 import 'package:movegui_admin_panel/util/form_controller.dart';

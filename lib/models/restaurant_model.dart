@@ -1,10 +1,11 @@
 import 'package:movegui_admin_panel/models/adress_model.dart';
+import 'package:movegui_admin_panel/models/establishment/establishment_model.dart';
+import 'package:movegui_admin_panel/models/establishment_category_model.dart';
 import 'package:movegui_admin_panel/models/model.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
-import 'package:movegui_admin_panel/models/store/store_model.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 
-class RestaurantModel extends StoreModel {
+class RestaurantModel extends EstablishmentModel {
   //  final RestaurantTypeModel restaurantType;
 
   RestaurantModel({
@@ -16,10 +17,10 @@ class RestaurantModel extends StoreModel {
     required super.address,
     required super.email,
     required super.phone,
-    required super.staff,
     required super.weeklyHours,
-    required super.storeType,
+    required super.establishmentType,
     required super.isActive,
+     required super.establishmentCategory,
   });
 
   @override
@@ -37,15 +38,12 @@ class RestaurantModel extends StoreModel {
         address: AdressModel.fromJson(json['adresse']),
         email: json['email'],
         phone: json['telephon'],
-        staff: (json['staff'] as List? ?? [])
-            .map((e) => UserModel.fromJson(e))
-            .toList(),
         createdAt: json['createdAt'] != null
             ? json['createdAt'].toDate()
             : DateTime.now(),
-        storeType: StoreType.values.firstWhere(
-          (store) => store.type.name == (json['type'] as StoreType).name,
-          orElse: () => StoreType.laundry,
+        establishmentType: EstablishmentType.values.firstWhere(
+          (store) => store.name == (json['establishmentType'] as EstablishmentType).name,
+          orElse: () => EstablishmentType.pressing,
         ),
         weeklyHours: (json['weeklyHours'] as List? ?? [])
             .map(
@@ -61,6 +59,7 @@ class RestaurantModel extends StoreModel {
             .cast<OpenHoursModel>()
             .toList(),
         isActive: json['isActive'] as bool,
+        establishmentCategory: EstablishmentCategoryModel.fromJson(json['establishmentCategory'])
       );
 }
 

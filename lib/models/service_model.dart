@@ -24,7 +24,6 @@ abstract class ServiceModel<M extends ProductModel> extends Model {
     this.currency,
   });
 
-  String getCollectionName();
 
   @override
   Map<String, dynamic> toJson() => {

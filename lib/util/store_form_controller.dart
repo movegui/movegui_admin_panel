@@ -4,14 +4,15 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/categories_model.dart';
+import 'package:movegui_admin_panel/models/establishment/establishment_model.dart';
+import 'package:movegui_admin_panel/models/establishment_category_model.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
-import 'package:movegui_admin_panel/models/store/store_model.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/util/address_form_controller.dart';
 import 'package:movegui_admin_panel/util/form_controller.dart';
 import 'package:uuid/uuid.dart';
 
-abstract class StoreFormController<T extends StoreModel>
+abstract class StoreFormController<T extends EstablishmentModel>
     extends FormController<T> {
   String? id = Uuid().v4();
   final name = TextEditingController();
@@ -27,7 +28,7 @@ abstract class StoreFormController<T extends StoreModel>
   List<OpenHoursModel> weeklyHours = [];
   File? pickedImage;
   Uint8List? webImage;
-  StoreType? selectedType = StoreType.laundry;
+  EstablishmentType? establishmentType = EstablishmentType.other;
   CategoriesModel? categoriesModel;
   AdressModel? adressModel;
   double? rating;
@@ -37,6 +38,7 @@ abstract class StoreFormController<T extends StoreModel>
   bool? isActive = true;
   bool editMode = false;
 
+
   void dispose() {
     name.dispose();
     phone.dispose();
@@ -45,10 +47,10 @@ abstract class StoreFormController<T extends StoreModel>
     addressForm.dispose();
   }
 
-    bool get hasImage =>
+  bool get hasImage =>
       pickedImage != null ||
       webImage != null ||
-     (imageUrl != null && imageUrl!.isNotEmpty);
+      (imageUrl != null && imageUrl!.isNotEmpty);
 
   void clear() {
     name.clear();
@@ -60,7 +62,7 @@ abstract class StoreFormController<T extends StoreModel>
     webImage = null;
     staff!.clear();
     weeklyHours.clear();
-    selectedType =  StoreType.laundry;
+    establishmentType = EstablishmentType.other;
     categoriesModel = null;
     adressModel = null;
     rating = null;
@@ -76,13 +78,12 @@ abstract class StoreFormController<T extends StoreModel>
     email.text = model.email;
     description.text = model.description ?? '';
     await addressForm.setData(model.address);
-    staff = model.staff ?? [];
     imageUrl = model.imageUrl;
     rating = model.rating ?? 0.0;
     reviewCount = model.reviewCount ?? 0;
     weeklyHours = model.weeklyHours;
     isCompleted = model.isComplete;
     isActive = model.isActive ?? true;
-    selectedType = model.storeType;
+    establishmentType = model.establishmentType;
   }
 }

@@ -1,10 +1,23 @@
 import 'package:faker/faker.dart';
 import 'package:get_it/get_it.dart';
 import 'package:movegui_admin_panel/config/env.dart';
+import 'package:movegui_admin_panel/models/categories_model.dart';
+import 'package:movegui_admin_panel/models/establishment/establishment_members_model.dart';
+import 'package:movegui_admin_panel/models/ingredient_model.dart';
+import 'package:movegui_admin_panel/models/patisserie_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_article_model.dart';
+import 'package:movegui_admin_panel/models/pressing/pressing_model.dart';
+import 'package:movegui_admin_panel/models/pressing/pressing_service_model.dart';
+import 'package:movegui_admin_panel/models/pressing/pressing_service_type_model.dart';
+import 'package:movegui_admin_panel/models/professionnel_model.dart';
+import 'package:movegui_admin_panel/models/restaurant_model.dart';
+import 'package:movegui_admin_panel/models/super_markt_model.dart';
+import 'package:movegui_admin_panel/models/supplier_model.dart';
+import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/services/address_service.dart';
 import 'package:movegui_admin_panel/services/api_service.dart';
 import 'package:movegui_admin_panel/services/dashboard_service.dart';
+import 'package:movegui_admin_panel/services/establishment_members_service.dart';
 import 'package:movegui_admin_panel/services/form_services/adress_form_service.dart';
 import 'package:movegui_admin_panel/services/form_services/person_form_service.dart';
 import 'package:movegui_admin_panel/services/form_services/pressing_article_form_service.dart';
@@ -39,38 +52,65 @@ void initServices(Env env) {
   // getIt.registerLazySingleton<CategoriesService>(() => CategoriesService());
   final api = ApiService(env);
   getIt.registerLazySingleton<StoreCategoriesService>(
-    () => StoreCategoriesService(api: api),
+    () => StoreCategoriesService(api: api, fromJson: CategoriesModel.fromJson),
   );
   getIt.registerLazySingleton<SuppliersService>(
-    () => SuppliersService(api: api),
+    () => SuppliersService(api: api, fromJson: SupplierModel.fromJson),
   );
   getIt.registerLazySingleton<IngredientsService>(
-    () => IngredientsService(api: api),
+    () => IngredientsService(api: api, fromJson: IngredientModel.fromJson),
   );
   getIt.registerLazySingleton<RestaurantsService>(
-    () => RestaurantsService(api: api),
+    () => RestaurantsService(api: api, fromJson: RestaurantModel.fromJson),
   );
   getIt.registerLazySingleton<RestaurantTypeService>(
-    () => RestaurantTypeService(api: api),
+    () =>
+        RestaurantTypeService(api: api, fromJson: RestaurantTypeModel.fromJson),
   );
   getIt.registerLazySingleton<PatisseriesService>(
-    () => PatisseriesService(api: api),
+    () => PatisseriesService(api: api, fromJson: PatisserieModel.fromJson),
   );
   getIt.registerLazySingleton<SuperMarktsService>(
-    () => SuperMarktsService(api: api),
+    () => SuperMarktsService(api: api, fromJson: SuperMarktModel.fromJson),
   );
-  getIt.registerLazySingleton<PressingService>(() => PressingService(api: api));
+  getIt.registerLazySingleton<EstablishmentMembersService>(
+    () => EstablishmentMembersService(
+      api: api,
+      fromJson: EstablishmentMembersModel.fromJson,
+    ),
+  );
+  getIt.registerLazySingleton<PressingService>(
+    () => PressingService(
+      api: api,
+      fromJson: PressingModel.fromJson,
+      userService: UserService(api: api, fromJson: UserModel.fromJson),
+      fromJsonService: PressingServiceModel.fromJson,
+      establishmentMembersService: EstablishmentMembersService(
+        fromJson: EstablishmentMembersModel.fromJson,
+        api: api,
+      ),
+    ),
+  );
   getIt.registerLazySingleton<ProfessionnelService>(
-    () => ProfessionnelService(api: api),
+    () => ProfessionnelService(api: api, fromJson: ProfessionnelModel.fromJson),
   );
-  getIt.registerLazySingleton<PressingServicesTypesService>(() => PressingServicesTypesService(api: api));
-  getIt.registerLazySingleton<UserService>(() => UserService(api: api));
+  getIt.registerLazySingleton<PressingServicesTypesService>(
+    () => PressingServicesTypesService(
+      api: api,
+      fromJson: PressingServiceTypeModel.fromJson,
+    ),
+  );
+  getIt.registerLazySingleton<UserService>(
+    () => UserService(api: api, fromJson: UserModel.fromJson),
+  );
   getIt.registerLazySingleton<ImageService>(() => ImageService());
   getIt.registerLazySingleton<AddressService>(() => AddressService(api: api));
   getIt.registerLazySingleton<SeedService>(
     () => SeedService(api: api, faker: Faker()),
   );
-    getIt.registerLazySingleton<DashboardService>(() => DashboardService(api: api));
+  getIt.registerLazySingleton<DashboardService>(
+    () => DashboardService(api: api),
+  );
   getIt.registerLazySingleton<AdressFormService>(
     () => AdressFormService(
       api: api,

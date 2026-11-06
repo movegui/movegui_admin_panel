@@ -8,7 +8,7 @@ import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/error/message_widget.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_model.dart';
-import 'package:movegui_admin_panel/providers/store_model_provider.dart';
+import 'package:movegui_admin_panel/providers/establishment_model_provider.dart';
 import 'package:movegui_admin_panel/services/my_app_functions.dart';
 import 'package:movegui_admin_panel/services/pressing_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
@@ -80,7 +80,7 @@ class AllPressingPageState extends ConsumerState<AllPressingPage> {
                           child: InkWell(
                             onTap: () {
                               ref
-                                  .read(StoreModelProvider.storeModelProvider)
+                                  .read(EstablishmentModelProvider.storeModelProvider)
                                   .setStoreId(press.id);
 
                               context.go(

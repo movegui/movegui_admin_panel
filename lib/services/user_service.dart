@@ -19,7 +19,7 @@ import 'package:uuid/uuid.dart';
 
 class UserService extends ModelService<UserModel> implements IUserService {
   final auth = FirebaseAuth.instance;
-  UserService({required super.api});
+  UserService({required super.api, required super.fromJson});
 
   @override
   Future<UserModel> addModel(UserModel model) async {
@@ -456,7 +456,11 @@ class UserService extends ModelService<UserModel> implements IUserService {
         .collection(getCollectionName())
         .doc(id)
         .get();
-    return UserModel.fromJson(snapshot.data()!);
+    final userData = snapshot.data();
+    if (!snapshot.exists || userData == null) {
+      throw NotDataFoundException(message: 'User not found: $id');
+    }
+    return UserModel.fromJson({...userData, 'id': snapshot.id});
   }
 
   @override

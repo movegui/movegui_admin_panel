@@ -5,7 +5,7 @@ import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/providers/address_provider.dart';
 import 'package:movegui_admin_panel/providers/appbar_title_provider.dart';
 import 'package:movegui_admin_panel/providers/shopping_provider.dart';
-import 'package:movegui_admin_panel/providers/store_provider.dart';
+import 'package:movegui_admin_panel/providers/establishment_provider.dart';
 import 'package:movegui_admin_panel/providers/user_provider.dart';
 import 'package:movegui_admin_panel/services/address_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
@@ -14,8 +14,8 @@ final shoppingProviderState = ChangeNotifierProvider<ShoppingProvider>((ref) {
   return ShoppingProvider();
 });
 
-final storeProviderState = ChangeNotifierProvider<StoreProvider>((ref) {
-  return StoreProvider();
+final storeProviderState = ChangeNotifierProvider<EstablishmentProvider>((ref) {
+  return EstablishmentProvider();
 });
 
 final userProviderState = ChangeNotifierProvider<UserProvider>((ref) {

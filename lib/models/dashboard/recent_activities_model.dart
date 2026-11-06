@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:movegui_admin_panel/models/model.dart';
-import 'package:movegui_admin_panel/models/store/store_model.dart';
+import 'package:movegui_admin_panel/models/establishment/store_model.dart';
 
 enum ActivityCategory { order, establishment, user, delivery, payment, system }
 

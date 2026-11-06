@@ -1,61 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:movegui_admin_panel/consts/app_constants.dart';
 import 'package:movegui_admin_panel/models/supplier_model.dart';
 import 'package:movegui_admin_panel/services/model_service.dart';
 
 class SuppliersService extends ModelService<SupplierModel> {
-  SuppliersService({required super.api});
-
-  @override
-  Future<SupplierModel> addModel(SupplierModel model) async {
-    await FirebaseFirestore.instance
-        .collection(getCollectionName())
-        .doc(model.id)
-        .set(model.toJson());
-    return model;
-  }
-
-  @override
-  Future<List<SupplierModel>> allModels() async {
-    final snapshot = await FirebaseFirestore.instance
-        .collection(getCollectionName())
-        .get();
-
-    return snapshot.docs
-        .map((doc) => SupplierModel.fromJson(doc.data()))
-        .toList();
-  }
+  SuppliersService({required super.api, required super.fromJson});
 
   @override
   String getCollectionName() {
-    return "suppliers_model";
+    return MoveGuiCollections.COLLECTION_SUPPLIERS;
   }
 
-  @override
-  Future<List<SupplierModel>> getByName(String name) async {
-    final snapshot = await FirebaseFirestore.instance
-        .collection(getCollectionName())
-        .where('name', isEqualTo: name)
-        .get();
-
-    return snapshot.docs
-        .map((doc) => SupplierModel.fromJson(doc.data()))
-        .toList();
-  }
-
-  @override
-  Future<SupplierModel> getModelById(String id) async {
-    final snapshot = await FirebaseFirestore.instance
-        .collection(getCollectionName())
-        .doc(id)
-        .get();
-    return SupplierModel.fromJson(snapshot.data()!);
-  }
-
-  @override
-  Future<void> deleteModel(SupplierModel model) async {
-          await FirebaseFirestore.instance
-        .collection(getCollectionName())
-        .doc(model.id)
-        .delete();
-  }
 }

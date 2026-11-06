@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:movegui_admin_panel/models/store/store_model.dart';
+import 'package:movegui_admin_panel/models/establishment/establishment_model.dart';
+import 'package:movegui_admin_panel/services/establishment_members_service.dart';
 import 'package:movegui_admin_panel/services/form_services/form_service.dart';
 import 'package:movegui_admin_panel/services/image_service.dart';
 import 'package:movegui_admin_panel/services/model_service.dart';
@@ -7,10 +8,11 @@ import 'package:movegui_admin_panel/services/user_service.dart';
 import 'package:movegui_admin_panel/util/store_form_controller.dart';
 
 abstract class StoreSubmitHadler<
-  M extends StoreModel,
+  M extends EstablishmentModel,
   T extends ModelService<M>,
   S extends StoreFormController<M>,
   F extends FormService<M, S>
+
 > {
   // <M extends Model, F extends FormController<M>>
   final T service;
@@ -19,6 +21,7 @@ abstract class StoreSubmitHadler<
   final F formService;
   final UserService userService;
   final BuildContext context;
+  final EstablishmentMembersService establishmentMembersService;
 
   StoreSubmitHadler({
     required this.service,
@@ -27,6 +30,7 @@ abstract class StoreSubmitHadler<
     required this.formService,
     required this.userService,
     required this.context,
+    required this.establishmentMembersService,
   });
 
   Future<void> submit({required S form});

@@ -1,8 +1,8 @@
 import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_order_item.dart';
-import 'package:movegui_admin_panel/models/store/store_model.dart';
-import 'package:movegui_admin_panel/models/store/store_order_model.dart';
+import 'package:movegui_admin_panel/models/establishment/store_model.dart';
+import 'package:movegui_admin_panel/models/establishment/store_order_model.dart';
 
 
 class PressingOrderModel

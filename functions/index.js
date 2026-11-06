@@ -410,7 +410,7 @@ exports.onPressingCreated = onDocumentCreated(
     if (!establishment) {
       console.log('error happen');
       return;
-    }
+    }  
 
     const establishmentId = event.params?.establishmentId ?? establishment.id ?? event.data?.id;
     const activityId = `establishment_created_${establishmentId}`;

@@ -1,11 +1,11 @@
 import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/categories_model.dart';
+import 'package:movegui_admin_panel/models/establishment_category_model.dart';
+import 'package:movegui_admin_panel/models/establishment/establishment_model.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
-import 'package:movegui_admin_panel/models/restaurant_model.dart';
-import 'package:movegui_admin_panel/models/store/store_model.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 
-class PatisserieModel extends StoreModel {
+class PatisserieModel extends EstablishmentModel {
   final CategoriesModel category;
   PatisserieModel({
     required super.id,
@@ -13,14 +13,14 @@ class PatisserieModel extends StoreModel {
     required super.createdAt,
     required super.description,
     required super.address,
-    required super.staff,
     required super.email,
     required super.imageUrl,
     required super.phone,
     required super.weeklyHours,
-    required super.storeType,
+    required super.establishmentType,
     required this.category, 
-    required super.isActive,
+    required super.isActive, 
+    required super.establishmentCategory,
   });
 
   @override
@@ -38,16 +38,14 @@ class PatisserieModel extends StoreModel {
         address: AdressModel.fromJson(json['adresse']),
         email: json['email'],
         phone: json['phone'],
-        staff: (json['staff'] as List? ?? [])
-            .map((e) => UserModel.fromJson(e))
-            .toList(),
         category: CategoriesModel.fromJson(json['category']),
         createdAt: json['createdAt'] != null ? json['createdAt'].toDate() : DateTime.now(),
         weeklyHours: (json['weeklyHours'] as List? ?? []).map((e) => OpenHoursModel.fromJson(e)).toList(),
-         storeType: StoreType.values.firstWhere(
-          (store) => store.type.name == (json['type'] as StoreType).name,
-          orElse: () => StoreType.laundry,
+         establishmentType: EstablishmentType.values.firstWhere(
+          (store) => store.name == (json['establishmentType'] as EstablishmentType).name,
+          orElse: () => EstablishmentType.pressing,
         ),
          isActive: json['isActive'] as bool,
+         establishmentCategory: EstablishmentCategoryModel.fromJson(json['establishmentCategory'])
       );
 }

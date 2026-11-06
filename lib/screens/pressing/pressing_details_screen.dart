@@ -1,15 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movegui_admin_panel/consts/route_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/dashboard/dashboard_model_data.dart';
 import 'package:movegui_admin_panel/models/dashboard/module_item.dart';
+import 'package:movegui_admin_panel/models/establishment/establishment_details_model.dart';
+import 'package:movegui_admin_panel/models/establishment/establishment_model.dart';
 import 'package:movegui_admin_panel/models/module_configuration_item_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_dashboard_model_data.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_details_model_data.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_model.dart';
-import 'package:movegui_admin_panel/models/store/store_details_model.dart';
+import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/screens/dashboard_screen.dart';
 import 'package:movegui_admin_panel/services/dashboard_service.dart';
 import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
@@ -47,7 +50,7 @@ class _PressingDashboardLoader extends StatefulWidget {
 }
 
 class _PressingDashboardLoaderState extends State<_PressingDashboardLoader> {
-  late final Future<StoreDetailsModel> _dashboardData;
+  late final Future<EstablishmentDetailsModel> _dashboardData;
 
   @override
   void initState() {
@@ -57,7 +60,7 @@ class _PressingDashboardLoaderState extends State<_PressingDashboardLoader> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<StoreDetailsModel>(
+    return FutureBuilder<EstablishmentDetailsModel>(
       future: _dashboardData,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -74,32 +77,35 @@ class _PressingDashboardLoaderState extends State<_PressingDashboardLoader> {
           model: data.model,
           stats: widget.stats,
           service: widget.service,
+          staff: data.staff,
         );
       },
     );
   }
 
-  Future<StoreDetailsModel> _loadDashboardData(String id) async {
+  Future<EstablishmentDetailsModel> _loadDashboardData(String id) async {
     final pressingService = getIt<PressingService>();
     final pressing = await pressingService.getModelById(id);
     final services = await pressingService.getAllServices(pressing.id);
-    final dashboardData = await getDashboardData(pressing, services);
+    final staff = await pressingService.getStaff(pressing);
+    final dashboardData = await getDashboardData(pressing, services, staff);
     final staticsItems = await getStaticItems(dashboardData);
 
-    return StoreDetailsModel(model: pressing, staticsItems: staticsItems);
+    return EstablishmentDetailsModel(model: pressing, staticsItems: staticsItems, staff: staff ?? []);
   }
 
   Future<PressingDetailsModelData> getDashboardData(
     PressingModel pressing,
     List<PressingServiceModel> services,
+    List<UserModel>? staff,
   ) async {
-    final totalEmployes = (pressing.staff ?? [])
+    final totalEmployes = (staff ?? [])
         .where((elem) => elem.role == UserRole.Employe)
         .length;
-    final totalsManagers = (pressing.staff ?? [])
+    final totalsManagers = (staff ?? [])
         .where((elem) => elem.role == UserRole.Employe)
         .length;
-    final totalsOwners = (pressing.staff ?? [])
+    final totalsOwners = (staff ?? [])
         .where((elem) => elem.role == UserRole.Employe)
         .length;
     final totalServices = services.length;

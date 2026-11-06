@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:movegui_admin_panel/models/store/store_model.dart';
+import 'package:movegui_admin_panel/models/establishment/establishment_model.dart';
 import 'package:movegui_admin_panel/services/pressing_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
 
-class StoreModelProvider with ChangeNotifier {
+class EstablishmentModelProvider with ChangeNotifier {
   final pressingService = getIt<PressingService>();
   String _storeId = "";
   String get storeId => _storeId;
@@ -15,21 +15,21 @@ class StoreModelProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<StoreModel> getStore(String id) async{
+  Future<EstablishmentModel> getStore(String id) async{
     setStoreId(id);
     return pressingService.getModelById(id); 
   }
 
   static final storeProvider =
-    FutureProvider.autoDispose.family<StoreModel, String>(
+    FutureProvider.autoDispose.family<EstablishmentModel, String>(
   (ref, storeId) async {
-    return StoreModelProvider().getStore(storeId);
+    return EstablishmentModelProvider().getStore(storeId);
   },
 );
 
 static final storeModelProvider =
-    ChangeNotifierProvider<StoreModelProvider>((ref) {
-  return StoreModelProvider();
+    ChangeNotifierProvider<EstablishmentModelProvider>((ref) {
+  return EstablishmentModelProvider();
 });
 
 }

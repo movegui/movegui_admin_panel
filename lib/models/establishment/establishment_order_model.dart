@@ -1,26 +1,26 @@
 import 'package:intl/intl.dart';
 import 'package:movegui_admin_panel/models/adress_model.dart';
+import 'package:movegui_admin_panel/models/establishment/establishment_model.dart';
 import 'package:movegui_admin_panel/models/order_item_model.dart';
 import 'package:movegui_admin_panel/models/order_model.dart';
-import 'package:movegui_admin_panel/models/store/store_model.dart';
 
 
 
 
-abstract class StoreOrderModel<
-  S extends StoreModel,
+abstract class EstablishmentOrderModel<
+  S extends EstablishmentModel,
   T extends OrderItemModel
 >
     extends OrderModel<T> {
   final String storeId;
-   final StoreType storeType;
+   final EstablishmentType establishmentType;
   DateTime? pickupDate;
   DateTime? deliveryDate;
   AdressModel? pickupAdress;
   AdressModel? deliveryAdress;
   bool? pickupOnStore = false;
   bool? deliveryOnStore = false;
-  StoreOrderModel({
+  EstablishmentOrderModel({
     required super.id,
     required super.name,
     required super.createdAt,
@@ -32,7 +32,7 @@ abstract class StoreOrderModel<
     required this.pickupDate,
     required this.pickupAdress,
     required this.deliveryAdress,
-    required this.storeType,
+    required this.establishmentType,
     required super.status,
     required super.currency,
     required super.orderId
@@ -46,6 +46,6 @@ abstract class StoreOrderModel<
     'deliveryDate': deliveryDate == null ? '' : DateFormat('dd MMM yyyy', 'fr').format(deliveryDate!),      
     'pickupAdress': pickupAdress?.toJson(),
     'deliveryAdress': deliveryAdress?.toJson(),
-    'storeType': storeType.type.toJson()
+    'establishmentType': establishmentType.toJson()
   };
 }

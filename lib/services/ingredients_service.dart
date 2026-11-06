@@ -3,7 +3,7 @@ import 'package:movegui_admin_panel/models/ingredient_model.dart';
 import 'package:movegui_admin_panel/services/model_service.dart';
 
 class IngredientsService extends ModelService<IngredientModel> {
-  IngredientsService({required super.api});
+  IngredientsService({required super.api, required super.fromJson});
 
   @override
   Future<IngredientModel> addModel(IngredientModel ingredient) async {

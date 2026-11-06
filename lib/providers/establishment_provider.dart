@@ -1,15 +1,16 @@
 
 import 'package:flutter/material.dart';
-import 'package:movegui_admin_panel/models/store/store_model.dart';
+import 'package:movegui_admin_panel/models/establishment/establishment_model.dart';
+ 
 
 
 
-class StoreProvider extends ChangeNotifier {
-  StoreModel? _store;
+class EstablishmentProvider extends ChangeNotifier {
+  EstablishmentModel? _store;
 
-  StoreModel? get store => _store;
+  EstablishmentModel? get store => _store;
 
-  void setStore(StoreModel store) {
+  void setStore(EstablishmentModel store) {
     _store = store;
     notifyListeners();
   }

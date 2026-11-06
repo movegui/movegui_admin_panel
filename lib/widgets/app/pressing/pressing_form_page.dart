@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:movegui_admin_panel/config/env_dev.dart';
@@ -26,6 +27,7 @@ import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/responsive_grid.dart';
 import 'package:movegui_admin_panel/services/dashboard_service.dart';
+import 'package:movegui_admin_panel/services/establishment_members_service.dart';
 import 'package:movegui_admin_panel/services/form_services/pressing_form_service.dart';
 import 'package:movegui_admin_panel/services/image_service.dart';
 import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
@@ -66,6 +68,7 @@ class PressingFormPageState extends State<PressingFormPage> {
   late PressingFormService formService;
   late SeedService seedService;
   late UserService userService;
+  late EstablishmentMembersService establishmentMembersService;
   late final DashboardService dashboardService;
   DashboardModelData stats = DashboardModelData.empty();
   final bool _isLoadingDashboard = false;
@@ -79,6 +82,7 @@ class PressingFormPageState extends State<PressingFormPage> {
     seedService = getIt<SeedService>();
     userService = getIt<UserService>();
     dashboardService = getIt<DashboardService>();
+    establishmentMembersService = getIt<EstablishmentMembersService>();
     initDashboardItems();
     if (widget.isEditing) {
       initEditMode();
@@ -86,7 +90,6 @@ class PressingFormPageState extends State<PressingFormPage> {
       loadDatatest();
     }
   }
-
 
   Future<void> initEditMode() async {
     final pressingId = widget.pressingId;
@@ -113,6 +116,9 @@ class PressingFormPageState extends State<PressingFormPage> {
   Future<void> loadDatatest() async {
     if (seedService.api.env is EnvDev && !widget.isEditing) {
       final service = await seedService.getGeneratedPressingService();
+      final owner = await seedService.getGeneratedUserModel(UserRole.Owner);
+      final employe = await seedService.getGeneratedUserModel(UserRole.Employe);
+      final manager = await seedService.getGeneratedUserModel(UserRole.Manager);
 
       final pressingTestData = await seedService.generatePressing();
 
@@ -120,6 +126,7 @@ class PressingFormPageState extends State<PressingFormPage> {
         return;
       }
       formController.services?.add(service);
+      formController.staff?.addAll([owner, employe, manager]);
       await formController.setData(pressingTestData);
       setState(() {});
     }
@@ -147,7 +154,7 @@ class PressingFormPageState extends State<PressingFormPage> {
                       children: [
                         itemsWidget(stats, dashboardService),
                         const SizedBox(height: 16),
-                        OrderStatusPanel(stats: stats,),
+                        OrderStatusPanel(stats: stats),
                       ],
                     ),
                   ),
@@ -183,6 +190,7 @@ class PressingFormPageState extends State<PressingFormPage> {
     formService: formService,
     userService: userService,
     context: context,
+    establishmentMembersService: establishmentMembersService,
   );
 
   @override

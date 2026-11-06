@@ -1,11 +1,11 @@
 import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/categories_model.dart';
+import 'package:movegui_admin_panel/models/establishment/establishment_model.dart';
+import 'package:movegui_admin_panel/models/establishment_category_model.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
-import 'package:movegui_admin_panel/models/restaurant_model.dart';
-import 'package:movegui_admin_panel/models/store/store_model.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 
-class ProfessionnelModel extends StoreModel {
+class ProfessionnelModel extends EstablishmentModel {
   final List<String> professions;
   final CategoriesModel category;
 
@@ -15,15 +15,15 @@ class ProfessionnelModel extends StoreModel {
     required super.createdAt,
     required super.description,
     required super.address,
-    required super.staff,
     required super.email,
     required super.imageUrl,
     required super.phone,
     required super.weeklyHours,
-    required super.storeType,
+    required super.establishmentType,
     required this.professions,
     required this.category,
     required super.isActive,
+    required super.establishmentCategory,
   });
 
   @override
@@ -42,9 +42,6 @@ class ProfessionnelModel extends StoreModel {
         address: AdressModel.fromJson(json['adresse']),
         email: json['email'],
         phone: json['telephon'],
-        staff: (json['staff'] as List? ?? [])
-            .map((e) => UserModel.fromJson(e))
-            .toList(),
         category: CategoriesModel.fromJson(json['category']),
         createdAt: json['createdAt'] != null
             ? json['createdAt'].toDate()
@@ -52,17 +49,18 @@ class ProfessionnelModel extends StoreModel {
         weeklyHours: (json['weeklyHours'] as List? ?? [])
             .map((e) => OpenHoursModel.fromJson(e))
             .toList(),
-        storeType: StoreType.values.firstWhere(
-          (store) => store.type.name == (json['type'] as StoreType).name,
-          orElse: () => StoreType.laundry,
+        establishmentType: EstablishmentType.values.firstWhere(
+          (store) => store.name == (json['establishmentType'] as EstablishmentType).name,
+          orElse: () => EstablishmentType.pressing,
         ),
         professions: (json['professions'] as List<String>),
         isActive: json['isActive'] as bool,
+        establishmentCategory: EstablishmentCategoryModel.fromJson(json['establishmentCategory'])
       );
 
   @override
   String toString() {
-    return 'Profession(name: $name, professions: ${professions[0].toString()}, persons: ${staff?.toList().toString()})';
+    return 'Profession(name: $name, professions: ${professions[0].toString()},})';
   }
 }
 

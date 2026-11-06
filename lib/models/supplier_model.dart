@@ -1,10 +1,10 @@
 import 'package:movegui_admin_panel/models/adress_model.dart';
+import 'package:movegui_admin_panel/models/establishment/establishment_model.dart';
+import 'package:movegui_admin_panel/models/establishment_category_model.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
-import 'package:movegui_admin_panel/models/restaurant_model.dart';
-import 'package:movegui_admin_panel/models/store/store_model.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 
-class SupplierModel extends StoreModel {
+class SupplierModel extends EstablishmentModel {
   SupplierModel({
     required super.id,
     required super.name,
@@ -14,47 +14,34 @@ class SupplierModel extends StoreModel {
     required super.address,
     required super.email,
     required super.phone,
-    required super.staff,
     required super.weeklyHours,
-    required super.storeType,
-    required super.isActive,
+    required super.establishmentType,
+    required super.isActive, required super.establishmentCategory,
   });
 
   @override
   Map<String, dynamic> toJson() => {...super.toJson()};
 
   factory SupplierModel.fromJson(Map<String, dynamic> json) => SupplierModel(
-    id: json['id'],
-    name: json['name'],
-    description: json['description'],
-    imageUrl: json['imageUrl'],
-    address: AdressModel.fromJson(json['adresse']),
-    email: json['email'],
-    phone: json['telephon'],
-    staff: (json['staff'] as List? ?? [])
-        .map((e) => UserModel.fromJson(e))
-        .toList(),
-    createdAt: json['createdAt'] != null
-        ? json['createdAt'].toDate()
-        : DateTime.now(),
-    storeType: StoreType.values.firstWhere(
-          (store) => store.type.name == (json['type'] as StoreType).name,
-          orElse: () => StoreType.laundry,
+        id: json['id'],
+        name: json['name'],
+        createdAt: json['createdAt'] != null
+            ? json['createdAt'].toDate()
+            : DateTime.now(),
+        description: json['description'],
+        imageUrl: json['imageUrl'],
+        address: AdressModel.fromJson(json['adresse']),
+        email: json['email'],
+        phone: json['telephon'],
+        weeklyHours: (json['weeklyHours'] as List? ?? [])
+            .map((e) => OpenHoursModel.fromJson(e))
+            .toList(),
+        establishmentType: EstablishmentType.values.firstWhere(
+          (store) => store.name == (json['establishmentType'] as EstablishmentType).name,
+          orElse: () => EstablishmentType.other,
         ),
-    weeklyHours: (json['weeklyHours'] as List? ?? [])
-        .map(
-          (e) =>
-              (e != null &&
-                  e['openTime'] != null &&
-                  e['closeTime'] != null &&
-                  e['day'] != null)
-              ? OpenHoursModel.fromJson(e)
-              : null,
-        )
-        .where((e) => e != null)
-        .cast<OpenHoursModel>()
-        .toList(),
-    isActive: json['isActive'] as bool,
+        isActive: json['isActive'] as bool,
+        establishmentCategory: EstablishmentCategoryModel.fromJson(json['establishmentCategory'])
   );
 }
 

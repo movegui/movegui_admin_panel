@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:movegui_admin_panel/models/store/store_order_model.dart';
+import 'package:movegui_admin_panel/models/establishment/establishment_order_model.dart';
 import 'package:movegui_admin_panel/widgets/app/dashboard/dashbord_cards.dart';
 
 String resolveCustomerDisplayName(Map<String, dynamic>? data, {required String fallback}) {
@@ -26,7 +26,7 @@ String resolveCustomerDisplayName(Map<String, dynamic>? data, {required String f
 
 class RecentOrderPanel extends StatelessWidget {
   const RecentOrderPanel({super.key, this.orders});
-  final List<StoreOrderModel>? orders ;
+  final List<EstablishmentOrderModel>? orders ;
 
   @override
   Widget build(BuildContext context) {

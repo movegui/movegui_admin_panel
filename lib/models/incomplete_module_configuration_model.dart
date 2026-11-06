@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movegui_admin_panel/models/store/store_model.dart';
+import 'package:movegui_admin_panel/models/establishment/establishment_model.dart';
 
-class IncompleteModuleConfigurationModel<S extends StoreModel> {
+class IncompleteModuleConfigurationModel<S extends EstablishmentModel> {
   const IncompleteModuleConfigurationModel({
     required this.store,
     required this.problem,

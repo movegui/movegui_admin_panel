@@ -823,4 +823,8 @@ class MoveGuiCollections {
   static final String COLLECTION_ACTIVITIES = 'activities';
   static final String COLLECTION_PHARMACIES = 'pharmacies';
   static final String COLLECTION_RECENTE_CTIVITES = 'activity_logs';
+  static final String COLLECTION_ESTABLISHMENTS_MEMBERS = 'establishment_members';
+  static final String COLLECTION_ESTABLISHMENTS_SERVICES = 'services';
+  static final String COLLECTION_PRESSINGS_SERVICES_TYPES = 'pressing_services_types_model';
+
 }
