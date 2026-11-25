@@ -16,7 +16,7 @@ class AddressFormController extends FormController<AdressModel> {
   final latitudeFocusNode = FocusNode();
   String? id = Uuid().v4();
   DateTime? createdAt;
-  String selectedType = 'h';
+  AdressType selectedType = AdressType.home;
   String selectedMunicipality = 'di';
   bool isRegisted = false;
   bool isDefault = false;
@@ -111,7 +111,7 @@ class AddressFormController extends FormController<AdressModel> {
         district.text.isNotEmpty &&
      //   longitude.text.isNotEmpty &&
         selectedMunicipality.isNotEmpty &&
-        selectedType.isNotEmpty &&
+    //    selectedType.id != null &&
         id != null;
   }
 }

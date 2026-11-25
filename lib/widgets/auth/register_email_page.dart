@@ -140,7 +140,7 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
               final addressModel = AdressModel(
                 address: formController.adressesForms[0].address.text.trim(),
                 id: Uuid().v4(),
-                name: formController.adressesForms[0].selectedType,
+                name: '${formController.adressesForms[0].selectedType.name}_${formController.adressesForms[0].selectedMunicipality}_${formController.adressesForms[0].district.text.trim()}',
                 createdAt: DateTime.now(),
                 district: formController.adressesForms[0].district.text.trim(),
                 minucipality:
@@ -171,15 +171,14 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
                     address: formController.adressesForms[0].address.text
                         .trim(),
                     id: Uuid().v4(),
-                    name: formController.adressesForms[0].selectedType,
+                    name: '${formController.adressesForms[0].selectedType.name}_${formController.adressesForms[0].selectedMunicipality} _ ${formController.adressesForms[0].district.text.trim()}',
                     createdAt: DateTime.now(),
                     district: formController.adressesForms[0].district.text
                         .trim(),
                     minucipality:
                         formController.adressesForms[0].selectedMunicipality,
                     geoCordinates: geoCoord,
-                    zoneId:
-                        '${formController.adressesForms[0].selectedMunicipality} _ ${formController.adressesForms[0].district.text.trim()} _ ${formController.adressesForms[0].address.text.trim()}',
+    
                     adressType: formController.adressesForms[0].selectedType,
                   ),
                 ],
@@ -300,7 +299,7 @@ class RegisterEmailPageState extends ConsumerState<RegisterEmailPage> {
               });
             },
             showBild: false,
-            onAdressTypeChange: (String? addressType) {
+            onAdressTypeChange: (AdressType? addressType) {
               setState(() {
                 formController.adressesForms[0].selectedType = addressType!;
               });

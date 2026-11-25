@@ -1584,4 +1584,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get informations_subtitle => 'Dry Cleaners general Informations';
+
+  @override
+  String recent_activity_description_created(Object establishmentName) {
+    return '$establishmentName was added succesfully';
+  }
+
+  @override
+  String recent_activity_description_updated(Object establishmentName) {
+    return '$establishmentName was updated succesfully';
+  }
 }

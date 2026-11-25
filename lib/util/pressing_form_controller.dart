@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movegui_admin_panel/models/establishment/establishment_model.dart';
-import 'package:movegui_admin_panel/models/establishment_category_model.dart';
+import 'package:movegui_admin_panel/models/establishment/establishment_category_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_service_model.dart';
 import 'package:movegui_admin_panel/util/pressing_completion.dart';
@@ -15,8 +14,8 @@ class PressingFormController extends StoreFormController<PressingModel> {
         services: services,
         weeklyHours: weeklyHours,
         );
-  EstablishmentCategoryModel establishmentCategory =
-      EstablishmentCategoryModel.pressing_etablishment;
+  EstablishmentCategory establishmentCategory =
+      EstablishmentCategory.pressing_etablishment;
   
 
   @override

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
+import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/util/person_form_controller.dart';
 import 'package:movegui_admin_panel/widgets/address/address_list_widget.dart';
@@ -18,7 +19,7 @@ class AddPersonWidget extends StatelessWidget {
   final ValueChanged<String?> onCommuneChange;
   final VoidCallback onPickImage;
   final VoidCallback onRemoveImage;
-  final void Function(String?) onAdressTypeChange;
+  final void Function(AdressType?) onAdressTypeChange;
   final ValueChanged<String?> onGenderChanged;
   final ValueChanged<DateTime?>? onBirthDateChanged;
   final bool? showBild;

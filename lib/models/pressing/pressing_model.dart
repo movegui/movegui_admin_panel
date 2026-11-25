@@ -1,5 +1,5 @@
 import 'package:movegui_admin_panel/models/adress_model.dart';
-import 'package:movegui_admin_panel/models/establishment_category_model.dart';
+import 'package:movegui_admin_panel/models/establishment/establishment_category_model.dart';
 import 'package:movegui_admin_panel/models/establishment/establishment_model.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
 
@@ -63,7 +63,7 @@ class PressingModel extends EstablishmentModel {
           ? json['isComplete'] as bool
           : false,
       isActive: json['isActive'] is bool ? json['isActive'] as bool : false,
-      establishmentCategory: EstablishmentCategoryModel.fromJson(json['establishmentCategory'])
+      establishmentCategory: EstablishmentCategory.fromJson(json['establishmentCategory'])
     );
   }
 }

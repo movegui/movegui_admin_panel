@@ -62,7 +62,7 @@ class AdressFormService
       district: '',
       minucipality: 'di',
       geoCordinates: GeoCordinatesModel(longitude: 0.0, latitude: 0.0),
-      adressType: 'h',
+      adressType: AdressType.home,
       isDefault: false,
     );
   }

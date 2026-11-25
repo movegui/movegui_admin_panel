@@ -3055,6 +3055,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Dry Cleaners general Informations'**
   String get informations_subtitle;
+
+  /// Recent added {establishmentName}
+  ///
+  /// In en, this message translates to:
+  /// **'{establishmentName} was added succesfully'**
+  String recent_activity_description_created(Object establishmentName);
+
+  /// Recent modification {establishmentName}
+  ///
+  /// In en, this message translates to:
+  /// **'{establishmentName} was updated succesfully'**
+  String recent_activity_description_updated(Object establishmentName);
 }
 
 class _AppLocalizationsDelegate

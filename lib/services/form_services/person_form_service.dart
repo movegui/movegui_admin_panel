@@ -38,12 +38,16 @@ class PersonFormService extends FormService<PersonModel, PersonFormController> {
         AdressModel(
           address: controller.adressesForms[0].address.text.trim(),
           id: Uuid().v4(),
-          name: controller.adressesForms[0].selectedType,
+          name:
+              '${controller.adressesForms[0].selectedType.name}_${controller.adressesForms[0].selectedMunicipality}_${controller.adressesForms[0].district.text.trim()}',
           createdAt: DateTime.now(),
           district: controller.adressesForms[0].district.text.trim(),
           minucipality: controller.adressesForms[0].selectedMunicipality,
+          /*
           zoneId:
-              '${controller.adressesForms[0].selectedMunicipality}_${controller.adressesForms[0].district.text.trim()}_${controller.adressesForms[0].address.text.trim()}',
+              '${controller.adressesForms[0].selectedMunicipality}_${controller.adressesForms[0].
+              district.text.trim()}_${controller.adressesForms[0].address.text.trim()}',
+              */
           geoCordinates: GeoCordinatesModel(
             longitude: double.parse(
               controller.adressesForms[0].longitude.text.trim(),
@@ -52,7 +56,7 @@ class PersonFormService extends FormService<PersonModel, PersonFormController> {
               controller.adressesForms[0].latitude.text.trim(),
             ),
           ),
-          adressType: '',
+          adressType: AdressType.other,
         ),
       ],
       email: controller.email.text.trim(),
@@ -74,7 +78,8 @@ class PersonFormService extends FormService<PersonModel, PersonFormController> {
       email: '',
       phone: '',
       gender: 'm',
-      birthDate: null, // DateTime.now() - 18 * 365 * 24 * 60 * 60 * 1000, // 18 years ago
+      birthDate:
+          null, // DateTime.now() - 18 * 365 * 24 * 60 * 60 * 1000, // 18 years ago
       addresses: [adressFormService.getDefaultModel()],
     );
   }

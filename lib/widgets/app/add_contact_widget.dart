@@ -7,6 +7,7 @@ import 'package:movegui_admin_panel/consts/app_constants.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
+import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';
 import 'package:movegui_admin_panel/services/interfaces/i_user_service.dart';
 import 'package:movegui_admin_panel/services/register_services.dart';
@@ -142,7 +143,7 @@ class AddContactWidgetState extends State<AddContactWidget> {
                                 null;
                           });
                         },
-                        onAdressTypeChange: (String? selectedValue) {
+                        onAdressTypeChange: (AdressType? selectedValue) {
                           setState(() {
                             user.personForm.adressesForms[0].selectedType =
                                 selectedValue!;

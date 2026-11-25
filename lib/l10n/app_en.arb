@@ -2,7 +2,7 @@
     "@@locale": "en",
     "service_active_title": "Service enabled",
     "@service_active_title": {},
-        "status_actif": "Active",
+    "status_actif": "Active",
     "@status_actif": {},
     "status_inactif": "Inactive",
     "@status_inactif": {},
@@ -16,7 +16,7 @@
     "@delete_pressing_service_title": {},
     "delete_pressing_service_question": "Would you like to delete this Service ?",
     "@delete_pressing_service_question": {},
-            "delete_pressing_title": "Delete Dry Cleaner",
+    "delete_pressing_title": "Delete Dry Cleaner",
     "@delete_pressing_title": {},
     "delete_pressing_question": "Would you like to delete this Dry Cleaner ?",
     "@delete_pressing_question": {},
@@ -64,7 +64,6 @@
     "@employe_all_bar_title": {},
     "employe_all_bar_subtitle": "Employees liste and Roles",
     "@employe_all_bar_subtitle": {},
-    
     "employe_status_actf": "Active",
     "@employe_status_actf": {},
     "employe_status_non_actf": "Inactive",
@@ -159,7 +158,7 @@
     "@pressing_service_type_labelText": {},
     "pressing_services_types_title": "Types of Services",
     "@pressing_services_types_title": {},
-        "pressing_services_types_subtitle": "Define the available service categories",
+    "pressing_services_types_subtitle": "Define the available service categories",
     "@pressing_services_types_subtitle": {},
     "pressing_services_types_all_title": "All services types",
     "@pressing_services_types_all_title": {},
@@ -179,12 +178,11 @@
     "pressing_proble_staff_owner": "No Owner assigned",
     "@pressing_proble_staff_owner": {},
     "@pressing_problem_service_non_configured": {},
-     "pressing_problem_incomplete_infos": "Incompleted Dry Cleaning Informations",
+    "pressing_problem_incomplete_infos": "Incompleted Dry Cleaning Informations",
     "@pressing_problem_incomplete_infos": {},
-    
-      "pressing_incomplete_no_problem_subtitle": "All configurations are completed",
+    "pressing_incomplete_no_problem_subtitle": "All configurations are completed",
     "@pressing_incomplete_no_problem_subtitle": {},
-      "pressing_service_configured": "Dry Cleaners configured",
+    "pressing_service_configured": "Dry Cleaners configured",
     "@pressing_service_configured": {},
     "tab_header_produit_title": "Prodruct",
     "@tab_header_produit_title": {},
@@ -236,7 +234,7 @@
     "@pressing_service_add_dashboard_title": {},
     "pressing_service_add_dashboard_sub_title": "Add the services, offerings, categories and tariffs proposed by the dry cleaner",
     "@pressing_service_add_dashboard_sub_title": {},
-            "pressing_service_type_add_dashboard_title": "Add a Service Type",
+    "pressing_service_type_add_dashboard_title": "Add a Service Type",
     "@pressing_service_type_add_dashboard_title": {},
     "pressing_service_type_add_dashboard_sub_title": "Add the types of services offered by your dry cleaner",
     "@pressing_service_type_add_dashboard_sub_title": {},
@@ -320,15 +318,13 @@
             "storeCategory": {}
         }
     },
-
-        "store_edit_success_message": "{storeCategory} successfully updated",
+    "store_edit_success_message": "{storeCategory} successfully updated",
     "@store_edit_success_message": {
         "description": "message de succes",
         "placeholders": {
             "storeCategory": {}
         }
     },
-
     "store_type": "Type {storeCategory}",
     "@store_type": {
         "description": "Type of {storeCategory]",
@@ -478,7 +474,7 @@
     "@btn_no": {},
     "btn_configure": "Configure",
     "@btn_configure": {},
-        "btn_manage": "Manage",
+    "btn_manage": "Manage",
     "@btn_manage": {},
     "btn_see": "See",
     "@btn_see": {},
@@ -910,9 +906,9 @@
     "@profile_menu_logout": {},
     "profile_menu_login": "Login",
     "@profile_menu_login": {},
-        "menu_principal": "Principal Menu",
+    "menu_principal": "Principal Menu",
     "@menu_principal": {},
-    "menu_preferency":"Preferencies",
+    "menu_preferency": "Preferencies",
     "@menu_preferency": {},
     "add": "Ajouter",
     "@add": {},
@@ -954,7 +950,7 @@
     "@days": {},
     "last_orders": "Last Orders",
     "@last_orders": {},
-        "last_orders_subtitle": "Last orders list",
+    "last_orders_subtitle": "Last orders list",
     "@last_orders_subtitle": {},
     "message_movegui_title": "<p>Welcome on Movegui</p>",
     "@message_movegui_title": {},
@@ -1034,11 +1030,11 @@
     "@static_module_item_pressing_services_types_title": {},
     "static_module_item_pressing_services_types_subtitle": " Total Services Types",
     "@static_module_item_pressing_services_types_subtitle": {},
-        "static_module_item_pressing_services_types_actifs_subtitle": "Active Services Types",
+    "static_module_item_pressing_services_types_actifs_subtitle": "Active Services Types",
     "@static_module_item_pressing_services_types_actifs_subtitle": {},
-     "static_module_item_pressing_services_types_inactifs_subtitle": "Inactive Services Types",
+    "static_module_item_pressing_services_types_inactifs_subtitle": "Inactive Services Types",
     "@static_module_item_pressing_services_types_inactifs_subtitle": {},
-        "static_module_item_pressing_owners_title": "Owners",
+    "static_module_item_pressing_owners_title": "Owners",
     "@static_module_item_pressing_owners_title": {},
     "static_module_item_pressing_owners_subtitle": "Owners in total",
     "@static_module_item_pressing_owners_subtitle": {},
@@ -1056,10 +1052,8 @@
     "@static_module_item_pressing_total_services_subtitle": {},
     "static_module_item_pressing_services_actifs_subtitle": "Services in total",
     "@static_module_item_pressing_services_actifs_subtitle": {},
-        "static_module_item_pressing_services_inactifs_subtitle": "Services in total",
+    "static_module_item_pressing_services_inactifs_subtitle": "Services in total",
     "@static_module_item_pressing_services_inactifs_subtitle": {},
-
-
     "image_chose_image_text": "Choose an Image",
     "@image_chose_image_text": {},
     "image_change_image_text": "Change an Image",
@@ -1068,8 +1062,22 @@
     "@image_add_image_text": {},
     "price_type_label": "Pricing type",
     "@price_type_label": {},
-        "informations_title": "Informations",
+    "informations_title": "Informations",
     "@informations_title": {},
     "informations_subtitle": "Dry Cleaners general Informations",
-    "@informations_subtitle": {}
+    "@informations_subtitle": {},
+    "recent_activity_description_created": "{establishmentName} was added succesfully",
+    "@recent_activity_description_created": {
+        "description": "Recent added {establishmentName}",
+        "placeholders": {
+            "establishmentName": {}
+        }
+    },
+    "recent_activity_description_updated": "{establishmentName} was updated succesfully",
+    "@recent_activity_description_updated": {
+        "description": "Recent modification {establishmentName}",
+        "placeholders": {
+            "establishmentName": {}
+        }
+    }
 }

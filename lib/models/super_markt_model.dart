@@ -1,9 +1,8 @@
 import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/categories_model.dart';
 import 'package:movegui_admin_panel/models/establishment/establishment_model.dart';
-import 'package:movegui_admin_panel/models/establishment_category_model.dart';
+import 'package:movegui_admin_panel/models/establishment/establishment_category_model.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
-import 'package:movegui_admin_panel/models/user_model.dart';
 
 class SuperMarktModel extends EstablishmentModel {
   final CategoriesModel category;
@@ -47,6 +46,6 @@ class SuperMarktModel extends EstablishmentModel {
         ),
         category: CategoriesModel.fromJson(json['category']),
         isActive: json['isActive'] as bool,
-        establishmentCategory: EstablishmentCategoryModel.fromJson(json['establishmentCategory'])
+        establishmentCategory: EstablishmentCategory.fromJson(json['establishmentCategory'])
       );
 }

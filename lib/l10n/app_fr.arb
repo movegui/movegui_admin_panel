@@ -16,7 +16,7 @@
     "@delete_pressing_service_title": {},
     "delete_pressing_service_question": "Voulez-vous vraiment supprimer ce service ?",
     "@delete_pressing_service_question": {},
-        "delete_pressing_title": "Supprimer Pressing",
+    "delete_pressing_title": "Supprimer Pressing",
     "@delete_pressing_title": {},
     "delete_pressing_question": "Voulez-vous vraiment supprimer ce Pressing ?",
     "@delete_pressing_question": {},
@@ -60,7 +60,7 @@
     "@employe_add_bar_title": {},
     "employe_all_bar_title": "Tous les Employés",
     "@employe_all_bar_title": {},
-        "employe_all_bar_subtitle": "Liste des employés et leurs rôles",
+    "employe_all_bar_subtitle": "Liste des employés et leurs rôles",
     "@employe_all_bar_subtitle": {},
     "employe_bar_title": "Configuration Employé",
     "@employe_bar_title": {},
@@ -174,7 +174,6 @@
     "@pressing_services_types_all_title": {},
     "pressing_services_types_all_descrip": "Tous les Types de services ",
     "@pressing_services_types_all_descrip": {},
-
     "pressing_problem_hours_non_configured": "Horaires non configurés",
     "@pressing_problem_hours_non_configured": {},
     "pressing_problem_service_non_configured": "Aucun service configuré",
@@ -189,10 +188,8 @@
     "@pressing_problem_incomplete_infos": {},
     "pressing_service_configured": "pressings configurés",
     "@pressing_service_configured": {},
-
-      "pressing_incomplete_no_problem_subtitle": "Toutes les configurations sont complètes",
+    "pressing_incomplete_no_problem_subtitle": "Toutes les configurations sont complètes",
     "@pressing_incomplete_no_problem_subtitle": {},
-    
     "tab_header_produit_title": "Produit",
     "@tab_header_produit_title": {},
     "tab_header_price_title": "Prix",
@@ -237,11 +234,11 @@
     "@pressing_service_add_dashboard_title": {},
     "pressing_service_add_dashboard_sub_title": "Ajouter les services, prestations, categories et tarifs proposés par le pressing",
     "@pressing_service_add_dashboard_sub_title": {},
-        "pressing_service_type_add_dashboard_title": "Ajouter un Type de Service",
+    "pressing_service_type_add_dashboard_title": "Ajouter un Type de Service",
     "@pressing_service_type_add_dashboard_title": {},
     "pressing_service_type_add_dashboard_sub_title": "Ajouter les type de services proposés par votre pressing",
     "@pressing_service_type_add_dashboard_sub_title": {},
-        "pressing_hours_open_sub_text": "Le pressing est ouvert ce jour",
+    "pressing_hours_open_sub_text": "Le pressing est ouvert ce jour",
     "@pressing_hours_open_sub_text": {},
     "pressing_hours_close_sub_text": "Le pressing est fermé ce jour",
     "@pressing_hours_close_sub_text": {},
@@ -321,15 +318,13 @@
             "storeCategory": {}
         }
     },
-
-        "store_edit_success_message": "{storeCategory} modifié avec succès",
+    "store_edit_success_message": "{storeCategory} modifié avec succès",
     "@store_edit_success_message": {
         "description": "message de succes",
         "placeholders": {
             "storeCategory": {}
         }
     },
-
     "store_type": "Type {storeCategory}",
     "@store_type": {
         "description": "Type de {storeCategory}",
@@ -477,7 +472,6 @@
     "@btn_manage": {},
     "btn_see": "Voir",
     "@btn_see": {},
-    
     "verify_otp": "Envoyer Code",
     "@verify_otp": {},
     "resend_code": "Renvoyer Code",
@@ -914,7 +908,7 @@
     "@profile_menu_login": {},
     "menu_principal": "Menu Principal",
     "@menu_principal": {},
-    "menu_preferency":"Preférences",
+    "menu_preferency": "Preférences",
     "@menu_preferency": {},
     "add": "Ajouter",
     "@add": {},
@@ -1038,7 +1032,7 @@
     "@static_module_item_pressing_services_types_subtitle": {},
     "static_module_item_pressing_services_types_actifs_subtitle": "Services Types Actifs",
     "@static_module_item_pressing_services_types_actifs_subtitle": {},
-     "static_module_item_pressing_services_types_inactifs_subtitle": "Services Types Inactifs",
+    "static_module_item_pressing_services_types_inactifs_subtitle": "Services Types Inactifs",
     "@static_module_item_pressing_services_types_inactifs_subtitle": {},
     "static_module_item_pressing_owners_title": "Propriétaires",
     "@static_module_item_pressing_owners_title": {},
@@ -1058,7 +1052,7 @@
     "@static_module_item_pressing_total_services_subtitle": {},
     "static_module_item_pressing_services_actifs_subtitle": "Services au total",
     "@static_module_item_pressing_services_actifs_subtitle": {},
-        "static_module_item_pressing_services_inactifs_subtitle": "Services au total",
+    "static_module_item_pressing_services_inactifs_subtitle": "Services au total",
     "@static_module_item_pressing_services_inactifs_subtitle": {},
     "image_chose_image_text": "Choisir une image",
     "@image_chose_image_text": {},
@@ -1071,5 +1065,19 @@
     "informations_title": "Informations",
     "@informations_title": {},
     "informations_subtitle": "Informations générales de votre pressing",
-    "@informations_subtitle": {}
+    "@informations_subtitle": {},
+    "recent_activity_description_created": "{establishmentName} à été ajouté avec success",
+    "@recent_activity_description_created": {
+        "description": "Ajout recent {establishmentName}",
+        "placeholders": {
+            "establishmentName": {}
+        }
+    },
+        "recent_activity_description_updated": "{establishmentName} à été modifié avec success",
+    "@recent_activity_description_updated": {
+        "description": "Modification recente {establishmentName}",
+        "placeholders": {
+            "establishmentName": {}
+        }
+    }
 }

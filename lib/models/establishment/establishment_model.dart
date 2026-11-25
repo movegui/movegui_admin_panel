@@ -1,6 +1,6 @@
 import 'package:movegui_admin_panel/consts/app_constants.dart';
 import 'package:movegui_admin_panel/models/adress_model.dart';
-import 'package:movegui_admin_panel/models/establishment_category_model.dart';
+import 'package:movegui_admin_panel/models/establishment/establishment_category_model.dart';
 import 'package:movegui_admin_panel/models/model.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
 
@@ -13,7 +13,7 @@ abstract class EstablishmentModel extends Model {
   double? rating;
   int? reviewCount;
   bool? isComplete;
-  EstablishmentCategoryModel establishmentCategory;
+  EstablishmentCategory establishmentCategory;
 
   EstablishmentModel({
     required super.id,

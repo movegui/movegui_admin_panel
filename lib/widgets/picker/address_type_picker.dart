@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/consts/validator.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
+import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/widgets/util/form_card_widget.dart';
 
 class AddressTypePicker extends StatefulWidget {
-  final String? adresseType;
-  final ValueChanged<String?> onAdressTypeChange;
+  final AdressType? adresseType;
+  final ValueChanged<AdressType?> onAdressTypeChange;
 
   const AddressTypePicker({
     super.key,
@@ -19,7 +20,7 @@ class AddressTypePicker extends StatefulWidget {
 }
 
 class AddressTypePickerState extends State<AddressTypePicker> {
-  String? _selectedAdressType;
+  AdressType? _selectedAdressType;
 
   @override
   void initState() {
@@ -37,33 +38,39 @@ class AddressTypePickerState extends State<AddressTypePicker> {
         ? Theme.of(context).textTheme.bodyMedium
         : Theme.of(context).textTheme.bodySmall;
     final labelStyle = Responsive.isDesktop(context)
-        ? Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold, fontSize: 20 )
-        : Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold, fontSize: 14 );
+        ? Theme.of(context).textTheme.bodyMedium?.copyWith(
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          )
+        : Theme.of(context).textTheme.bodySmall?.copyWith(
+            fontWeight: FontWeight.bold,
+            fontSize: 14,
+          );
     return FormCardWidget(
-      child: DropdownButtonFormField<String>(
+      child: DropdownButtonFormField<AdressType>(
         decoration: InputDecoration(
           filled: true,
           labelText: AppLocalizations.of(context)!.input_hint_adress,
           labelStyle: labelStyle,
           border: InputBorder.none,
-          floatingLabelStyle: labelStyle
+          floatingLabelStyle: labelStyle,
         ),
         value: _selectedAdressType,
         items: [
           DropdownMenuItem(
-            value: 'h',
+            value: AdressType.home,
             child: Text(home, style: style),
           ),
           DropdownMenuItem(
-            value: 'o',
+            value: AdressType.office,
             child: Text(office, style: style),
           ),
           DropdownMenuItem(
-            value: 'n',
+            value: AdressType.neighbor,
             child: Text(neighbor, style: style),
           ),
           DropdownMenuItem(
-            value: 'ot',
+            value: AdressType.other,
             child: Text(other, style: style),
           ),
         ],
@@ -71,45 +78,38 @@ class AddressTypePickerState extends State<AddressTypePicker> {
           setState(() => _selectedAdressType = value);
 
           switch (value) {
-            case 'h':
+            case AdressType.home:
+              widget.onAdressTypeChange.call(AdressType.home);
+            case AdressType.office:
+              widget.onAdressTypeChange.call(AdressType.office);
+            case AdressType.neighbor:
               widget.onAdressTypeChange.call(
-                AppLocalizations.of(context)!.address_home_title,
+                //AppLocalizations.of(context)!.address_neighbor_title,
+                AdressType.neighbor,
               );
-            case 'o':
-              widget.onAdressTypeChange.call(
-                AppLocalizations.of(context)!.address_office_title,
-              );
-            case 'n':
-              widget.onAdressTypeChange.call(
-                AppLocalizations.of(context)!.address_neighbor_title,
-              );
-            case 'ot':
-              widget.onAdressTypeChange.call(
-                AppLocalizations.of(context)!.address_other_title,
-              );
+            case AdressType.other:
+              widget.onAdressTypeChange.call(AdressType.other);
             default:
-              return widget.onAdressTypeChange.call('');
+              return widget.onAdressTypeChange.call(AdressType.other);
           }
         },
         validator: (value) {
-          return MyValidators.textValidator(value);
+          return MyValidators.textValidator(value!.name);
         },
       ),
     );
   }
 
-  String getAddressTypeLabel(String value) {
-    switch (value) {
-      case 'h':
+  String getAddressTypeLabel(AdressType adressType) {
+    switch (adressType) {
+      case AdressType.home:
         return AppLocalizations.of(context)!.address_home_title;
-      case 'o':
+      case AdressType.office:
         return AppLocalizations.of(context)!.address_office_title;
-      case 'n':
+      case AdressType.neighbor:
         return AppLocalizations.of(context)!.address_neighbor_title;
-      case 'ot':
+      case AdressType.other:
         return AppLocalizations.of(context)!.address_other_title;
-      default:
-        return '';
     }
   }
 }

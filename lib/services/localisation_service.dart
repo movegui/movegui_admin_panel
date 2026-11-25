@@ -113,7 +113,7 @@ class LocalisationService {
         createdAt: DateTime.now(),
         district: place.subLocality!,
         minucipality: place.locality!,
-        adressType: 'ot',
+        adressType: AdressType.other,
         ville: place.administrativeArea,
       );
 
@@ -146,13 +146,11 @@ class LocalisationService {
           createdAt: DateTime.now(),
           district: addresses[2],
           minucipality: addresses[3],
-          zoneId:
-              '${addresses[3]}_${addresses[3]}_${addresses[2]}_${addresses[1]}',
           geoCordinates: GeoCordinatesModel(
             longitude: longitude,
             latitude: latitude,
           ),
-          adressType: 'ot',
+          adressType: AdressType.other,
           ville: addresses[3],
         );
         currentAdress = addressModel;

@@ -1595,4 +1595,14 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get informations_subtitle =>
       'Informations générales de votre pressing';
+
+  @override
+  String recent_activity_description_created(Object establishmentName) {
+    return '$establishmentName à été ajouté avec success';
+  }
+
+  @override
+  String recent_activity_description_updated(Object establishmentName) {
+    return '$establishmentName à été modifié avec success';
+  }
 }

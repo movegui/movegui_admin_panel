@@ -3,7 +3,7 @@ import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/establishment/establishment_model.dart';
-import 'package:movegui_admin_panel/models/establishment_category_model.dart';
+import 'package:movegui_admin_panel/models/establishment/establishment_category_model.dart';
 import 'package:movegui_admin_panel/models/geo_cordinates_model.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
 import 'package:movegui_admin_panel/models/person_model.dart';
@@ -106,7 +106,7 @@ class SeedService {
     rating: 0,
     reviewCount: 0,
     establishmentType: EstablishmentType.pressing,
-    establishmentCategory: EstablishmentCategoryModel.pressing_etablishment,
+    establishmentCategory: EstablishmentCategory.pressing_etablishment,
   );
 
   Future<PressingServiceModel> getGeneratedPressingService() async =>
@@ -157,7 +157,7 @@ class SeedService {
           longitude: faker.geo.longitude(),
           latitude: faker.geo.latitude(),
         ),
-        adressType: 'h',
+        adressType: AdressType.home,
       ),
     ],
   );
@@ -173,7 +173,7 @@ class SeedService {
       longitude: faker.geo.longitude(),
       latitude: faker.geo.latitude(),
     ),
-    adressType: 'h',
+    adressType: AdressType.home,
   );
 
   Future<UserModel> getGeneratedUserModel(UserRole? role) async => UserModel(

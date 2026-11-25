@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:movegui_admin_panel/consts/app_constants.dart';
 import 'package:movegui_admin_panel/exception/app_exception.dart';
-import 'package:movegui_admin_panel/models/establishment/establishment_members_model.dart';
 import 'package:movegui_admin_panel/models/establishment/establishment_model.dart';
 import 'package:movegui_admin_panel/models/service_model.dart';
 import 'package:movegui_admin_panel/models/user_model.dart';

@@ -3,6 +3,7 @@ import 'package:movegui_admin_panel/consts/app_constants.dart';
 import 'package:movegui_admin_panel/consts/validator.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
+import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/open_hours_model.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/util/store_form_controller.dart';
@@ -19,7 +20,7 @@ import 'package:movegui_admin_panel/widgets/util/status_switch_widget.dart';
 
 class StoreWidget extends StatelessWidget {
   final StoreFormController formController;
-  final void Function(String?) onAdressTypeChange;
+  final void Function(AdressType?) onAdressTypeChange;
   final void Function(String?) onCommuneChange;
   final VoidCallback onPickImage;
   final VoidCallback onRemoveImage;

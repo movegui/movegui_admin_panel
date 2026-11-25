@@ -32,7 +32,7 @@ setGlobalOptions({ maxInstances: 10 });
 // });
 
 const functions = require("firebase-functions");
-const admin = require("firebase-admin"); 
+const admin = require("firebase-admin");
 const { getAuth } = require("firebase-admin/auth");
 const { getFirestore, Firestore, FieldValue } = require("firebase-admin/firestore");
 const axios = require('axios');
@@ -43,6 +43,10 @@ const cors = require('cors')({ origin: true });
 const { onCall, HttpsError } = require("firebase-functions/v2/https");
 const { defineSecret } = require("firebase-functions/params");
 const { onDocumentCreated } = require("firebase-functions/v2/firestore");
+require("tsx/cjs");
+const { createEstablishmentDiscoverySync } = require("./src/etablishments/trigger/establishment-discovery.sync");
+const { PRESSING, RESTAURANT, ESTABLISHMENT_CREATED, ESTABLISHMENT_UPDATED } = require("./const/establishment-type");
+const { recentActivitySync } = require("./src/etablishments/trigger/recent-acitivities.sync");
 
 
 
@@ -124,16 +128,16 @@ exports.sendEmail = onCall(
       console.error(error);
       return {
         success: false,
-        error: error.message, 
+        error: error.message,
       };
-    } 
-  } 
-);  
-   
- 
+    }
+  }
+);
+
+
 exports.setSuperAdminRole = functions.https.onRequest(async (req, res) => {
   console.log("FIREBASE_AUTH_EMULATOR_HOST:", process.env.FIREBASE_AUTH_EMULATOR_HOST);
-  
+
   cors(req, res, async () => {
     // Auth is not emulated on purpose: roles are written to the production
     // Firebase Auth shared with the movegui client app.
@@ -144,12 +148,12 @@ exports.setSuperAdminRole = functions.https.onRequest(async (req, res) => {
       return res.status(401).send({ error: "Unauthorized" });
     }
 
-    const { uid, role } = req.body; 
- 
+    const { uid, role } = req.body;
+
     if (!USER_ROLES.includes(role)) {
-      return res.status(400).send({ error: `Invalid role: ${role}` });  
-    }  
- 
+      return res.status(400).send({ error: `Invalid role: ${role}` });
+    }
+
     // A SuperAdmin can set any role. The only other case allowed is the
     // dev bootstrap in main_dev.dart, where a freshly created user sets its
     // own role - and only from a locally running functions emulator, never
@@ -159,17 +163,17 @@ exports.setSuperAdminRole = functions.https.onRequest(async (req, res) => {
       process.env.FUNCTIONS_EMULATOR === "true" && caller.uid === uid;
     if (!isSuperAdmin && !isEmulatorBootstrap) {
       return res.status(403).send({ error: "Forbidden" });
-    } 
+    }
 
     try {
 
       const user = await getAuth().getUser(uid);
 
       await getAuth().setCustomUserClaims(uid, {
-        role: role, 
+        role: role,
       });
-       
- 
+
+
       res.status(200).send({ success: true });
     } catch (error) {
       console.error("Error setting custom claims:", error);
@@ -177,7 +181,7 @@ exports.setSuperAdminRole = functions.https.onRequest(async (req, res) => {
     }
   });
 
-  
+
 
 });
 
@@ -214,7 +218,7 @@ exports.createUser = functions.https.onRequest(async (req, res) => {
           error: `Not allowed to assign role: ${role}`,
         });
       }
-    
+
       // Create user 
       const user = await getAuth().createUser({
         email,
@@ -223,7 +227,7 @@ exports.createUser = functions.https.onRequest(async (req, res) => {
 
       await getAuth().setCustomUserClaims(user.uid, {
         role: role,
-      });
+      }); 
 
       res.status(200).json({
         uid: user.uid,
@@ -346,10 +350,10 @@ exports.createUserWithoutPassword = functions.https.onRequest(async (req, res) =
       res.status(authErrorStatus(e)).json({
         error: e.message,
       });
-    } 
-  })  
-});     
-    
+    }
+  })
+});
+
 exports.addressFromGeoCoord = functions.https.onRequest(
   async (req, res) => {
     cors(req, res, async () => {
@@ -360,9 +364,9 @@ exports.addressFromGeoCoord = functions.https.onRequest(
         if (!latitude || !longitude) {
           return res.status(400).json({
             error: "latitude and longitude are required",
-          });  
-        }   
-   
+          });
+        }
+
         const url =
           `https://nominatim.openstreetmap.org/reverse` +
           `?lat=${latitude}` +
@@ -373,15 +377,15 @@ exports.addressFromGeoCoord = functions.https.onRequest(
           headers: {
             "User-Agent": "MoveGui/1.0",
           },
-        });  
+        });
 
-        const data = response.data; 
+        const data = response.data;
 
         if (!data || !data.display_name) {
           return res.status(404).json({
             error: "Address not found",
           });
-        } 
+        }
 
         return res.status(200).json({
           address: data.display_name,
@@ -399,6 +403,7 @@ exports.addressFromGeoCoord = functions.https.onRequest(
   }
 );
 
+/*
 exports.onPressingCreated = onDocumentCreated(
   {
     document: "pressings_model/{establishmentId}",
@@ -410,16 +415,17 @@ exports.onPressingCreated = onDocumentCreated(
     if (!establishment) {
       console.log('error happen');
       return;
-    }  
+    }
 
     const establishmentId = event.params?.establishmentId ?? establishment.id ?? event.data?.id;
     const activityId = `establishment_created_${establishmentId}`;
+
 
     await db
       .collection("activity_logs")
       .doc(activityId)
       .set({
-        storeType: {
+        establishmentType: {
           id: "pressing",
           name: "Pressing",
           createdAt: FieldValue.serverTimestamp(),
@@ -436,7 +442,35 @@ exports.onPressingCreated = onDocumentCreated(
         },
         createdAt: FieldValue.serverTimestamp(),
       });
+
+      /*
+    await db
+      .collection("establishment_dicovery")
+      .doc(establishmentId)
+      .set({
+        establishmentType: {
+          id: "pressing",
+          name: "Pressing",
+          createdAt: FieldValue.serverTimestamp(),
+        },
+        description: establishment.description,
+        imageUrl: establishment.imageUrl,
+        address: establishment.address,
+        rating: establishment.rating,
+        name: establishment.name,
+        createdAt: FieldValue.serverTimestamp(), 
+      }); 
+      */
+     /*
   },
 );
+*/
 
-  
+
+exports.syncPressingsDiscovery = createEstablishmentDiscoverySync(PRESSING);
+exports.syncRestaurantDiscovery = createEstablishmentDiscoverySync(RESTAURANT);
+exports.onPressingCreated = recentActivitySync(PRESSING, ESTABLISHMENT_CREATED);
+exports.onPressingUpdated = recentActivitySync(PRESSING, ESTABLISHMENT_UPDATED);
+
+
+

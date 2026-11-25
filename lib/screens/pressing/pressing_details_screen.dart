@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movegui_admin_panel/consts/route_constants.dart';
@@ -6,7 +5,6 @@ import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/models/dashboard/dashboard_model_data.dart';
 import 'package:movegui_admin_panel/models/dashboard/module_item.dart';
 import 'package:movegui_admin_panel/models/establishment/establishment_details_model.dart';
-import 'package:movegui_admin_panel/models/establishment/establishment_model.dart';
 import 'package:movegui_admin_panel/models/module_configuration_item_model.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_dashboard_model_data.dart';
 import 'package:movegui_admin_panel/models/pressing/pressing_details_model_data.dart';

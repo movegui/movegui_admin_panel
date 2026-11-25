@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movegui_admin_panel/consts/validator.dart';
 import 'package:movegui_admin_panel/consts/widget_constants.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
+import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/button_info.dart';
 import 'package:movegui_admin_panel/responsive.dart';
 import 'package:movegui_admin_panel/util/address_form_controller.dart';
@@ -13,7 +14,7 @@ import 'package:movegui_admin_panel/widgets/util/button_widget.dart';
 
 class AddressWidget extends StatefulWidget {
   final AddressFormController addressForm;
-  final ValueChanged<String?> onAdressTypeChange;
+  final ValueChanged<AdressType?> onAdressTypeChange;
   final ValueChanged<String?> onCommuneChange;
   final ValueChanged<String?> onDefaultAdressChange;
   final VoidCallback? onUpdateAdresse;

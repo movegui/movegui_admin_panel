@@ -16,6 +16,7 @@ class DashboardService {
     try {
     final results = await Future.wait<int>([
       
+      
       _count(firestore.collection(MoveGuiCollections.COLLECTION_ORDERS)),
       _count(firestore.collection(MoveGuiCollections.COLLECTION_ORDERS).where('status', isEqualTo: OrderStatus.pending.name)),
       _count(firestore.collection(MoveGuiCollections.COLLECTION_ORDERS).where('status', isEqualTo: OrderStatus.in_progress.name)),
@@ -29,6 +30,7 @@ class DashboardService {
       _count(firestore.collection(MoveGuiCollections.COLLECTION_PRESSINGS)),
       _count(firestore.collection(MoveGuiCollections.COLLECTION_SUPER_MARKETS)),
       _count(firestore.collection(MoveGuiCollections.COLLECTION_PHARMACIES)),
+      
       
     ]);
 

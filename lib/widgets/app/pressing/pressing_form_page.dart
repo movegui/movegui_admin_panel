@@ -5,7 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:movegui_admin_panel/config/env_dev.dart';
@@ -17,6 +16,7 @@ import 'package:movegui_admin_panel/error/message_widget.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
 import 'package:movegui_admin_panel/methods/showBtmAlert.dart';
 import 'package:movegui_admin_panel/methods/show_alert.dart';
+import 'package:movegui_admin_panel/models/adress_model.dart';
 import 'package:movegui_admin_panel/models/button_info.dart';
 import 'package:movegui_admin_panel/models/dashboard/dashboard_model_data.dart';
 import 'package:movegui_admin_panel/models/dashboard/module_item.dart';
@@ -328,7 +328,7 @@ class PressingFormPageState extends State<PressingFormPage> {
                       formController.webImage = Uint8List(8);
                     });
                   },
-                  onAdressTypeChange: (String? value) {
+                  onAdressTypeChange: (AdressType? value) {
                     setState(() {
                       formController.addressForm.selectedType = value!;
                     });

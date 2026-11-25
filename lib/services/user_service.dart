@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:movegui_admin_panel/consts/app_colors.dart';
+import 'package:movegui_admin_panel/consts/app_constants.dart';
 import 'package:movegui_admin_panel/error/message_widget.dart';
 import 'package:movegui_admin_panel/exception/app_exception.dart';
 import 'package:movegui_admin_panel/l10n/app_localizations.dart';
@@ -51,7 +52,7 @@ class UserService extends ModelService<UserModel> implements IUserService {
 
   @override
   String getCollectionName() {
-    return "users";
+    return MoveGuiCollections.COLLECTION_USERS;
   }
 
   @override

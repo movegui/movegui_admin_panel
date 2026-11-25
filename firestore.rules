@@ -9,21 +9,26 @@ service cloud.firestore {
 
     function isAdmin() {
       return request.auth != null
+      /*
         && (
       request.auth.token.role == "Admin" 
+      
       );
+      */
     }
 
     function isSuperAdmin() {
       return request.auth != null
+      /*
         && request.auth.token.role == "SuperAdmin";
+        */
     }
 
     function isOwner(id) {
       return request.auth.uid == id;
     }
 
-    match /users/{id} {
+    match /users_collection/{id} {
 
       allow create , delete: if isSignedIn()  // && ( isAdmin() || isSuperAdmin());
 
@@ -34,7 +39,7 @@ service cloud.firestore {
       //   && (isOwner(id) || isAdmin() || isSuperAdmin());
     }
 
-    match /pressings_model/{id} {
+    match /pressings_collection/{id} {
       allow create: if isSignedIn()
       //      && ( isAdmin() || isSuperAdmin());
 
@@ -52,9 +57,19 @@ service cloud.firestore {
         allow update, delete: if isSignedIn()
           && (isOwner(id) || isAdmin() || isSuperAdmin());
       }
+
+            match /cart/{cartId} {
+        allow create: if isSignedIn()
+          && ( isAdmin() || isSuperAdmin());
+
+        allow read: if isSignedIn() && (isOwner(id) || isAdmin() || isSuperAdmin());
+
+        allow update, delete: if isSignedIn()
+          && (isOwner(id) || isAdmin() || isSuperAdmin());
+      }
     }
 
-    match /suppliers_model/{id} {
+    match /suppliers_collection/{id} {
 
       allow create: if isSignedIn()
         && ( isAdmin() || isSuperAdmin());
@@ -64,7 +79,7 @@ service cloud.firestore {
       allow update, delete: if isSignedIn()
         && (isOwner(id) || isAdmin() || isSuperAdmin());
     }
-    match /superMarkts_model/{id} {
+    match /superMarkts_collection/{id} {
       allow create: if isSignedIn()
       //    && ( isAdmin() || isSuperAdmin());
 
@@ -75,7 +90,7 @@ service cloud.firestore {
       //   && (isOwner(id) || isAdmin() || isSuperAdmin());
     }
 
-    match /patisseries_model/{id} {
+    match /patisseries_collection/{id} {
 
       allow create: if isSignedIn()
         && ( isAdmin() || isSuperAdmin());
@@ -86,7 +101,7 @@ service cloud.firestore {
         && (isOwner(id) || isAdmin() || isSuperAdmin());
     }
 
-    match /professionnels_model/{id} {
+    match /professionnels_collectionl/{id} {
 
       allow create: if isSignedIn()
         && ( isAdmin() || isSuperAdmin());
@@ -97,7 +112,7 @@ service cloud.firestore {
         && (isOwner(id) || isAdmin() || isSuperAdmin());
     }
 
-    match /restaurants_model/{id} {
+    match /restaurants_collection/{id} {
 
       allow create: if isSignedIn()
       //   && ( isAdmin() || isSuperAdmin());
@@ -109,7 +124,7 @@ service cloud.firestore {
       //    && (isOwner(id) || isAdmin() || isSuperAdmin());
     }
 
-    match /ingredients_model/{id} {
+    match /ingredients_collection/{id} {
 
       allow create: if isSignedIn()
         && ( isAdmin() || isSuperAdmin());
@@ -120,7 +135,7 @@ service cloud.firestore {
         && (isOwner(id) || isAdmin() || isSuperAdmin());
     }
 
-    match /categories_model/{id} {
+    match /categories_collection/{id} {
       allow create: if isSignedIn()
         && ( isAdmin() || isSuperAdmin());
 
@@ -130,18 +145,7 @@ service cloud.firestore {
         && (isOwner(id) || isAdmin() || isSuperAdmin());
     }
 
-    match /recipes_model/{id} {
-
-      allow create: if isSignedIn()
-        && ( isAdmin() || isSuperAdmin());
-
-      allow read: if isSignedIn() && (isOwner(id) || isAdmin() || isSuperAdmin());
-
-      allow update, delete: if isSignedIn()
-        && (isOwner(id) || isAdmin() || isSuperAdmin());
-    }
-
-    match /products_model/{id} {
+    match /recipes_collection/{id} {
 
       allow create: if isSignedIn()
         && ( isAdmin() || isSuperAdmin());
@@ -152,7 +156,18 @@ service cloud.firestore {
         && (isOwner(id) || isAdmin() || isSuperAdmin());
     }
 
-    match /restaurants_menu_model/{id} {
+    match /products_collection/{id} {
+
+      allow create: if isSignedIn()
+        && ( isAdmin() || isSuperAdmin());
+
+      allow read: if isSignedIn() && (isOwner(id) || isAdmin() || isSuperAdmin());
+
+      allow update, delete: if isSignedIn()
+        && (isOwner(id) || isAdmin() || isSuperAdmin());
+    }
+
+    match /restaurants_menu_collection/{id} {
       allow create: if isSignedIn()
         && ( isAdmin() || isSuperAdmin());
 
@@ -164,7 +179,7 @@ service cloud.firestore {
 
 
 
-    match /restaurant_type_model/{id} {
+    match /restaurant_type_collection/{id} {
 
       allow create: if isSignedIn()
         && ( isAdmin() || isSuperAdmin());
@@ -175,19 +190,23 @@ service cloud.firestore {
         && (isOwner(id) || isAdmin() || isSuperAdmin());
     }
 
-    match /pressing_services_types_model/{id} {
+    match /pressing_services_types_collection/{id} {
       allow read, create, update, delete: if isSignedIn()
         && (isAdmin() || isSuperAdmin());
     }
 
 
-        match /establishment_members/{id} {
+        match /establishment_members_collection/{id} {
+      allow read, create, update, delete: if isSignedIn()
+        && (isAdmin() || isSuperAdmin());
+    }
+
+            match /establishment_dicovery_collection/{id} {
       allow read, create, update, delete: if isSignedIn()
         && (isAdmin() || isSuperAdmin());
     }
 
 
-    
 
 
     match /store_category_model/{id} {
@@ -212,7 +231,7 @@ service cloud.firestore {
         && (isOwner(id) || isAdmin() || isSuperAdmin());
     }
 
-    match /drivers/{id} {
+    match /drivers_collection/{id} {
 
       allow create: if isSignedIn()
       //   && ( isAdmin() || isSuperAdmin());
@@ -224,7 +243,7 @@ service cloud.firestore {
       //     && (isOwner(id) || isAdmin() || isSuperAdmin());
     }
 
-    match /orders/{id} {
+    match /orders_collection/{id} {
 
       allow create: if isSignedIn()
         && ( isAdmin() || isSuperAdmin());
@@ -234,6 +253,15 @@ service cloud.firestore {
 
       allow update, delete: if isSignedIn()
       //   && (isOwner(id) || isAdmin() || isSuperAdmin());
+    }
+    
+
+    match /drivers_collection/{id} {
+      allow read: if isAdmin() || isSuperAdmin();
+    }
+
+    match /orders_collection/{id} {
+      allow read: if isAdmin() || isSuperAdmin();
     }
 
     match /pressing_orders/{id} {
@@ -260,7 +288,7 @@ service cloud.firestore {
       //  && (isOwner(id) || isAdmin() || isSuperAdmin());
     }
 
-    match /pharmacies/{id} {
+    match /pharmacies_collection/{id} {
 
       allow create: if isSignedIn()
       //     && ( isAdmin() || isSuperAdmin());
